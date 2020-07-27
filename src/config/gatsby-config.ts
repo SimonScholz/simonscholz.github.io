@@ -5,7 +5,7 @@ dotenv.config()
 
 const gatsbyConfig: GatsbyConfig = {
 	siteMetadata: {
-		siteUrl: 'https://simonscholz.com/',
+		siteUrl: 'https://simonscholz.github.io/',
 		title: 'Simon Scholz',
 		description: 'Website for Simons programming tutorials',
 		trackingId: 'UA-170566702-1',
@@ -98,7 +98,7 @@ const gatsbyConfig: GatsbyConfig = {
 		{
 			resolve: 'gatsby-plugin-canonical-urls',
 			options: {
-				siteUrl: 'https://www.simonscholz.com',
+				siteUrl: 'https://simonscholz.github.io/',
 			},
 		},
 		'gatsby-plugin-webpack-size',
@@ -112,7 +112,7 @@ const gatsbyConfig: GatsbyConfig = {
 				short_name: `Simon´s Programming Tutorials`,
 				start_url: `/`,
 				background_color: `#ffffff`,
-				theme_color: `#663399`,
+				theme_color: `#A0A0A0`,
 				display: `minimal-ui`,
 				icon: `src/assets/img/avatar.png`,
 			},

@@ -1,10 +1,10 @@
 {
-	"name": "simonscholz.com",
+	"name": "simonscholz",
 	"version": "0.1.0",
 	"description": "A simple starter to get up and developing quickly with Gatsby and TypeScript",
 	"private": true,
 	"author": "Simon Scholz <opensource.simon@gmail.com>",
-	"homepage": "https://simonscholz.com/",
+	"homepage": "https://simonscholz.github.io/",
 	"license": "MIT",
 	"keywords": [
 		"gatsby",
@@ -13,7 +13,7 @@
 	],
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/simonscholz/homepage.git"
+		"url": "https://github.com/SimonScholz/simonscholz.github.io.git"
 	},
 	"scripts": {
 		"start": "npm run dev",

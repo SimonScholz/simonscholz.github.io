@@ -67,8 +67,8 @@ const Impressum = ({ data }: any): React.ReactElement => {
 				</a>
 				<br />
 				Internet address:{' '}
-				<a href="www.simonscholz.com" target="_blank">
-					www.simonscholz.com
+				<a href="https://simonscholz.github.io/" target="_blank">
+					https://simonscholz.github.io/
 				</a>
 				<br />
 				<br />

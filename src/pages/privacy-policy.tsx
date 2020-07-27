@@ -237,7 +237,7 @@ const PrivacyPolicy = ({ data }: any): React.ReactElement => {
 				<p>Germany / Deutschland</p>
 				<p>Phone: +49 176 - 43 622 060</p>
 				<p>Email: opensource.simon@gmail.com</p>
-				<p>Website: www.simonscholz.com</p>
+				<p>Website: https://simonscholz.github.io/</p>
 
 				<h4>3. Cookies</h4>
 				<p>

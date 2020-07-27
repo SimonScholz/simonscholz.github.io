@@ -8,12 +8,14 @@ export const Footer = (): React.ReactElement => {
 				© Simon Scholz {new Date().getFullYear()}
 			</div>
 			<div className="block ml-4">
+				{/** 
 				<Link
 					to="/faq"
 					className="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black mr-4"
 				>
 					FAQ
 				</Link>
+								*/}
 				<Link
 					to="/contact"
 					className="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black mr-4"
