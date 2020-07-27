@@ -28,4 +28,4 @@ jobs:
           # The branch expected by GitHub to have the static files needed for your site.
           deploy-branch: master
           # Additional arguments that get passed to `gatsby build`.
-          #gatsby-args: --prefix-paths
+          gatsby-args: --verbose
