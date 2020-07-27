@@ -83,7 +83,7 @@ const gatsbyConfig: GatsbyConfig = {
 		{
 			resolve: 'gatsby-plugin-nprogress',
 			options: {
-				color: 'rebeccapurple',
+				color: '#A0A0A0',
 				showSpinner: false,
 				trickle: true,
 				minimum: 0.08,
