@@ -1,0 +1,16 @@
+{
+	"include": ["./src/**/*"],
+
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "esnext",
+		"jsx": "preserve",
+		"lib": ["dom", "esnext"],
+		"strict": true,
+		"noEmit": true,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+		"noImplicitReturns": true
+	}
+}
