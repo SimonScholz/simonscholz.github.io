@@ -1,6 +1,10 @@
 /* purgecss start ignore */
 /* Markdown Styles */
 /* Global */
+@import 'prismjs/themes/prism-coy.css';
+@import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+@import 'prismjs/plugins/command-line/prism-command-line.css';
+
 .markdown {
 	@apply leading-relaxed text-lg;
 }
@@ -61,4 +65,5 @@
 .markdown table {
 	@apply mb-6;
 }
+
 /* purgecss end ignore */

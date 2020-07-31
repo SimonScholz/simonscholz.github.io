@@ -41,12 +41,12 @@ function Layout({ children }: Props): React.ReactElement {
 				}}
 			>
 				To make this website work, user data is logged. By using this website,
-				you agree to our Privacy Policy, including its cookie policy. See our{' '}
+				you agree to our privacy policy, including its cookie policy. See our{' '}
 				<Link
 					to="/privacy-policy"
 					className="text-gray-300 hover:text-white underline"
 				>
-					Privacy policy
+					privacy policy
 				</Link>{' '}
 				for further information. .
 			</CookieConsent>

@@ -39,14 +39,12 @@ function Homepage({ data }: Props): React.ReactElement {
 					Hi guys,
 					<br /> I love open source and to share my knowledge. That's why I
 					created this website. <br />
-					This website has been created by using Gatsby.
+					This website has been created by using Gatsby JS.
 					<br />
 					In the future my intention is to create YouTube programming videos...
 					<br />
 					So stay tuned. ;-)
 					<br />
-					<br />
-					Find the right tutorial by tags #Java #Maven #Gradle ...
 				</div>
 				<div className="md:w-1/3 p-2">
 					<Img

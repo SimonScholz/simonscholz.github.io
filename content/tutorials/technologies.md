@@ -4,6 +4,7 @@ date: '2020-02-08'
 title: 'Technologies used by me'
 description: 'Technologies used by me, such as Ubuntu, Spring Boot, React JS, VS Code...'
 author: 'Simon Scholz'
+tags: ['Tech']
 ---
 
 # Java Frameworks

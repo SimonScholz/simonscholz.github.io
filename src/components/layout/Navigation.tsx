@@ -77,18 +77,21 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 					<div className="md:flex-grow">
 						<Link
 							to="/"
+							onClick={e => setShowNav(false)}
 							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white mr-4"
 						>
 							Home
 						</Link>
 						<Link
 							to="/about"
+							onClick={e => setShowNav(false)}
 							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white mr-4"
 						>
 							About me
 						</Link>
 						<Link
 							to="/tutorials"
+							onClick={e => setShowNav(false)}
 							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white"
 						>
 							Tutorials
