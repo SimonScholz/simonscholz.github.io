@@ -53,10 +53,10 @@ Running a certain docker image:
 docker run -d --name=grafana -p 3000:3000 grafana/grafana
 ```
 
-`-d` says that the container application is supposed to run in detached mode
-`--name` applies a custom name for the container
-`-p` enables port forwarding from the host machine, where docker runs on
-`grafana/grafana` is the name of the docker container
+- `-d` says that the container application is supposed to run in detached mode
+- `--name` applies a custom name for the container
+- `-p` enables port forwarding from the host machine, where docker runs on
+- `grafana/grafana` is the name of the docker container
 
 With `docker run` docker also will be downloading the desired docker image from docker hub in case it is not already available on the machine.
 
