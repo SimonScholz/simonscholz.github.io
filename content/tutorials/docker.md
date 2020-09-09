@@ -1,6 +1,6 @@
 ---
 path: '/tutorials/docker'
-date: '2020-08-01'
+date: '2020-09-09'
 title: 'Docker'
 description: 'Tutorial on Docker concerning containers and networking.'
 author: 'Simon Scholz'
@@ -126,6 +126,27 @@ Find out the ip address of a certain container:
 ```shell
 docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' your-container-id
 ```
+
+Find out the docker host's ip address:
+
+```shell
+ip a
+```
+
+This will show the different network adapter and `docker0` will be one of them:
+
+```shell
+5: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
+    link/ether 02:42:48:96:f6:80 brd ff:ff:ff:ff:ff:ff
+    inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::42:48ff:fe96:f680/64 scope link
+       valid_lft forever preferred_lft forever
+```
+
+This means that `172.17.0.1` is the docker host's ip address.
+
+This can be helpful in case a docker container is supposed to access services of the host machine.
 
 # Sources
 
