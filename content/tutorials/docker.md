@@ -45,12 +45,41 @@ Only query images ids:
 docker images -q
 ```
 
+# Start and run container
+
+Running a certain docker image:
+
+```shell
+docker run -d --name=grafana -p 3000:3000 grafana/grafana
+```
+
+`-d` says that the container application is supposed to run in detached mode
+`--name` applies a custom name for the container
+`-p` enables port forwarding from the host machine, where docker runs on
+`grafana/grafana` is the name of the docker container
+
+With `docker run` docker also will be downloading the desired docker image from docker hub in case it is not already available on the machine.
+
+Also see https://hub.docker.com/r/grafana/grafana
+
+You can also pull the docker image from docker hub by using the following command:
+
+```shell
+docker pull grafana/grafana
+```
+
+To start a docker container, which already has been running on your machine you can use:
+
+```shell
+docker start <your-desired-container-id>
+```
+
 # Stop and remove container
 
 With `docker ps` you also get the ids of the container, which can be used to stop a certain container like this:
 
 ```shell
-docker stop <your-desired-id>
+docker stop <your-desired-container-id>
 ```
 
 To stop all running container the following command can be used:
@@ -62,7 +91,7 @@ docker stop $(docker ps -aq)
 To remove a container `docker rm` can be used.
 
 ```shell
-docker rm <your-desired-id>
+docker rm <your-desired-container-id>
 ```
 
 So removing all containers would look like this:
@@ -75,7 +104,7 @@ In case you also want to remove a docker image from your machine the `docker rmi
 To see the images and its ids the `docker images` command can be used.
 
 ```shell
-docker rmi <your-desired-id>
+docker rmi <your-desired-container-id>
 ```
 
 To remove all images the following command can be used.
