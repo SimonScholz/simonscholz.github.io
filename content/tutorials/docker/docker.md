@@ -7,43 +7,55 @@ author: 'Simon Scholz'
 tags: ['Docker']
 ---
 
+Docker can be used to package software bundles inside so called containers. Docker has a similarity with virtual machines, but it consumes less resources since containers run on a single OS kernel and therefore also boot up way faster than a virtual machine would do.
+
+A really popular resource to obtain production ready predefined containers is https://hub.docker.com/. There you can find sample containers for many different software bundles. It is often easier to run certain software inside a docker container instead of directly installing the software on your local machine, because containers are easy manageable and encapsulated from the host system.
+
+Wanna try out some software without bothering about the dependencies and configuration of this piece of software + dependencies? Then Docker can also help.
+Let's take Drupal (nice cms api server, which I sometimes use for my Gatsby websites) as an example.
+By simply running `docker run --name some-drupal -p 8080:80 -d drupal` (also see https://hub.docker.com/_/drupal) a Drupal Docker image will be pulled from Docker hub and started right away and will out of the box come with a PHP server, SQLite database and you can simply try Drupal by looking up http://localhost:8080 in your favorite browser.
+
+![Drupal Website](./drupal-website.png)
+
+Of course docker can do way more and even bigger frameworks like Kubernetes and other utilize Docker as well.
+
 # Docker Install
 
-# Docker Setup
+A good and official description on how to install Docker on your operating system can be found here: https://docs.docker.com/engine/install/.
 
-# Docker Hub
+For Ubuntu I had to enter the following commands inside a terminal:
 
-# List containers and images
+```console
+sudo apt-get update
 
-Running containers
+sudo apt-get install \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg-agent \
+    software-properties-common
 
-```shell
-docker ps
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+sudo add-apt-repository \
+   "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+   $(lsb_release -cs) \
+   stable"
+
+sudo apt-get update
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
 ```
 
-Existing containers
+To verify that docker works properly you can run a simple `hello-world` container:
 
-```shell
-docker ps -a
+```console
+sudo docker run hello-world
 ```
 
-Existing containers' ids
+The result should look similar to this:
 
-```shell
-docker ps -aq
-```
-
-Show existing images.
-
-```shell
-docker images
-```
-
-Only query images ids:
-
-```shell
-docker images -q
-```
+![Docker Hello World container](./docker-hello-world.png)
 
 # Start and run container
 
@@ -104,13 +116,45 @@ In case you also want to remove a docker image from your machine the `docker rmi
 To see the images and its ids the `docker images` command can be used.
 
 ```shell
-docker rmi <your-desired-container-id>
+docker rmi <your-desired-image-id>
 ```
 
 To remove all images the following command can be used.
 
 ```shell
 docker rmi $(docker images -q)
+```
+
+# List containers and images
+
+Running containers
+
+```shell
+docker ps
+```
+
+Existing containers
+
+```shell
+docker ps -a
+```
+
+Existing containers' ids
+
+```shell
+docker ps -aq
+```
+
+Show existing images.
+
+```shell
+docker images
+```
+
+Only query images ids:
+
+```shell
+docker images -q
 ```
 
 # Access Docker Container
