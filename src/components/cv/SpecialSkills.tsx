@@ -20,7 +20,10 @@ export function SpecialKnowledge(): React.ReactElement {
 
 	return (
 		<>
-			<IconLeftBorder fluid={medal.childImageSharp.fluid}>
+			<IconLeftBorder
+				fluid={medal.childImageSharp.fluid}
+				title="Special Skills"
+			>
 				<div className="flex flex-col mt-3">
 					<h2 className="font-semibold">Programming / Expressive Languages</h2>
 					<span>

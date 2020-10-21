@@ -25,7 +25,7 @@ export function TrainingsCertificates(): React.ReactElement {
 
 	return (
 		<>
-			<IconLeftBorder fluid={medal.childImageSharp.fluid}>
+			<IconLeftBorder fluid={medal.childImageSharp.fluid} title="Trainings">
 				<div className="flex flex-col mt-3">
 					<h2 className="font-semibold">
 						Trainer for trainings of the vogella GmbH

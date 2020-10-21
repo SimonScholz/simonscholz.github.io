@@ -25,7 +25,10 @@ export function ProfessionalBackground(): React.ReactElement {
 
 	return (
 		<>
-			<IconLeftBorder fluid={gears.childImageSharp.fluid}>
+			<IconLeftBorder
+				fluid={gears.childImageSharp.fluid}
+				title="Professional Background"
+			>
 				<div className="flex md:flex-row mt-3">
 					<div className="flex-1">
 						<span>Since 07/2019</span>

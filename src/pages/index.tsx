@@ -3,7 +3,7 @@ import React from 'react'
 import { SEO } from '../components/SEO'
 import { ProfessionalBackground } from '../components/cv/ProfessionalBackground'
 import { Education } from '../components/cv/Education'
-import { SpecialKnowledge } from '../components/cv/SpecialKnowledge'
+import { SpecialKnowledge } from '../components/cv/SpecialSkills'
 import { HomepageQuery } from '../types/graphql'
 import Img from 'gatsby-image'
 

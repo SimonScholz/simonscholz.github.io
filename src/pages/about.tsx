@@ -3,7 +3,7 @@ import React from 'react'
 import { SEO } from '../components/SEO'
 import { ProfessionalBackground } from '../components/cv/ProfessionalBackground'
 import { Education } from '../components/cv/Education'
-import { SpecialKnowledge } from '../components/cv/SpecialKnowledge'
+import { SpecialKnowledge } from '../components/cv/SpecialSkills'
 import { HomepageQuery } from '../types/graphql'
 import Img from 'gatsby-image'
 import { TrainingsCertificates } from '../components/cv/TrainingsCertificates'
@@ -30,7 +30,7 @@ type Props = {
 	data: HomepageQuery
 }
 
-function Homepage({ data }: Props): React.ReactElement {
+function About({ data }: Props): React.ReactElement {
 	return (
 		<>
 			<SEO title="About Me" metaDescription="About Simon Scholz" />
@@ -58,4 +58,4 @@ function Homepage({ data }: Props): React.ReactElement {
 	)
 }
 
-export default Homepage
+export default About

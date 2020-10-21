@@ -25,7 +25,7 @@ export function Education(): React.ReactElement {
 
 	return (
 		<>
-			<IconLeftBorder fluid={education.childImageSharp.fluid}>
+			<IconLeftBorder fluid={education.childImageSharp.fluid} title="Education">
 				<div className="flex md:flex-row mt-3">
 					<div className="flex-1">
 						<span>2007 - 2011</span>
