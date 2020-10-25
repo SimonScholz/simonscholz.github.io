@@ -34,12 +34,6 @@ export const Footer = (): React.ReactElement => {
 				>
 					Privacy Policy
 				</Link>
-				<a
-					href="/sitemap.xml"
-					className="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black mr-4"
-				>
-					Sitemap
-				</a>
 			</div>
 		</div>
 	)
