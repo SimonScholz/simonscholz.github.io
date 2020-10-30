@@ -16,13 +16,13 @@ const PrivacyPolicy = (): React.ReactElement => {
 				</header>
 				<p>
 					We are very delighted that you have shown interest in our enterprise.
-					Data protection is of a particularly high priority for the management
-					of the Test. The use of the Internet pages of the Test is possible
-					without any indication of personal data; however, if a data subject
-					wants to use special enterprise services via our website, processing
-					of personal data could become necessary. If the processing of personal
-					data is necessary and there is no statutory basis for such processing,
-					we generally obtain consent from the data subject.
+					Data protection is of a particularly high priority for the website's
+					maintainer. The use of the Internet pages of the website's maintainer,
+					is possible without any indication of personal data; however, if a
+					data subject wants to use special enterprise services via our website,
+					processing of personal data could become necessary. If the processing
+					of personal data is necessary and there is no statutory basis for such
+					processing, we generally obtain consent from the data subject.
 				</p>
 
 				<p>
@@ -30,15 +30,15 @@ const PrivacyPolicy = (): React.ReactElement => {
 					address, or telephone number of a data subject shall always be in line
 					with the General Data Protection Regulation (GDPR), and in accordance
 					with the country-specific data protection regulations applicable to
-					the Test. By means of this data protection declaration, our enterprise
-					would like to inform the general public of the nature, scope, and
-					purpose of the personal data we collect, use and process. Furthermore,
-					data subjects are informed, by means of this data protection
-					declaration, of the rights to which they are entitled.
+					the website's maintainer. By means of this data protection
+					declaration, our enterprise would like to inform the general public of
+					the nature, scope, and purpose of the personal data we collect, use
+					and process. Furthermore, data subjects are informed, by means of this
+					data protection declaration, of the rights to which they are entitled.
 				</p>
 
 				<p>
-					As the controller, the Test has implemented numerous technical and
+					As the controller, we implemented numerous technical and
 					organizational measures to ensure the most complete protection of
 					personal data processed through this website. However, Internet-based
 					data transmissions may in principle have security gaps, so absolute
@@ -49,12 +49,12 @@ const PrivacyPolicy = (): React.ReactElement => {
 
 				<h4>1. Definitions</h4>
 				<p>
-					The data protection declaration of the Test is based on the terms used
-					by the European legislator for the adoption of the General Data
-					Protection Regulation (GDPR). Our data protection declaration should
-					be legible and understandable for the general public, as well as our
-					customers and business partners. To ensure this, we would like to
-					first explain the terminology used.
+					The data protection declaration of the website's maintainer is based
+					on the terms used by the European legislator for the adoption of the
+					General Data Protection Regulation (GDPR). Our data protection
+					declaration should be legible and understandable for the general
+					public, as well as our customers and business partners. To ensure
+					this, we would like to first explain the terminology used.
 				</p>
 
 				<p>
@@ -198,8 +198,9 @@ const PrivacyPolicy = (): React.ReactElement => {
 
 				<h4>3. Cookies</h4>
 				<p>
-					The Internet pages of the Test use cookies. Cookies are text files
-					that are stored in a computer system via an Internet browser.
+					The Internet pages of the website's maintainer use cookies. Cookies
+					are text files that are stored in a computer system via an Internet
+					browser.
 				</p>
 
 				<p>
@@ -214,9 +215,9 @@ const PrivacyPolicy = (): React.ReactElement => {
 				</p>
 
 				<p>
-					Through the use of cookies, the Test can provide the users of this
-					website with more user-friendly services that would not be possible
-					without the cookie setting.
+					Through the use of cookies, the website's maintainer can provide the
+					users of this website with more user-friendly services that would not
+					be possible without the cookie setting.
 				</p>
 
 				<p>
@@ -245,12 +246,12 @@ const PrivacyPolicy = (): React.ReactElement => {
 
 				<h4>4. Collection of general data and information</h4>
 				<p>
-					The website of the Test collects a series of general data and
-					information when a data subject or automated system calls up the
-					website. This general data and information are stored in the server
-					log files. Collected may be (1) the browser types and versions used,
-					(2) the operating system used by the accessing system, (3) the website
-					from which an accessing system reaches our website (so-called
+					The website of the website's maintainer collects a series of general
+					data and information when a data subject or automated system calls up
+					the website. This general data and information are stored in the
+					server log files. Collected may be (1) the browser types and versions
+					used, (2) the operating system used by the accessing system, (3) the
+					website from which an accessing system reaches our website (so-called
 					referrers), (4) the sub-websites, (5) the date and time of access to
 					the Internet site, (6) an Internet protocol address (IP address), (7)
 					the Internet service provider of the accessing system, and (8) any
@@ -259,15 +260,16 @@ const PrivacyPolicy = (): React.ReactElement => {
 				</p>
 
 				<p>
-					When using these general data and information, the Test does not draw
-					any conclusions about the data subject. Rather, this information is
-					needed to (1) deliver the content of our website correctly, (2)
-					optimize the content of our website as well as its advertisement, (3)
-					ensure the long-term viability of our information technology systems
-					and website technology, and (4) provide law enforcement authorities
-					with the information necessary for criminal prosecution in case of a
-					cyber-attack. Therefore, the Test analyzes anonymously collected data
-					and information statistically, with the aim of increasing the data
+					When using these general data and information, the website's
+					maintainer does not draw any conclusions about the data subject.
+					Rather, this information is needed to (1) deliver the content of our
+					website correctly, (2) optimize the content of our website as well as
+					its advertisement, (3) ensure the long-term viability of our
+					information technology systems and website technology, and (4) provide
+					law enforcement authorities with the information necessary for
+					criminal prosecution in case of a cyber-attack. Therefore, the
+					website's maintainer analyzes anonymously collected data and
+					information statistically, with the aim of increasing the data
 					protection and data security of our enterprise, and to ensure an
 					optimal level of protection for the personal data we process. The
 					anonymous data of the server log files are stored separately from all
@@ -422,10 +424,11 @@ const PrivacyPolicy = (): React.ReactElement => {
 						</ul>
 						<p>
 							If one of the aforementioned reasons applies, and a data subject
-							wishes to request the erasure of personal data stored by the Test,
-							he or she may, at any time, contact any employee of the
-							controller. An employee of Test shall promptly ensure that the
-							erasure request is complied with immediately.
+							wishes to request the erasure of personal data stored by this
+							website or services used by this website, he or she may, at any
+							time, contact the controller. The website's maintainer shall
+							promptly ensure that the erasure request is complied with
+							immediately.
 						</p>
 
 						<p>
@@ -436,7 +439,7 @@ const PrivacyPolicy = (): React.ReactElement => {
 							measures, to inform other controllers processing the personal data
 							that the data subject has requested erasure by such controllers of
 							any links to, or copy or replication of, those personal data, as
-							far as processing is not required. An employees of the Test will
+							far as processing is not required. The website's maintainer will
 							arrange the necessary measures in individual cases.
 						</p>
 					</li>
@@ -475,9 +478,9 @@ const PrivacyPolicy = (): React.ReactElement => {
 						<p>
 							If one of the aforementioned conditions is met, and a data subject
 							wishes to request the restriction of the processing of personal
-							data stored by the Test, he or she may at any time contact any
-							employee of the controller. The employee of the Test will arrange
-							the restriction of the processing.{' '}
+							data stored by this website or services used by this website, he
+							or she may at any time contact the controller. The website's
+							maintainer will arrange the restriction of the processing.{' '}
 						</p>
 					</li>
 					<li>
@@ -508,7 +511,7 @@ const PrivacyPolicy = (): React.ReactElement => {
 
 						<p>
 							In order to assert the right to data portability, the data subject
-							may at any time contact any employee of the Test.
+							may at any time contact the website's maintainer.
 						</p>
 					</li>
 					<li>
@@ -523,39 +526,41 @@ const PrivacyPolicy = (): React.ReactElement => {
 						</p>
 
 						<p>
-							The Test shall no longer process the personal data in the event of
-							the objection, unless we can demonstrate compelling legitimate
-							grounds for the processing which override the interests, rights
-							and freedoms of the data subject, or for the establishment,
-							exercise or defence of legal claims.
+							The website's maintainer shall no longer process the personal data
+							in the event of the objection, unless we can demonstrate
+							compelling legitimate grounds for the processing which override
+							the interests, rights and freedoms of the data subject, or for the
+							establishment, exercise or defence of legal claims.
 						</p>
 
 						<p>
-							If the Test processes personal data for direct marketing purposes,
-							the data subject shall have the right to object at any time to
-							processing of personal data concerning him or her for such
-							marketing. This applies to profiling to the extent that it is
-							related to such direct marketing. If the data subject objects to
-							the Test to the processing for direct marketing purposes, the Test
-							will no longer process the personal data for these purposes.
+							If the website's maintainer processes personal data for direct
+							marketing purposes, the data subject shall have the right to
+							object at any time to processing of personal data concerning him
+							or her for such marketing. This applies to profiling to the extent
+							that it is related to such direct marketing. If the data subject
+							objects to the website's maintainer to the processing for direct
+							marketing purposes, the website's maintainer will no longer
+							process the personal data for these purposes.
 						</p>
 
 						<p>
 							In addition, the data subject has the right, on grounds relating
 							to his or her particular situation, to object to processing of
-							personal data concerning him or her by the Test for scientific or
-							historical research purposes, or for statistical purposes pursuant
-							to Article 89(1) of the GDPR, unless the processing is necessary
-							for the performance of a task carried out for reasons of public
-							interest.
+							personal data concerning him or her by the website's maintainer
+							for scientific or historical research purposes, or for statistical
+							purposes pursuant to Article 89(1) of the GDPR, unless the
+							processing is necessary for the performance of a task carried out
+							for reasons of public interest.
 						</p>
 
 						<p>
 							In order to exercise the right to object, the data subject may
-							contact any employee of the Test. In addition, the data subject is
-							free in the context of the use of information society services,
-							and notwithstanding Directive 2002/58/EC, to use his or her right
-							to object by automated means using technical specifications.
+							contact any employee of the website's maintainer. In addition, the
+							data subject is free in the context of the use of information
+							society services, and notwithstanding Directive 2002/58/EC, to use
+							his or her right to object by automated means using technical
+							specifications.
 						</p>
 					</li>
 					<li>
@@ -580,17 +585,17 @@ const PrivacyPolicy = (): React.ReactElement => {
 							If the decision (1) is necessary for entering into, or the
 							performance of, a contract between the data subject and a data
 							controller, or (2) it is based on the data subject's explicit
-							consent, the Test shall implement suitable measures to safeguard
-							the data subject's rights and freedoms and legitimate interests,
-							at least the right to obtain human intervention on the part of the
-							controller, to express his or her point of view and contest the
-							decision.
+							consent, the website's maintainer shall implement suitable
+							measures to safeguard the data subject's rights and freedoms and
+							legitimate interests, at least the right to obtain human
+							intervention on the part of the controller, to express his or her
+							point of view and contest the decision.
 						</p>
 
 						<p>
 							If the data subject wishes to exercise the rights concerning
 							automated individual decision-making, he or she may, at any time,
-							contact any employee of the Test.
+							contact the website's maintainer.
 						</p>
 					</li>
 					<li>
@@ -603,8 +608,8 @@ const PrivacyPolicy = (): React.ReactElement => {
 
 						<p>
 							If the data subject wishes to exercise the right to withdraw the
-							consent, he or she may, at any time, contact any employee of the
-							Test.
+							consent, he or she may, at any time, contact the website's
+							maintainer.
 						</p>
 					</li>
 				</ul>
