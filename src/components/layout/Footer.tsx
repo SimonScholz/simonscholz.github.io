@@ -5,7 +5,7 @@ export const Footer = (): React.ReactElement => {
 	return (
 		<div className="container flex flex-col md:flex-row md:justify-between mx-auto border-t-2 mt-8">
 			<div className="block md:flex-grow text-gray-800 ml-4">
-				© Simon Scholz {new Date().getFullYear()}
+				© Simon Scholz 2020 - {new Date().getFullYear()}
 			</div>
 			<div className="block ml-4">
 				{/** 
@@ -26,7 +26,7 @@ export const Footer = (): React.ReactElement => {
 					to="/impressum"
 					className="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black mr-4"
 				>
-					Impressum
+					Legal/Impressum
 				</Link>
 				<Link
 					to="/privacy-policy"
