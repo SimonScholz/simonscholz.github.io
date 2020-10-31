@@ -102,7 +102,7 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 					<Social
 						github="https://github.com/simonscholz"
 						twitter="https://twitter.com/simonscholz"
-						youtube="https://www.youtube.com/channel/UCjUr24xTXWMO5aJT-z1As0A/featured"
+						youtube="https://www.youtube.com/channel/UC8j16uUiiMQpMTemLBfCURA/"
 					/>
 				</div>
 			</div>
@@ -110,7 +110,7 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 				<Social
 					github="https://github.com/simonscholz"
 					twitter="https://twitter.com/simonscholz"
-					youtube="https://www.youtube.com/channel/UCjUr24xTXWMO5aJT-z1As0A/featured"
+					youtube="https://www.youtube.com/channel/UC8j16uUiiMQpMTemLBfCURA/"
 				/>
 			</div>
 		</nav>
