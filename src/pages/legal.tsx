@@ -7,7 +7,7 @@ const Legal = ({ data }: any): React.ReactElement => {
 			<SEO title="Legal" metaDescription="Legal" />
 
 			<div id="impressum-en" className="blog-post-content m-2 markdown">
-				<h1>Legal Disclosure</h1>
+				<h1>Legal Disclosure / Impressum</h1>
 				Information in accordance with Section 5 TMG
 				<br />
 				Simon Scholz
