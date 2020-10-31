@@ -1,10 +1,10 @@
 import React from 'react'
 import { SEO } from '../components/SEO'
 
-const Impressum = ({ data }: any): React.ReactElement => {
+const Legal = ({ data }: any): React.ReactElement => {
 	return (
 		<>
-			<SEO title="Impressum" metaDescription="Impressum" />
+			<SEO title="Legal" metaDescription="Legal" />
 
 			<div id="impressum-en" className="blog-post-content m-2 markdown">
 				<h1>Legal Disclosure</h1>
@@ -130,4 +130,4 @@ const Impressum = ({ data }: any): React.ReactElement => {
 	)
 }
 
-export default Impressum
+export default Legal

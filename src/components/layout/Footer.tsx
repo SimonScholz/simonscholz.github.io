@@ -23,10 +23,10 @@ export const Footer = (): React.ReactElement => {
 					Contact
 				</Link>
 				<Link
-					to="/impressum"
+					to="/legal"
 					className="block mt-4 md:inline-block md:mt-0 text-gray-800 hover:text-black mr-4"
 				>
-					Legal/Impressum
+					Legal
 				</Link>
 				<Link
 					to="/privacy-policy"
