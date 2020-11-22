@@ -1,9 +1,8 @@
-# This is a basic workflow to help you get started with Actions
+# Name of the action
+name: 🚀 Deploy website on push
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
+# Controls when the action will run.
+# In this case the actions will be run when pushing to the source branch of your repository
 on:
   push:
     branches: [source]
