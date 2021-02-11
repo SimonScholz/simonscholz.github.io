@@ -7,7 +7,7 @@ author: 'Simon Scholz'
 tags: ['Maven', 'NPM', 'Husky', 'Git', 'hook']
 ---
 
-# Technology being used
+# Technologies being used
 
 - Maven
 - Maven Spotless
