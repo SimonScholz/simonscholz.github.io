@@ -34,7 +34,7 @@ export function TrainingsCertificates(): React.ReactElement {
 						<li>Spring Boot &amp; Dojo IO</li>
 						<li>Spring &amp; React JS</li>
 						<li>Spring Webflux mit MongoDB und Project Reactor</li>
-						<li>Groovy &amp; Gralde &amp; Testing</li>
+						<li>Groovy &amp; Gradle &amp; Testing</li>
 						<li>Apache Maven and Testing</li>
 						<li>Eclipse RCP</li>
 						<li>Eclipse IDE Extensions Android Development</li>
