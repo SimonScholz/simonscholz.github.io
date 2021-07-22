@@ -40,11 +40,9 @@ export function ProfessionalBackground(): React.ReactElement {
 						<span>Senior Software Architect</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Full Stack Developer</li>
-							<li>
-								Cross channel checkout service with Spring Boot
-							</li>
+							<li>Cross channel checkout service</li>
 							<li>Backoffice application for fiscal services with React JS</li>
-							<li>Lead Engineer of the Customer Delivery Promise service</li> 
+							<li>Lead Engineer of the Customer Delivery Promise service</li>
 							<li>Technologies:</li>
 							<ul className="list-disc list-inside ml-4 text-sm">
 								<li>Spring Boot</li>
