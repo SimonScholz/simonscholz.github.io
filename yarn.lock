@@ -15751,10 +15751,10 @@
     "slice-ansi" "^2.1.0"
     "string-width" "^3.0.0"
 
-"tailwind-css-variables@^2.0.3":
-  "integrity" "sha512-GYf4fQgtahUao7JN87hrEaeJgRnuksbP/5GOtMxnWylDsCIZ02CQJ13/8MFTCH21LhLxRBD8BCDxkwEmXbqwlg=="
-  "resolved" "https://registry.npmjs.org/tailwind-css-variables/-/tailwind-css-variables-2.0.3.tgz"
-  "version" "2.0.3"
+"tailwind-css-variables@^3.0.1":
+  "integrity" "sha512-A+nTugMfxrhpTuSuUR+gCjj8ptiyJ7CcPDH15T09KyqaiqXRyxkKBux18/c+qjB8pDUlaZD52IoJVcC0zRsgAw=="
+  "resolved" "https://registry.npmjs.org/tailwind-css-variables/-/tailwind-css-variables-3.0.1.tgz"
+  "version" "3.0.1"
 
 "tailwindcss@^1.1.4":
   "integrity" "sha512-7QkERG/cWCzsuMqHMwjOaLMVixOGLNBiXsrkssxlE1aWfkxVbGqiuMokR2162xRyaH2mBIHKxmlf1qb3DvIPqw=="
