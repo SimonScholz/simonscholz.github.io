@@ -33,6 +33,7 @@ const gatsbyConfig: GatsbyConfig = {
 			},
 		},
 		'gatsby-plugin-typescript',
+		`gatsby-plugin-image`,
 		'gatsby-transformer-sharp',
 		'gatsby-plugin-sharp',
 		'gatsby-plugin-emotion',
@@ -104,7 +105,6 @@ const gatsbyConfig: GatsbyConfig = {
 		'gatsby-plugin-webpack-size',
 		'gatsby-plugin-sitemap',
 		'gatsby-plugin-netlify',
-		`gatsby-plugin-sharp`,
 		{
 			resolve: `gatsby-plugin-manifest`,
 			options: {

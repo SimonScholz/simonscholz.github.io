@@ -76,7 +76,7 @@
   "resolved" "https://registry.npmjs.org/@babel/compat-data/-/compat-data-7.15.0.tgz"
   "version" "7.15.0"
 
-"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.11.6", "@babel/core@^7.12.0", "@babel/core@^7.13.0", "@babel/core@^7.14.8", "@babel/core@^7.4.0-0", "@babel/core@>=7.11.0":
+"@babel/core@^7.0.0", "@babel/core@^7.0.0-0", "@babel/core@^7.11.6", "@babel/core@^7.12.0", "@babel/core@^7.12.3", "@babel/core@^7.13.0", "@babel/core@^7.14.8", "@babel/core@^7.4.0-0", "@babel/core@>=7.11.0":
   "integrity" "sha512-tXtmTminrze5HEUPn/a0JtOzzfp0nk+UEXQ/tqIJo3WDGypl/2OFQEMll/zSFU8f/lfmfLXvTaORHF3cfXIQMw=="
   "resolved" "https://registry.npmjs.org/@babel/core/-/core-7.15.0.tgz"
   "version" "7.15.0"
@@ -3251,6 +3251,11 @@
   "version" "1.0.0"
   dependencies:
     "babylon" "^6.18.0"
+
+"babel-jsx-utils@^1.1.0":
+  "integrity" "sha512-Mh1j/rw4xM9T3YICkw22aBQ78FhsHdsmlb9NEk4uVAFBOg+Ez9ZgXXHugoBPCZui3XLomk/7/JBBH4daJqTkQQ=="
+  "resolved" "https://registry.npmjs.org/babel-jsx-utils/-/babel-jsx-utils-1.1.0.tgz"
+  "version" "1.1.0"
 
 "babel-loader@^8.2.2":
   "integrity" "sha512-JvTd0/D889PQBtUXJ2PXaKU/pjZDMtHA9V2ecm+eNRmmBCMR09a+fmpGTNwnJtFmFl5Ei7Vy47LjBb+L0wQ99g=="
@@ -6442,6 +6447,24 @@
     "minimatch" "3.0.4"
     "web-vitals" "^1.1.2"
 
+"gatsby-plugin-image@^1.13.0":
+  "integrity" "sha512-ZJcModngwC+2r/mQRz03kWpEpeA4OfgJeyCKC3wBjx3dr8n5fpYRmhnX21U6Wh9QyjdVh0sHykmYEgs2vrPa1A=="
+  "resolved" "https://registry.npmjs.org/gatsby-plugin-image/-/gatsby-plugin-image-1.13.0.tgz"
+  "version" "1.13.0"
+  dependencies:
+    "@babel/code-frame" "^7.14.0"
+    "@babel/parser" "^7.14.9"
+    "@babel/traverse" "^7.14.9"
+    "babel-jsx-utils" "^1.1.0"
+    "babel-plugin-remove-graphql-queries" "^3.13.0"
+    "camelcase" "^5.3.1"
+    "chokidar" "^3.5.1"
+    "common-tags" "^1.8.0"
+    "fs-extra" "^8.1.0"
+    "gatsby-core-utils" "^2.13.0"
+    "objectFitPolyfill" "^2.3.0"
+    "prop-types" "^15.7.2"
+
 "gatsby-plugin-layout@^2.13.0":
   "integrity" "sha512-BkQwrOyAsuGdhZcFagDJeKipB+du8rQRudIoakKLPuDgst5sm/MgN1//YZUkHGiIKg9O2a6TTzrvD0ja75hL1A=="
   "resolved" "https://registry.npmjs.org/gatsby-plugin-layout/-/gatsby-plugin-layout-2.13.0.tgz"
@@ -6726,7 +6749,7 @@
     "retext-smartypants" "^4.0.0"
     "unist-util-visit" "^2.0.3"
 
-"gatsby-source-filesystem@^3.13.0":
+"gatsby-source-filesystem@^3.0.0-next.0", "gatsby-source-filesystem@^3.13.0":
   "integrity" "sha512-SR0OFKunE4OtsZ0E7kpX6kipQcbrw3jTfROuhqD6EJPM5hkTxeEI/6I2r/bUo4ZS1rpwrEYd3UF89Q0YdAhLqQ=="
   "resolved" "https://registry.npmjs.org/gatsby-source-filesystem/-/gatsby-source-filesystem-3.13.0.tgz"
   "version" "3.13.0"
@@ -10171,6 +10194,11 @@
     "call-bind" "^1.0.2"
     "define-properties" "^1.1.3"
     "es-abstract" "^1.18.2"
+
+"objectFitPolyfill@^2.3.0":
+  "integrity" "sha512-8Quz071ZmGi0QWEG4xB3Bv5Lpw6K0Uca87FLoLMKMWjB6qIq9IyBegP3b/VLNxv2WYvIMGoeUQ+c6ibUkNa8TA=="
+  "resolved" "https://registry.npmjs.org/objectFitPolyfill/-/objectFitPolyfill-2.3.5.tgz"
+  "version" "2.3.5"
 
 "omggif@^1.0.10", "omggif@^1.0.9":
   "integrity" "sha512-LMJTtvgc/nugXj0Vcrrs68Mn2D1r0zf630VNtqtpI1FEO7e+O9FP4gqs9AcnBaSEeoHIPm28u6qgPR0oyEpGSw=="
