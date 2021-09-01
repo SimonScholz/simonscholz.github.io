@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
-import Img from 'gatsby-image'
+import { GatsbyImage } from "gatsby-plugin-image";
 import { Social } from '../Social'
 
 type Props = {
@@ -8,29 +8,24 @@ type Props = {
 }
 
 export const Navigation = ({ children }: Props): React.ReactElement => {
-	const data = useStaticQuery(graphql`
-		query MyQuery {
-			file(relativePath: { eq: "img/avatar.png" }) {
-				childImageSharp {
-					# Specify the image processing specifications right in the query.
-					fixed(width: 40, height: 40) {
-						...GatsbyImageSharpFixed
-					}
-				}
-			}
-		}
-	`)
+	const data = useStaticQuery(graphql`query MyQuery {
+  file(relativePath: {eq: "img/avatar.png"}) {
+    childImageSharp {
+      gatsbyImageData(width: 40, height: 40, layout: FIXED)
+    }
+  }
+}
+`)
 
 	const [showNav, setShowNav] = useState(false)
 
 	return (
-		<nav className="flex flex-col justify-between md:flex-row bg-blue-500 p-2">
+        <nav className="flex flex-col justify-between md:flex-row bg-blue-500 p-2">
 			<div className="flex items-center md:flex-grow flex-shrink-0 text-white justify-between md:justify-start">
-				<Img
-					fixed={data.file.childImageSharp.fixed}
-					alt="Avatar"
-					className="w-10 h-10 rounded-full mr-4"
-				/>
+				<GatsbyImage
+                    image={data.file.childImageSharp.gatsbyImageData}
+                    alt="Avatar"
+                    className="w-10 h-10 rounded-full mr-4" />
 				<span className="font-semibold text-xl tracking-tight">
 					Simon Scholz
 				</span>
@@ -114,5 +109,5 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 				/>
 			</div>
 		</nav>
-	)
+    );
 }

@@ -1,8 +1,8 @@
 import React from 'react'
-import Img, { FluidObject } from 'gatsby-image'
+import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 
 interface Props {
-	fluid: FluidObject
+	fluid: IGatsbyImageData
 	title: String
 }
 
@@ -14,8 +14,8 @@ export const IconLeftBorder: React.FunctionComponent<Props> = ({
 	return (
 		<>
 			<div className="flex flex-row mb-2 items-center">
-				<Img
-					fluid={fluid}
+				<GatsbyImage
+					image={fluid}
 					alt="Avatar"
 					className="w-12 h-12 rounded-full bg-gray-200 mr-3"
 				/>
