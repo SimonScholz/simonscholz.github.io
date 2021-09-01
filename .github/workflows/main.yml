@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Gatsby Publish
-        uses: enriikke/gatsby-gh-pages-action@v2.1.1
+        uses: enriikke/gatsby-gh-pages-action@v2
         with:
           # A personal access token needed to push your site after it has been built.
           access-token: ${{ secrets.ACCESS_TOKEN }}
