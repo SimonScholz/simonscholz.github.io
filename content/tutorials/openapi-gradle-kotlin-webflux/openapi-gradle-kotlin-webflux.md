@@ -1,10 +1,18 @@
 ---
-path: '/tutorials/openapi-maven-webflux'
+path: '/tutorials/openapi-gradle-kotlin-webflux'
 date: '2021-12-10'
-title: 'Spring Webflux endpoints and clients with OpenApi'
+title: 'Spring Webflux endpoints and clients with OpenApi using Gradle'
 description: 'Based on an OpenApi api specification the OpenApi generator can to used to create server stubs and web clients.'
 author: 'Simon Scholz'
-tags: ['Gradle', 'OpenApi', 'Webflux', 'Kotlin', 'OpenApi Generator']
+tags:
+  [
+    'Gradle',
+    'OpenApi',
+    'Webflux',
+    'Kotlin',
+    'Kotlin Coroutines',
+    'OpenApi Generator',
+  ]
 ---
 
 # OpenApi with Gradle for Spring Webflux applications using Kotlin
