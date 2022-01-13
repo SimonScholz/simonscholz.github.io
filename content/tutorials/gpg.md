@@ -37,8 +37,10 @@ This gpg command will then take the piped tar and encrypt it and write the resul
 # Decrypt and decompress a gpg protected file
 
 ```shell
-gpg -d folder.tar.gz.gpg | tar -xvzf -
+gpg -dv encrypted-archive.tar.gz.gpg | tar -xvzf -
 ```
+
+`gpg -dv encrypted-archive.tar.gz.gpg` will cause a prompt, which asks for the password and then extracts the archive.
 
 |     | gpg command parameter     |
 | --- | ------------------------- |
