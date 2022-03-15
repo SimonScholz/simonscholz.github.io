@@ -43,7 +43,7 @@
 		"gatsby-plugin-nprogress": "^3.13.0",
 		"gatsby-plugin-offline": "^4.13.0",
 		"gatsby-plugin-postcss": "^4.13.0",
-		"gatsby-plugin-purgecss": "^6.0.2",
+		"gatsby-plugin-purgecss": "^6.1.1",
 		"gatsby-plugin-react-helmet": "^4.13.0",
 		"gatsby-plugin-sharp": "^3.13.0",
 		"gatsby-plugin-sitemap": "^4.9.0",
