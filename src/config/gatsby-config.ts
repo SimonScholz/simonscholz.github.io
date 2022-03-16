@@ -5,9 +5,17 @@ dotenv.config()
 
 const gatsbyConfig: GatsbyConfig = {
 	siteMetadata: {
-		siteUrl: 'https://simonscholz.github.io/',
-		title: 'Simon Scholz',
-		description: 'Website for Simons programming tutorials',
+		siteUrl: 'https://simonscholz.github.io',
+		url: 'https://simonscholz.github.io',
+		title:
+			'Programming tutorials - Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker',
+		description:
+			'Programming tutorials - Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker',
+		author: 'Simon Scholz',
+		keywords:
+			'Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker, Kubernetes, Monitoring, Prometheus, Grafana',
+		image: 'src/assets/img/real-avatar.png',
+		twitterUsername: '@simonscholz',
 		trackingId: 'UA-170566702-1',
 	},
 	plugins: [
