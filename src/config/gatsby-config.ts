@@ -110,7 +110,6 @@ const gatsbyConfig: GatsbyConfig = {
 				siteUrl: 'https://simonscholz.github.io/',
 			},
 		},
-		'gatsby-plugin-webpack-size',
 		'gatsby-plugin-sitemap',
 		'gatsby-plugin-netlify',
 		{
