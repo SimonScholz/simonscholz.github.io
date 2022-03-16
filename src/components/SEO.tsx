@@ -54,6 +54,10 @@ export const SEO = ({
 			titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : ''}
 			meta={[
 				{
+					name: 'google-site-verification',
+					content: 'YFhcQWdXNj4uTSqpC_Qqul3JoEEVNaOqIr0KDPjOrG4',
+				},
+				{
 					name: 'description',
 					content: metaDescription,
 				},
