@@ -12,14 +12,14 @@ import { useStaticQuery, graphql } from 'gatsby'
 interface SeoProps {
 	description?: string
 	lang?: string
-	meta?: any
+	keywords?: string[]
 	title: string
 }
 
 export const SEO = ({
 	description,
 	lang,
-	meta,
+	keywords,
 	title,
 }: SeoProps): ReactElement => {
 	const { site } = useStaticQuery(
@@ -30,6 +30,9 @@ export const SEO = ({
 						title
 						description
 						author
+						image
+						url
+						keywords
 					}
 				}
 			}
@@ -37,7 +40,10 @@ export const SEO = ({
 	)
 
 	const metaDescription = description || site.siteMetadata.description
+	const metaKeywords = keywords || site.siteMetadata.keywords
 	const defaultTitle = site.siteMetadata?.title
+	const metaImage = site.siteMetadata?.image
+	const metaUrl = site.siteMetadata?.url
 
 	return (
 		<Helmet
@@ -64,6 +70,14 @@ export const SEO = ({
 					content: 'website',
 				},
 				{
+					property: 'og:image',
+					content: metaImage,
+				},
+				{
+					property: 'og:url',
+					content: metaUrl,
+				},
+				{
 					name: 'twitter:card',
 					content: 'summary',
 				},
@@ -79,7 +93,18 @@ export const SEO = ({
 					name: 'twitter:description',
 					content: metaDescription,
 				},
-			].concat(meta)}
+				{
+					name: 'twitter:image',
+					content: metaImage,
+				},
+			].concat(
+				metaKeywords && metaKeywords.length > 0
+					? {
+							name: 'keywords',
+							content: metaKeywords.join(', '),
+					  }
+					: [],
+			)}
 		/>
 	)
 }

@@ -15,7 +15,11 @@ export default function BlogTemplate({
 	const { frontmatter, html, timeToRead } = markdownRemark
 	return (
 		<>
-			<SEO title={frontmatter.title} description={frontmatter.description} />
+			<SEO
+				title={frontmatter.title}
+				description={frontmatter.description}
+				keywords={frontmatter.tags}
+			/>
 			<div className="blog-post-container mt-2 mx-3">
 				<div className="blog-post">
 					<h1 className="text-gray-900 text-3xl">{frontmatter.title}</h1>
@@ -42,6 +46,7 @@ export const pageQuery = graphql`
 				title
 				description
 				author
+				tags
 			}
 		}
 	}
