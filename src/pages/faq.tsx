@@ -4,7 +4,7 @@ import { SEO } from '../components/SEO'
 const FAQ = (): React.ReactElement => {
 	return (
 		<>
-			<SEO title="FAQ" metaDescription="FAQ" />
+			<SEO title="FAQ" />
 
 			<h1>Frequently Asked Questions</h1>
 		</>

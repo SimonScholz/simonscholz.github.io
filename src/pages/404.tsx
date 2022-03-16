@@ -4,10 +4,7 @@ import React from 'react'
 function FourOhFourPage(): React.ReactElement {
 	return (
 		<>
-			<SEO
-				title="404: Not found"
-				metaDescription="You have hit a 404: Not Found page"
-			/>
+			<SEO title="404: Not found" />
 			<h1>404: Not Found</h1>
 		</>
 	)

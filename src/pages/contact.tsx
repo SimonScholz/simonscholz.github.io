@@ -4,7 +4,7 @@ import { SEO } from '../components/SEO'
 const Contact = (): React.ReactElement => {
 	return (
 		<>
-			<SEO title="Contact" metaDescription="Contact" />
+			<SEO title="Contact" />
 			<div className="m-2 flex flex-col">
 				<h1 className="text-xl">Contact</h1>
 				<p className="mt-2">

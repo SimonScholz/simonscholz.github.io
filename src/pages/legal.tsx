@@ -4,7 +4,7 @@ import { SEO } from '../components/SEO'
 const Legal = ({ data }: any): React.ReactElement => {
 	return (
 		<>
-			<SEO title="Legal" metaDescription="Legal" />
+			<SEO title="Legal" />
 
 			<div id="impressum-en" className="blog-post-content m-2 markdown">
 				<h1>Legal Disclosure / Impressum</h1>

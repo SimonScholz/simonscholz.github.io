@@ -1,46 +1,98 @@
-import React from 'react'
-import Helmet from 'react-helmet'
+/**
+ * SEO component that queries for data with
+ *  Gatsby's useStaticQuery React hook
+ *
+ * See: https://www.gatsbyjs.com/docs/use-static-query/
+ */
+import { ReactElement } from 'react'
+import PropTypes from 'prop-types'
+import { Helmet } from 'react-helmet'
+import { useStaticQuery, graphql } from 'gatsby'
 
-type Props = {
-	title?: string
-	metaDescription: string
+interface SeoProps {
+	description?: string
+	lang?: string
+	meta?: any
+	title: string
 }
 
-const separator = '·'
-
-export function SEO({
-	title = '',
-	metaDescription,
-}: Props): React.ReactElement {
-	return (
-		<Helmet>
-			<title>
-				{title && `${title} ${separator} `}
-				Simon Scholz
-			</title>
-			{/* General tags */}
-			<meta
-				property="og:description"
-				name="description"
-				content={metaDescription}
-			/>
-			{/* <meta name="image" content={image} /> */}
-
-			{/* Schema.org tags */}
-			{/* <script type="application/ld+json">{JSON.stringify(schemaOrgJSONLD)}</script> */}
-
-			{/* OpenGraph tags */}
-			{/* <meta property="og:url" content={postSEO ? postURL : blogURL} /> */}
-			{/* {postSEO ? <meta property="og:type" content="article" /> : null} */}
-			<meta property="og:title" content={title} />
-			{/* <meta property="og:image" content={image} /> */}
-
-			{/* Twitter Card tags */}
-			{/* <meta name="twitter:card" content="summary_large_image" /> */}
-			{/* <meta name="twitter:creator" content={config.userTwitter ? config.userTwitter : ''} /> */}
-			{/* <meta name="twitter:title" content={title} /> */}
-			{/* <meta name="twitter:description" content={description} /> */}
-			{/* <meta name="twitter:image" content={image} /> */}
-		</Helmet>
+export const SEO = ({
+	description,
+	lang,
+	meta,
+	title,
+}: SeoProps): ReactElement => {
+	const { site } = useStaticQuery(
+		graphql`
+			query {
+				site {
+					siteMetadata {
+						title
+						description
+						author
+					}
+				}
+			}
+		`,
 	)
+
+	const metaDescription = description || site.siteMetadata.description
+	const defaultTitle = site.siteMetadata?.title
+
+	return (
+		<Helmet
+			htmlAttributes={{
+				lang,
+			}}
+			title={title}
+			titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : ''}
+			meta={[
+				{
+					name: 'description',
+					content: metaDescription,
+				},
+				{
+					property: 'og:title',
+					content: title,
+				},
+				{
+					property: 'og:description',
+					content: metaDescription,
+				},
+				{
+					property: 'og:type',
+					content: 'website',
+				},
+				{
+					name: 'twitter:card',
+					content: 'summary',
+				},
+				{
+					name: 'twitter:creator',
+					content: site.siteMetadata?.author || '',
+				},
+				{
+					name: 'twitter:title',
+					content: title,
+				},
+				{
+					name: 'twitter:description',
+					content: metaDescription,
+				},
+			].concat(meta)}
+		/>
+	)
+}
+
+SEO.defaultProps = {
+	lang: 'en',
+	meta: [],
+	description: '',
+}
+
+SEO.propTypes = {
+	description: PropTypes.string,
+	lang: PropTypes.string,
+	meta: PropTypes.arrayOf(PropTypes.object),
+	title: PropTypes.string.isRequired,
 }

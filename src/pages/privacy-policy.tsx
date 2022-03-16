@@ -4,7 +4,7 @@ import { SEO } from '../components/SEO'
 const PrivacyPolicy = (): React.ReactElement => {
 	return (
 		<>
-			<SEO title="Privacy Policy" metaDescription="Privacy Policy" />
+			<SEO title="Privacy Policy" />
 
 			{/* English */}
 			<article

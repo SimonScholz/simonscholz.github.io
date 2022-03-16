@@ -7,10 +7,9 @@ const gatsbyConfig: GatsbyConfig = {
 	siteMetadata: {
 		siteUrl: 'https://simonscholz.github.io',
 		url: 'https://simonscholz.github.io',
-		title:
-			'Programming tutorials - Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker',
+		title: 'Simon`s Programming Tutorials',
 		description:
-			'Programming tutorials - Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker',
+			'Programming tutorials for many different technologies, e.g., Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker, Kubernetes, Monitoring, Prometheus, Grafana',
 		author: 'Simon Scholz',
 		keywords:
 			'Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker, Kubernetes, Monitoring, Prometheus, Grafana',
