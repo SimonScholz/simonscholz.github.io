@@ -10,7 +10,7 @@ const gatsbyConfig: GatsbyConfig = {
 		title: 'Simon`s Programming Tutorials',
 		description:
 			'Programming tutorials for many different technologies, e.g., Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker, Kubernetes, Monitoring, Prometheus, Grafana',
-		author: '@simonscholz',
+		author: 'Simon Scholz',
 		keywords:
 			'Kotlin, Java, TypeScript, Unix, Spring, Quarkus, Eclipse RCP, Docker, Kubernetes, Monitoring, Prometheus, Grafana',
 		image: 'src/assets/img/real-avatar.png',

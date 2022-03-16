@@ -69,7 +69,7 @@ export const SEO = ({
 				},
 				{
 					name: 'twitter:creator',
-					content: site.siteMetadata?.author || '',
+					content: site.siteMetadata?.twitterUsername || '',
 				},
 				{
 					name: 'twitter:title',
