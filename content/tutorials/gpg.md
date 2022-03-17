@@ -2,7 +2,7 @@
 path: '/tutorials/gpg-archive-encryption'
 date: '2022-01-09'
 title: 'Security - Encrypt archive files with GPG'
-description: 'Tutorial about encrypting archive files using GPG.'
+description: 'Security - Tutorial about encrypting archive files using GPG.'
 author: 'Simon Scholz'
 tags: ['GPG', 'TAR', 'ARCHIVE', 'SECURITY']
 ---

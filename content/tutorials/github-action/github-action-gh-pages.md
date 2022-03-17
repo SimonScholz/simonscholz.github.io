@@ -2,9 +2,9 @@
 path: '/tutorials/github-pages-and-actions'
 date: '2020-11-22'
 title: 'GitHub Pages with Gatsby built by GitHub Actions'
-description: 'Explains how to setup your custom GitHub Page and how to auto-deploy it using GitHub actions'
+description: 'Explains how to setup GitHub page with Gatsby and how to auto-deploy it using GitHub actions'
 author: 'Simon Scholz'
-tags: ['github', 'github pages', 'github actions']
+tags: ['github', 'github pages', 'github actions', 'gatsby', 'react']
 ---
 
 # GitHub Pages

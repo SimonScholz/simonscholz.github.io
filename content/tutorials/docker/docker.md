@@ -2,7 +2,7 @@
 path: '/tutorials/docker'
 date: '2020-09-09'
 title: 'Docker'
-description: 'Tutorial on Docker concerning containers and networking.'
+description: 'Tutorial about Docker concerning containers and networking.'
 author: 'Simon Scholz'
 tags: ['Docker']
 ---

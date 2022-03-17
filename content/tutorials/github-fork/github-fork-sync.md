@@ -2,7 +2,7 @@
 path: '/tutorials/github-fork-sync'
 date: '2020-11-20'
 title: 'GitHub forking and syncing'
-description: 'How to sync your fork with the original repository'
+description: 'How to sync your fork on GitHub with the original repository'
 author: 'Simon Scholz'
 tags: ['github', 'git', 'fork', 'scm']
 ---

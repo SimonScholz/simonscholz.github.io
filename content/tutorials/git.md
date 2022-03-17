@@ -2,7 +2,7 @@
 path: '/tutorials/git'
 date: '2020-08-08'
 title: 'Git'
-description: 'Commonly used git commands'
+description: 'Tutorial for commonly used git commands'
 author: 'Simon Scholz'
 tags: ['git', 'fork', 'scm']
 ---
