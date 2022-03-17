@@ -51,6 +51,7 @@ const gatsbyConfig: GatsbyConfig = {
 				environments: ['production', 'development'],
 			},
 		},
+		'gatsby-plugin-robots-txt',
 		'gatsby-plugin-typescript',
 		`gatsby-plugin-image`,
 		'gatsby-transformer-sharp',

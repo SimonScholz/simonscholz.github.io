@@ -45,6 +45,7 @@
 		"gatsby-plugin-postcss": "^5.10.0",
 		"gatsby-plugin-purgecss": "^6.1.1",
 		"gatsby-plugin-react-helmet": "^5.10.0",
+		"gatsby-plugin-robots-txt": "^1.7.0",
 		"gatsby-plugin-sharp": "^4.10.0",
 		"gatsby-plugin-sitemap": "^5.10.0",
 		"gatsby-plugin-typescript": "^4.10.0",
