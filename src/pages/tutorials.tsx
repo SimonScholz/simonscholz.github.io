@@ -1,9 +1,9 @@
-import { graphql, Link } from 'gatsby'
+import { graphql } from 'gatsby'
 import React, { useState } from 'react'
 import { SEO } from '../components/SEO'
 import { BlogpageQuery } from '../types/graphql'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import { SearchBox } from '../components/SearchBox'
+import { TutorialCard } from '../components/cards/TutorialCard'
 
 export const query = graphql`
 	query BlogAndAvatarQuery {
@@ -97,38 +97,16 @@ const Tutorials = ({ data }: Props): React.ReactElement => {
         */}
 			{posts.map((edge: any) => {
 				return (
-					<Link to={edge.node.frontmatter.path} key={edge.node.id}>
-						<div className="mt-3 mx-3 cursor-pointer">
-							<div className="border border-gray-400 bg-white rounded-lg p-4 flex flex-col justify-between leading-normal hover:shadow-lg">
-								<div className="mb-8">
-									<div className="text-gray-900 font-bold text-xl">
-										{edge.node.frontmatter.title}
-									</div>
-									<p className="text-gray-600 mb-2">
-										{edge.node.timeToRead} min read
-									</p>
-									<p className="text-gray-700 text-base">
-										{edge.node.frontmatter.description}
-									</p>
-								</div>
-								<div className="flex items-center">
-									<GatsbyImage
-										image={data!.file!.childImageSharp!.gatsbyImageData}
-										alt="Avatar"
-										className="w-10 h-10 rounded-full mr-4"
-									/>
-									<div className="text-sm">
-										<p className="text-gray-900 leading-none">
-											{edge.node.frontmatter.author}
-										</p>
-										<p className="text-gray-600">
-											{edge.node.frontmatter.date}
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</Link>
+					<TutorialCard
+						path={edge.node.frontmatter.path}
+						id={edge.node.id}
+						title={edge.node.frontmatter.title}
+						timeToRead={edge.node.timeToRead}
+						description={edge.node.frontmatter.description}
+						gatsbyImageData={data!.file!.childImageSharp!.gatsbyImageData}
+						author={edge.node.frontmatter.author}
+						date={edge.node.frontmatter.date}
+					/>
 				)
 			})}
 		</>
