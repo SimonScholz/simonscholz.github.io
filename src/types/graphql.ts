@@ -46,6 +46,11 @@ export interface HomepageQuery {
   site: HomepageQuery_site | null;
   me: any;
   gears: any;
+  springBoot: any;
+  quarkus: any;
+  jvm: any;
+  eclipse: any;
+  webDev: any;
   education: any;
 }
 
