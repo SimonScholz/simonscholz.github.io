@@ -20,18 +20,19 @@ export default function BlogTemplate({
 				description={frontmatter.description}
 				keywords={frontmatter.tags}
 			/>
-			<div className="blog-post-container mt-2 mx-3">
+			<article className="blog-post-container mt-2 mx-3">
 				<div className="blog-post">
 					<h1 className="text-gray-900 text-3xl">{frontmatter.title}</h1>
 					<p className="text-gray-600 text-sm border-b-2">
-						{frontmatter.author} ⚬ {frontmatter.date} ⚬ {timeToRead} min read
+						{frontmatter.author} ⚬ <time>{frontmatter.date}</time> ⚬{' '}
+						{timeToRead} min read
 					</p>
 					<div
 						className="blog-post-content markdown"
 						dangerouslySetInnerHTML={{ __html: html }}
 					/>
 				</div>
-			</div>
+			</article>
 		</>
 	)
 }

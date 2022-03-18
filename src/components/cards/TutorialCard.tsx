@@ -40,7 +40,7 @@ export const TutorialCard = ({
 						/>
 						<div className="text-sm">
 							<p className="text-gray-900 leading-none">{author}</p>
-							<p className="text-gray-600">{date}</p>
+							<time className="text-gray-600">{date}</time>
 						</div>
 					</div>
 				</div>
