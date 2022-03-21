@@ -33,7 +33,7 @@
 		"gatsby-image": "^3.11.0",
 		"gatsby-plugin-canonical-urls": "^4.10.0",
 		"gatsby-plugin-emotion": "^7.10.0",
-		"gatsby-plugin-feed": "^4.10.0",
+		"gatsby-plugin-feed": "^4.10.1",
 		"gatsby-plugin-gdpr-cookies": "^2.0.8",
 		"gatsby-plugin-google-analytics": "^4.10.0",
 		"gatsby-plugin-image": "^2.10.0",
