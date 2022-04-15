@@ -4,7 +4,8 @@ name: 🛠️ Build website on PR
 # Controls when the action will run.
 # In this case the actions will be run when pushing to the source branch of your repository
 on:
-  pull_request:
+  workflow_dispatch:
+  push:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
