@@ -52,6 +52,7 @@ export function ProfessionalBackground(): React.ReactElement {
 								<li>Prometheus</li>
 								<li>Grafana</li>
 								<li>JMeter</li>
+								<li>Gatling Performance Testing</li>
 								<li>Java</li>
 								<li>Kotlin</li>
 								<li>TypeScript</li>
