@@ -1,6 +1,6 @@
 ---
 path: '/tutorials/git'
-date: '2020-08-08'
+date: '2022-04-22'
 title: 'Git'
 description: 'Tutorial for commonly used git commands'
 author: 'Simon Scholz'
@@ -31,10 +31,16 @@ git config --global user.name "Simon Scholz"
 git config --global user.email opensource.simon@gmail.com
 
 git config --global branch.autosetuprebase always
+git config --global pull.rebase true
+git config --global rebase.autoStash true
+
 
 git config --global gpg.program gpg
 git config --global commit.gpgsign true
 ```
+
+Besides configuring name and email setting up rebase and autoStash is really helpful, since this will stash uncommitted changes when pulling from the remote and then pop the changes once your local commits have been rebased onto the changes from the remote repository.
+The GPG configs will verify that your commits are really created by you.
 
 In case you want to make use of SSH for cloning a SSH key needs to be created:
 
@@ -87,10 +93,20 @@ NOTE: When changes are commited, they only reside in your local git repository.
 
 # Add a remote origin to your local git repository
 
+```shell
+git remote add git@github.com:SimonScholz/tutorials.git
+```
+
+Once the remote is added a an upstream branch can be configured.
+
+```shell
+git push --set-upstream origin main
+```
+
 # Pushing changes to a remote repository
 
 ```shell
-git push origin master
+git push origin main
 ```
 
 # Deleting already merged branches on remote repository
