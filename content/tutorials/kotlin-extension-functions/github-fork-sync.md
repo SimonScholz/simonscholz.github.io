@@ -5,6 +5,7 @@ title: 'Using Kotlin extension functions/methods'
 description: 'Using Kotlin extension functions/methods and create your own custom ones'
 author: 'Simon Scholz'
 tags: ['kotlin', 'jvm', 'extensions']
+vgWort: 'vg08.met.vgwort.de/na/0f8aa37ddf3d4a1aa840e3de7deba08b'
 ---
 
 ## General kotlin extension functions/methods

@@ -5,6 +5,7 @@ title: 'Performance testing with Gatling using Gradle and Kotlin'
 description: 'Tutorial on how to create a project for Gatling performance testing with Gradle and Kotlin'
 author: 'Simon Scholz'
 tags: ['kotlin', 'jvm', 'gatling', 'testing', 'performance']
+vgWort: 'vg08.met.vgwort.de/na/395304c41e1e46fc92d41791863dc07e'
 ---
 
 ## Start a new project using Gradle
