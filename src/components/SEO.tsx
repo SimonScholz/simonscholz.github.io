@@ -101,6 +101,10 @@ export const SEO = ({
 					name: 'twitter:image',
 					content: metaImage,
 				},
+				{
+					name: 'referrer',
+					content: 'no-referrer-when-downgrade',
+				},
 			].concat(
 				metaKeywords && metaKeywords.length > 0
 					? {

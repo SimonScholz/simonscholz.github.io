@@ -5,6 +5,7 @@ title: 'GitHub forking and syncing'
 description: 'How to sync your fork on GitHub with the original repository'
 author: 'Simon Scholz'
 tags: ['github', 'git', 'fork', 'scm']
+vgWort: 'vg08.met.vgwort.de/na/47f1f15b5cf24f9498cc8c8997eb09bd'
 ---
 
 # Forks on GitHub
