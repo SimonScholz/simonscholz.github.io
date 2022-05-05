@@ -5,6 +5,7 @@ title: 'Update node + npm and package.json dependencies'
 description: 'Tutorial on updating node and npm and package.json dependencies.'
 author: 'Simon Scholz'
 tags: ['npm', 'node', 'Dependencies', 'updates', 'dependabot']
+vgWort: 'vg08.met.vgwort.de/na/7a1785f18ffd4d3689afd3e5f01b5c49'
 ---
 
 Node and NPM are usually used for project written in JavaScript or TypeScript (which is transpiled to JavaScript).

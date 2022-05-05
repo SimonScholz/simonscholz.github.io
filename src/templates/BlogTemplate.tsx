@@ -27,6 +27,12 @@ export default function BlogTemplate({
 						{frontmatter.author} ⚬ <time>{frontmatter.date}</time> ⚬{' '}
 						{timeToRead} min read
 					</p>
+					<img
+						src={`https://${frontmatter.vgWort}`}
+						width="1"
+						height="1"
+						alt=""
+					></img>
 					<div
 						className="blog-post-content markdown"
 						dangerouslySetInnerHTML={{ __html: html }}
@@ -48,6 +54,7 @@ export const pageQuery = graphql`
 				description
 				author
 				tags
+				vgWort
 			}
 		}
 	}

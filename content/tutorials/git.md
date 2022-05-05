@@ -5,6 +5,7 @@ title: 'Git'
 description: 'Tutorial for commonly used git commands'
 author: 'Simon Scholz'
 tags: ['git', 'fork', 'scm']
+vgWort: 'vg08.met.vgwort.de/na/d0b792cb07314737933980c1702d9b31'
 ---
 
 Git is a commonly used DVCS (distributed version control system), which was introduced by Linus Torvalds.

@@ -5,6 +5,7 @@ title: 'PDF'
 description: 'Tutorial about tools for editing PDF files.'
 author: 'Simon Scholz'
 tags: ['PDF']
+vgWort: 'vg08.met.vgwort.de/na/d28e8e3bf7d1405c93c9db0cb9181e21'
 ---
 
 # Editing Tools for PDF files

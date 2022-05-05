@@ -5,6 +5,7 @@ title: 'Security - Encrypt archive files with GPG'
 description: 'Security - Tutorial about encrypting archive files using GPG.'
 author: 'Simon Scholz'
 tags: ['GPG', 'TAR', 'ARCHIVE', 'SECURITY']
+vgWort: 'vg08.met.vgwort.de/na/02907f362c054753bcd6be722b03301c'
 ---
 
 # Securing your files with gpg
