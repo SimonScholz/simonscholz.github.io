@@ -5,6 +5,7 @@ title: 'GitHub Pages with Gatsby built by GitHub Actions'
 description: 'Explains how to setup GitHub page with Gatsby and how to auto-deploy it using GitHub actions'
 author: 'Simon Scholz'
 tags: ['github', 'github pages', 'github actions', 'gatsby', 'react']
+vgWort: 'vg08.met.vgwort.de/na/f5e063ab95074fc4b76502abb3a8bc40'
 ---
 
 # GitHub Pages
