@@ -14,6 +14,7 @@ tags:
     'OpenApi Generator',
     'reactive',
   ]
+vgWort: 'vg08.met.vgwort.de/na/7be49b7b80bc45efb3757ac7b7a98ce8'
 ---
 
 # OpenApi with Gradle for Spring Webflux applications using Kotlin

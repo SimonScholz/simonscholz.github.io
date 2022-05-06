@@ -5,6 +5,7 @@ title: 'Docker'
 description: 'Tutorial about Docker concerning containers and networking.'
 author: 'Simon Scholz'
 tags: ['Docker']
+vgWort: 'vg08.met.vgwort.de/na/b209ee1af841475bbe2ef67a80cdb89a'
 ---
 
 Docker can be used to package software bundles inside so called containers. Docker has a similarity with virtual machines, but it consumes less resources since containers run on a single OS kernel and therefore also boot up way faster than a virtual machine would do.
