@@ -12,7 +12,7 @@ export default function BlogTemplate({
 	data, // this prop will be injected by the GraphQL query below.
 }: Props) {
 	const { markdownRemark } = data // data.markdownRemark holds your post data
-	const { frontmatter, html, timeToRead } = markdownRemark
+	const { frontmatter, html, timeToRead, tableOfContents } = markdownRemark
 	return (
 		<>
 			<SEO
@@ -34,6 +34,10 @@ export default function BlogTemplate({
 						alt=""
 					></img>
 					<div
+						className="blog-post-toc"
+						dangerouslySetInnerHTML={{ __html: tableOfContents }}
+					/>
+					<div
 						className="blog-post-content markdown"
 						dangerouslySetInnerHTML={{ __html: html }}
 					/>
@@ -48,6 +52,11 @@ export const pageQuery = graphql`
 		markdownRemark(frontmatter: { path: { eq: $path } }) {
 			html
 			timeToRead
+			tableOfContents(
+				absolute: false
+				pathToSlugField: "frontmatter.path"
+				maxDepth: 2
+			)
 			frontmatter {
 				date(formatString: "MMMM DD, YYYY")
 				title

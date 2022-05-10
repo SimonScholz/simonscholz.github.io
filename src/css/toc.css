@@ -1,0 +1,23 @@
+.blog-post-toc a {
+	@apply text-blue-500 text-sm;
+}
+
+.blog-post-toc::before {
+	content: 'Table of contents';
+}
+
+.blog-post-toc ul,
+.blog-post-toc ol {
+	@apply mb-4 ml-1 list-inside;
+}
+
+.blog-post-toc ul ul,
+.blog-post-toc ol ol {
+	@apply mb-4 ml-8 list-inside;
+}
+
+.blog-post-toc li > p,
+.blog-post-toc li > ul,
+.blog-post-toc li > ol {
+	@apply mb-0;
+}

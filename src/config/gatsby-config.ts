@@ -62,6 +62,10 @@ const gatsbyConfig: GatsbyConfig = {
 		{
 			resolve: `gatsby-transformer-remark`,
 			options: {
+				tableOfContents: {
+					heading: null,
+					maxDepth: 6,
+				},
 				plugins: [
 					{
 						resolve: `gatsby-remark-images`,
@@ -75,6 +79,7 @@ const gatsbyConfig: GatsbyConfig = {
 							wrapperStyle: `margin-bottom: 1.0725rem`,
 						},
 					},
+					`gatsby-remark-autolink-headers`,
 					`gatsby-remark-prismjs`,
 					`gatsby-remark-copy-linked-files`,
 					`gatsby-remark-smartypants`,
