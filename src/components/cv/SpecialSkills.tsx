@@ -39,10 +39,10 @@ export function SpecialKnowledge(): React.ReactElement {
 					</span>
 				</div>
 				<div className="flex flex-col mt-3">
-					<h2 className="font-semibold">Analysis Tools</h2>
+					<h2 className="font-semibold">Analysis and Performance Tools</h2>
 					<span>
 						Sonarqube, Spotbugs, Checkstyle, Jacoco, detekt, ktlint, Yourkit,
-						JMeter
+						JMeter, Gatling
 					</span>
 				</div>
 				<div className="flex flex-col mt-3">
