@@ -49,7 +49,7 @@ export function SpecialKnowledge(): React.ReactElement {
 					<h2 className="font-semibold">Tools</h2>
 					<span>
 						Eclipse, IntelliJ, VS Code, Git, Gerrit, Gradle, Maven, NPM, Ant
-						Spring CLI, DOJO CLI, Jenkins, Travis CI, Circle CI
+						Spring CLI, DOJO CLI, Jenkins, Travis CI, Circle CI, Postman/Newman
 					</span>
 				</div>
 			</IconLeftBorder>
