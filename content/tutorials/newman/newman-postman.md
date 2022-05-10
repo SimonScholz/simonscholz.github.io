@@ -12,6 +12,7 @@ tags:
     'newman',
     'github',
     'github-action',
+    'http-bin',
   ]
 vgWort: 'vg05.met.vgwort.de/na/610d332c575f4c6f96ff55a886ab07bd'
 ---
@@ -67,7 +68,7 @@ The following json can be imported into your Postman instance or workspace:
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Check status\", function () {",
+							"pm.test(\"Check name\", function () {",
 							"    // Parse JSON body",
 							"    var jsonData = pm.response.json();",
 							"",
@@ -150,6 +151,7 @@ on:
 
 jobs:
   newman:
+    name: Run collections + tests with Newman
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
@@ -178,8 +180,69 @@ Once you've run the GitHub action it should look similar to this:
 
 NOTE: In case the test of the Postman collection fails also the whole GitHub action run will fail.
 
+# Add successful newman run as requirement before merging PRs
+
+In your GitHub action CI/CD pipeline you can also add the new man job in order to check if your application is up and running.
+This of course only works, if all PRs are also deployed to a test environment.
+
+![Branch protection rule for newman checks](./branch-protection-rules.png)
+
+GitHub jobs are usually run in parallel, so in case the CI/CD pipeline is not done yet it does not make sense to already fire the requests towards the API.
+To overcome this you can use the `delayRequest` property.
+
+# Using Newman in CI/CD pipeline
+
+An example of a complete CI/CD pipeline could look like this:
+
+```yaml
+---
+name: CI/CD Pipeline
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+ buildArtifacts:
+    name: 🛠️ application 📦️
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+
+      - name: Build and run tests and package application
+        run: ./gradlew buildAndDeployApplication
+  newman:
+    name: Run collections + tests with Newman
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: matt-ball/newman-action@master
+        with:
+          collection: postman/sophisticated-postman-collection-with-plenty-of-tests.json
+          envVar: '[{ "key": "user", "value": "Newman" }]'
+          globalVar: '[{ "key": "auth_token", "value": "${{ secrets.NEWMAN_SAMPLE_TOKEN }}"}]'
+          delayRequest: 300000 # 5 minutes - assuming that the application is up and running after 5 minutes
+```
+
+This is just a small example how it could look like, assuming that the deployment of the application also takes place within the Gradle build. Of course the postman collection should be way bigger then and consist of way more tests.
+Also the `delayRequest` property needs to be adjusted depending on how long it takes to have the application up an running.
+
 # Sources
 
 - https://github.com/postmanlabs/newman
+- https://github.com/marketplace/actions/newman-action
 - https://www.postman.com/
 - https://postman-quick-reference-guide.readthedocs.io/en/latest/
