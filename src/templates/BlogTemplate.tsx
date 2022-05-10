@@ -23,7 +23,7 @@ export default function BlogTemplate({
 			<article className="blog-post-container mt-2 mx-3">
 				<div className="blog-post">
 					<h1 className="text-gray-900 text-3xl">{frontmatter.title}</h1>
-					<p className="text-gray-600 text-sm border-b-2">
+					<p className="text-gray-600 text-sm border-b-2 mb-2">
 						{frontmatter.author} ⚬ <time>{frontmatter.date}</time> ⚬{' '}
 						{timeToRead} min read
 					</p>

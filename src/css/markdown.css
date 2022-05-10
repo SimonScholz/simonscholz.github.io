@@ -9,9 +9,11 @@
 	@apply leading-relaxed text-lg;
 }
 /* Headers */
-.markdown h1,
+.markdown h1 {
+	@apply text-3xl my-6 font-bold text-gray-900;
+}
 .markdown h2 {
-	@apply text-2xl my-6 font-bold text-gray-900;
+	@apply text-2xl my-6 font-bold text-gray-800;
 }
 .markdown h3,
 .markdown h4,

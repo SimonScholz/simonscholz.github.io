@@ -1,0 +1,185 @@
+---
+path: '/tutorials/newman-postman'
+date: '2022-05-08'
+title: 'Creating Postman Collections and verify them using GitHub Actions with Newman CLI'
+description: 'Postman is a powerful tool to test rest apis manually. With Newman the CLI tool of postman this process of calling the rest api can be automated. To run such a job GitHub Actions can be utilized.'
+author: 'Simon Scholz'
+tags:
+  [
+    'postman',
+    'rest-client',
+    'automatization',
+    'newman',
+    'github',
+    'github-action',
+  ]
+vgWort: 'vg05.met.vgwort.de/na/610d332c575f4c6f96ff55a886ab07bd'
+---
+
+Postman (https://www.postman.com/) is a great tool with a user interface for testing your REST apis.
+For further information about Postman in general and its usage also see https://simonscholz.github.io/tutorials/postman
+
+In this tutorial we want to concentrate on automating the calls towards your REST api by running your Postman collections automatically with the newman CLI and GitHub actions.
+
+The reason why I've created this setup was the pain point of having postman collections in our company's GitHub repositories,
+which were unfortunately not always kept up to date.
+Therefore I was looking for a way to enforce this by utilizing GitHub actions and creating a new check in our GitHub pull requests.
+
+# Setup
+
+## Installing Postman
+
+Go to https://www.postman.com/downloads/ and download the latest version of Postman and then install it on your machine.
+
+NOTE: You may also want to use the online version of Postman, which can be used directly in your browser.
+
+## Installing Newman CLI (optional)
+
+```sh
+npm install -g newman
+```
+
+## Create a new GitHub repository
+
+To run GitHub actions you need a GitHub account and a GitHub repository.
+You may either create a new one or use an already existing one.
+
+# Creating a postman collection
+
+To make it easy we'll utilize https://httpbin.org/ to create a simple get request within postman.
+
+![Postman httpbin get request](./httpbin-get-request.png)
+
+The following json can be imported into your Postman instance or workspace:
+
+```json
+{
+	"info": {
+		"_postman_id": "85a61698-50ea-42ac-822d-93cf95046eef",
+		"name": "Postman Newman Tutorial",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "httpbin/get",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Check status\", function () {",
+							"    // Parse JSON body",
+							"    var jsonData = pm.response.json();",
+							"",
+							"    // Check arg",
+							"    pm.expect(jsonData.args.newman).to.eql('Hello Newman');",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{auth_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://httpbin.org/get?newman=Hello {{user}}",
+					"protocol": "https",
+					"host": ["httpbin", "org"],
+					"path": ["get"],
+					"query": [
+						{
+							"key": "newman",
+							"value": "Hello {{user}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
+```
+
+The sample get request can also be found here: https://www.postman.com/simonscholz/workspace/http-bin/overview
+
+# Running the collection with Newman CLI
+
+When you store the json from the former section to a file, e.g., `http-bin-get-request.json`, you can also run this collection using newman.
+
+```sh
+newman run http-bin-get-request.json --global-var "auth_token=no-real-auth" --env-var "user=Newman"
+```
+
+With `--global-var` global variables can be specified and `--env-var` will introduce new environment variables.
+
+All Newman command line options can be found here: https://github.com/postmanlabs/newman#command-line-options
+
+![Run newman CLI](./run-newman-sh.png)
+
+Also note that there also is a test in the Postman collection. In case a different user name than "Newman" is chosen it will fail.
+
+```sh
+newman run http-bin-get-request.json --global-var "auth_token=no-real-auth" --env-var "user=Simon"
+```
+
+![Run newman CLI](./run-newman-sh-fail.png)
+
+# Running the Newman CLI as GitHub action
+
+There is already a "Newman Action" in place on the marketplace: https://github.com/marketplace/actions/newman-action
+
+To create a GitHub action it needs to be configured with a yaml file, which is usually located in a `.github/workflows/` folder within your git repository.
+
+```yaml
+---
+name: Newman CLI Sample Run
+on:
+  workflow_dispatch:
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: matt-ball/newman-action@master
+        with:
+          collection: postman/http-bin-get-request.json
+          envVar: '[{ "key": "user", "value": "Newman" }]'
+          globalVar: '[{ "key": "auth_token", "value": "${{ secrets.NEWMAN_SAMPLE_TOKEN }}"}]'
+```
+
+To provide the secret for the `auth_token` you can go to the "Settings" of your repository and add it in the secrets section:
+
+![Added a new repository secret](./repo-secret.png)
+
+Remember to use the proper secret name `NEWMAN_SAMPLE_TOKEN` from the yaml above.
+
+![Setting the new repository secret](./super-secret_token-secret.png)
+
+Once the yaml has been added to the respective git repository the action can be found and run in the "Actions" tab:
+
+![Github action workflow dispatch](./github-action-workflow-dispatch.png)
+
+Once you've run the GitHub action it should look similar to this:
+
+![GitHub action workflow result](./github-action-result.png)
+
+NOTE: In case the test of the Postman collection fails also the whole GitHub action run will fail.
+
+# Sources
+
+- https://github.com/postmanlabs/newman
+- https://www.postman.com/
+- https://postman-quick-reference-guide.readthedocs.io/en/latest/
