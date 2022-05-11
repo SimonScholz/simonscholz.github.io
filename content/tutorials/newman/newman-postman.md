@@ -185,6 +185,46 @@ Once you've run the GitHub action it should look similar to this:
 
 NOTE: In case the test of the Postman collection fails also the whole GitHub action run will fail.
 
+# Obtaining an access token from an OAuth server and pass it to the newman run
+
+Let's take the example from before,
+but now obtain the `auth_token` from an OAuth server using [curl](https://curl.se/) and [jq](https://github.com/stedolan/jq).
+
+```yaml
+---
+name: Newman CLI Sample Run
+on:
+  workflow_dispatch:
+
+jobs:
+  newman:
+    name: Run collections + tests with Newman
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+
+	  - name: Fetch access_token
+        run: |
+          curl -d 'client_id=${{ secrets.CLIENT_ID }}' -d 'grant_type=client_credentials' \
+		   -d 'username=${{ secrets.USER_NAME }}' -d 'password=${{ secrets.PASSWORD }}' \
+		  'http://your.keycloak.server/auth/realms/YOUR_REALM_NAME/protocol/openid-connect/token' \
+		  -o auth-response.json
+
+      - name: Parse Auth Response
+        id: parse_auth_response
+        run: echo '::set-output name=access_token::'$(jq -r '.access_token' auth-response.json)
+
+      - uses: matt-ball/newman-action@master
+        with:
+          collection: postman/http-bin-get-request.json
+          envVar: '[{ "key": "user", "value": "Newman" }]'
+          globalVar: '[{ "key": "auth_token", "value": "${{ steps.parse_auth_response.outputs.access_token }}"}]'
+```
+
+- The `Fetch access_token` step runs a [curl](https://curl.se/) command towards a Keycloak server and puts the response in a `auth-response.json` file.
+- The `Parse Auth Response` step then uses [jq](https://github.com/stedolan/jq) to obtain the `access_token` from the `auth-response.json` file and [sets it as output](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter).
+- This access_token can then finally be obtained by using `${{ steps.parse_auth_response.outputs.access_token }}`
+
 # Add successful newman run as requirement before merging PRs
 
 In your GitHub action CI/CD pipeline you can also add the new man job in order to check if your application is up and running.
@@ -252,3 +292,4 @@ Also the `delayRequest` property needs to be adjusted depending on how long it t
 - https://www.postman.com/
 - https://postman-quick-reference-guide.readthedocs.io/en/latest/
 - https://httpbin.org/
+- https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions
