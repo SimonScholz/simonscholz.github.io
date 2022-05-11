@@ -23,19 +23,19 @@ As you might already guess, this website can be found here: https://github.com/S
 The source code resides in the `source` branch and the actual site will be automatically build once I push something to the `source` branch.
 After that build to build result can be found in the `master` branch.
 
-## Steps to reproduce
+# Steps to reproduce
 
-### Create the repository
+## Create the repository
 
 Create a new public repository called "your-github-name".github.io and GitHub will also tell you that this repo is special.
 
-### Clone the repo and create a source branch
+## Clone the repo and create a source branch
 
 Go to your new repository and copy the clone url:
 
 ![clone-gh-page-repo](./clone-gh-page-repo.png)
 
-```terminal
+```bash
 git clone git@github.com:<your-github-name>/<your-github-name>.github.io.git
 
 e.g.
@@ -45,17 +45,17 @@ git clone git@github.com:SimonScholz/simonscholz.github.io.git
 
 Creating the source branch works like this:
 
-```terminal
+```bash
 git checkout -b source
 ```
 
 In the repository you can setup your website using gatsby.
 
-### Create a Gatsby starter project
+## Create a Gatsby starter project
 
 As a quick start you can install the `gatsby-cli` globally by running:
 
-```terminal
+```bash
 npm install -g gatsby-cli
 
 or
@@ -72,7 +72,7 @@ Once this is done you can call `gatsby develop` and navigate to http://localhost
 Feel free to modify this starter project or even build a proper page according to your needs.
 You'll find plenty of good docs, tutorials and examples on https://www.gatsbyjs.com/.
 
-### Github action to automatically deploy your Gatsby website
+## Github action to automatically deploy your Gatsby website
 
 You already know that the contents of the `master` branch will be used as source for your GitHub Pages website.
 To avoid building your Gatsby locally by using the `gatsby build` command and pushing the result to the `master` branch over and over again, you can utilize GitHub actions to automate these steps.
@@ -117,7 +117,7 @@ First the code of the `source` branch will be checked out and thanks to https://
 
 Your `main.yml` file can also contain secret variables, like `${{ secrets.ACCESS_TOKEN }}` for providing an access token.
 
-### Personal access token with push repository rights
+## Personal access token with push repository rights
 
 The `gatsby-gh-pages-action` needs access to your repository in order to be able to push to the `master` branch.
 Personal access tokens can be created by navigating here: https://github.com/settings/tokens or by using the UI to your accounts `settings > developer settings > Personal access tokens`.
@@ -136,7 +136,7 @@ Then just hit the `Generate token` button and copy the access token.
 
 Make sure to copy this token in a save place, because you won't be able to see it any more after refreshing the page.
 
-### Using the access token in the build file
+## Using the access token in the build file
 
 Instead of directly pasting the generated personal access token into the `main.yml` file, you'd rather save it securely so that nobody can make use of it.
 That's where repository secrets come into play.

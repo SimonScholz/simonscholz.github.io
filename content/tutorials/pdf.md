@@ -26,7 +26,7 @@ Since many forms have between 2 or 3 pages it might be worth the effort.
 
 ## Install PDF Arranger
 
-```shell
+```bash
 sudo apt install pdfarranger
 ```
 

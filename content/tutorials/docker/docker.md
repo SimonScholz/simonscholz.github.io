@@ -26,7 +26,7 @@ A good and official description on how to install Docker on your operating syste
 
 For Ubuntu I had to enter the following commands inside a terminal:
 
-```console
+```bash
 sudo apt-get update
 
 sudo apt-get install \
@@ -50,7 +50,7 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io
 
 To verify that docker works properly you can run a simple `hello-world` container:
 
-```console
+```bash
 sudo docker run hello-world
 ```
 
@@ -62,7 +62,7 @@ The result should look similar to this:
 
 Running a certain docker image:
 
-```shell
+```bash
 docker run -d --name=grafana -p 3000:3000 grafana/grafana
 ```
 
@@ -77,13 +77,13 @@ Also see https://hub.docker.com/r/grafana/grafana
 
 You can also pull the docker image from docker hub by using the following command:
 
-```shell
+```bash
 docker pull grafana/grafana
 ```
 
 To start a docker container, which already has been running on your machine you can use:
 
-```shell
+```bash
 docker start <your-desired-container-id>
 ```
 
@@ -91,38 +91,38 @@ docker start <your-desired-container-id>
 
 With `docker ps` you also get the ids of the container, which can be used to stop a certain container like this:
 
-```shell
+```bash
 docker stop <your-desired-container-id>
 ```
 
 To stop all running container the following command can be used:
 
-```shell
+```bash
 docker stop $(docker ps -aq)
 ```
 
 To remove a container `docker rm` can be used.
 
-```shell
+```bash
 docker rm <your-desired-container-id>
 ```
 
 So removing all containers would look like this:
 
-```shell
+```bash
 docker rm $(docker ps -aq)
 ```
 
 In case you also want to remove a docker image from your machine the `docker rmi` command can be used.
 To see the images and its ids the `docker images` command can be used.
 
-```shell
+```bash
 docker rmi <your-desired-image-id>
 ```
 
 To remove all images the following command can be used.
 
-```shell
+```bash
 docker rmi $(docker images -q)
 ```
 
@@ -130,37 +130,37 @@ docker rmi $(docker images -q)
 
 Running containers
 
-```shell
+```bash
 docker ps
 ```
 
 Existing containers
 
-```shell
+```bash
 docker ps -a
 ```
 
 Existing containers' ids
 
-```shell
+```bash
 docker ps -aq
 ```
 
 Show existing images.
 
-```shell
+```bash
 docker images
 ```
 
 Only query images ids:
 
-```shell
+```bash
 docker images -q
 ```
 
 # Access Docker Container
 
-```shell
+```bash
 docker exec -it <container name> /bin/bash
 ```
 
@@ -168,19 +168,19 @@ docker exec -it <container name> /bin/bash
 
 Find out the ip address of a certain container:
 
-```shell
+```bash
 docker inspect --format='{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' your-container-id
 ```
 
 Find out the docker host's ip address:
 
-```shell
+```bash
 ip a
 ```
 
 This will show the different network adapter and `docker0` will be one of them:
 
-```shell
+```bash
 5: docker0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default
     link/ether 02:42:48:96:f6:80 brd ff:ff:ff:ff:ff:ff
     inet 172.17.0.1/16 brd 172.17.255.255 scope global docker0

@@ -16,7 +16,7 @@ Please visit https://gnupg.org/ for more information.
 
 # Create an encrypted archive
 
-```shell
+```bash
 tar -cvzf - desired-directory | gpg -cv > encrypted-archive.tar.gz.gpg
 ```
 
@@ -37,7 +37,7 @@ This gpg command will then take the piped tar and encrypt it and write the resul
 
 # Decrypt and decompress a gpg protected file
 
-```shell
+```bash
 gpg -dv encrypted-archive.tar.gz.gpg | tar -xvzf -
 ```
 

@@ -1,12 +1,13 @@
 ---
 path: '/tutorials/newman-postman'
 date: '2022-05-08'
-title: 'Creating Postman Collections and verify them using GitHub Actions with Newman CLI'
+title: 'Running Postman collection tests automatically using GitHub Actions with Newman CLI'
 description: 'Postman is a powerful tool to test rest apis manually. With Newman the CLI tool of postman this process of calling the rest api can be automated. To run such a job GitHub Actions can be utilized.'
 author: 'Simon Scholz'
 tags:
   [
     'postman',
+	'API',
     'rest-client',
     'automatization',
     'newman',
@@ -28,6 +29,8 @@ The reason why I've created this setup was the pain point of having postman coll
 which were unfortunately not always kept up to date.
 Therefore I was looking for a way to enforce this by utilizing GitHub actions and creating a new check in our GitHub pull requests.
 
+The other more important reason to have the GitHub Action + Newman CLI setup is to write tests within Postman and check whether your API works as expected on a regular basis.
+
 # Setup
 
 ## Installing Postman
@@ -38,7 +41,7 @@ NOTE: You may also want to use the online version of Postman, which can be used 
 
 ## Installing Newman CLI (optional)
 
-```sh
+```bash
 npm install -g newman
 ```
 
@@ -121,7 +124,7 @@ The sample get request can also be found here: https://www.postman.com/simonscho
 
 When you store the json from the former section to a file, e.g., `http-bin-get-request.json`, you can also run this collection using newman.
 
-```sh
+```bash
 newman run http-bin-get-request.json --global-var "auth_token=no-real-auth" --env-var "user=Newman"
 ```
 
@@ -133,7 +136,7 @@ All Newman command line options can be found here: https://github.com/postmanlab
 
 Also note that there also is a test in the Postman collection. In case a different user name than "Newman" is chosen it will fail.
 
-```sh
+```bash
 newman run http-bin-get-request.json --global-var "auth_token=no-real-auth" --env-var "user=Simon"
 ```
 
@@ -192,7 +195,7 @@ This of course only works, if all PRs are also deployed to a test environment.
 GitHub jobs are usually run in parallel, so in case the CI/CD pipeline is not done yet it does not make sense to already fire the requests towards the API.
 To overcome this you can use the `delayRequest` property.
 
-# Using Newman in CI/CD pipeline
+# Using Newman in CI/CD pipeline to test your API
 
 An example of a complete CI/CD pipeline could look like this:
 
@@ -248,3 +251,4 @@ Also the `delayRequest` property needs to be adjusted depending on how long it t
 - https://github.com/marketplace/actions/newman-action
 - https://www.postman.com/
 - https://postman-quick-reference-guide.readthedocs.io/en/latest/
+- https://httpbin.org/

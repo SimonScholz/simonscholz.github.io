@@ -37,7 +37,7 @@ To catch up with the changes you might want to sync your own repository with the
 
 See existing remotes:
 
-```shell
+```bash
 git remote -v
 ```
 
@@ -45,7 +45,7 @@ This command usually shows the `origin` remote, which points to your forked repo
 
 To also get (read) access to the original repository an upstream remote can be added:
 
-```shell
+```bash
 git remote add upstream https://github.com/ORIGINAL_OWNER/ORIGINAL_REPOSITORY.git
 
 e.g.
@@ -61,7 +61,7 @@ When `git remote -v` is invoked once again there should be an `upstream` remote 
 
 To get the latest changes from the upstream remote you checkout the master branch (usually left untouched, because your changes are in feature or bugfix branches) and then fetch + merge the changes from the upstream master branch.
 
-```shell
+```bash
 git checkout master
 git fetch upstream
 git merge upstream/master
