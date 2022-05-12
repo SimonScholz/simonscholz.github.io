@@ -7,7 +7,7 @@ author: 'Simon Scholz'
 tags:
   [
     'postman',
-	'API',
+	  'API',
     'rest-client',
     'automatization',
     'newman',
@@ -206,8 +206,9 @@ jobs:
 	  - name: Fetch access_token
 	  	id: fetch_access_token
         run: |
-          curl -d 'client_id=${{ secrets.CLIENT_ID }}' -d 'grant_type=client_credentials' \
-		  -d 'username=${{ secrets.USER_NAME }}' -d 'password=${{ secrets.PASSWORD }}' \
+          curl 'http://your.keycloak.server/auth/realms/YOUR_REALM_NAME/protocol/openid-connect/token' \
+          -d 'client_id=${{ secrets.CLIENT_ID }}' -d 'grant_type=client_credentials' \
+		      -d 'username=${{ secrets.USER_NAME }}' -d 'password=${{ secrets.PASSWORD }}' \
           --header 'Cache-Control: no-cache' | echo '::set-output name=access_token::'$(jq -r '.access_token')
 
       - uses: matt-ball/newman-action@master
