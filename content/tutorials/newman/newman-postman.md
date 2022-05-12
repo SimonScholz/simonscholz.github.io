@@ -204,26 +204,22 @@ jobs:
       - uses: actions/checkout@master
 
 	  - name: Fetch access_token
+	  	id: fetch_access_token
         run: |
           curl -d 'client_id=${{ secrets.CLIENT_ID }}' -d 'grant_type=client_credentials' \
-		   -d 'username=${{ secrets.USER_NAME }}' -d 'password=${{ secrets.PASSWORD }}' \
-		  'http://your.keycloak.server/auth/realms/YOUR_REALM_NAME/protocol/openid-connect/token' \
-		  -o auth-response.json
-
-      - name: Parse Auth Response
-        id: parse_auth_response
-        run: echo '::set-output name=access_token::'$(jq -r '.access_token' auth-response.json)
+		  -d 'username=${{ secrets.USER_NAME }}' -d 'password=${{ secrets.PASSWORD }}' \
+          --header 'Cache-Control: no-cache' | echo '::set-output name=access_token::'$(jq -r '.access_token')
 
       - uses: matt-ball/newman-action@master
         with:
           collection: postman/http-bin-get-request.json
           envVar: '[{ "key": "user", "value": "Newman" }]'
-          globalVar: '[{ "key": "auth_token", "value": "${{ steps.parse_auth_response.outputs.access_token }}"}]'
+          globalVar: '[{ "key": "auth_token", "value": "${{ steps.fetch_access_token.outputs.access_token }}"}]'
 ```
 
-- The `Fetch access_token` step runs a [curl](https://curl.se/) command towards a Keycloak server and puts the response in a `auth-response.json` file.
-- The `Parse Auth Response` step then uses [jq](https://github.com/stedolan/jq) to obtain the `access_token` from the `auth-response.json` file and [sets it as output](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter).
-- This access_token can then finally be obtained by using `${{ steps.parse_auth_response.outputs.access_token }}`
+- The `Fetch access_token` step runs a [curl](https://curl.se/) command towards a Keycloak server and pipes the response to [jq](https://github.com/stedolan/jq)
+- [jq](https://github.com/stedolan/jq) will then obtain the `access_token` from the piped curl response and [sets it as output](https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions#setting-an-output-parameter).
+- This `access_token` can then finally be obtained by using `${{ steps.parse_auth_response.outputs.access_token }}`
 
 # Add successful newman run as requirement before merging PRs
 
