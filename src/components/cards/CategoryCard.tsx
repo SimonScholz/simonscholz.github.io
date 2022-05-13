@@ -25,7 +25,7 @@ export const CategoryCard = ({
 					<GatsbyImage
 						image={gatsbyImageData}
 						alt="Category Image"
-						className="w-16 h-16 rounded-full"
+						className="w-16 h-16 bg-opacity-70 rounded-full"
 					/>
 				</div>
 			</div>
