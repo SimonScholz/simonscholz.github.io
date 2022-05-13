@@ -4,7 +4,7 @@ import { SEO } from '../components/SEO'
 import { HomepageQuery } from '../types/graphql'
 import { CategoryCard } from '../components/cards/CategoryCard'
 import { GatsbyImage } from 'gatsby-plugin-image'
-import bgImage from '../assets/img/son-coding-with-daddy-opacity.png'
+import bgImage from '../assets/img/son-coding-with-daddy-opacity.webp'
 
 export const query = graphql`
 	query HomepageAndAvatarQuery {
