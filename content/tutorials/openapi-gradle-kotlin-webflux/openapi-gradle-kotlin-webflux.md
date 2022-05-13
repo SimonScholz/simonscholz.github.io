@@ -6,12 +6,13 @@ description: 'Based on an OpenApi api specification the OpenApi generator can to
 author: 'Simon Scholz'
 tags:
   [
-    'Gradle',
-    'OpenApi',
-    'Webflux',
-    'Kotlin',
-    'Kotlin Coroutines',
-    'OpenApi Generator',
+    'gradle',
+    'openapi',
+    'spring',
+    'webflux',
+    'kotlin',
+    'kotlin coroutines',
+    'openapi generator',
     'reactive',
   ]
 vgWort: 'vg08.met.vgwort.de/na/7be49b7b80bc45efb3757ac7b7a98ce8'

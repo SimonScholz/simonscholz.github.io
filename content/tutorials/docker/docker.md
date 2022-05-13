@@ -1,10 +1,10 @@
 ---
 path: '/tutorials/docker'
 date: '2020-09-09'
-title: 'Docker'
+title: 'Using Docker'
 description: 'Tutorial about Docker concerning containers and networking.'
 author: 'Simon Scholz'
-tags: ['Docker']
+tags: ['docker', 'container']
 vgWort: 'vg08.met.vgwort.de/na/b209ee1af841475bbe2ef67a80cdb89a'
 ---
 

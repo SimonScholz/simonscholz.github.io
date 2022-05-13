@@ -4,7 +4,7 @@ date: '2022-03-19'
 title: 'Update node + npm and package.json dependencies'
 description: 'Tutorial on updating node and npm and package.json dependencies.'
 author: 'Simon Scholz'
-tags: ['npm', 'node', 'Dependencies', 'updates', 'dependabot']
+tags: ['npm', 'node', 'dependencies', 'updates', 'dependabot']
 vgWort: 'vg08.met.vgwort.de/na/7a1785f18ffd4d3689afd3e5f01b5c49'
 ---
 

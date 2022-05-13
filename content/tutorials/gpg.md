@@ -4,7 +4,7 @@ date: '2022-01-09'
 title: 'Security - Encrypt archive files with GPG'
 description: 'Security - Tutorial about encrypting archive files using GPG.'
 author: 'Simon Scholz'
-tags: ['GPG', 'TAR', 'ARCHIVE', 'SECURITY']
+tags: ['gpg', 'tar', 'archive', 'security']
 vgWort: 'vg08.met.vgwort.de/na/02907f362c054753bcd6be722b03301c'
 ---
 

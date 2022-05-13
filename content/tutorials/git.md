@@ -1,10 +1,10 @@
 ---
 path: '/tutorials/git'
 date: '2022-04-22'
-title: 'Git'
+title: 'Git - Distributed Version Control System (DVCS)'
 description: 'Tutorial for commonly used git commands'
 author: 'Simon Scholz'
-tags: ['git', 'fork', 'scm']
+tags: ['git', 'fork', 'scm', 'dvcs']
 vgWort: 'vg08.met.vgwort.de/na/d0b792cb07314737933980c1702d9b31'
 ---
 

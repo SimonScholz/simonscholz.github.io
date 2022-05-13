@@ -4,6 +4,7 @@ import { SEO } from '../components/SEO'
 import { BlogpageQuery } from '../types/graphql'
 import { SearchBox } from '../components/SearchBox'
 import { TutorialCard } from '../components/cards/TutorialCard'
+import { Tag } from '../components/tag'
 
 export const query = graphql`
 	query BlogAndAvatarQuery {
@@ -80,21 +81,19 @@ const Tutorials = ({ data }: Props): React.ReactElement => {
 			<SEO title="Tutorials" />
 			<SearchBox setQuery={setQuery} resultSize={posts.length} />
 			{/*
-        <div className="flex content-start flex-wrap mt-2 mx-2">
-            {allPosts.map((edge: any) => {
-                return edge.node.frontmatter.tags.map((tag: string) => {
-                    return (
-                        <button
-                            key={tag}
-                            className="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 m-1 rounded"
-                        >
-                            {tag.trim()}
-                        </button>
-                    )
-                })
-            })}
-        </div>
-        */}
+				<div className="flex content-start flex-wrap mt-2 mx-2">
+					{allPosts.map((edge: any) => {
+						return edge.node.frontmatter.tags.map((tag: string) => {
+							return (
+								<Tag
+									tagName={tag}
+									classNameAdditions="hover:bg-blue-500 cursor-pointer"
+								/>
+							)
+						})
+					})}
+				</div>
+			*/}
 			{posts.map((edge: any) => {
 				return (
 					<TutorialCard
@@ -106,6 +105,7 @@ const Tutorials = ({ data }: Props): React.ReactElement => {
 						gatsbyImageData={data!.file!.childImageSharp!.gatsbyImageData}
 						author={edge.node.frontmatter.author}
 						date={edge.node.frontmatter.date}
+						tags={edge.node.frontmatter.tags}
 					/>
 				)
 			})}

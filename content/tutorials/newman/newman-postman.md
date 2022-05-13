@@ -14,7 +14,7 @@ tags:
     'github',
     'github-action',
     'http-bin',
-    'CICD',
+    'ci/cd',
     'testing',
   ]
 vgWort: 'vg05.met.vgwort.de/na/610d332c575f4c6f96ff55a886ab07bd'

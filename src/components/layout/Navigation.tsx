@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
-import { GatsbyImage } from "gatsby-plugin-image";
+import { GatsbyImage } from 'gatsby-plugin-image'
 import { Social } from '../Social'
 
 type Props = {
@@ -8,24 +8,26 @@ type Props = {
 }
 
 export const Navigation = ({ children }: Props): React.ReactElement => {
-	const data = useStaticQuery(graphql`query MyQuery {
-  file(relativePath: {eq: "img/avatar.png"}) {
-    childImageSharp {
-      gatsbyImageData(width: 40, height: 40, layout: FIXED)
-    }
-  }
-}
-`)
+	const data = useStaticQuery(graphql`
+		query MyQuery {
+			file(relativePath: { eq: "img/avatar.png" }) {
+				childImageSharp {
+					gatsbyImageData(width: 40, height: 40, layout: FIXED)
+				}
+			}
+		}
+	`)
 
 	const [showNav, setShowNav] = useState(false)
 
 	return (
-        <nav className="flex flex-col justify-between md:flex-row bg-blue-500 p-2">
+		<nav className="flex flex-col justify-between md:flex-row bg-blue-500 p-2">
 			<div className="flex items-center md:flex-grow flex-shrink-0 text-white justify-between md:justify-start">
 				<GatsbyImage
-                    image={data.file.childImageSharp.gatsbyImageData}
-                    alt="Avatar"
-                    className="w-10 h-10 rounded-full mr-4" />
+					image={data.file.childImageSharp.gatsbyImageData}
+					alt="Avatar"
+					className="w-10 h-10 rounded-full mr-4"
+				/>
 				<span className="font-semibold text-xl tracking-tight">
 					Simon Scholz
 				</span>
@@ -33,19 +35,19 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 					<div className="md:flex-grow">
 						<Link
 							to="/"
-							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white mr-4"
+							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-b-2 border-opacity-0 hover:border-white hover:text-white mr-4"
 						>
 							Home
 						</Link>
 						<Link
 							to="/about"
-							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white mr-4"
+							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-b-2 border-opacity-0 hover:border-white hover:text-white mr-4"
 						>
 							About me
 						</Link>
 						<Link
 							to="/tutorials"
-							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white"
+							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-b-2 border-opacity-0 hover:border-white hover:text-white"
 						>
 							Tutorials
 						</Link>
@@ -53,7 +55,7 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 				</div>
 				<div className="flex-end md:hidden">
 					<button
-						onClick={e => setShowNav(!showNav)}
+						onClick={(e) => setShowNav(!showNav)}
 						className="flex flex-end items-center px-3 py-2 border rounded text-gray-200 border-gray-400 hover:text-white hover:border-white focus:outline-none"
 					>
 						<svg
@@ -72,21 +74,21 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 					<div className="md:flex-grow">
 						<Link
 							to="/"
-							onClick={e => setShowNav(false)}
+							onClick={(e) => setShowNav(false)}
 							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white mr-4"
 						>
 							Home
 						</Link>
 						<Link
 							to="/about"
-							onClick={e => setShowNav(false)}
+							onClick={(e) => setShowNav(false)}
 							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white mr-4"
 						>
 							About me
 						</Link>
 						<Link
 							to="/tutorials"
-							onClick={e => setShowNav(false)}
+							onClick={(e) => setShowNav(false)}
 							className="block mt-4 md:inline-block md:mt-0 text-gray-100 hover:text-white"
 						>
 							Tutorials
@@ -109,5 +111,5 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 				/>
 			</div>
 		</nav>
-    );
+	)
 }

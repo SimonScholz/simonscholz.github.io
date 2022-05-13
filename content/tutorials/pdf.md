@@ -1,10 +1,10 @@
 ---
 path: '/tutorials/pdf'
 date: '2020-10-09'
-title: 'PDF'
+title: 'PDF Tools'
 description: 'Tutorial about tools for editing PDF files.'
 author: 'Simon Scholz'
-tags: ['PDF']
+tags: ['pdf', 'tools']
 vgWort: 'vg08.met.vgwort.de/na/d28e8e3bf7d1405c93c9db0cb9181e21'
 ---
 

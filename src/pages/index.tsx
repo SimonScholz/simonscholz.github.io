@@ -4,10 +4,11 @@ import { SEO } from '../components/SEO'
 import { HomepageQuery } from '../types/graphql'
 import { CategoryCard } from '../components/cards/CategoryCard'
 import { GatsbyImage } from 'gatsby-plugin-image'
+import bgImage from '../assets/img/son-coding-with-daddy-opacity.png'
 
 export const query = graphql`
 	query HomepageAndAvatarQuery {
-		me: file(relativePath: { eq: "img/real-avatar.png" }) {
+		me: file(relativePath: { eq: "img/real-avatar.jpg" }) {
 			childImageSharp {
 				gatsbyImageData(layout: FULL_WIDTH)
 			}
@@ -59,17 +60,24 @@ function Homepage({ data }: Props): React.ReactElement {
 		<>
 			<SEO title="Home" />
 
-			<div className="hidden md:flex flex-row">
-				<div className="md:w-4/5 p-2 mt-5">
-					Hi guys,
-					<br /> I love open source and to share my knowledge. That's why I
-					created this website. <br />
-					This website has been created by using Gatsby JS.
-					<br />
-					In the future my intention is to create YouTube programming videos...
-					<br />
-					So stay tuned. ;-)
-					<br />
+			<div
+				className="hidden md:flex flex-row rounded-b-lg bg-blue-500 bg-no-repeat bg-cover bg-center bg-opacity-80"
+				style={{ backgroundImage: `url(${bgImage})` }}
+			>
+				<div className="flex-row flex-grow mt-2 p-10 text-white">
+					<div className="flex-shrink w-2/3 p-6">
+						Hi,
+						<br /> I love <span className="font-bold">open source</span> and to{' '}
+						<span className="font-bold">share</span> my knowledge.
+						<br /> (... and deleting legacy code with my son 😜)
+						<br />
+						<br />
+						In the future my intention is to create YouTube programming
+						videos...
+						<br />
+						So stay tuned... 😉
+						<br />
+					</div>
 				</div>
 				<div className="md:w-1/5 p-2">
 					<GatsbyImage
@@ -83,7 +91,7 @@ function Homepage({ data }: Props): React.ReactElement {
 			<div className="container mx-auto grid justify-items-stretch gap-2 grid-cols-1 md:grid-cols-3">
 				<CategoryCard
 					id="1"
-					title="Java and Kotlin"
+					title="Java, Kotlin, JVM, Testing"
 					description="Tutorials on how to use these JVM languages"
 					gatsbyImageData={data!.jvm!.childImageSharp!.gatsbyImageData}
 					path="/tutorials"
@@ -115,7 +123,7 @@ function Homepage({ data }: Props): React.ReactElement {
 
 				<CategoryCard
 					id="1"
-					title="Eclipse"
+					title="Eclipse RCP"
 					description="Tutorials about the Eclipse IDE and Eclipse Rich Client Platform"
 					gatsbyImageData={data!.eclipse!.childImageSharp!.gatsbyImageData}
 					path="/tutorials"
