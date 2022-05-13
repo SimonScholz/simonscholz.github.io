@@ -3,8 +3,7 @@ import React from 'react'
 import { SEO } from '../components/SEO'
 import { HomepageQuery } from '../types/graphql'
 import { CategoryCard } from '../components/cards/CategoryCard'
-import { GatsbyImage } from 'gatsby-plugin-image'
-import bgImage from '../assets/img/me-presenting-bg.png'
+import bgImage from '../assets/img/me-presenting-bg.webp'
 import { MobileCategoryCard } from '../components/cards/MobileCategoryCard'
 
 export const query = graphql`
