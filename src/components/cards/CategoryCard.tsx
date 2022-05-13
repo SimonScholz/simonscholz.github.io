@@ -19,7 +19,7 @@ export const CategoryCard = ({
 }: Props): React.ReactElement => {
 	return (
 		<Link to={path} key={id}>
-			<div className="mt-3 mx-3 cursor-pointer border border-gray-400 bg-white bg-opacity-70 rounded-lg p-4 h-36 flex flex-row justify-between leading-normal hover:shadow-lg">
+			<div className="mt-3 mx-3 cursor-pointer border border-gray-400 bg-white bg-opacity-70 rounded-lg p-4 h-40 flex flex-row justify-between leading-normal hover:shadow-lg">
 				<div className="mb-8 flex flex-col">
 					<div className="text-gray-900 font-bold text-xl mb-2">{title}</div>
 					<p className="text-gray-700 text-base flex-grow">{description}</p>
