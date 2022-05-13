@@ -19,16 +19,13 @@ export const CategoryCard = ({
 }: Props): React.ReactElement => {
 	return (
 		<Link to={path} key={id}>
-			<div className="mt-3 mx-3 cursor-pointer border border-gray-400 bg-white bg-opacity-70 rounded-lg p-4 h-40 flex flex-row justify-between leading-normal hover:shadow-lg">
-				<div className="mb-8 flex flex-col">
-					<div className="text-gray-900 font-bold text-xl mb-2">{title}</div>
-					<p className="text-gray-700 text-base flex-grow">{description}</p>
-				</div>
-				<div className="flex items-center ml-5">
+			<div className="mt-3 mx-3 cursor-pointer border border-gray-400 bg-white bg-opacity-70 rounded-lg p-4 h-12 flex flex-row justify-between hover:shadow-lg  items-center">
+				<div className="text-gray-900 font-bold text-xl">{title}</div>
+				<div className="flex ml-5">
 					<GatsbyImage
 						image={gatsbyImageData}
 						alt="Category Image"
-						className="w-20 h-20 rounded-full mr-4"
+						className="w-16 h-16 rounded-full mr-4"
 					/>
 				</div>
 			</div>

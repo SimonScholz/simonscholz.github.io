@@ -5,6 +5,7 @@ import { HomepageQuery } from '../types/graphql'
 import { CategoryCard } from '../components/cards/CategoryCard'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import bgImage from '../assets/img/me-presenting-bg.png'
+import { MobileCategoryCard } from '../components/cards/MobileCategoryCard'
 
 export const query = graphql`
 	query HomepageAndAvatarQuery {
@@ -61,7 +62,7 @@ function Homepage({ data }: Props): React.ReactElement {
 			<SEO title="Home" />
 
 			<div
-				className="hidden md:block bg-blue-500 bg-no-repeat bg-cover bg-left bg-opacity-80 p-4"
+				className="hidden lg:block bg-blue-500 bg-no-repeat bg-cover bg-left bg-opacity-80 p-4"
 				style={{ backgroundImage: `url(${bgImage})` }}
 			>
 				<div className="flex flex-row ">
@@ -81,10 +82,10 @@ function Homepage({ data }: Props): React.ReactElement {
 					</div>
 				</div>
 
-				<div className="container w-2/3 grid justify-items-stretch gap-2 grid-cols-1 md:grid-cols-2">
+				<div className="container w-1/2 grid justify-items-stretch gap-6 grid-cols-1">
 					<CategoryCard
 						id="1"
-						title="Java, Kotlin, JVM, Testing"
+						title="Kotlin, Java, JVM, Testing"
 						description="Tutorials on how to use these JVM languages"
 						gatsbyImageData={data!.jvm!.childImageSharp!.gatsbyImageData}
 						path="/tutorials"
@@ -132,16 +133,16 @@ function Homepage({ data }: Props): React.ReactElement {
 				</div>
 			</div>
 
-			<div className="md:hidden container mx-auto grid justify-items-stretch gap-2 grid-cols-1">
-				<CategoryCard
+			<div className="lg:hidden container mx-auto grid justify-items-stretch gap-2 grid-cols-1">
+				<MobileCategoryCard
 					id="1"
-					title="Java, Kotlin, JVM, Testing"
+					title="Kotlin, Java, JVM, Testing"
 					description="Tutorials on how to use these JVM languages"
 					gatsbyImageData={data!.jvm!.childImageSharp!.gatsbyImageData}
 					path="/tutorials"
 				/>
 
-				<CategoryCard
+				<MobileCategoryCard
 					id="1"
 					title="Spring Boot"
 					description="Tutorials about Spring Boot applications"
@@ -149,7 +150,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					path="/tutorials"
 				/>
 
-				<CategoryCard
+				<MobileCategoryCard
 					id="1"
 					title="Quarkus"
 					description="Tutorials about Quarkus applications"
@@ -157,7 +158,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					path="/tutorials"
 				/>
 
-				<CategoryCard
+				<MobileCategoryCard
 					id="1"
 					title="Web Frontend Development"
 					description="Tutorials about React JS, TypeScript, Gatsby"
@@ -165,7 +166,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					path="/tutorials"
 				/>
 
-				<CategoryCard
+				<MobileCategoryCard
 					id="1"
 					title="Eclipse RCP"
 					description="Tutorials about the Eclipse IDE and Eclipse Rich Client Platform"
@@ -173,7 +174,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					path="/tutorials"
 				/>
 
-				<CategoryCard
+				<MobileCategoryCard
 					id="1"
 					title="Tools and Technology"
 					description="General Sections about tools and technology, e.g., git, GitHub and more"
