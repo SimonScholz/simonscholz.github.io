@@ -32,10 +32,10 @@ export function SpecialKnowledge(): React.ReactElement {
 					<h2 className="font-semibold">Technologies / Frameworks</h2>
 					<span>
 						Spring (Spring Boot 2 incl. Webflux), Micrometer Metrics, Android,
-						Dojo IO, React JS, Eclipse RCP, JPA/Hibernate/EclipseLink, Junit,
-						AssertJ, Mockito, Hamcrest, Spock, RxJava/Project Reactor IO,
-						Terraform, Ansible, Inbluxdb, Prometheus, Grafana, Swagger, OpenAPI
-						Generator
+						Dojo IO, React JS, Eclipse RCP, JPA/Hibernate/EclipseLink, Junit 5,
+						AssertJ, Mockito, Mockk, Hamcrest, Spock, RxJava/Project Reactor IO,
+						Terraform, GitOps/Flux, Ansible, Inbluxdb, Prometheus, Grafana,
+						Swagger, OpenAPI Generator
 					</span>
 				</div>
 				<div className="flex flex-col mt-3">
@@ -49,7 +49,8 @@ export function SpecialKnowledge(): React.ReactElement {
 					<h2 className="font-semibold">Tools</h2>
 					<span>
 						Eclipse, IntelliJ, VS Code, Git, Gerrit, Gradle, Maven, NPM, Ant
-						Spring CLI, DOJO CLI, Jenkins, Travis CI, Circle CI, Postman/Newman
+						Spring CLI, DOJO CLI, Jenkins, Travis CI, Circle CI, GitHub Actions,
+						Postman/Newman
 					</span>
 				</div>
 			</IconLeftBorder>
