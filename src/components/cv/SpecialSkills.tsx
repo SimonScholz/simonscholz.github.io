@@ -21,7 +21,7 @@ export function SpecialKnowledge(): React.ReactElement {
 				fluid={medal.childImageSharp.gatsbyImageData}
 				title="Special Skills"
 			>
-				<div className="flex flex-col mt-3">
+				<div className="flex flex-col mt-3" id="special-skills">
 					<h2 className="font-semibold">Programming / Expressive Languages</h2>
 					<span>
 						Java, Groovy, Kotlin, JavaScript/TypeScript, C#, SQL, XSLT, CSS,

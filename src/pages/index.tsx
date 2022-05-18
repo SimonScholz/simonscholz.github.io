@@ -1,4 +1,4 @@
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import React from 'react'
 import { SEO } from '../components/SEO'
 import { HomepageQuery } from '../types/graphql'
@@ -64,22 +64,47 @@ function Homepage({ data }: Props): React.ReactElement {
 				className="hidden lg:block bg-blue-500 bg-no-repeat bg-cover bg-left bg-opacity-80 p-4"
 				style={{ backgroundImage: `url(${bgImage})` }}
 			>
+				<span className="mt-2 text-white">
+					On this website I'd like to share a little bit information about{' '}
+					<Link to="/about">
+						<span className="font-semibold">me</span>
+					</Link>
+					<br />
+					and want to share my knowledge about tech stuff with you on:
+				</span>
+
 				<div className="flex flex-row ">
-					<div className="flex-row mt-1 text-white">
+					<div className="flex-row text-white">
 						<div className="p-4">
-							Hi,
-							<br /> I love <span className="font-bold">open source</span> and
-							to <span className="font-bold">share</span> my knowledge.
-							<br />
-							<br />
-							In the future my intention is to create YouTube programming
-							videos...
-							<br />
-							So stay tuned... 😉
-							<br />
+							<ul className="list-disc">
+								<li>
+									<Link to="/tutorials">
+										<span className="font-semibold">The tutorials section</span>
+									</Link>
+								</li>
+								<li>
+									<a href="https://github.com/simonscholz">
+										<span className="font-semibold">GitHub</span>
+									</a>
+								</li>
+								<li>
+									<a href="https://www.youtube.com/channel/UC8j16uUiiMQpMTemLBfCURA/">
+										<span className="font-semibold">YouTube</span>
+									</a>
+								</li>
+								<li>
+									<a href="https://twitter.com/simonscholz">
+										<span className="font-semibold">Twitter</span>
+									</a>
+								</li>
+							</ul>
 						</div>
 					</div>
 				</div>
+
+				<span className="mt-2 text-white">
+					The main tutorial categories are:
+				</span>
 
 				<div className="container w-1/2 grid justify-items-stretch gap-6 grid-cols-1">
 					<CategoryCard
@@ -91,7 +116,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					/>
 
 					<CategoryCard
-						id="1"
+						id="2"
 						title="Spring Boot"
 						description="Tutorials about Spring Boot applications"
 						gatsbyImageData={data!.springBoot!.childImageSharp!.gatsbyImageData}
@@ -99,7 +124,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					/>
 
 					<CategoryCard
-						id="1"
+						id="3"
 						title="Quarkus"
 						description="Tutorials about Quarkus applications"
 						gatsbyImageData={data!.quarkus!.childImageSharp!.gatsbyImageData}
@@ -107,7 +132,7 @@ function Homepage({ data }: Props): React.ReactElement {
 					/>
 
 					<CategoryCard
-						id="1"
+						id="4"
 						title="Web Frontend Development"
 						description="Tutorials about React JS, TypeScript, Gatsby"
 						gatsbyImageData={data!.webDev!.childImageSharp!.gatsbyImageData}
@@ -115,15 +140,15 @@ function Homepage({ data }: Props): React.ReactElement {
 					/>
 
 					<CategoryCard
-						id="1"
-						title="Eclipse RCP"
+						id="5"
+						title="Eclipse RCP - Rich Client Platform"
 						description="Tutorials about the Eclipse IDE and Eclipse Rich Client Platform"
 						gatsbyImageData={data!.eclipse!.childImageSharp!.gatsbyImageData}
 						path="/tutorials"
 					/>
 
 					<CategoryCard
-						id="1"
+						id="6"
 						title="Tools and Technology"
 						description="General Sections about tools and technology, e.g., git, GitHub and more"
 						gatsbyImageData={data!.gears!.childImageSharp!.gatsbyImageData}

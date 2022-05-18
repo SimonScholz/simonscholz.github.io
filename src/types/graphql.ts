@@ -54,6 +54,12 @@ export interface HomepageQuery {
   education: any;
 }
 
+export interface AboutQuery {
+  site: HomepageQuery_site | null;
+  me: any;
+  gears: any;
+}
+
 export interface BlogpageQuery {
   site: HomepageQuery_site | null;
   file: any;
