@@ -2,7 +2,6 @@ import { graphql, Link } from 'gatsby'
 import React from 'react'
 import { SEO } from '../components/SEO'
 import bgImage from '../assets/img/me-presenting-bg.webp'
-import CV from './cv'
 import { AboutQuery } from '../types/graphql'
 
 export const query = graphql`
@@ -61,7 +60,7 @@ function About({ data }: Props): React.ReactElement {
 						outlet/warehouse as source for the products to deliver.
 						<br /> The applications, which serve this purpose are realized with
 						Spring Boot and Quarkus and written in Kotlin. For more insights on
-						the tech stack I am usually using also check out my{' '}
+						the tech stack I am usually using you can also check out my{' '}
 						<Link to="/cv#special-skills" className="font-semibold">
 							tech
 						</Link>{' '}
@@ -85,9 +84,9 @@ function About({ data }: Props): React.ReactElement {
 						Boot, build tools (Gradle + Maven) to name a few.
 						<br />
 						<br />
-						During that time I've done a couple of talks and tutorials on
-						Eclipse Demo Camps, Java User Groups, EclipseCon, Jax, Java Forum
-						Stuttgart and Devoxx.
+						During that time I've done a couple of talks and workshops on
+						Hackathons, Eclipse Demo Camps, Java User Groups, EclipseCon, Jax,
+						Java Forum Stuttgart and Devoxx.
 						<br />
 						<br />
 						For more details, also see my{' '}
