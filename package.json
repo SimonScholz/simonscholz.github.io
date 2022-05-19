@@ -79,6 +79,7 @@
 		"@typescript-eslint/eslint-plugin": "^5.15.0",
 		"@typescript-eslint/parser": "^5.15.0",
 		"apollo": "^2.33.11",
+		"async": "^3.2.3",
 		"audit-ci": "^6.2.1",
 		"autoprefixer": "^10.4.4",
 		"babel-eslint": "^10.0.3",
@@ -92,6 +93,7 @@
 		"eslint-plugin-react-hooks": "^4.4.0",
 		"eslint-plugin-sonarjs": "^0.13.0",
 		"husky": "^7.0.4",
+		"immer": "^9.0.14",
 		"jest": "^28.1.0",
 		"postcss-import": "^14.1.0",
 		"prettier": "^2.6.2",
@@ -113,5 +115,12 @@
 		"reportPath": "coverage",
 		"reportFile": "test-reporter.xml",
 		"indent": 4
+	},
+	"overrides": {
+		"immer": "^9.0.14",
+		"async": "^3.2.3",
+		"ansi-regex": "^3.0.1",
+		"node-fetch": "^2.6.7",
+		"cross-fetch": "^3.1.5"
 	}
 }
