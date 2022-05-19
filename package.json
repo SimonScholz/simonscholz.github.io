@@ -24,7 +24,10 @@
 		"gen": "apollo codegen:generate src/types/graphql.ts --endpoint=http://0.0.0.0:8000/___graphql --outputFlat --target=typescript --tagName=graphql --includes='src/**/*.{ts,tsx}' --no-addTypename --watch",
 		"format": "prettier --write \"**/*.{js,ts,tsx,json,md}\"",
 		"lint": "tsc --noEmit && eslint . --ext .js --ext .ts --ext .tsx",
-		"lint-fix": "tsc --noEmit && eslint . --ext .js --ext .ts --ext .tsx --fix"
+		"lint-fix": "tsc --noEmit && eslint . --ext .js --ext .ts --ext .tsx --fix",
+		"test": "jest --forceExit --detectOpenHandles --coverage",
+		"audit-dependencies": "audit-ci --config audit-ci.json",
+		"sonar": "sonarqube-verify"
 	},
 	"dependencies": {
 		"@emotion/core": "^11.0.0",
@@ -69,12 +72,14 @@
 		"react-helmet": "^6.1.0"
 	},
 	"devDependencies": {
+		"@types/jest": "^27.5.1",
 		"@types/react": "^18.0.1",
 		"@types/react-dom": "^18.0.1",
 		"@types/react-helmet": "^6.1.5",
 		"@typescript-eslint/eslint-plugin": "^5.15.0",
 		"@typescript-eslint/parser": "^5.15.0",
 		"apollo": "^2.33.11",
+		"audit-ci": "^6.2.1",
 		"autoprefixer": "^10.4.4",
 		"babel-eslint": "^10.0.3",
 		"eslint": "^8.11.0",
@@ -87,10 +92,13 @@
 		"eslint-plugin-react-hooks": "^4.4.0",
 		"eslint-plugin-sonarjs": "^0.13.0",
 		"husky": "^7.0.4",
+		"jest": "^28.1.0",
 		"postcss-import": "^14.1.0",
 		"prettier": "^2.6.2",
 		"prettier-eslint": "^15.0.0",
 		"pretty-quick": "^3.1.3",
+		"sonarqube-scanner": "^2.8.1",
+		"sonarqube-verify": "^1.0.2",
 		"tailwind-css-variables": "^3.0.1",
 		"tailwindcss": "^2.2.19",
 		"ts-node": "^10.7.0",
@@ -100,5 +108,10 @@
 		"hooks": {
 			"pre-commit": "pretty-quick --staged"
 		}
+	},
+	"jestSonar": {
+		"reportPath": "coverage",
+		"reportFile": "test-reporter.xml",
+		"indent": 4
 	}
 }
