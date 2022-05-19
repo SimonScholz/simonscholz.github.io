@@ -4,6 +4,7 @@ import { GatsbyImage, IGatsbyImageData } from 'gatsby-plugin-image'
 interface Props {
 	fluid: IGatsbyImageData
 	title: String
+	children: any
 }
 
 export const IconLeftBorder: React.FunctionComponent<Props> = ({
