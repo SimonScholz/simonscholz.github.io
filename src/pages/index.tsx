@@ -132,18 +132,18 @@ function Homepage({ data }: Props): React.ReactElement {
 					/>
 
 					<CategoryCard
-						id="4"
-						title="Web Frontend Development"
-						description="Tutorials about React JS, TypeScript, Gatsby"
-						gatsbyImageData={data!.webDev!.childImageSharp!.gatsbyImageData}
-						path="/tutorials"
-					/>
-
-					<CategoryCard
 						id="5"
 						title="Eclipse RCP - Rich Client Platform"
 						description="Tutorials about the Eclipse IDE and Eclipse Rich Client Platform"
 						gatsbyImageData={data!.eclipse!.childImageSharp!.gatsbyImageData}
+						path="/tutorials"
+					/>
+
+					<CategoryCard
+						id="4"
+						title="Web Frontend Development"
+						description="Tutorials about React JS, TypeScript, Gatsby"
+						gatsbyImageData={data!.webDev!.childImageSharp!.gatsbyImageData}
 						path="/tutorials"
 					/>
 
