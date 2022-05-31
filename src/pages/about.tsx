@@ -74,8 +74,8 @@ function About({ data }: Props): React.ReactElement {
 						<br />
 						<br /> Before being with MediaMarktSaturn I've been working for
 						vogella, an open source company founded by the Java Champion Lars
-						Vogel. During that time I gave a lot of trainings for a large
-						variaty of companies.
+						Vogel. While being with vogella I gave a lot of trainings for a
+						large variaty of companies.
 						<br /> Besides trainings we offered remote and onsite support for
 						the technologies we taught during our trainings. In order to deliver
 						high quality bleeding edge knowledge for the customers, we were also
