@@ -62,9 +62,9 @@ function About({ data }: Props): React.ReactElement {
 						Spring Boot and Quarkus and written in Kotlin. For more insights on
 						the tech stack I am usually using you can also check out my{' '}
 						<Link to="/cv#special-skills" className="font-semibold">
-							tech
+							tech part in the CV
 						</Link>{' '}
-						or{' '}
+						or the{' '}
 						<Link to="/tutorials" className="font-semibold">
 							tutorials
 						</Link>{' '}
@@ -72,16 +72,17 @@ function About({ data }: Props): React.ReactElement {
 						<br />I also have the honor to be competency lead of the team with
 						the goal to offer great opportunities for my team members to evolve.
 						<br />
-						<br /> Before being with MediaMarktSaturn I've been working for
-						vogella, an open source company founded by the Java Champion Lars
-						Vogel. During that time I gave a lot of trainings for a large
-						variaty of companies.
+						<br /> Before being with MediaMarktSaturn I've been working for the
+						vogella GmbH, an open source company founded by the Java Champion
+						Lars Vogel. While being with vogella I gave a lot of trainings for a
+						large variety of companies all over the world, but mainly in
+						germany.
 						<br /> Besides trainings we offered remote and onsite support for
 						the technologies we taught during our trainings. In order to deliver
 						high quality bleeding edge knowledge for the customers, we were also
 						heavily involved in contributing to the Open Source technologies
-						that we taught during our trainings, Eclipse 4 RCP, Testing, Spring
-						Boot, build tools (Gradle + Maven) to name a few.
+						that we taught during our trainings, e.g., Eclipse 4 RCP, Testing,
+						Spring Boot, build tools (Gradle + Maven) to name a few.
 						<br />
 						<br />
 						During that time I've done a couple of talks and workshops on

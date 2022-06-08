@@ -80,6 +80,7 @@ export function ProfessionalBackground(): React.ReactElement {
 								projects
 							</li>
 							<li>Operating international</li>
+							<li>Eclipse Platform Committer</li>
 							<li>
 								Nominated as committer of the month by the Eclipse Platform
 								project
