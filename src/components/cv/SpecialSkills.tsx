@@ -31,12 +31,13 @@ export function SpecialKnowledge(): React.ReactElement {
 				<div className="flex flex-col mt-3">
 					<h2 className="font-semibold">Technologies / Frameworks</h2>
 					<span>
-						Spring (Spring Boot 2 incl. Webflux), Quarkus IO, Micrometer
-						Metrics, Android, Dojo IO, React JS, Eclipse RCP (Rich Client
-						Platform), JPA/Hibernate/EclipseLink, Junit 5, AssertJ, Mockito,
-						Mockk, Hamcrest, Spock, RxJava/Project Reactor IO, Terraform,
-						GitOps/Flux, Ansible, Inbluxdb, Stackdriver, Prometheus, Grafana,
-						Swagger, OpenAPI Generator, GCP (Google Cloud Platform)
+						Spring (Spring Boot 2 incl. Webflux and Spring Cloud), Quarkus IO,
+						Micrometer Metrics, Android, Dojo IO, React JS, Gatsby, NextJS,
+						Eclipse RCP (Rich Client Platform), JPA/Hibernate/EclipseLink, Junit
+						5, AssertJ, Mockito, Mockk, Hamcrest, Spock, RxJava/Project Reactor
+						IO/Mutiny, Terraform, GitOps/Flux, Ansible, Inbluxdb, Stackdriver,
+						Prometheus, Grafana, Swagger, OpenAPI Generator, GCP (Google Cloud
+						Platform)
 					</span>
 				</div>
 				<div className="flex flex-col mt-3">
