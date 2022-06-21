@@ -92,7 +92,10 @@ function About({ data }: Props): React.ReactElement {
 						<br />
 						I'd also publish a lot of tutorials on vogella.com and wrote
 						articles in different magazines like Eclipse Magazine and the Java
-						Magazine. Also see https://entwickler.de/experten/simon-scholz
+						Magazine. Also see{' '}
+						<a href="https://entwickler.de/experten/simon-scholz">
+							https://entwickler.de/experten/simon-scholz
+						</a>
 						<br />
 						<br />
 						For more details, also see my{' '}
