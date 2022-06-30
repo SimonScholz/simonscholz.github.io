@@ -43,7 +43,7 @@ export function SpecialKnowledge(): React.ReactElement {
 				<div className="flex flex-col mt-3">
 					<h2 className="font-semibold">Analysis and Performance Tools</h2>
 					<span>
-						Sonarqube, Spotbugs, Checkstyle, Jacoco, detekt, ktlint, Gatling
+						Sonarqube, Spotbugs, Checkstyle, Jacoco, detekt, ktlint, Gatling,
 						Yourkit, JMeter
 					</span>
 				</div>

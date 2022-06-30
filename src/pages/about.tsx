@@ -85,9 +85,17 @@ function About({ data }: Props): React.ReactElement {
 						Spring Boot, build tools (Gradle + Maven) to name a few.
 						<br />
 						<br />
-						During that time I've done a couple of talks and workshops on
-						Hackathons, Eclipse Demo Camps, Java User Groups, EclipseCon, Jax,
-						Java Forum Stuttgart and Devoxx.
+						One core value of the vogella company is "acquire and distribute
+						knowledge", which I'd still love to do. During that time I've done a
+						couple of talks and workshops on Hackathons, Eclipse Demo Camps,
+						Java User Groups, EclipseCon, Jax, Java Forum Stuttgart and Devoxx.
+						<br />
+						I'd also publish a lot of tutorials on vogella.com and wrote
+						articles in different magazines like Eclipse Magazine and the Java
+						Magazine. Also see{' '}
+						<a href="https://entwickler.de/experten/simon-scholz">
+							https://entwickler.de/experten/simon-scholz
+						</a>
 						<br />
 						<br />
 						For more details, also see my{' '}

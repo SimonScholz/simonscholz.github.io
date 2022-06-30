@@ -33,3 +33,21 @@ sudo apt install pdfarranger
 ## Merge several PDFs into one
 
 Open PDF Arranger, press the + button, choose the pdfs, which should be merged, arrange them and then save one single pdf.
+
+# Decrease size of PDF files
+
+[Ghostscript](https://www.ghostscript.com/doc/current/Use.htm) can be used to do several things with PDF files.
+For example also decreasing its' size.
+
+```bash
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook \
+-dNOPAUSE -dQUIET -dBATCH -sOutputFile=output.pdf input.pdf
+```
+
+More details can be found here: https://www.ghostscript.com/doc/current/VectorDevices.htm#PSPDF_IN
+
+# Sources
+
+- https://www.ghostscript.com/doc/current/Use.htm
+- https://www.ghostscript.com/doc/current/VectorDevices.htm#PSPDF_IN
+- https://askubuntu.com/questions/113544/how-can-i-reduce-the-file-size-of-a-scanned-pdf-file#answer-256449
