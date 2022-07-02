@@ -182,6 +182,11 @@ registries:
     url: https://your-companies-artifactory/artifactory/libs-release
     username: ${{ secrets.ARTIFACTORY_USERNAME }}
     password: ${{ secrets.ARTIFACTORY_APIKEY }}
+  maven-artifactory-snapshots:
+    type: maven-repository
+    url: https://your-companies-artifactory/artifactory/libs-snapshot
+    username: ${{ secrets.ARTIFACTORY_USERNAME }}
+    password: ${{ secrets.ARTIFACTORY_APIKEY }}
 updates:
   - package-ecosystem: 'gradle' # See documentation for possible values
     registries:
