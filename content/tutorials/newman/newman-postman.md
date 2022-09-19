@@ -1,6 +1,6 @@
 ---
 path: '/tutorials/newman-postman'
-date: '2022-05-08'
+date: '2022-09-16'
 title: 'Running Postman collection tests automatically using GitHub Actions with Newman CLI'
 description: 'Postman is a powerful tool to test rest apis manually. With Newman the CLI tool of postman this process of calling the rest api can be automated. To run such a job GitHub Actions can be utilized.'
 author: 'Simon Scholz'
@@ -281,6 +281,23 @@ jobs:
 
 This is just a small example how it could look like, assuming that the deployment of the application also takes place within the Gradle build. Of course the postman collection should be way bigger then and consist of way more tests.
 Also the `delayRequest` property needs to be adjusted depending on how long it takes to have the application up an running.
+
+# Run the request on a regular basis for smoke testing
+
+```yaml
+---
+name: CI/CD Pipeline
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: '0 */2 * * *' # run the action every 2 hours
+```
+
+Besides running the action manually (workflow_dispatch) and on push to certain branches, a GitHub action also provides the capability to `schedule` the action run.
 
 # Sources
 
