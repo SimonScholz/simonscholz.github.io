@@ -123,7 +123,7 @@ My projects usually consist of a `docker-compose.yaml` file in the root of the p
 
 # Sources
 
-https://www.keycloak.org/guides#getting-started
-https://www.keycloak.org/server/importExport#_exporting_a_realm_to_a_directory
-https://www.redhat.com/sysadmin/compose-kubernetes-podman
-https://www.helikube.de/keycloak-18-export-and-import-feature/
+- https://www.keycloak.org/guides#getting-started
+- https://www.keycloak.org/server/importExport#_exporting_a_realm_to_a_directory
+- https://www.redhat.com/sysadmin/compose-kubernetes-podman
+- https://www.helikube.de/keycloak-18-export-and-import-feature/
