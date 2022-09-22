@@ -1,2 +1,0 @@
-https://www.keycloak.org/guides#getting-started
-https://www.redhat.com/sysadmin/compose-kubernetes-podman
