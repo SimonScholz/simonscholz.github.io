@@ -39,13 +39,13 @@ services:
       - --import-realm
 ```
 
-When saving this as `docker-compose.yml` file and running `docker-compose up` withing the file folder,
+When saving this as `docker-compose.yml` file and running `docker-compose up` withing the file's folder,
 keycloak will be started on http://localhost:8081 and you can login with the `admin` user and `admin` password.
 
 # Exporting a keycloak realm
 
 A keycloak realm can easily be exported by using the user interface of keycloak,
-_but_ this won't contain the users and roles within that realm for security reasons.
+**but** this won't contain the users and roles within that realm for security reasons.
 
 ![Partial Realm Export](./partial-realm-export.png)
 
@@ -62,7 +62,7 @@ Once the bash within the docker container is available the following command can
 /opt/keycloak/bin/kc.sh export --dir /opt/keycloak/data/import --users realm_file --realm {your-realms-id}
 ```
 
-With --dir or --file you can specify the export folder or file.
+With `--dir` or `--file` you can specify the export folder or file.
 `--users realm_file` will cause that the users will be put into the realm file.
 `--realm {your-realms-id}` is used to specify which realm is supposed to be exported.
 
@@ -126,3 +126,4 @@ My projects usually consist of a `docker-compose.yaml` file in the root of the p
 https://www.keycloak.org/guides#getting-started
 https://www.keycloak.org/server/importExport#_exporting_a_realm_to_a_directory
 https://www.redhat.com/sysadmin/compose-kubernetes-podman
+https://www.helikube.de/keycloak-18-export-and-import-feature/
