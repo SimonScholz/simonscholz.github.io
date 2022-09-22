@@ -13,11 +13,14 @@ tags:
     'security',
     'export',
     'import',
+    'quarkus',
+    'docker',
+    'container',
   ]
 vgWort: ''
 ---
 
-# Starting a keycloak instance
+# Starting a keycloak 19 instance (based on quarkus)
 
 The following docker compose file can be used to start a keycloak instance:
 
