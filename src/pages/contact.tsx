@@ -19,6 +19,16 @@ const Contact = (): React.ReactElement => {
 					</a>
 					.
 				</p>
+				<p>
+					In regards of the tutorials also feel free to open issues in this
+					GitHub repository:
+					<a
+						className="text-blue-500"
+						href="https://github.com/SimonScholz/simonscholz.github.io/issues"
+					>
+						https://github.com/SimonScholz/simonscholz.github.io/issues
+					</a>
+				</p>
 				<p>I am really happy to receive feedback about my content.</p>
 			</div>
 		</>
