@@ -8,9 +8,9 @@ tags: ['fishshell', 'fish', 'cmd', 'bash']
 vgWort: ''
 ---
 
-Fishshell is an alternative shell for linux, which comes with better content assist, a history of commands and many additional features contributed via plugins.
+Fish shell is an alternative shell for linux, which comes with better content assist, a history of commands and many additional features contributed via plugins.
 
-The official fishshell website can be found here: https://fishshell.com/
+The official fish shell website can be found here: https://fishshell.com/
 
 # Install fish
 
@@ -24,7 +24,36 @@ sudo apt install fish
 
 For further details also see https://launchpad.net/~fish-shell/+archive/ubuntu/release-3
 
-NOTE: In case you just `sudo apt install fish` without adding the repository mentioned above you might install an older version of the Fishshell.
+NOTE: In case you just `sudo apt install fish` without adding the repository mentioned above you might install an older version of the Fish shell.
+
+# Setting fish as default shell
+
+You can easily run the fish shell within your regular terminal by running `fish` in your bash/terminal.
+
+In case you'd want to have fish as default shell so that it opens right away when opening a terminal or hitting `CTRL + ALT + T` then this command will help:
+
+```bash
+chsh -s $(which fish)
+```
+
+# Remove fish welcome message
+
+The fish shell usually welcomes you with the following message:
+
+```bash
+Welcome to fish, the friendly interactive shell
+Type help for instructions on how to use fish
+```
+
+This is quite nice, but not too helpful.
+
+In order to remove this you can open the `config.fish` file by using nano like this:
+
+```bash
+nano ~/.config/fish/config.fish
+```
+
+Inside the `config.fish` file just add a new line with `set fish_greeting` as contents, which will basically remove the original welcome message.
 
 # Plugins for fish
 
@@ -62,7 +91,7 @@ So I listed what's configured for the left prompt by running `echo $tide_left_pr
 vi_mode pwd git
 ```
 
-In order to remove git from the left hand side I ran `set --universal tide_left_prompt_items vi_mode pwd` which basically has overidden the default.
+In order to remove git from the left hand side I ran `set --universal tide_left_prompt_items vi_mode pwd` which basically has overridden the default.
 
 In order to add `git` to the right prompt I ran:
 
@@ -74,4 +103,4 @@ With these settings being applied my shell looks like this:
 
 ![Git Infos on right side prompt](./git_right_prompt.png)
 
-In case you're wondering what the ?1 behind the branch name means you'll find an explaination here: https://github.com/IlanCosman/tide/wiki/What-do-the-git-icons-mean%3F
+In case you're wondering what the `?1` behind the branch name means you'll find an explanation here: https://github.com/IlanCosman/tide/wiki/What-do-the-git-icons-mean%3F
