@@ -2,7 +2,7 @@
 path: '/tutorials/fishshell'
 date: '2022-10-08'
 title: 'Fish Shell'
-description: 'Alternative shell for linux with enhanced features like command history'
+description: 'Alternative shell for linux with enhanced features like command history and auto completion'
 author: 'Simon Scholz'
 tags: ['fishshell', 'fish', 'cmd', 'bash']
 vgWort: ''

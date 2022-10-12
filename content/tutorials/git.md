@@ -34,6 +34,7 @@ git config --global user.email opensource.simon@gmail.com
 git config --global branch.autosetuprebase always
 git config --global pull.rebase true
 git config --global rebase.autoStash true
+git config --global core.autocrlf input
 
 
 git config --global gpg.program gpg
