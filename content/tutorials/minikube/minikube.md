@@ -1,6 +1,6 @@
 ---
 path: '/tutorials/minikube'
-date: '2020-10-29'
+date: '2022-10-29'
 title: 'Running Kubernetes locally using Minikube'
 description: 'Tutorial about running Kubernetes locally using Minikube'
 author: 'Simon Scholz'
