@@ -55,6 +55,18 @@ nano ~/.config/fish/config.fish
 
 Inside the `config.fish` file just add a new line with `set fish_greeting` as contents, which will basically remove the original welcome message.
 
+# Setting persistent env variables
+
+A universal variable is a variable whose value is shared across all instances of fish, now and in the future – even after a reboot. You can make a variable universal with set -U
+
+In case you want to set a different editor for kubectl edits use the following command:
+
+```bash
+set -Ux KUBE_EDITOR "code --wait"
+```
+
+Also see https://fishshell.com/docs/current/tutorial.html#universal-variables
+
 # Plugins for fish
 
 The easiest way to install plugins for fish, is to use fisher.
@@ -64,6 +76,16 @@ Fisher can be installed by running:
 ```bash
 curl -sL https://git.io/fisher | source && fisher install jorgebucaran/fisher
 ```
+
+## The nvm Plugin
+
+In order to use nvm (Node Version Manager) in the Fishshell you should use the following plugin:
+
+```bash
+fisher install FabioAntunes/fish-nvm edc/bass
+```
+
+With this plugin in place you can simply run `nvm install node` within the Fishshell to install the latest version of node.
 
 ## Tide Plugin
 
@@ -104,3 +126,7 @@ With these settings being applied my shell looks like this:
 ![Git Infos on right side prompt](./git_right_prompt.png)
 
 In case you're wondering what the `?1` behind the branch name means you'll find an explanation here: https://github.com/IlanCosman/tide/wiki/What-do-the-git-icons-mean%3F
+
+# Sources
+
+* https://github.com/FabioAntunes/fish-nvm
