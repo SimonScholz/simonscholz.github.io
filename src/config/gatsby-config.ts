@@ -127,12 +127,7 @@ const gatsbyConfig: GatsbyConfig = {
 				siteUrl: 'https://simonscholz.github.io/',
 			},
 		},
-		{
-			resolve: `gatsby-plugin-sitemap`,
-			options: {
-				output: "/",
-			},
-		},
+	    `gatsby-plugin-sitemap`,
 		'gatsby-plugin-netlify',
 		{
 			resolve: `gatsby-plugin-manifest`,

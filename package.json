@@ -27,7 +27,8 @@
 		"lint-fix": "tsc --noEmit && eslint . --ext .js --ext .ts --ext .tsx --fix",
 		"test": "jest --forceExit --detectOpenHandles --coverage",
 		"audit-dependencies": "audit-ci --config audit-ci.json",
-		"sonar": "sonarqube-verify"
+		"sonar": "sonarqube-verify",
+		"postbuild": "mv public/sitemap/sitemap-0.xml public/sitemap.xml"
 	},
 	"dependencies": {
 		"@emotion/core": "^11.0.0",
