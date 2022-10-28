@@ -37,6 +37,8 @@ node --version
 npm --version
 ```
 
+For the usage of nvm within the Fishshell also see this: https://simonscholz.github.io/tutorials/fishshell#the-nvm-plugin
+
 # Updating project dependencies
 
 Before updating the dependencies you can check for outdated dependencies by using
