@@ -11,3 +11,7 @@
 
 @import './markdown.css';
 @import './toc.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
