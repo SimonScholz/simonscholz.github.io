@@ -45,6 +45,8 @@ NOTE: You may also want to use the online version of Postman, which can be used 
 npm install -g newman
 ```
 
+Also see https://learning.postman.com/docs/running-collections/using-newman-cli/newman-options/ for all newman options.
+
 ## Create a new GitHub repository
 
 To run GitHub actions you need a GitHub account and a GitHub repository.
