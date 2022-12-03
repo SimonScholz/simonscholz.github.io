@@ -18,6 +18,7 @@ export const IconLeftBorder: React.FunctionComponent<Props> = ({
 				<GatsbyImage
 					image={fluid}
 					alt="Avatar"
+					loading="eager"
 					className="w-12 h-12 rounded-full bg-gray-200 mr-3"
 				/>
 				<span className="text-xl text-blue-500">{title}</span>
