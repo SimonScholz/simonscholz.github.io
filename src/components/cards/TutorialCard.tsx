@@ -39,6 +39,7 @@ export const TutorialCard = ({
 						<GatsbyImage
 							image={gatsbyImageData}
 							alt="Avatar"
+							loading="eager"
 							className="w-10 h-10 rounded-full mr-4"
 						/>
 						<div className="text-sm flex flex-grow">
