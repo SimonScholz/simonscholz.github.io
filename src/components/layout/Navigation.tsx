@@ -35,19 +35,19 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 					<div className="md:flex-grow">
 						<Link
 							to="/"
-							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-b-2 border-opacity-0 hover:border-white hover:text-white mr-4"
+							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-blue-500 border-b-2 hover:border-white hover:text-white mr-4"
 						>
 							Home
 						</Link>
 						<Link
 							to="/about"
-							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-b-2 border-opacity-0 hover:border-white hover:text-white mr-4"
+							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-blue-500 border-b-2 hover:border-white hover:text-white mr-4"
 						>
 							About me
 						</Link>
 						<Link
 							to="/tutorials"
-							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-b-2 border-opacity-0 hover:border-white hover:text-white"
+							className="block mt-4 md:inline-block md:mt-0 text-gray-100 border-blue-500 border-b-2 hover:border-white hover:text-white"
 						>
 							Tutorials
 						</Link>
