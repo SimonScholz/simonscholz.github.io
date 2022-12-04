@@ -216,11 +216,15 @@ Just login at http://localhost:5050 with username `admin@postgres.dev` and `admi
 
 As name you can use `keycloak` and the `Connection` must have the following values:
 
-Hostname/address: keycloak-postgres
-Port: 5432
-Maintenance database: keycloak
-username: keycloak
-password: keycloak
+
+| Property             | Value             |
+| ------------------   | ----------------- |
+| Hostname/address     | keycloak-postgres |
+| Port                 | 5432              |
+| Maintenance database | keycloak          |
+| username             | keycloak          |
+| password             | keycloak          |
+
 
 ![PGAdmin Register Server](./pgadmin-register-server.png)
 
