@@ -33,7 +33,7 @@ services:
     container_name: quarkus-keycloak
     restart: 'no'
     ports:
-      - '8081:8080' # Changing this port because 8080 is usually the default for the quarkus app
+      - '8180:8080' # Changing this port because 8080 is usually the default for the quarkus app
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
@@ -43,7 +43,7 @@ services:
 ```
 
 When saving this as `docker-compose.yml` file and running `docker-compose up` withing the file's folder,
-keycloak will be started on http://localhost:8081 and you can login with the `admin` user and `admin` password.
+keycloak will be started on http://localhost:8180 and you can login with the `admin` user and `admin` password.
 
 # Exporting a keycloak realm
 
@@ -106,7 +106,7 @@ services:
     container_name: quarkus-keycloak
     restart: 'no'
     ports:
-      - '8081:8080' # Changing this port because 8080 is usually the default for the quarkus app
+      - '8180:8080' # Changing this port because 8080 is usually the default for the quarkus app
     environment:
       - KEYCLOAK_ADMIN=admin
       - KEYCLOAK_ADMIN_PASSWORD=admin
