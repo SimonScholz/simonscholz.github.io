@@ -116,10 +116,14 @@ networks:
 This samples uses the currently latest version (20.0.1) of Keycloak (dec 4th 2022), which is based on Quarkus instead of Wildfly.
 
 `KEYCLOAK_ADMIN` and `KEYCLOAK_ADMIN_PASSWORD` will be the user name and password to get access to keycloak.
+
 `GET_HOSTS_FROM` helps to find the Postgres in the later step.
+
 `KC_DB=postgres` indicates that we want to use Postgres DB as data store for our running Keycloak instance.
 Besides Postgres Keycloak is supporting several other data stores as well, but Postgres is the so called "first class database" for Keycloak. Also see https://www.keycloak.org/2022/02/dbs.html
+
 `KC_DB_USERNAME` and `KC_DB_PASSWORD` are the username and password, which have been configured earlier for the Postgres container.
+
 The `KC_DB_URL` needs to be a proper jdbc connection string to work in a proper manner for Keycloak: `jdbc:postgresql://keycloak-postgres:5432/keycloak`
 `keycloak-postgres` in the jdbc connection string is the name of the postgres container, which can be referenced.
 
@@ -201,6 +205,28 @@ The first thing you'd probably might want to do is to create a dedicated realm f
 You can do so by clicking on the `master` realm and hit `Create Realm`:
 
 ![Keycloak create new realm](./keycloak-new-realm.png)
+
+# Viewing the data using PGAdmin
+
+PGAdmin can be used to visualize Keycloak's data in the Postgres database.
+
+Just login at http://localhost:5050 with username `admin@postgres.dev` and `admin` as password, as described earlier above and add a new server:
+
+![PGAdmin Add New Server](./pgadmin-new-server.png)
+
+As name you can use `keycloak` and the `Connection` must have the following values:
+
+Hostname/address: keycloak-postgres
+Port: 5432
+Maintenance database: keycloak
+username: keycloak
+password: keycloak
+
+![PGAdmin Register Server](./pgadmin-register-server.png)
+
+Once the data has been entered you can hit `Save` and you'll be connected to the Postgres database.
+
+![PGAdmin Keycloak tables](./pgadmin-keycloak-tables.png)
 
 # Sources
 
