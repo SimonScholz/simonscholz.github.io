@@ -1,8 +1,8 @@
 ---
 path: '/tutorials/keycloak-quarkus-postgres-docker-compose'
 date: '2022-12-04'
-title: 'Run Keycloak 20 (Quarkus) including postgres using docker compose'
-description: 'Setting up Keycloak 20 (Quarkus) with docker compose and connect it to postgres'
+title: 'Run Keycloak v20 (based on Quarkus) including postgres using docker compose'
+description: 'Setting up Keycloak v20 (based on Quarkus) with docker compose and connect it to postgres'
 author: 'Simon Scholz'
 tags:
   [

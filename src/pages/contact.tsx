@@ -11,7 +11,7 @@ const Contact = (): React.ReactElement => {
 					Hey,
 					<br /> you can reach out to me via email (
 					<a className="text-blue-500" href="mailto:opensource.simon@gmail.com">
-						opensource.simon@gmail.com
+						opensource.simonⓐⓣgmail.com
 					</a>
 					) or on social media like{' '}
 					<a className="text-blue-500" href="https://twitter.com/simonscholz">

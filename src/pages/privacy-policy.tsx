@@ -189,11 +189,11 @@ const PrivacyPolicy = (): React.ReactElement => {
 				</p>
 
 				<p>Simon Scholz</p>
-				<p>Uckermarkweg 12a</p>
-				<p>22415 Hamburg</p>
+				<p>Uckermarkweg 1️⃣2️⃣a</p>
+				<p>2️⃣2️⃣4️⃣1️⃣5️⃣ Hamburg</p>
 				<p>Germany / Deutschland</p>
-				<p>Phone: +49 176 - 43 622 060</p>
-				<p>Email: opensource.simon@gmail.com</p>
+				<p>Phone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣</p>
+				<p>Email: opensource.simonⓐⓣgmail.com</p>
 				<p>Website: https://simonscholz.github.io/</p>
 
 				<h4>3. Cookies</h4>

@@ -12,16 +12,16 @@ const Legal = ({ data }: any): React.ReactElement => {
 				<br />
 				Simon Scholz
 				<br />
-				Uckermarkweg 12a
+				Uckermarkweg 1️⃣2️⃣a
 				<br />
-				22415 Hamburg
+				2️⃣2️⃣4️⃣1️⃣5️⃣ Hamburg
 				<br />
 				<h2>Contact Information</h2>
-				Telephone: +49 176 - 43 622 060
+				Telephone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣
 				<br />
 				E-Mail:{' '}
 				<a href="mailto:opensource.simon@gmail.com">
-					opensource.simon@gmail.com
+					opensource.simonⓐⓣgmail.com
 				</a>
 				<br />
 				Internet address:{' '}
