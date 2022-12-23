@@ -97,6 +97,7 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 				</div>
 				<div className="flex flex-grow-0 mt-4 md:mt-2">
 					<Social
+						linkedIn="https://www.linkedin.com/in/simon-scholz-080355113/"
 						github="https://github.com/simonscholz"
 						twitter="https://twitter.com/simonscholz"
 						youtube="https://www.youtube.com/channel/UC8j16uUiiMQpMTemLBfCURA/"
@@ -105,6 +106,7 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 			</div>
 			<div className="flex flex-grow-0 mt-4 md:mt-2 hidden md:flex">
 				<Social
+					linkedIn="https://www.linkedin.com/in/simon-scholz-080355113/"
 					github="https://github.com/simonscholz"
 					twitter="https://twitter.com/simonscholz"
 					youtube="https://www.youtube.com/channel/UC8j16uUiiMQpMTemLBfCURA/"

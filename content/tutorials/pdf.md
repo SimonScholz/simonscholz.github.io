@@ -22,6 +22,14 @@ A drawback of using Inkscape is that it is only capable to open one page at a ti
 So in case you want to modify several pages with Inkscape, you'll have to do it one by one and use tools like PDF Arranger to merge the resulting PDFs afterwards again.
 Since many forms have between 2 or 3 pages it might be worth the effort.
 
+# Inkscape
+
+## Install Inkscape
+
+```bash
+sudo apt install inkscape
+```
+
 # PDF Arranger
 
 ## Install PDF Arranger
