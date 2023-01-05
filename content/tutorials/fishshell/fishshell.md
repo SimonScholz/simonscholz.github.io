@@ -85,7 +85,7 @@ In order to use nvm (Node Version Manager) in the Fishshell you should use the f
 fisher install FabioAntunes/fish-nvm edc/bass
 ```
 
-With this plugin in place you can simply run `nvm install node` within the Fishshell to install the latest version of node.
+With this plugin in place you can simply run `nvm install --lts` within the Fishshell to install the latest long term support version of node and npm.
 
 ## Tide Plugin
 
