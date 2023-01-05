@@ -26,7 +26,7 @@ export function Education(): React.ReactElement {
                     <span>2007 - 2011</span>
                 </div>
                 <div className="flex-1 flex flex-col">
-                    <span className="font-semibold">Business Informatics (B. Sc.)</span>
+                    <span className="font-semibold">Business Informatics (B. Sc.), Flensburg</span>
                     <span>University of Applied Sciences</span>
                     <span className="underline">Title of the bachelor thesis:</span>
                     <span>
