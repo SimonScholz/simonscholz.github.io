@@ -22,7 +22,7 @@ export function Education(): React.ReactElement {
 	return <>
         <IconLeftBorder fluid={education.childImageSharp.gatsbyImageData} title="Education">
             <div className="flex md:flex-row mt-3">
-                <div className="flex-1">
+                <div className="flex-initial w-64">
                     <span>2007 - 2011</span>
                 </div>
                 <div className="flex-1 flex flex-col">
@@ -47,7 +47,7 @@ export function Education(): React.ReactElement {
                 </div>
             </div>
             <div className="flex md:flex-row mt-3">
-                <div className="flex-1">
+                <div className="flex-initial w-64">
                     <span>1998 - 2007</span>
                 </div>
                 <div className="flex-1 flex flex-col">

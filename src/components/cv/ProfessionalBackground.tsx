@@ -27,8 +27,10 @@ export function ProfessionalBackground(): React.ReactElement {
 				title="Professional Background"
 			>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>Since 11/2020</span>
+						<br />
+						<span>(Black Friday)</span>
 					</div>
 					<div className="flex-1 flex flex-col">
 						<span className="font-semibold">
@@ -42,33 +44,37 @@ export function ProfessionalBackground(): React.ReactElement {
 							<li>
 								I switched teams to establish the same good principals we've
 								established in the "Cross Channel Checkout" (my former team at
-								Mediamarkt Saturn Technology). Therefore also got the leadership
-								of the team. It was a longer journey, but we've finally made it.
-								Domain Driven Design helped to find proper bounded contexts of
-								the different services. Existing services were rewritten to
-								honor these bounded contexts.
+								Mediamarkt Saturn Technology). Therefore I also got the
+								leadership of the team. It was a longer journey, but we've
+								finally made it. Domain Driven Design helped to find proper
+								bounded contexts of the different services. Existing services
+								have been refactored a lot to meet the requirements of solid
+								services and were later on rewritten to properly honor these
+								bounded contexts and met the expectations of modern software.
 							</li>
 							<li>
 								The Quarkus framework is utilized to have the performance gains
 								of reactive programming, because the ADPS backend services have
-								the most traffic in the company with 52 million requests per day
-								on average.
+								the most traffic in the company with 52 million requests from
+								clients per day on average and a lot of asynchronous messaging
+								in behind.
 							</li>
 							<li>
 								To reduce the amount of second level support requests and to do
 								certain configurations in an easier fashion small back office
 								front end applications have been created to enable stakeholders
-								to maintain certain configurations.
+								to maintain certain configurations and do certain analysis on
+								their own.
 							</li>
 							<li>
-								Being in the role of the Competency Lead, we established weekly
-								tech alignments with the whole team to talk about technical
-								debts of the services and discuss strategies to overcome these
-								or talk about new upcoming technologies, which might be useful
-								for our products. Meanwhile we also have such alignments with
-								the whole domain. Lots of topics of the tech alignments also
-								result in ADRs (architecture decision records) and visualized
-								using Log4Brains and GitHubs Pages.
+								At the very beginning to improve the maturity of the team I
+								established weekly tech alignments with the whole team to talk
+								about technical debts of the services and discuss strategies to
+								overcome these or talk about new upcoming technologies, which
+								might be useful for our products. Meanwhile we also have such
+								alignments with the whole domain. Lots of topics of the tech
+								alignments also result in ADRs (architecture decision records)
+								and visualized using Log4Brains and GitHubs Pages.
 							</li>
 							<li>Relevant Technologies:</li>
 							<ul className="list-disc list-inside ml-4 text-sm">
@@ -96,7 +102,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>07/2019 – 11/2020</span>
 					</div>
 					<div className="flex-1 flex flex-col">
@@ -175,7 +181,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>09/2014 - 06/2019</span>
 					</div>
 					<div className="flex-1 flex flex-col">
@@ -207,7 +213,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>02/2011 – 08/2014</span>
 					</div>
 					<div className="flex-1 flex flex-col">
@@ -228,7 +234,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>10/2010 – 02/2011</span>
 					</div>
 					<div className="flex-1 flex flex-col">
@@ -242,7 +248,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>07/2010 – 08/2010</span>
 					</div>
 					<div className="flex-1 flex flex-col">
@@ -254,7 +260,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
-					<div className="flex-1">
+					<div className="flex-initial w-64">
 						<span>04/2010 – 07/2010</span>
 					</div>
 					<div className="flex-1 flex flex-col">
