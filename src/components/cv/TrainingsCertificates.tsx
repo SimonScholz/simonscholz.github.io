@@ -28,7 +28,7 @@ export function TrainingsCertificates(): React.ReactElement {
 			>
 				<div className="flex flex-col mt-3">
 					<h2 className="font-semibold">
-						Trainer for courses of the vogella GmbH
+						I've been trainer for courses of the vogella GmbH
 					</h2>
 					<ul className="list-disc list-inside ml-3">
 						<li>Spring Boot &amp; Dojo IO</li>
