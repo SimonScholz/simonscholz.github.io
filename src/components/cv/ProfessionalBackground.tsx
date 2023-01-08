@@ -109,9 +109,9 @@ export function ProfessionalBackground(): React.ReactElement {
 								manifesto to stay functional by all means.
 							</li>
 							<li className="mb-1">
-								Implemented to usage of Resilience4J CircuitBreakers and
-								Bulkheads to the existing Spring Boot application to have fault
-								tolerance capabilities within the application.
+								Implemented usage of Resilience4J CircuitBreakers and Bulkheads
+								for the existing Spring Boot application to have fault tolerance
+								capabilities with proper fallbacks within the application.
 							</li>
 							<li className="mb-1">
 								Introduced tools like Jacoco, SonarQube and Prometheus to the
@@ -123,9 +123,9 @@ export function ProfessionalBackground(): React.ReactElement {
 								during architecture days of the company.
 							</li>
 							<li className="mb-1">
-								Migrated core module to Kotlin Multiplatform to enable the usage
-								of core implementations in other applications with offline
-								capabilities.
+								Migrated core module (hexogonal architecture) to Kotlin
+								Multiplatform to enable the usage of core implementations in
+								other applications with offline capabilities.
 							</li>
 							<li className="font-medium">Relevant Technologies:</li>
 							<ul className="list-disc list-inside ml-4 text-sm">
