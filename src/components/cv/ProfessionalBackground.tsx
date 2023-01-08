@@ -30,7 +30,7 @@ export function ProfessionalBackground(): React.ReactElement {
 			>
 				<div className="flex md:flex-row mt-3">
 					<FlexInitialXlBlock>
-						<span>Since  Nov 2020</span>
+						<span>Since Nov 2020</span>
 						<br />
 						<span>(Black Friday)</span>
 					</FlexInitialXlBlock>
@@ -40,67 +40,52 @@ export function ProfessionalBackground(): React.ReactElement {
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Since Nov 2020 (Black Friday)'} />
 						<span className="mb-1 font-medium">
-							Senior Software Lead Engineer and Competency Lead for the ADPS (
-							Availability, Delivery Promise and Sourcing) team
+							Senior Software Lead Engineer and Competency Lead for the ADPS
+							team (Availability, Delivery Promise and Sourcing)
 						</span>
-						<span className="mb-1">
-							I switched teams to establish the same good principals we've
-							established in the Cross Channel Checkout product (in my former team at
-							Mediamarkt Saturn Technology) and became the lead of the ADPS team.
-						</span>
-						<span>
-							Domain Driven Design helped to find proper bounded contexts of the
-							different requirements of the product.
-							Existing services have been refactored
-							to meet the goal of solid services.
-							Later on services have been
-							rewritten to properly honor these bounded contexts and met the
-							expectations of modern software.
-						</span>
-						<span className="mb-1">
-							The Quarkus framework is utilized to have the performance gains of
-							reactive programming, because the ADPS backend services have the
-							most traffic in the company with 52 million requests from clients
-							per day on average and a lot of asynchronous messaging in behind.
-						</span>
-						<span className="mb-1">
-							To reduce the amount of second level support requests and to do
-							certain configurations in an easier fashion small back office
-							front end applications have been created to enable stakeholders to
-							maintain certain configurations and do certain analysis on their
-							own.
-						</span>
-						<span className="mb-1">
-							At the very beginning to improve the maturity of the team I
-							established weekly tech alignments with the whole team to talk
-							about technical debts of the services and discuss strategies to
-							overcome these or talk about new upcoming technologies, which
-							might be useful for our products. Meanwhile we also have such
-							alignments with the whole domain. Lots of topics of the tech
-							alignments also result in ADRs (architecture decision records) and
-							visualized using Log4Brains and GitHubs Pages.
-						</span>
-						<span className="font-medium">Relevant Technologies:</span>
-						<ul className="list-disc list-inside ml-4 text-sm">
-							<li>Quarkus</li>
-							<li>MongoDB</li>
-							<li>Redis</li>
-							<li>Micrometer Metrics</li>
-							<li>Google Cloud Platform</li>
-							<li>Kubernetes</li>
-							<li>Terraform (Enterprise)</li>
-							<li>GitOps</li>
-							<li>Prometheus</li>
-							<li>Grafana</li>
-							<li>OpsGenie on call duty</li>
-							<li>Gatling Performance Testing</li>
-							<li>Newman GitHub Actions for API smoke tests</li>
-							<li>Kotlin</li>
-							<li>Gradle</li>
-							<li>TypeScript</li>
-							<li>React JS</li>
-							<li>Graphql</li>
-							<li>MobX</li>
+						<ul className="list-disc list-outside ml-4">
+							<li className="mb-1">
+								Established a new learning culture in the team by introducing
+								pair programming, coding guidelines + ADRs, weekly tech
+								alignments, technical debt discussions and doing talks about
+								modern technologies.
+							</li>
+							<li className="mb-1">
+								Added relevant performance measures and KPIs for the running
+								software and setting up a monitoring stack with alerting to get
+								awareness of problems and solve them as soon as possible.
+							</li>
+							<li className="mb-1">
+								Refactored existing code and implemented new microservices
+								utilizing Domain Driven Design and modern tools/frameworks to
+								have a performant and maintainable code base serving more than
+								52 million requests per day.
+							</li>
+							<li className="mb-1">
+								Created front end applications to enable stakeholders to do
+								certain configurations and analysis on their own to reduce the
+								2nd level support requests.
+							</li>
+							<li className="mb-1">
+								Doing job interviews to find the right people to work on these
+								crucial projects of Mediamarkt Saturn.
+							</li>
+							<li>Relevant Technologies:</li>
+							<ul className="list-disc list-outside ml-4 text-sm">
+								<li>Quarkus</li>
+								<li>MongoDB</li>
+								<li>Redis</li>
+								<li>Google Cloud Platform</li>
+								<li>Kubernetes</li>
+								<li>Terraform (Enterprise)</li>
+								<li>GitOps</li>
+								<li>Micrometer + Prometheus + Grafana + OpsGenie</li>
+								<li>Gatling Performance Testing</li>
+								<li>Newman GitHub Actions for API smoke tests</li>
+								<li>Kotlin</li>
+								<li>Gradle</li>
+								<li>Log4Brains</li>
+							</ul>
 						</ul>
 					</div>
 				</div>
@@ -114,71 +99,48 @@ export function ProfessionalBackground(): React.ReactElement {
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Jul 2019 — Nov 2020'} />
 						<span className="mb-1 font-medium">
-							Senior Software Engineer in the XCC (Cross Channel Checkout) team
+							Senior Software Engineer in the XCC team (Cross Channel Checkout)
 						</span>
-						<span className="mb-1">
-							The Cross Channel Checkout is basically the backend application,
-							which is responsible for orchestrating everything around the
-							basket in the web shop of Mediamarkt, Saturn and applications used
-							by various different salesperson's applications.
-						</span>
-						<span className="mb-1">
-							Since the checkout of a customer's basket is the part where the
-							actual sale happens and the company thereby earns money we've put
-							a huge amount of effort into making the application as resilient
-							and scalable as possible. In order to archive this the majority of
-							data used by the application is imported asynchronously and/or
-							message driven using import jobs triggered by Google PubSub events
-							originated by our own GCP Cloud Schedulers or respective teams
-							sending uns data asynchronously.
-						</span>
-						<span className="mb-1">
-							Of course fault tolerance plays an import role here and is
-							archived by using cloud technologies of the Google Cloud Platform
-							and others, e.g., Terraform Enterprise, Kubernetes with GitOps,
-							Cloud Atlas of MongoDB and more...
-						</span>
-						<span className="mb-1">
-							Also the application itself (written with Spring Boot) uses
-							Resilience4J as fault tolerant library, providing things like
-							Bulkheads, Circuitbreaker and monitoring out of the box.
-						</span>
-						<span className="mb-1">
-							The main service utilizes Domain Driven Design and uses the
-							hexagonal architecture (ports & adapters) to have a solid and
-							maintainable code base.
-						</span>
-						<span className="mb-1">
-							In order to spread the word, I also shared our knowledge on
-							different topics, e.g., resilience and micro service patterns,
-							during architecture days of the company.
-						</span>
-						<span className="mb-1">
-							Since the service has it's core domain logic, which is decoupled
-							from the infrastructure(hexagonal architecture) I started
-							migrating the core module from Java to Kotlin to gain on the one
-							hand to improvements of the Kotlin language and also utilize
-							Kotlin's multi platform capabilities to use the core logic also in
-							other applications, e.g., applications for stores, which are also
-							supposed to continue working offline.
-						</span>
-						<span className="font-medium">Relevant Technologies:</span>
-						<ul className="list-disc list-inside ml-4 text-sm">
-							<li>Spring Boot</li>
-							<li>MongoDB</li>
-							<li>Hystrix --&gt; Resilience4J</li>
-							<li>Micrometer Metrics</li>
-							<li>Google Cloud Platform</li>
-							<li>Kubernetes</li>
-							<li>Terraform</li>
-							<li>GitOps</li>
-							<li>Influxdb</li>
-							<li>Prometheus</li>
-							<li>Grafana</li>
-							<li>OpsGenie on call duty</li>
-							<li>JMeter</li>
-							<li>Maven</li>
-							<li>Java --&gt; Kotlin</li>
+						<ul className="list-disc list-outside ml-4">
+							<li className="mb-1">
+								To keep alive the checkout process of a customer even if
+								dependencies break is key to not loose revenue. Therefore I made
+								sure during technical discussions to honor the reactive
+								manifesto to stay functional by all means.
+							</li>
+							<li className="mb-1">
+								Implemented usage of Resilience4J CircuitBreakers and Bulkheads
+								for the existing Spring Boot application to have fault tolerance
+								capabilities with proper fallbacks within the application.
+							</li>
+							<li className="mb-1">
+								Introduced tools like Jacoco, SonarQube and Prometheus to the
+								team for code analysis and monitoring improvements.
+							</li>
+							<li className="mb-1">
+								In order to spread the word, I also shared our knowledge on
+								different topics, e.g., resilience and microservice patterns,
+								during architecture days of the company.
+							</li>
+							<li className="mb-1">
+								Migrated core module (hexogonal architecture) to Kotlin
+								Multiplatform to enable the usage of core implementations in
+								other applications with offline capabilities.
+							</li>
+							<li className="font-medium">Relevant Technologies:</li>
+							<ul className="list-disc list-inside ml-4 text-sm">
+								<li>Spring Boot</li>
+								<li>MongoDB</li>
+								<li>Resilience4J</li>
+								<li>Google Cloud Platform</li>
+								<li>Kubernetes</li>
+								<li>Terraform</li>
+								<li>GitOps</li>
+								<li>Micrometer + Influxdb + Prometheus + Grafana + OpsGenie</li>
+								<li>JMeter</li>
+								<li>Maven</li>
+								<li>Java --&gt; Kotlin</li>
+							</ul>
 						</ul>
 					</div>
 				</div>
@@ -188,8 +150,10 @@ export function ProfessionalBackground(): React.ReactElement {
 					</FlexInitialXlBlock>
 					<div className="flex-1 flex flex-col">
 						<span className="font-semibold xl:mb-1">Vogella GmbH, Hamburg</span>
-						<XlHiddenTimeFrame timeFrame={"Sept 2014 — Jun 2019"}/>
-						<span className="mb-1 font-medium">IT-Consultant and Software Architect</span>
+						<XlHiddenTimeFrame timeFrame={'Sept 2014 — Jun 2019'} />
+						<span className="mb-1 font-medium">
+							IT-Consultant and Software Architect
+						</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Trainer and consultant for several technologies</li>
 							<li>Speaker on conferences and user groups</li>
@@ -198,8 +162,7 @@ export function ProfessionalBackground(): React.ReactElement {
 								Software architect and developer for several open source
 								projects
 							</li>
-							<li>Operating international</li>
-							<li>Eclipse Platform Committer</li>
+							<li>Working onsite in international projects</li>
 							<li>
 								Nominated as committer of the month by the Eclipse Platform
 								project
@@ -211,7 +174,6 @@ export function ProfessionalBackground(): React.ReactElement {
 								vogella.com)
 							</li>
 							<li>Creation of tools for customers (See GitHub)</li>
-							<li>Open Source everywhere (Ubuntu as OS)</li>
 						</ul>
 					</div>
 				</div>
@@ -223,7 +185,7 @@ export function ProfessionalBackground(): React.ReactElement {
 						<span className="font-semibold xl:mb-1">
 							KGU Consulting GmbH, Flensburg
 						</span>
-						<XlHiddenTimeFrame timeFrame={"Feb 2011 — Aug 2014"}/>
+						<XlHiddenTimeFrame timeFrame={'Feb 2011 — Aug 2014'} />
 						<span className="mb-1 font-medium">Software Architect</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Developing Eclipse RCP applications</li>
@@ -245,7 +207,7 @@ export function ProfessionalBackground(): React.ReactElement {
 						<span className="font-semibold xl:mb-1">
 							KGU Consulting GmbH, Flensburg
 						</span>
-						<XlHiddenTimeFrame timeFrame={"Oct 2010 — Feb 2011"}/>
+						<XlHiddenTimeFrame timeFrame={'Oct 2010 — Feb 2011'} />
 						<span className="mb-1 font-medium">Internship</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Developing Eclipse RCP applications and websites</li>
