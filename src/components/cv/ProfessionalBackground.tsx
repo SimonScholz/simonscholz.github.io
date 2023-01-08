@@ -36,7 +36,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</FlexInitialXlBlock>
 					<div className="flex-1 flex flex-col">
 						<span className="font-semibold xl:mb-1">
-							Mediamarkt Saturn Technology, Ingolstadt
+							MediaMarktSaturn Technology, Ingolstadt
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Since Nov 2020 (Black Friday)'} />
 						<span className="mb-1 font-medium">
@@ -67,8 +67,9 @@ export function ProfessionalBackground(): React.ReactElement {
 								2nd level support requests.
 							</li>
 							<li className="mb-1">
-								Doing job interviews to find the right people to work on these
-								crucial projects of Mediamarkt Saturn.
+								Doing job interviews and the on-boarding of new colleagues to
+								find and keep the right people to work on these crucial projects
+								of MediaMarktSaturn.
 							</li>
 							<li>Relevant Technologies:</li>
 							<ul className="list-disc list-outside ml-4 text-sm">
@@ -95,7 +96,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					</FlexInitialXlBlock>
 					<div className="flex-1 flex flex-col">
 						<span className="font-semibold xl:mb-1">
-							Mediamarkt Saturn Technology, Ingolstadt
+							MediaMarktSaturn Technology, Ingolstadt
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Jul 2019 — Nov 2020'} />
 						<span className="mb-1 font-medium">
