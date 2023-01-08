@@ -39,18 +39,21 @@ export function ProfessionalBackground(): React.ReactElement {
 							Mediamarkt Saturn Technology, Ingolstadt
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Since Nov 2020 (Black Friday)'} />
-						<span className="mb-1">
-							Senior Software Lead Engineer and Competency Lead for the "ADPS -
-							Availability, Delivery Promise and Sourcing" team
+						<span className="mb-1 font-medium">
+							Senior Software Lead Engineer and Competency Lead for the ADPS (
+							Availability, Delivery Promise and Sourcing) team
 						</span>
 						<span className="mb-1">
 							I switched teams to establish the same good principals we've
-							established in the "Cross Channel Checkout" (my former team at
-							Mediamarkt Saturn Technology). Therefore I also got the leadership
-							of the team. It was a longer journey, but we've finally made it.
+							established in the Cross Channel Checkout product (in my former team at
+							Mediamarkt Saturn Technology) and became the lead of the ADPS team.
+						</span>
+						<span>
 							Domain Driven Design helped to find proper bounded contexts of the
-							different services. Existing services have been refactored a lot
-							to meet the requirements of solid services and were later on
+							different requirements of the product.
+							Existing services have been refactored
+							to meet the goal of solid services.
+							Later on services have been
 							rewritten to properly honor these bounded contexts and met the
 							expectations of modern software.
 						</span>
@@ -110,8 +113,8 @@ export function ProfessionalBackground(): React.ReactElement {
 							Mediamarkt Saturn Technology, Ingolstadt
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Jul 2019 — Nov 2020'} />
-						<span className="mb-1">
-							Senior Software Engineer in the "Cross Channel Checkout" team
+						<span className="mb-1 font-medium">
+							Senior Software Engineer in the XCC (Cross Channel Checkout) team
 						</span>
 						<span className="mb-1">
 							The Cross Channel Checkout is basically the backend application,
@@ -186,7 +189,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					<div className="flex-1 flex flex-col">
 						<span className="font-semibold xl:mb-1">Vogella GmbH, Hamburg</span>
 						<XlHiddenTimeFrame timeFrame={"Sept 2014 — Jun 2019"}/>
-						<span>IT-Consultant and Software Architect</span>
+						<span className="mb-1 font-medium">IT-Consultant and Software Architect</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Trainer and consultant for several technologies</li>
 							<li>Speaker on conferences and user groups</li>
@@ -221,7 +224,7 @@ export function ProfessionalBackground(): React.ReactElement {
 							KGU Consulting GmbH, Flensburg
 						</span>
 						<XlHiddenTimeFrame timeFrame={"Feb 2011 — Aug 2014"}/>
-						<span>Software Architect</span>
+						<span className="mb-1 font-medium">Software Architect</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Developing Eclipse RCP applications</li>
 							<li>Introduced a usability project</li>
@@ -243,7 +246,7 @@ export function ProfessionalBackground(): React.ReactElement {
 							KGU Consulting GmbH, Flensburg
 						</span>
 						<XlHiddenTimeFrame timeFrame={"Oct 2010 — Feb 2011"}/>
-						<span>Internship</span>
+						<span className="mb-1 font-medium">Internship</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Developing Eclipse RCP applications and websites</li>
 						</ul>
@@ -258,7 +261,7 @@ export function ProfessionalBackground(): React.ReactElement {
 							NXP Semi Conductors, Hamburg
 						</span>
 						<XlHiddenTimeFrame timeFrame={'Jul 2010 — Aug 2010'} />
-						<span>Internship</span>
+						<span className="mb-1 font-medium">Internship</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>Software development, support and controlling</li>
 						</ul>
@@ -271,7 +274,7 @@ export function ProfessionalBackground(): React.ReactElement {
 					<div className="flex-1 flex flex-col">
 						<span className="font-semibold xl:mb-1">Trenz AG, Bremen</span>
 						<XlHiddenTimeFrame timeFrame={'Apr 2010 — Jul 2010'} />
-						<span>Internship</span>
+						<span className="mb-1 font-medium">Internship</span>
 						<ul className="list-disc list-inside ml-3">
 							<li>
 								Development with C#, MS SQL and Windows CE for a mobile device
