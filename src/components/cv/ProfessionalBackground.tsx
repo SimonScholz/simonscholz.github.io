@@ -62,12 +62,12 @@ export function ProfessionalBackground(): React.ReactElement {
 								52 million requests per day.
 							</li>
 							<li className="mb-1">
-								Created front end applications to enable stakeholders to do
-								certain configurations and analysis on their own to reduce the
-								2nd level support requests.
+								Created decoupled user interfaces to enable stakeholders to
+								maintain certain configurations and do analysis on their own to
+								reduce the 2nd level support requests.
 							</li>
 							<li className="mb-1">
-								Doing job interviews and the on-boarding of new colleagues to
+								Execute job interviews and the on-boarding of new colleagues to
 								find and keep the right people to work on these crucial projects
 								of MediaMarktSaturn.
 							</li>
@@ -137,7 +137,7 @@ export function ProfessionalBackground(): React.ReactElement {
 								<li>Kubernetes</li>
 								<li>Terraform</li>
 								<li>GitOps</li>
-								<li>Micrometer + Influxdb + Prometheus + Grafana + OpsGenie</li>
+								<li>Micrometer + Influx + Prometheus + Grafana + OpsGenie</li>
 								<li>JMeter</li>
 								<li>Maven</li>
 								<li>Java --&gt; Kotlin</li>
@@ -168,10 +168,10 @@ export function ProfessionalBackground(): React.ReactElement {
 								Nominated as committer of the month by the Eclipse Platform
 								project
 							</li>
-							<li>Mentoring of students(e.g., for Google Summer of Code)</li>
+							<li>Mentoring of students (e.g., for Google Summer of Code)</li>
 							<li>Manage teams for several customers</li>
 							<li>
-								Creating online tutorials and documentation(e.g., on
+								Creating online tutorials and documentation (e.g., on
 								vogella.com)
 							</li>
 							<li>Creation of tools for customers (See GitHub)</li>
@@ -189,14 +189,14 @@ export function ProfessionalBackground(): React.ReactElement {
 						<XlHiddenTimeFrame timeFrame={'Feb 2011 — Aug 2014'} />
 						<span className="mb-1 font-medium">Software Architect</span>
 						<ul className="list-disc list-inside ml-3">
-							<li>Developing Eclipse RCP applications</li>
+							<li>Construction and development of Eclipse RCP applications</li>
 							<li>Introduced a usability project</li>
 							<li>
-								Redesign and development of the "Techpub Studio" application
+								Redesign and development of the main Rich Client application
 							</li>
-							<li>Development of website by using the dojo toolkit</li>
+							<li>Development of websites by using the dojo toolkit</li>
 							<li>Development of XSLT stylesheets and css</li>
-							<li>Learned a lot about several Java frameworks and libraries</li>
+							<li>Mentoring of working students</li>
 						</ul>
 					</div>
 				</div>
