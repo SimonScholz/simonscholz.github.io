@@ -234,10 +234,93 @@ class HelloSimulation : Simulation() {
 
 # GitHub action to run a performance test
 
-Too be added...
+Let's copy over some parts from this sample: https://github.com/gatling/gatling-gradle-plugin-demo-kotlin
+
+```kotlin
+package io.github.simonscholz.simulation
+
+import io.gatling.javaapi.core.CoreDsl.* // ktlint-disable no-wildcard-imports
+import io.gatling.javaapi.core.Simulation
+import io.gatling.javaapi.http.HttpDsl.http
+
+class ComputerDatabaseSimulation : Simulation() {
+    private val browse =
+        repeat(4, "i").on(
+            exec(
+                http("Page #{i}").get("/computers?p=#{i}"),
+            ).pause(1),
+        )
+
+    private val httpProtocol =
+        http.baseUrl("https://computer-database.gatling.io")
+            .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+            .acceptLanguageHeader("en-US,en;q=0.5")
+            .acceptEncodingHeader("gzip, deflate")
+            .userAgentHeader(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0",
+            )
+
+    private val users = scenario("Users").exec(browse)
+
+    init {
+        setUp(
+            users.injectOpen(rampUsers(10).during(10)),
+        ).protocols(httpProtocol)
+    }
+}
+```
+
+The following GitHub action (`./github/workflows/gatling-performance.yaml`) can be used to run the Gatling simulation and upload the report:
+
+
+```yaml
+name: Run Gatling performance test
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  performance-test:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Use Gradle packages cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+          key: ${{ runner.os }}-gradle-release-${{ hashFiles('**/build.gradle.kts') }}
+          restore-keys: ${{ runner.os }}-gradle-release
+      - name: Execute Gradle
+        run: ./gradlew gRun
+      - name: Upload Gatling report
+        uses: actions/upload-artifact@v3
+        with:
+          name: gatling-report
+          path: ./build/reports/gatling/
+
+```
+
+This workflow can be run manually and the report can be downloaded afterwards.
+
+![Gatling GitHub action](./gatling-github-action.png)
 
 # Sources
 
 * https://github.com/SimonScholz/performance-analysis
 * https://gatling.io/docs/
 * https://gatling.io/docs/gatling/reference/current/extensions/gradle_plugin/
+* https://github.com/gatling/gatling-gradle-plugin-demo-kotlin
