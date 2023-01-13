@@ -20,7 +20,7 @@ This tutorial will be a step by step guide to:
 * Passing dynamic data to the performance test
 * Use a GitHub action to run the Gatling performance test
 
-## Create a new Quarkus project
+# Create a new Quarkus project
 
 Go to https://code.quarkus.io/ and add the following Quarkus modules:
 
@@ -28,7 +28,7 @@ Go to https://code.quarkus.io/ and add the following Quarkus modules:
 
 After downloading the Quarkus starter code it can be opened in IntelliJ.
 
-## Add the Gatling Gradle plugin
+# Add the Gatling Gradle plugin
 
 Besides the other plugins the `io.gatling.gradle` needs to be added:
 
@@ -48,7 +48,7 @@ Once the plugin is added a `gatling` source folder can easily be created. This i
 
 More information on this can be found here: https://gatling.io/docs/gatling/reference/current/extensions/gradle_plugin/
 
-## Performance test the hello endpoint
+# Performance test the hello endpoint
 
 To have a quick win, let's create a small simulation for the hello endpoint, which comes with the Quarkus starter code.
 
@@ -85,8 +85,10 @@ import io.github.simonscholz.scenario.HelloScenario.hello
 
 class HelloSimulation : Simulation() {
 
+    private val baseUrl = System.getProperty("gatlingBaseUrl", "http://localhost:8080")
+
     private val httpProtocol =
-        http.baseUrl("http://localhost:8080")
+        http.baseUrl(baseUrl)
             .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") /**/
             .acceptLanguageHeader("en-US,en;q=0.5")
             .acceptEncodingHeader("gzip, deflate")
@@ -96,7 +98,7 @@ class HelloSimulation : Simulation() {
 
     init {
         setUp(
-            hello.injectOpen(CoreDsl.rampUsers(50000).during(30)),
+            hello.injectOpen(CoreDsl.rampUsers(10).during(30)),
         ).protocols(httpProtocol)
     }
 }
@@ -120,23 +122,121 @@ Then click on the link at the end of the output of the gatlingRun task and enjoy
 ![Gatling HTML report](./gatling-html-report.png)
 
 
-## Creating general classes for performance testing
+# Passing dynamic data
+
+## Pass values to the Gradle task
+
+The `HelloSimulation` class uses the `gatlingBaseUrl` system property to obtain the baseUrl for http requests.
+This property can be set using `-D` to provide properties:
+
+```bash
+./gradlew gRun -DgatlingBaseUrl="http://localhost:8080
+```
+
+## Utilize a csv feeder
+
+Feeders enable you to inject dynamic data into your simulation and to choose this data in a random fashion, e.g., a list of product ids to be used.
+
+Let's create an endpoint, which returns availability information of certain products.
+
+```kotlin
+package io.github.simonscholz
+
+import java.util.concurrent.TimeUnit
+import javax.ws.rs.GET
+import javax.ws.rs.Path
+import javax.ws.rs.Produces
+import javax.ws.rs.QueryParam
+import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.Response
+
+@Path("/availability")
+class AvailabilityResource {
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    fun productAvailability(@QueryParam("productId") productId: String): Response = when (productId) {
+        "1234" -> Response.ok(AvailabilityDTO(productId, 10)).build()
+        "5678" -> Response.ok(AvailabilityDTO(productId, 30)).build()
+        "91011" -> Response.ok(AvailabilityDTO(productId, 50)).build()
+        "121314" -> Response.ok(AvailabilityDTO(productId, 70)).build()
+        "151617" -> {
+            TimeUnit.SECONDS.sleep(2)
+            Response.ok(AvailabilityDTO(productId, 90)).build()
+        }
+        else -> Response.status(Response.Status.NOT_FOUND).build()
+    }
+
+    data class AvailabilityDTO(val productId: String, val quantity: Int)
+}
+```
+
+Then we'd place a `productIds.csv` file inside the `src/gatling/resources` folder to feed the Gating simulation with dynamic product ids.
+
+```csv
+productId
+1234
+5678
+91011
+121314
+151617
+181920
+```
+
+The next step would be to create a scenario, which calls the new `/availability` API and utilizes the product ids given in the `productIds.csv` file.
+
+```kotlin
+package io.github.simonscholz.scenario
+
+import io.gatling.javaapi.core.CoreDsl.feed
+import io.gatling.javaapi.core.CoreDsl.scenario
+import io.gatling.javaapi.http.HttpDsl.http
+
+object CSVFeederProductAvailabilityScenario {
+    private val csvProductFeeder = csv("productIds.csv").circular()
+
+    private val hitAvailability =
+        feed(csvProductFeeder)
+            .exec(
+                http("Hit Availability").get("/availability?productId=#{productId}"),
+            ).pause(1) // Gatling's default is seconds
+
+    val productAvailabilityScenario = scenario("ProductAvailabilityScenario").exec(hitAvailability)
+}
+```
+
+Also see https://gatling.io/docs/gatling/reference/current/core/session/feeder/
+
+You can now add this `productAvailabilityScenario` to the simulation.
+
+```kotlin
+package io.github.simonscholz.simulation
+
+import io.gatling.javaapi.core.CoreDsl.rampUsers
+import io.gatling.javaapi.core.Simulation
+import io.github.simonscholz.config.Config.HTTP_PROTOCOL
+import io.github.simonscholz.scenario.CSVFeederProductAvailabilityScenario.productAvailabilityScenario
+import io.github.simonscholz.scenario.HelloScenario.hello
+import java.time.Duration
+
+class HelloSimulation : Simulation() {
+
+    init {
+        val users = 10
+        val duration = Duration.ofSeconds(30)
+        setUp(
+            hello.injectOpen(rampUsers(users).during(duration)),
+            productAvailabilityScenario.injectOpen(rampUsers(users).during(duration)),
+        ).protocols(HTTP_PROTOCOL)
+    }
+}
+```
+
+# GitHub action to run a performance test
 
 Too be added...
 
-## Gatling Scenario setup
-
-Too be added...
-
-## Gatling Simulations
-
-Too be added...
-
-## GitHub action to run a performance test
-
-Too be added...
-
-## Sources
+# Sources
 
 * https://github.com/SimonScholz/performance-analysis
 * https://gatling.io/docs/
