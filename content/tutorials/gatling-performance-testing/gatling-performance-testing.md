@@ -244,6 +244,10 @@ import io.gatling.javaapi.core.Simulation
 import io.gatling.javaapi.http.HttpDsl.http
 
 class ComputerDatabaseSimulation : Simulation() {
+    private val AT_ONCE_USERS: Int = Integer.getInteger("atOnceUsers", 10)
+    private val RAMP_UP_USERS: Int = Integer.getInteger("rampUpUsers", 10)
+    private val DURATION: Int = Integer.getInteger("duration", 10)
+
     private val browse =
         repeat(4, "i").on(
             exec(
@@ -264,7 +268,9 @@ class ComputerDatabaseSimulation : Simulation() {
 
     init {
         setUp(
-            users.injectOpen(rampUsers(10).during(10)),
+            users.injectOpen(
+                atOnceUsers(AT_ONCE_USERS),
+                rampUsers(RAMP_UP_USERS).during(DURATION.toLong())),
         ).protocols(httpProtocol)
     }
 }
@@ -280,6 +286,19 @@ name: Run Gatling performance test
 on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      atOnceUsers:
+        type: number
+        description: Amount of initial users for the performance test
+        default: 10
+      rampUpUsers:
+        type: number
+        description: Amount of ramp up users for the performance test
+        default: 10
+      duration:
+        type: number
+        description: Duration of the performance test
+        default: 20
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -291,11 +310,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'temurin'
+
       - name: Use Gradle packages cache
         uses: actions/cache@v3
         with:
@@ -304,14 +325,15 @@ jobs:
             ~/.gradle/wrapper/
           key: ${{ runner.os }}-gradle-release-${{ hashFiles('**/build.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-release
+
       - name: Execute Gradle
-        run: ./gradlew gRun
+        run: ./gradlew gRun -DatOnceUsers=${{ inputs.atOnceUsers }} -DrampUpUsers=${{ inputs.rampUpUsers }} -Dduration=${{ inputs.duration }}
+
       - name: Upload Gatling report
         uses: actions/upload-artifact@v3
         with:
           name: gatling-report
           path: ./build/reports/gatling/
-
 ```
 
 This workflow can be run manually and the report can be downloaded afterwards.
