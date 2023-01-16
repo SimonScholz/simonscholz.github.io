@@ -47,7 +47,7 @@ export const Social = ({
 			</div>
 			<div>
 				<a
-					className="block flex items-center text-gray-200 hover:text-white mr-5"
+					className="block flex items-center text-gray-200 hover:text-white mr-2"
 					href={twitter}
 				>
 					<svg
@@ -60,6 +60,7 @@ export const Social = ({
 					</svg>
 				</a>
 			</div>
+			{/**
 			<div>
 				<a
 					className="block flex items-center text-gray-200 hover:text-white mr-2"
@@ -80,6 +81,7 @@ export const Social = ({
 					</svg>
 				</a>
 			</div>
+			 */}
 		</>
 	)
 }

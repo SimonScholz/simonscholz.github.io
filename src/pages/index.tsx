@@ -87,11 +87,13 @@ function Homepage({ data }: Props): React.ReactElement {
 										<span className="font-semibold">GitHub</span>
 									</a>
 								</li>
+								{/**
 								<li>
 									<a href="https://www.youtube.com/channel/UC8j16uUiiMQpMTemLBfCURA/">
 										<span className="font-semibold">YouTube</span>
 									</a>
 								</li>
+								 */}
 								<li>
 									<a href="https://twitter.com/simonscholz">
 										<span className="font-semibold">Twitter</span>
