@@ -53,7 +53,7 @@ const gatsbyConfig: GatsbyConfig = {
 		},
 		'gatsby-plugin-robots-txt',
 		'gatsby-plugin-typescript',
-		`gatsby-plugin-image`,
+		'gatsby-plugin-image',
 		'gatsby-transformer-sharp',
 		'gatsby-plugin-sharp',
 		'gatsby-plugin-emotion',
