@@ -8,7 +8,7 @@ import { Tag } from '../components/tag'
 
 export const query = graphql`
 	query BlogAndAvatarQuery {
-		file(relativePath: { eq: "img/avatar.png" }) {
+		file(relativePath: { eq: "img/avatar.webp" }) {
 			childImageSharp {
 				gatsbyImageData(layout: FULL_WIDTH)
 			}
@@ -94,9 +94,10 @@ const Tutorials = ({ data }: Props): React.ReactElement => {
 					})}
 				</div>
 			*/}
-			{posts.map((edge: any) => {
+			{posts.map((edge: any, index: any) => {
 				return (
 					<TutorialCard
+						key={index}
 						path={edge.node.frontmatter.path}
 						id={edge.node.id}
 						title={edge.node.frontmatter.title}
