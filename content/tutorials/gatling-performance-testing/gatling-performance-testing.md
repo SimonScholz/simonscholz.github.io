@@ -135,7 +135,7 @@ This property can be set using `-D` to provide properties:
 
 ## Utilize a csv feeder
 
-Feeders enable you to inject dynamic data into your simulation and to choose this data in a random fashion, e.g., a list of product ids to be used.
+Feeders allow to inject dynamic data into a simulation and to choose this data in a random fashion, e.g., a list of product ids to be used.
 
 Let's create an endpoint, which returns availability information of certain products.
 
@@ -171,7 +171,10 @@ class AvailabilityResource {
 }
 ```
 
-Then we'd place a `productIds.csv` file inside the `src/gatling/resources` folder to feed the Gating simulation with dynamic product ids.
+The code consist of delays and error responses on purpose to see these later in in the report. 
+The `/availability` endpoint expects a product id to return availability information about certain products.
+
+Therefore we'd place a `productIds.csv` file inside the `src/gatling/resources` folder to feed the Gating simulation with dynamic product ids.
 
 ```csv
 productId
@@ -232,9 +235,115 @@ class HelloSimulation : Simulation() {
 }
 ```
 
+## Using remote feed data
+
+Sometimes you'd want to obtain the feed data from a remote resource to be more dynamic than for example using a CSV file.
+
+So let's create a new endpoint in the Quarkus app (`src/main/kotlin`), which provides the product data from before:
+
+```kotlin
+package io.github.simonscholz
+
+import javax.ws.rs.GET
+import javax.ws.rs.Path
+import javax.ws.rs.Produces
+import javax.ws.rs.core.MediaType
+import javax.ws.rs.core.Response
+
+@Path("/feederproducts")
+class CustomerFeederResource {
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    fun productAvailability(): Response =
+        Response
+            .ok(listOf("1234", "5678", "91011", "121314", "151617", "181920"))
+            .build()
+}
+
+```
+
+And then create a `Feeder` object with both feeders in `src/gatling/kotlin`:
+
+```kotlin
+package io.github.simonscholz.feeder
+
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
+import io.gatling.javaapi.core.CoreDsl.csv
+import io.gatling.javaapi.core.CoreDsl.listFeeder
+import io.github.simonscholz.config.Config
+import java.net.URL
+
+object Feeder {
+    private val httpFeed: List<String> = URL("http://localhost:8080/feederproducts").openStream().bufferedReader().use {
+        ObjectMapper().readValue(it.readText())
+    }
+
+    val httpProductFeeder = listFeeder(httpFeed.map { mapOf("productId" to it) }).circular()
+
+    val csvProductFeeder = csv("productIds.csv").random()
+}
+```
+
+For the sake of simplicity a Jackson `ObjectMapper` is used to return the product ids as `List<String>`.
+To make use of this `gatlingImplementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.14.1")` needs to be added to the `dependencies` in the `build.gradle.kts` file.
+
+Once the list of product ids is obtained a `listFeeder` can be used, which expects a `List<Map<String, Object>> data`.
+
+With that in place the `CSVFeederProductAvailabilityScenario` could now also use the `httpProductFeeder` instead of the `csvProductFeeder`.
+
+To test it again run:
+
+```bash
+# Start quarkus application
+./gradlew qDev
+
+# Run gatling performance test
+./gradlew gRun
+```
+
+# Chain requests and save data in between
+
+Simulating real user behavior in a performance test also means to simulate the user browsing though a website and therefore chaining requests towards REST apis.
+
+Let's simply reuse the existing endpoints our Quarkus app currently offers and hit the `/hello` endpoint, then hit the `/feederproducts` four times saving one of the returned products based on the index in each iteration and then reuse the saved product id for the `/availability` endpoint.
+
+```kotlin
+package io.github.simonscholz.scenario
+
+import io.gatling.javaapi.core.CoreDsl.*
+import io.gatling.javaapi.http.HttpDsl.http
+
+object ChainScenario {
+    private val chain =
+        exec(
+            http("Hit Hello").get("/hello"),
+        ).pause(1) // Gatling's default is seconds
+            .repeat(4, "i").on(
+                exec(
+                    http("Get Product Ids")
+                        .get("/feederproducts")
+                        .check(
+                            jmesPath("[#{i}]")
+                                .saveAs("productId"),
+                        ),
+                )
+                    .pause(2)
+                    .exec(
+                        http("Hit Availability").get("/availability?productId=#{productId}"),
+                    ),
+            )
+
+    val chainScenario = scenario("Hello").exec(chain)
+}
+```
+
+More details can be found in the https://gatling.io/docs/gatling/reference/current/core/check/ section of the Gatling documentation.
+
 # GitHub action to run a performance test
 
-Let's copy over some parts from this sample: https://github.com/gatling/gatling-gradle-plugin-demo-kotlin
+With a GitHub action in place we cannot simply hit our localhost Quarkus app.
+So let's use `https://computer-database.gatling.io` of Gatling from this sample: https://github.com/gatling/gatling-gradle-plugin-demo-kotlin
 
 ```kotlin
 package io.github.simonscholz.simulation
@@ -257,7 +366,7 @@ class ComputerDatabaseSimulation : Simulation() {
 
     private val httpProtocol =
         http.baseUrl("https://computer-database.gatling.io")
-            .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+            .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") /**/
             .acceptLanguageHeader("en-US,en;q=0.5")
             .acceptEncodingHeader("gzip, deflate")
             .userAgentHeader(
@@ -336,9 +445,23 @@ jobs:
           path: ./build/reports/gatling/
 ```
 
-This workflow can be run manually and the report can be downloaded afterwards.
+When running this GitHub action manually `atOnceUsers`, `rampUpUsers` and `duration` and be specified dynamically:
+
+![Run Gatling GitHub action](./run-gatling-github-action.png)
+
+These inputs are then passed as properties to the gradle task.
+
+Once the workflow is done the Gatling report can be downloaded afterwards.
 
 ![Gatling GitHub action](./gatling-github-action.png)
+
+# Monitor performance of real traffic
+
+My sample code from https://github.com/SimonScholz/performance-analysis not only contains the Gatling part, but also uses Micrometer + Prometheus + Grafana to gather performance metrics of the Quarkus application.
+
+![Grafana percentiles graph](./grafana-percentiles.png)
+
+The graph above shows the run of the `ChainScenario`.
 
 # Sources
 
