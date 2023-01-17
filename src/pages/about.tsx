@@ -32,7 +32,7 @@ function About({ data }: Props): React.ReactElement {
 				className="bg-blue-500 bg-no-repeat bg-cover bg-right p-4"
 				style={{ backgroundImage: `url(${bgImage})` }}
 			>
-				<div className="flex flex-col md:mt-32 mb-10">
+				<div className="flex flex-col md:mt-12 mb-5">
 					<div className="flex-row text-gray-600 font-serif bg-white bg-opacity-50 border-2 p-4 border-opacity-50 md:w-2/3 rounded-lg">
 						I love <span className="font-bold">open source</span> and to{' '}
 						<span className="font-bold">share</span> my knowledge.
