@@ -21,7 +21,7 @@ export const Navigation = ({ children }: Props): React.ReactElement => {
 	const [showNav, setShowNav] = useState(false)
 
 	return (
-		<nav className="flex flex-col justify-between md:flex-row bg-blue-500 p-2">
+		<nav className="flex flex-col justify-between md:flex-row bg-blue-500 p-2 print:hidden">
 			<div className="flex items-center md:flex-grow flex-shrink-0 text-white justify-between md:justify-start">
 				<GatsbyImage
 					image={data.file.childImageSharp.gatsbyImageData}

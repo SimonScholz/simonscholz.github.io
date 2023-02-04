@@ -72,7 +72,7 @@ export function ProfessionalBackground(): React.ReactElement {
 								of MediaMarktSaturn.
 							</li>
 							<li>Relevant Technologies:</li>
-							<ul className="list-disc list-outside ml-4 text-sm">
+							<ul className="list-disc list-outside ml-4 text-sm print:hidden">
 								<li>Quarkus</li>
 								<li>MongoDB</li>
 								<li>Redis</li>
@@ -86,6 +86,12 @@ export function ProfessionalBackground(): React.ReactElement {
 								<li>Kotlin</li>
 								<li>Gradle</li>
 								<li>Log4Brains</li>
+							</ul>
+							<ul className="hidden text-sm print:block">
+								Quarkus, MongoDB, Redis, Google Cloud Platform, Kubernetes,
+								Terraform (Enterprise), GitOps, Micrometer + Prometheus +
+								Grafana + OpsGenie, Gatling Performance Testing, Newman GitHub
+								Actions for API smoke tests Kotlin, Gradle, Log4Brains
 							</ul>
 						</ul>
 					</div>
@@ -129,7 +135,7 @@ export function ProfessionalBackground(): React.ReactElement {
 								other applications with offline capabilities.
 							</li>
 							<li className="font-medium">Relevant Technologies:</li>
-							<ul className="list-disc list-inside ml-4 text-sm">
+							<ul className="list-disc list-inside ml-4 text-sm print:hidden">
 								<li>Spring Boot</li>
 								<li>MongoDB</li>
 								<li>Resilience4J</li>
@@ -141,6 +147,11 @@ export function ProfessionalBackground(): React.ReactElement {
 								<li>JMeter</li>
 								<li>Maven</li>
 								<li>Java --&gt; Kotlin</li>
+							</ul>
+							<ul className="hidden print:block ml-4 text-sm">
+								Spring Boot, MongoDB, Resilience4J, Google Cloud Platform,
+								Kubernetes Terraform, GitOps, Micrometer + Influx + Prometheus +
+								Grafana + OpsGenie, JMeter, Maven, Java --&gt; Kotlin
 							</ul>
 						</ul>
 					</div>

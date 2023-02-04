@@ -36,8 +36,8 @@ export function Education(): React.ReactElement {
 						<span className="font-semibold">
 							Business Informatics (B. Sc.), Flensburg
 						</span>
-                        <XlHiddenTimeFrame timeFrame={"2007 — 2011"}/>
-						<span className='mb-1'>University of Applied Sciences</span>
+						<XlHiddenTimeFrame timeFrame={'2007 — 2011'} />
+						<span className="mb-1">University of Applied Sciences</span>
 						<span className="underline">Title of the bachelor thesis:</span>
 						<span>
 							"Development of a software component for improving the usability
@@ -48,12 +48,16 @@ export function Education(): React.ReactElement {
 							<span>1.0</span>
 						</div>
 						<span className="underline mt-1">Voluntary extra courses:</span>
-						<ul className="list-disc list-inside ml-3">
+						<ul className="list-disc list-inside ml-3 print:hidden">
 							<li>Java Basics</li>
 							<li>Java with GWT</li>
 							<li>Android Development</li>
 							<li>Tutor for new students concerning software development</li>
 						</ul>
+						<div className="hidden print:block">
+							Java Basics, Java with GWT, Android Development, Tutor for new
+							students concerning software development
+						</div>
 					</div>
 				</div>
 				<div className="flex md:flex-row mt-3">
@@ -64,18 +68,24 @@ export function Education(): React.ReactElement {
 						<span className="font-semibold">
 							Gymnasium Lornsenschule, Schleswig
 						</span>
-                        <XlHiddenTimeFrame timeFrame={"1998 — 2007"}/>
+						<XlHiddenTimeFrame timeFrame={'1998 — 2007'} />
 						<div>
 							<span className="underline mr-2">Degree:</span>
 							<span>Abitur</span>
 						</div>
-						<span className="underline mt-1">Examination subjects:</span>
-						<ul className="list-disc list-inside ml-3">
+						<span className="underline mt-1 print:hidden">
+							Examination subjects:
+						</span>
+						<ul className="list-disc list-inside ml-3 print:hidden">
 							<li>Math</li>
 							<li>English</li>
 							<li>History</li>
 							<li>Informatics</li>
 						</ul>
+						<div className="hidden print:block">
+							<span className="underline">Examination subjects:</span> Math,
+							English, History and Informatics
+						</div>
 					</div>
 				</div>
 			</IconLeftBorder>
