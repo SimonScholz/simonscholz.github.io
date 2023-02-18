@@ -1,7 +1,7 @@
 ---
 path: '/tutorials/newman-postman'
-date: '2022-09-16'
-title: 'Running Postman collection tests automatically using GitHub Actions with Newman CLI'
+date: '2023-02-18'
+title: 'Automatic smoke testing using GitHub Actions and the Newman CLI'
 description: 'Postman is a powerful tool to test rest apis manually. With Newman the CLI tool of postman this process of calling the rest api can be automated. To run such a job GitHub Actions can be utilized.'
 author: 'Simon Scholz'
 tags:
@@ -25,11 +25,10 @@ For further information about Postman in general and its usage also see https://
 
 In this tutorial we want to concentrate on automating the calls towards your REST api by running your Postman collections automatically with the newman CLI and GitHub actions.
 
-The reason why I've created this setup was the pain point of having postman collections in our company's GitHub repositories,
-which were unfortunately not always kept up to date.
-Therefore I was looking for a way to enforce this by utilizing GitHub actions and creating a new check in our GitHub pull requests.
+Smoke testing your APIs by using this setup in an automated fashion helps to spot issue early, that's why I tend to run such smoke tests in a scheduled interval, but also as part of my build/release pipelines.
 
-The other more important reason to have the GitHub Action + Newman CLI setup is to write tests within Postman and check whether your API works as expected on a regular basis.
+Since many companies usually share the Postman collections for their APIs in a git repository it is not much effort to utilize this for smoke tests.
+And a nice side effect is that the shared Postman collections are more likely to be kept up to date, since the action will fail in case the API is updated in a non downward compatible way.
 
 # Setup
 
@@ -65,7 +64,8 @@ The following json can be imported into your Postman instance or workspace:
 	"info": {
 		"_postman_id": "85a61698-50ea-42ac-822d-93cf95046eef",
 		"name": "Postman Newman Tutorial",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11499128"
 	},
 	"item": [
 		{
@@ -79,6 +79,8 @@ The following json can be imported into your Postman instance or workspace:
 							"    // Parse JSON body",
 							"    var jsonData = pm.response.json();",
 							"",
+							"    // check response code",
+							"    pm.expect(pm.response.code).to.eql(200);",
 							"    // Check arg",
 							"    pm.expect(jsonData.args.newman).to.eql('Hello Newman');",
 							"});",
@@ -104,8 +106,13 @@ The following json can be imported into your Postman instance or workspace:
 				"url": {
 					"raw": "https://httpbin.org/get?newman=Hello {{user}}",
 					"protocol": "https",
-					"host": ["httpbin", "org"],
-					"path": ["get"],
+					"host": [
+						"httpbin",
+						"org"
+					],
+					"path": [
+						"get"
+					],
 					"query": [
 						{
 							"key": "newman",
@@ -115,6 +122,33 @@ The following json can be imported into your Postman instance or workspace:
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "user",
+			"value": "Newman",
+			"type": "string"
 		}
 	]
 }
@@ -143,6 +177,13 @@ newman run http-bin-get-request.json --global-var "auth_token=no-real-auth" --en
 ```
 
 ![Run newman CLI](./run-newman-sh-fail.png)
+
+The reason for this is that the Test checks the json response:
+
+![Postman httpbin get request test](./httpbin-get-request-test.png)
+
+Of course this check is only done for demonstration purposes. You should **not** check potentially changing data in your smoke tests.
+Sometimes it is even enough to simply check for the 2xx response code for smoke testing purposes.
 
 # Running the Newman CLI as GitHub action
 
