@@ -1,4 +1,5 @@
 ---
+id: 'gatling-performance-testing'
 path: '/tutorials/gatling-performance-testing'
 date: '2023-01-11'
 title: 'Performance testing with Gatling using Gradle and Kotlin'

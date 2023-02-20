@@ -1,4 +1,5 @@
 ---
+id: 'newman-postman'
 path: '/tutorials/newman-postman'
 date: '2023-02-18'
 title: 'Automatic smoke testing using GitHub Actions and the Newman CLI'

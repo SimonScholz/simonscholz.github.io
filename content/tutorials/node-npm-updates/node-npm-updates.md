@@ -1,4 +1,5 @@
 ---
+id: 'node-npm-updates'
 path: '/tutorials/node-npm-updates'
 date: '2022-03-19'
 title: 'Update node + npm and package.json dependencies'

@@ -1,4 +1,5 @@
 ---
+id: 'kotlin-extension-functions'
 path: '/tutorials/kotlin-extension-functions'
 date: '2022-03-26'
 title: 'Using Kotlin extension functions/methods'

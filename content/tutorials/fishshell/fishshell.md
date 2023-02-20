@@ -1,4 +1,5 @@
 ---
+id: 'fishshell'
 path: '/tutorials/fishshell'
 date: '2022-10-08'
 title: 'Fish Shell'

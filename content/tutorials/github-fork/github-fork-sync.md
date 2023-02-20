@@ -1,4 +1,5 @@
 ---
+id: 'github-fork-sync'
 path: '/tutorials/github-fork-sync'
 date: '2020-11-20'
 title: 'GitHub forking and syncing'

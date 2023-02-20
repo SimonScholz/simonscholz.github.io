@@ -1,4 +1,5 @@
 ---
+id: 'java-dependency-updates'
 path: '/tutorials/java-dependency-updates'
 date: '2022-04-29'
 title: 'Java dependency updates with Maven/Gradle and GitHub`s Dependabot'

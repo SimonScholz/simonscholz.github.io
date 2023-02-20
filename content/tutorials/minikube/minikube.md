@@ -1,4 +1,5 @@
 ---
+id: 'minikube'
 path: '/tutorials/minikube'
 date: '2022-10-29'
 title: 'Running Kubernetes locally using Minikube'

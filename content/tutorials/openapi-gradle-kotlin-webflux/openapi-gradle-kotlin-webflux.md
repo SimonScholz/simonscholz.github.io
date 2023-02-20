@@ -1,4 +1,5 @@
 ---
+id: 'openapi-gradle-kotlin-webflux'
 path: '/tutorials/openapi-gradle-kotlin-webflux'
 date: '2021-12-10'
 title: 'Spring Webflux endpoints and clients with OpenApi using Gradle'

@@ -13,6 +13,7 @@ export default function BlogTemplate({
 }: Props) {
 	const { markdownRemark } = data // data.markdownRemark holds your post data
 	const { frontmatter, html, timeToRead, tableOfContents } = markdownRemark
+	const issueLink = `https://github.com/SimonScholz/simonscholz.github.io/issues/new?labels=website,tutorial&title=[${frontmatter.id}]`
 	return (
 		<>
 			<SEO
@@ -23,9 +24,17 @@ export default function BlogTemplate({
 			<article className="blog-post-container mt-2 mx-3">
 				<div className="blog-post">
 					<h1 className="text-gray-900 text-3xl">{frontmatter.title}</h1>
-					<p className="text-gray-600 text-sm border-b-2 mb-2">
-						{frontmatter.author} ⚬ <time>{frontmatter.date}</time> ⚬{' '}
-						{timeToRead} min read
+					<p className="text-gray-600 text-sm border-b-2 mb-2 flex flex-col md:flex-row">
+						<p className="grow md:grow-0">
+							{frontmatter.author} ⚬ <time>{frontmatter.date}</time> ⚬{' '}
+							{timeToRead} min read
+						</p>
+						<a className="md:ml-3 mb-2 md:mb-0" href={issueLink}>
+							<img
+								src="https://img.shields.io/badge/-Feedback%3F%20Requests%3F-informational?logo=github"
+								alt="Feedback / Requests?"
+							/>
+						</a>
 					</p>
 					<img
 						src={`https://${frontmatter.vgWort}`}
@@ -33,6 +42,12 @@ export default function BlogTemplate({
 						height="1"
 						alt=""
 					></img>
+					<a className="fixed bottom-8 right-5 z-40 w-300" href={issueLink}>
+						<img
+							src="https://img.shields.io/badge/-Feedback%3F%20Requests%3F-informational?logo=github"
+							alt="Feedback / Requests?"
+						/>
+					</a>
 					<div
 						className="blog-post-toc"
 						dangerouslySetInnerHTML={{ __html: tableOfContents }}
@@ -58,6 +73,7 @@ export const pageQuery = graphql`
 				maxDepth: 2
 			)
 			frontmatter {
+				id
 				date(formatString: "MMMM DD, YYYY")
 				title
 				description

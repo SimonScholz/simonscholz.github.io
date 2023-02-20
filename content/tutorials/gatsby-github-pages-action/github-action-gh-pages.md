@@ -1,4 +1,5 @@
 ---
+id: 'github-pages-and-actions'
 path: '/tutorials/github-pages-and-actions'
 date: '2020-11-22'
 title: 'GitHub Pages with Gatsby built by GitHub Actions'

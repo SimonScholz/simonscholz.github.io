@@ -1,4 +1,5 @@
 ---
+id: 'pdf'
 path: '/tutorials/pdf'
 date: '2020-10-09'
 title: 'PDF Tools'

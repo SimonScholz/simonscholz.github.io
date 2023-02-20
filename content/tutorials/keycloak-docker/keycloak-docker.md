@@ -1,4 +1,5 @@
 ---
+id: 'keycloak-quarkus-postgres-docker-compose'
 path: '/tutorials/keycloak-quarkus-postgres-docker-compose'
 date: '2022-12-04'
 title: 'Run Keycloak v20 (based on Quarkus) including postgres using docker compose'

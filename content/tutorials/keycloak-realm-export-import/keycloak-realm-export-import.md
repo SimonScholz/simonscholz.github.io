@@ -1,4 +1,5 @@
 ---
+id: 'keycloak-realm-export-import'
 path: '/tutorials/keycloak-realm-export-import'
 date: '2022-09-24'
 title: 'Export and import keycloak realm with users'

@@ -1,4 +1,5 @@
 ---
+id: 'gpg-archive-encryption'
 path: '/tutorials/gpg-archive-encryption'
 date: '2022-01-09'
 title: 'Security - Encrypt archive files with GPG'

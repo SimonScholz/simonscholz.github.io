@@ -1,4 +1,5 @@
 ---
+id: 'postman'
 path: '/tutorials/postman'
 date: '2022-09-10'
 title: 'Usage of the Postman rest client'
