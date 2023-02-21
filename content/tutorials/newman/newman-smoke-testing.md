@@ -1,6 +1,6 @@
 ---
-id: 'newman-postman'
-path: '/tutorials/newman-postman'
+id: 'newman-smoke-testing'
+path: '/tutorials/newman-smoke-testing'
 date: '2023-02-18'
 title: 'Automatic smoke testing using GitHub Actions and the Newman CLI'
 description: 'Postman is a powerful tool to test rest apis manually. With Newman the CLI tool of postman this process of calling the rest api can be automated. To run such a job GitHub Actions can be utilized.'
@@ -8,7 +8,7 @@ author: 'Simon Scholz'
 tags:
   [
     'postman',
-	  'API',
+	'API',
     'rest-client',
     'automatization',
     'newman',
