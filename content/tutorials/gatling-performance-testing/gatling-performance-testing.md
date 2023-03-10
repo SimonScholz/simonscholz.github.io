@@ -1,7 +1,7 @@
 ---
 id: 'gatling-performance-testing'
 path: '/tutorials/gatling-performance-testing'
-date: '2023-01-11'
+date: '2023-03-11'
 title: 'Performance testing with Gatling using Gradle and Kotlin'
 description: 'Tutorial on how to create a project for Gatling performance testing with Gradle and Kotlin'
 author: 'Simon Scholz'
@@ -455,6 +455,59 @@ These inputs are then passed as properties to the gradle task.
 Once the workflow is done the Gatling report can be downloaded afterwards.
 
 ![Gatling GitHub action](./gatling-github-action.png)
+
+# Building an executable Jar for gatling performance tests
+
+Just add the following at the end of the `build.gradle.kts` file to create an executable jar file.
+
+```kotlin
+configurations {
+    create("gatlingDependencies").apply {
+        extendsFrom(configurations.gatling.get())
+    }
+}
+
+tasks.register("gatlingJar", Jar::class) {
+    group = "build"
+    archiveBaseName.set("gatling-performance-analysis")
+    dependsOn("gatlingClasses", "processResources")
+
+    manifest {
+        attributes["Implementation-Title"] = "Gradle Jar File Example"
+        attributes["Implementation-Version"] = archiveVersion
+        attributes["Main-Class"] = "io.gatling.app.Gatling"
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    from(sourceSets.gatling.get().output)
+    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
+    from(configurations.named("gatlingDependencies").get().map { if (it.isDirectory) it else zipTree(it) }) {
+        exclude("META-INF/MANIFEST.MF")
+        exclude("META-INF/*.SF")
+        exclude("META-INF/*.DSA")
+        exclude("META-INF/*.RSA")
+    }
+    with(tasks.jar.get() as CopySpec)
+}
+```
+
+Building and running the jar file from your terminal:
+
+```bash
+# build the gatlingJar
+./gradlew gJar
+
+# Go into the folder of the built jar
+cd /build/libs
+
+# run the jar by mentioning the simulation you want to run
+java -jar gatling-performance-analysis-1.0.0-SNAPSHOT.jar -s io.github.simonscholz.simulation.HelloSimulation
+```
+
+The result should look similar to this:
+
+![Gatling JAR console output](./gatling-jar-console.png)
 
 # Monitor performance of real traffic
 
