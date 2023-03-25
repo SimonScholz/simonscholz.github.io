@@ -1,11 +1,11 @@
 ---
 id: 'gatling-performance-testing'
 path: '/tutorials/gatling-performance-testing'
-date: '2023-03-11'
+date: '2023-03-25'
 title: 'Performance testing with Gatling using Gradle and Kotlin'
 description: 'Tutorial on how to create a project for Gatling performance testing with Gradle and Kotlin'
 author: 'Simon Scholz'
-tags: ['kotlin', 'jvm', 'gatling', 'testing', 'performance', 'gradle']
+tags: ['kotlin', 'jvm', 'gatling', 'testing', 'performance', 'gradle', 'jib', 'docker', 'kubernetes', 'standalone']
 vgWort: 'vg08.met.vgwort.de/na/395304c41e1e46fc92d41791863dc07e'
 ---
 
@@ -461,12 +461,6 @@ Once the workflow is done the Gatling report can be downloaded afterwards.
 Just add the following at the end of the `build.gradle.kts` file to create an executable jar file.
 
 ```kotlin
-configurations {
-    create("gatlingDependencies").apply {
-        extendsFrom(configurations.gatling.get())
-    }
-}
-
 tasks.register("gatlingJar", Jar::class) {
     group = "build"
     archiveBaseName.set("gatling-performance-analysis")
@@ -481,8 +475,8 @@ tasks.register("gatlingJar", Jar::class) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
     from(sourceSets.gatling.get().output)
-    from(configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) })
-    from(configurations.named("gatlingDependencies").get().map { if (it.isDirectory) it else zipTree(it) }) {
+    from(configurations.kotlinCompilerPluginClasspathGatling.get().map { if (it.isDirectory) it else zipTree(it) })
+    from(configurations.gatling.get().map { if (it.isDirectory) it else zipTree(it) }) {
         exclude("META-INF/MANIFEST.MF")
         exclude("META-INF/*.SF")
         exclude("META-INF/*.DSA")
@@ -508,6 +502,87 @@ java -jar gatling-performance-analysis-1.0.0-SNAPSHOT.jar -s io.github.simonscho
 The result should look similar to this:
 
 ![Gatling JAR console output](./gatling-jar-console.png)
+
+# Creating a Docker Image using Jib
+
+Instead of using a Dockerfile to create an docker image, I decided to use Jib, which is great for layering of JVM apps.
+
+For this to work we have to add the Jib Gradle plugin to our project:
+
+```kotlin
+plugins {
+    // .... other plugins ....
+
+    id("com.google.cloud.tools.jib") version "3.3.1"
+}
+```
+
+Jib as of now cannot easily deal with custom source folders used by Gatling, e.g., `src/gatling/kotlin/`.
+That's why we need to tweak our build config a little bit.
+
+```kotlin
+// Copy over the gatling classes to the app/classes folder
+tasks.register("copyGatlingToAppDir", Copy::class) {
+    dependsOn("gatlingClasses")
+    from("build/classes/kotlin/gatling")
+    into("build/extra-directory/app/classes/")
+}
+
+// Copy over the gatling resources folder
+tasks.register("copyGatlingResources", Copy::class) {
+    from("src/gatling/resources")
+    into("build/extra-directory/app/resources")
+}
+
+tasks.named("jib") {
+    dependsOn("copyGatlingToAppDir", "copyGatlingResources")
+}
+
+tasks.named("jibDockerBuild") {
+    dependsOn("copyGatlingToAppDir", "copyGatlingResources")
+}
+
+tasks.named("jibBuildTar") {
+    dependsOn("appDir", "copyGatlingResources")
+}
+
+// Configuration, which should be used by Jib
+val gatlingJibDocker: Configuration by configurations.creating {
+    extendsFrom(
+        configurations.kotlinCompilerPluginClasspathGatling.get(),
+        configurations.gatling.get(),
+    )
+}
+
+jib {
+    configurationName.set("gatlingJibDocker")
+    extraDirectories.setPaths("build/extra-directory")
+    container {
+        mainClass = "io.gatling.app.Gatling"
+        args = listOf("-s", "io.github.simonscholz.simulation.HelloSimulation")
+    }
+}
+```
+
+With these additional tasks and configurations, the docker images can be created.
+To simply see how the docker image contents would look like the `./gradlew jibBuildTar --image=desired-image-name` task can be run, which will create a tar file with all the contents in the `build` folder.
+
+To push the generated docker images to your local docker daemon the `./gradlew jibDockerBuild` task can be run.
+To run this image locally you can run:
+
+```bash
+docker run --rm -it -e gatlingBaseUrl='http://host.docker.internal:8080' --add-host=host.docker.internal:host-gateway performance-analysis:1.0.0-SNAPSHOT
+```
+
+`--add-host=host.docker.internal:host-gateway` is necessary to allow the docker container to call our Quarkus application, which runs on localhost.
+Therefore also the `gatlingBaseUrl` must be changed to `http://host.docker.internal:8080`.
+
+With that in place you can run the docker image easily in a different environment, which supports docker, e.g. Kubernetes.
+
+For testing purposes the `--rm` flag is added to remove the container after it has run, which makes cleanups easier.
+Also see https://simonscholz.github.io/tutorials/docker#run-docker-container-and-immediately-remove-it-again
+
+Optionally you can also add the `--image=desired-image-name` flag to have a different image name as `performance-analysis:1.0.0-SNAPSHOT`.
 
 # Monitor performance of real traffic
 
