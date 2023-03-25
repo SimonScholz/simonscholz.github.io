@@ -88,6 +88,18 @@ To start a docker container, which already has been running on your machine you 
 docker start <your-desired-container-id>
 ```
 
+# Run docker container and immediately remove it again
+
+When you're creating docker images for testing purposes or an image that's supposed to do a job only once, you'd usually want to remove it after running immediately.
+This can be archived by passing the `-rm` param.
+
+```bash
+docker run --rm my-run-only-once-docker-image
+```
+
+This will run the respective docker image and remove the container once it exits.
+This can be really handy when experimenting with docker images, which you created on your own.
+
 # Stop and remove container
 
 With `docker ps` you also get the ids of the container, which can be used to stop a certain container like this:
