@@ -86,7 +86,8 @@ import io.github.simonscholz.scenario.HelloScenario.hello
 
 class HelloSimulation : Simulation() {
 
-    private val baseUrl = System.getProperty("gatlingBaseUrl", "http://localhost:8080")
+    private val baseUrl = System.getenv("gatlingBaseUrl")
+        ?: System.getProperty("gatlingBaseUrl", "http://localhost:8080")
 
     private val httpProtocol =
         http.baseUrl(baseUrl)
@@ -131,12 +132,10 @@ The `HelloSimulation` class uses the `gatlingBaseUrl` system property to obtain 
 This property can be set using `-D` to provide properties:
 
 ```bash
-./gradlew gRun -DgatlingBaseUrl="http://localhost:8080
+./gradlew gRun -DgatlingBaseUrl="http://localhost:8080"
 ```
 
-## Utilize a csv feeder
-
-Feeders allow to inject dynamic data into a simulation and to choose this data in a random fashion, e.g., a list of product ids to be used.
+## A more complex endpoint to be used by a Scenario
 
 Let's create an endpoint, which returns availability information of certain products.
 
@@ -175,6 +174,36 @@ class AvailabilityResource {
 The code consist of delays and error responses on purpose to see these later in in the report. 
 The `/availability` endpoint expects a product id to return availability information about certain products.
 
+## Move the http setup to Config object
+
+To avoid cluttering our Gatling code we'd move the http protocol setup to a `Config` object class.
+
+```kotlin
+package io.github.simonscholz.config
+
+import io.gatling.javaapi.http.HttpDsl.http
+
+object Config {
+    val BASE_URL: String = System.getenv("gatlingBaseUrl")
+        ?: System.getProperty("gatlingBaseUrl", "http://localhost:8080")
+
+    val HTTP_PROTOCOL =
+        http.baseUrl(BASE_URL)
+            .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+            .acceptLanguageHeader("en-US,en;q=0.5")
+            .acceptEncodingHeader("gzip, deflate")
+            .userAgentHeader(
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:16.0) Gecko/20100101 Firefox/16.0",
+            )
+}
+```
+
+Now the `HTTP_PROTOCOL` object can simply be used as protocols for the simulation.
+
+## Utilize a csv feeder
+
+Feeders allow to inject dynamic data into a simulation and to choose this data in a random fashion, e.g., a list of product ids to be used.
+
 Therefore we'd place a `productIds.csv` file inside the `src/gatling/resources` folder to feed the Gating simulation with dynamic product ids.
 
 ```csv
@@ -211,7 +240,7 @@ object CSVFeederProductAvailabilityScenario {
 
 Also see https://gatling.io/docs/gatling/reference/current/core/session/feeder/
 
-You can now add this `productAvailabilityScenario` to the simulation.
+You can now add this `productAvailabilityScenario` to the `HelloSimulation`.
 
 ```kotlin
 package io.github.simonscholz.simulation
@@ -235,6 +264,10 @@ class HelloSimulation : Simulation() {
     }
 }
 ```
+
+With this in place we're now hitting both the `/hello` endpoint and the `/availability` endpoint.
+
+In case the Quarkus application is still running you can simply run `./gradlew gRun` to trigger another performance test.
 
 ## Using remote feed data
 
@@ -276,13 +309,13 @@ import io.github.simonscholz.config.Config
 import java.net.URL
 
 object Feeder {
-    private val httpFeed: List<String> = URL("http://localhost:8080/feederproducts").openStream().bufferedReader().use {
+    private val httpFeed: List<String> = URL("${Config.BASE_URL}/feederproducts").openStream().bufferedReader().use {
         ObjectMapper().readValue(it.readText())
     }
 
     val httpProductFeeder = listFeeder(httpFeed.map { mapOf("productId" to it) }).circular()
 
-    val csvProductFeeder = csv("productIds.csv").random()
+    val csvProductFeeder = csv("productIds.csv").circular()
 }
 ```
 
@@ -296,7 +329,7 @@ With that in place the `CSVFeederProductAvailabilityScenario` could now also use
 To test it again run:
 
 ```bash
-# Start quarkus application
+# Start Quarkus application, in case it isn't still running
 ./gradlew qDev
 
 # Run gatling performance test
@@ -312,7 +345,7 @@ Let's simply reuse the existing endpoints our Quarkus app currently offers and h
 ```kotlin
 package io.github.simonscholz.scenario
 
-import io.gatling.javaapi.core.CoreDsl.*
+import io.gatling.javaapi.core.CoreDsl.* // ktlint-disable no-wildcard-imports
 import io.gatling.javaapi.http.HttpDsl.http
 
 object ChainScenario {
@@ -335,7 +368,7 @@ object ChainScenario {
                     ),
             )
 
-    val chainScenario = scenario("Hello").exec(chain)
+    val chainScenario = scenario("ChainScenario").exec(chain)
 }
 ```
 
@@ -353,7 +386,7 @@ import io.gatling.javaapi.core.CoreDsl.* // ktlint-disable no-wildcard-imports
 import io.gatling.javaapi.core.Simulation
 import io.gatling.javaapi.http.HttpDsl.http
 
-class ComputerDatabaseSimulation : Simulation() {
+class ComputerDatabaseSimXulation : Simulation() {
     private val AT_ONCE_USERS: Int = Integer.getInteger("atOnceUsers", 10)
     private val RAMP_UP_USERS: Int = Integer.getInteger("rampUpUsers", 10)
     private val DURATION: Int = Integer.getInteger("duration", 10)
@@ -367,7 +400,7 @@ class ComputerDatabaseSimulation : Simulation() {
 
     private val httpProtocol =
         http.baseUrl("https://computer-database.gatling.io")
-            .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8") /**/
+            .acceptHeader("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
             .acceptLanguageHeader("en-US,en;q=0.5")
             .acceptEncodingHeader("gzip, deflate")
             .userAgentHeader(
@@ -380,7 +413,8 @@ class ComputerDatabaseSimulation : Simulation() {
         setUp(
             users.injectOpen(
                 atOnceUsers(AT_ONCE_USERS),
-                rampUsers(RAMP_UP_USERS).during(DURATION.toLong())),
+                rampUsers(RAMP_UP_USERS).during(DURATION.toLong()),
+            ),
         ).protocols(httpProtocol)
     }
 }
@@ -458,7 +492,8 @@ Once the workflow is done the Gatling report can be downloaded afterwards.
 
 # Building an executable Jar for gatling performance tests
 
-Just add the following at the end of the `build.gradle.kts` file to create an executable jar file.
+In some cases you'd rather want to have an executable Jar file to run a performance test.
+To archive this the following can to be added at the end of the `build.gradle.kts` file to create an executable jar file.
 
 ```kotlin
 tasks.register("gatlingJar", Jar::class) {
@@ -505,7 +540,8 @@ The result should look similar to this:
 
 # Creating a Docker Image using Jib
 
-Instead of using a Dockerfile to create an docker image, I decided to use Jib, which is great for layering of JVM apps.
+Instead of using a Dockerfile to create a docker image from ,e.g., the Jar file of the previous section,
+I decided to use Jib, which is great for layering of JVM apps.
 
 For this to work we have to add the Jib Gradle plugin to our project:
 
@@ -577,12 +613,12 @@ docker run --rm -it -e gatlingBaseUrl='http://host.docker.internal:8080' --add-h
 `--add-host=host.docker.internal:host-gateway` is necessary to allow the docker container to call our Quarkus application, which runs on localhost.
 Therefore also the `gatlingBaseUrl` must be changed to `http://host.docker.internal:8080`.
 
-With that in place you can run the docker image easily in a different environment, which supports docker, e.g. Kubernetes.
-
 For testing purposes the `--rm` flag is added to remove the container after it has run, which makes cleanups easier.
 Also see https://simonscholz.github.io/tutorials/docker#run-docker-container-and-immediately-remove-it-again
 
 Optionally you can also add the `--image=desired-image-name` flag to have a different image name as `performance-analysis:1.0.0-SNAPSHOT`.
+
+In a real world scenario you then could run the `jib` task to also push the Docker image to a desired Docker registry in order to run this image in a dedicated environment, e.g., Kubernetes.
 
 # Monitor performance of real traffic
 
