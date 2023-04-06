@@ -50,7 +50,7 @@
 		"gatsby-plugin-image": "^2.14.1",
 		"gatsby-plugin-layout": "^3.23.0",
 		"gatsby-plugin-manifest": "^4.16.0",
-		"gatsby-plugin-netlify": "^4.1.0",
+		"gatsby-plugin-netlify": "^5.1.0",
 		"gatsby-plugin-nprogress": "^4.10.0",
 		"gatsby-plugin-offline": "^5.10.0",
 		"gatsby-plugin-postcss": "^5.14.0",
