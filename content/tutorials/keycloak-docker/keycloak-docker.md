@@ -1,9 +1,9 @@
 ---
 id: 'keycloak-quarkus-postgres-docker-compose'
 path: '/tutorials/keycloak-quarkus-postgres-docker-compose'
-date: '2022-12-04'
-title: 'Run Keycloak v20 (based on Quarkus) including postgres using docker compose'
-description: 'Setting up Keycloak v20 (based on Quarkus) with docker compose and connect it to postgres'
+date: '2023-04-17'
+title: 'Run Keycloak v21 (based on Quarkus) including postgres using docker compose'
+description: 'Setting up Keycloak v21 (based on Quarkus) with docker compose and connect it to postgres'
 author: 'Simon Scholz'
 tags:
   [
@@ -38,34 +38,28 @@ In order to run Postgres and PGAdmin (Postgres database UI client) via docker co
 version: "3.7"
 
 services:
-  postgres:
+  keycloak-postgres:
     container_name: keycloak-postgres
-    image: "postgres:15.1"
+    image: "postgres:15.2"
     volumes:
-      - ./dev-environment/docker-config/postgres/data:/var/lib/postgresql/data/
+        - ./dev-environment/docker-config/postgres/data:/var/lib/postgresql/data:rw
     environment:
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=keycloak
-    networks:
-      - backend
+        - POSTGRES_DB=keycloak
+        - POSTGRES_USER=keycloak
+        - POSTGRES_PASSWORD=keycloak
     ports:
-      - "5432:5432"
-  pgadmin:
-    container_name: keycloak-postgres-pgadmin
-    image: "dpage/pgadmin4:6.17"
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@postgres.dev
-      - PGADMIN_DEFAULT_PASSWORD=admin
-    ports:
-      - "5050:80"
-    networks:
-      - backend
+        - "5432:5432"
+    restart: unless-stopped
 
-networks:
-  backend:
-    name: backend
-    driver: bridge
-
+   pgadmin:
+      container_name: postgres-pgadmin
+      image: "dpage/pgadmin4:7.0"
+      environment:
+          - PGADMIN_DEFAULT_EMAIL=admin@postgres.dev
+          - PGADMIN_DEFAULT_PASSWORD=admin
+      ports:
+          - "5050:80"
+      restart: unless-stopped
 ```
 
 When saving this to a `docker-compose.yml` file and running `docker-compose up` a Postgres database and a PGAdmin UI client will be started.
@@ -75,7 +69,7 @@ Just go to http://localhost:5050 to login into PGAdmin using the above defined c
 
 ![PGAdmin login screen](./pgadmin-login.png)
 
-# Starting Keycloak 20 and connect it to the Postgres database
+# Starting Keycloak 21 and connect it to the Postgres database
 
 Now we can configure to also start Keycloak once the Postgres DB is up and running.
 To ensure this we make use of the depends_on directive like this:
@@ -86,49 +80,31 @@ version: "3.7"
 
 services:
   keycloak:
-    image: 'quay.io/keycloak/keycloak:20.0.1'
-    container_name: keycloak-with-postgres
+    image: 'bitnami/keycloak:21.0.2'
+    container_name: keycloak
     depends_on:
-      - "postgres" # the name of the service above
-    restart: "no"
+        - "keycloak-postgres" # the name of the service above
+    restart: unless-stopped
     ports:
-      - '8180:8080' # Changing this port because 8080 is usually the default for the quarkus app
+        - '8180:8080' # Changing this port because 8080 is usually the default for the actual app, e.g., Quarkus or Spring
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - GET_HOSTS_FROM=dns
-      - KC_DB=postgres
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=keycloak
-      - KC_DB_URL=jdbc:postgresql://keycloak-postgres:5432/keycloak
-      - KC_HOSTNAME=localhost
-    command:
-      - start-dev
-    networks:
-      - backend
-
-networks:
-  backend:
-    name: backend
-    driver: bridge
-
+        - KEYCLOAK_ADMIN_USER=admin
+        - KEYCLOAK_ADMIN_PASSWORD=admin
+        - KEYCLOAK_DATABASE_NAME=keycloak
+        - KEYCLOAK_DATABASE_USER=keycloak
+        - KEYCLOAK_DATABASE_PASSWORD=keycloak
+        - KEYCLOAK_DATABASE_HOST=keycloak-postgres
 ```
 
-This samples uses the currently latest version (20.0.1) of Keycloak (dec 4th 2022), which is based on Quarkus instead of Wildfly.
+This samples uses the currently latest version (21.0.2) of Keycloak (dec 4th 2022), which is based on Quarkus instead of Wildfly.
 
-`KEYCLOAK_ADMIN` and `KEYCLOAK_ADMIN_PASSWORD` will be the user name and password to get access to keycloak.
+`KEYCLOAK_ADMIN_USER` and `KEYCLOAK_ADMIN_PASSWORD` will be the user name and password to get access to keycloak.
 
-`GET_HOSTS_FROM` helps to find the Postgres in the later step.
+`KEYCLOAK_DATABASE_USER` and `KEYCLOAK_DATABASE_PASSWORD` are the username and password, which have been configured earlier for the Postgres container.
 
-`KC_DB=postgres` indicates that we want to use Postgres DB as data store for our running Keycloak instance.
-Besides Postgres Keycloak is supporting several other data stores as well, but Postgres is the so called "first class database" for Keycloak. Also see https://www.keycloak.org/2022/02/dbs.html
+`KEYCLOAK_DATABASE_HOST` is referencing the postgres container `keycloak-postgres`, which will be used by Keycloak to create a jdbc connection towards the postgres.
 
-`KC_DB_USERNAME` and `KC_DB_PASSWORD` are the username and password, which have been configured earlier for the Postgres container.
-
-The `KC_DB_URL` needs to be a proper jdbc connection string to work in a proper manner for Keycloak: `jdbc:postgresql://keycloak-postgres:5432/keycloak`
-`keycloak-postgres` in the jdbc connection string is the name of the postgres container, which can be referenced.
-
-The meaning of the different environment variables can be found here: https://www.keycloak.org/server/containers
+The meaning of the different environment variables can be found here: https://hub.docker.com/r/bitnami/keycloak/
 
 # Putting all together
 
@@ -139,55 +115,44 @@ The complete docker-compose.yaml file will look like this:
 version: "3.7"
 
 services:
-  postgres:
+  keycloak-postgres:
     container_name: keycloak-postgres
-    image: "postgres:15.1"
+    image: "postgres:15.2"
     volumes:
-      - ./dev-environment/docker-config/postgres/data:/var/lib/postgresql/data/
+        - ./dev-environment/docker-config/postgres/data:/var/lib/postgresql/data:rw
     environment:
-      - POSTGRES_USER=keycloak
-      - POSTGRES_PASSWORD=keycloak
-    networks:
-      - backend
+        - POSTGRES_DB=keycloak
+        - POSTGRES_USER=keycloak
+        - POSTGRES_PASSWORD=keycloak
     ports:
-      - "5432:5432"
+        - "5432:5432"
+    restart: unless-stopped
+
   pgadmin:
-    container_name: keycloak-postgres-pgadmin
-    image: "dpage/pgadmin4:6.17"
+    container_name: postgres-pgadmin
+    image: "dpage/pgadmin4:7.0"
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@postgres.dev
-      - PGADMIN_DEFAULT_PASSWORD=admin
+        - PGADMIN_DEFAULT_EMAIL=admin@postgres.dev
+        - PGADMIN_DEFAULT_PASSWORD=admin
     ports:
-      - "5050:80"
-    networks:
-      - backend
+        - "5050:80"
+    restart: unless-stopped
+
   keycloak:
-    image: 'quay.io/keycloak/keycloak:20.0.1'
-    container_name: keycloak-with-postgres
+    image: 'bitnami/keycloak:21.0.2'
+    container_name: keycloak
     depends_on:
-      - "postgres" # the name of the service above
-    restart: "no"
+        - "keycloak-postgres" # the name of the service above
+    restart: unless-stopped
     ports:
-      - '8180:8080' # Changing this port because 8080 is usually the default for the quarkus app
+        - '8180:8080' # Changing this port because 8080 is usually the default for the actual app, e.g., Quarkus or Spring
     environment:
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=admin
-      - GET_HOSTS_FROM=dns
-      - KC_DB=postgres
-      - KC_DB_USERNAME=keycloak
-      - KC_DB_PASSWORD=keycloak
-      - KC_DB_URL=jdbc:postgresql://keycloak-postgres:5432/keycloak
-      - KC_HOSTNAME=localhost
-    command:
-      - start-dev
-    networks:
-      - backend
-
-networks:
-  backend:
-    name: backend
-    driver: bridge
-
+        - KEYCLOAK_ADMIN_USER=admin
+        - KEYCLOAK_ADMIN_PASSWORD=admin
+        - KEYCLOAK_DATABASE_NAME=keycloak
+        - KEYCLOAK_DATABASE_USER=keycloak
+        - KEYCLOAK_DATABASE_PASSWORD=keycloak
+        - KEYCLOAK_DATABASE_HOST=keycloak-postgres
 ```
 
 Going to http://localhost:8180/ will show the Keycloak home screen: 
@@ -236,6 +201,7 @@ Once the data has been entered you can hit `Save` and you'll be connected to the
 # Sources
 
 - https://www.keycloak.org/guides#getting-started
+- https://hub.docker.com/r/bitnami/keycloak/
 - https://www.keycloak.org/server/containers
 - https://hub.docker.com/_/postgres
 - https://www.pgadmin.org/docs/pgadmin4/latest/container_deployment.html
