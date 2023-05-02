@@ -11,7 +11,7 @@ vgWort: ''
 
 Here I'd like to share how I'd setup my freshly installed OS, namely Ubuntu, for development.
 
-# Install Ubuntu
+# Ubuntu
 
 You can go to https://ubuntu.com/download/desktop to get the latest version of Ubuntu.
 
@@ -19,7 +19,7 @@ Once the download button has been pressed you'll also see a link about how to cr
 
 # KeePassXC
 
-One of the first things to do is installing KeePassXC where I usually store the majority of password in a secure manner.
+One of the first things to do is installing KeePassXC where I usually store the majority of my passwords in a secure manner.
 
 ```bash
 sudo add-apt-repository ppa:phoerious/keepassxc
@@ -29,12 +29,12 @@ sudo apt install keepassxc
 
 Also see: https://keepassxc.org/download/#linux
 
-# Install Git
+# Git
 
-Nowadays almost every developer used Git as distributed version control system (DVCS).
+Nowadays almost every developer uses Git as distributed version control system (DVCS).
 More details on Git can be found here: https://simonscholz.github.io/tutorials/git
 
-# Install SDKMan!
+# SDKMan!
 
 SDKMan! is a really easy to use tool to maintain an overview of SDKs being installed on your system.
 
@@ -47,10 +47,11 @@ Also see https://sdkman.io/install
 
 SDKs (https://sdkman.io/sdks) I usually install are:
 
-* sdk install asciidoctorj
+* sdk install java
 * sdk install gradle
 * sdk install maven 
 * sdk install quarkus
+* sdk install asciidoctorj
 
 And of course there are several different JDKs to choose from: https://sdkman.io/jdks
 
@@ -67,9 +68,9 @@ sdk install java
 
 Also see https://sdkman.io/usage for the usage of SDKMan!
 
-# Install Docker + Docker Compose
+# Docker + Docker Compose
 
-Here I can only refer to the excellent articles of Digital Ocean:
+Here I will only refer to the excellent articles of Digital Ocean:
 
 * https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-22-04
 * https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-22-04
@@ -78,7 +79,7 @@ In these tutorials you can even choose your Operating System / Linux Distro, whe
 
 # Postman
 
-A great tool to call different rest APIs with a nice user interface.
+A great tool to call different rest or graphql APIs with a nice user interface.
 
 ```bash
 snap install postman
@@ -142,7 +143,7 @@ Also see: https://www.dropbox.com/install-linux
 
 # Chrome
 
-One of the most popular browser can be found here: https://www.google.com/chrome/de/download-chrome/
+One of the most popular browsers can be found here: https://www.google.com/chrome/de/download-chrome/
 
 # Fish Shell
 
