@@ -52,6 +52,7 @@ export interface HomepageQuery {
   eclipse: any;
   webDev: any;
   education: any;
+  github: any;
 }
 
 export interface AboutQuery {
