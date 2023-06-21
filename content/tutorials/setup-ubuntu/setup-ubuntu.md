@@ -17,6 +17,19 @@ You can go to https://ubuntu.com/download/desktop to get the latest version of U
 
 Once the download button has been pressed you'll also see a link about how to create a bootable usb stick to install Ubuntu.
 
+# Nala as apt alternative
+
+Nala is a nice tool for installing and updating like apt does, but with a better UI, which gives better insights on what is happening.
+And it offers a history, which can be undone. This can be helpful especially in cases when an update broke your system.
+
+Fun fact, Nala can be installed using apt ;-)
+
+```bash
+sudo apt update && sudo apt install nala
+```
+
+Also see https://gitlab.com/volian/nala
+
 # KeePassXC
 
 One of the first things to do is installing KeePassXC where I usually store the majority of my passwords in a secure manner.
@@ -122,7 +135,11 @@ https://simonscholz.github.io/tutorials/node-npm-updates
 Even though Ubuntu 22.04 ships with an improved good to use Screenshot tool out of the box, I'd still prefer using Flameshot.
 
 ```bash
+# using apt
 sudo apt install flameshot
+
+# using nala
+sudo nala install flameshot
 ```
 
 Also see: https://flameshot.org/docs/installation/installation-linux/
@@ -150,3 +167,36 @@ One of the most popular browsers can be found here: https://www.google.com/chrom
 Using the default terminal of Ubuntu is usually sufficient, but there are alternatives like Fish Shell, which offers powerful features like a command history with auto completion and much more.
 
 Also see my dedicated tutorial about the fish shell: https://simonscholz.github.io/tutorials/fishshell
+
+# Messenger
+
+## Telegram
+
+A nice alternative to WhatsApp, which is pretty popular and also has a desktop client.
+
+```bash
+# using apt
+sudo apt install telegram-desktop 
+
+# using nala
+sudo nala install telegram-desktop 
+```
+
+Also see https://wiki.ubuntuusers.de/Telegram/
+
+## Teams for Linux
+
+```bash
+curl -1sLf 'https://dl.cloudsmith.io/public/teams-for-linux/packages/setup.deb.sh' | sudo -E bash
+
+# using apt
+sudo apt update
+sudo apt install teams-for-linux
+
+# using nala
+sudo nala update
+sudo nala install teams-for-linux
+```
+
+
+Also see https://github.com/IsmaelMartinez/teams-for-linux
