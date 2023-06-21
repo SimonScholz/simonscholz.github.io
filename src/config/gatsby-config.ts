@@ -88,6 +88,7 @@ const gatsbyConfig: GatsbyConfig = {
 				],
 			},
 		},
+		/**
 		{
 			resolve: "gatsby-source-graphql",
 			options: {
@@ -101,6 +102,7 @@ const gatsbyConfig: GatsbyConfig = {
 			  },
 			},
 		  },
+		  **/
 		{
 			resolve: 'gatsby-source-filesystem',
 			options: {
