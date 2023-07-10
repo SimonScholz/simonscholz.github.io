@@ -1,7 +1,7 @@
 ---
 id: 'ubuntu-dev-setup'
 path: '/tutorials/ubuntu-dev-setup'
-date: '2027-04-29'
+date: '2023-06-23'
 title: 'My Ubuntu dev setup'
 description: 'How do I setup my fresh Ubuntu installation for development'
 author: 'Simon Scholz'
@@ -46,6 +46,19 @@ Also see: https://keepassxc.org/download/#linux
 
 Nowadays almost every developer uses Git as distributed version control system (DVCS).
 More details on Git can be found here: https://simonscholz.github.io/tutorials/git
+
+# Lazy Git
+
+Easy to use git client within the terminal.
+
+```bash
+LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+tar xf lazygit.tar.gz lazygit
+sudo install lazygit /usr/local/bin
+```
+
+Also see https://github.com/jesseduffield/lazygit
 
 # SDKMan!
 
