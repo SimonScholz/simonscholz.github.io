@@ -1,7 +1,7 @@
 ---
 id: 'git'
 path: '/tutorials/git'
-date: '2022-04-22'
+date: '2023-07-10'
 title: 'Git - Distributed Version Control System (DVCS)'
 description: 'Tutorial for commonly used git commands'
 author: 'Simon Scholz'
@@ -93,6 +93,20 @@ git commit -m "Message, which describes what will be commited"
 ```
 
 NOTE: When changes are commited, they only reside in your local git repository.
+
+# Undo the last commit
+
+To see what has changed due to the undo `--soft` can be used.
+
+```shell
+git reset --soft HEAD~1
+```
+
+In case you're certain that you want the latest commit to be undone `--hard` can be used.
+
+```shell
+git reset --hard HEAD~1
+```
 
 # Add a remote origin to your local git repository
 
