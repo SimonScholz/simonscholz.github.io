@@ -1,38 +1,44 @@
 <script setup lang="ts">
+import type { UseIntersectionObserverReturn } from '@vueuse/core'
 import me from '~/assets/me.png'
 
-const findMe = ref(null)
-const findMeContent = ref(null)
-const tutorialsSection = ref(null)
-const aboutMeSection = ref(null)
+const findMe = ref<HTMLInputElement | null>(null)
+const findMeContent = ref<HTMLInputElement | null>(null)
+const tutorialsSection = ref<HTMLInputElement | null>(null)
+const aboutMeSection = ref<HTMLInputElement | null>(null)
 
 function scrollToTutorialsSection() {
-  tutorialsSection.value.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+  tutorialsSection?.value?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
 }
 
 function scrollToaboutMeSection() {
-  aboutMeSection.value.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
+  aboutMeSection?.value?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' })
 }
 
-useIntersectionObserver(
+const findMeObserver: UseIntersectionObserverReturn = useIntersectionObserver(
   findMe,
   (entries: IntersectionObserverEntry[]) => {
     if (entries.some(entry => entry.isIntersecting))
-      findMe.value.classList.add('show')
+      findMe?.value?.classList?.add('show')
     else
-      findMe.value.classList.remove('show')
+      findMe?.value?.classList?.remove('show')
   },
 )
 
-useIntersectionObserver(
+const findMeContentObserver: UseIntersectionObserverReturn = useIntersectionObserver(
   findMeContent,
   (entries: IntersectionObserverEntry[]) => {
     if (entries.some(entry => entry.isIntersecting))
-      findMeContent.value.classList.add('show')
+      findMeContent?.value?.classList?.add('show')
     else
-      findMeContent.value.classList.remove('show')
+      findMeContent?.value?.classList?.remove('show')
   },
 )
+
+onUnmounted(() => {
+  findMeObserver.stop()
+  findMeContentObserver.stop()
+})
 
 useFadeIn(() => Array.from(document.getElementsByClassName('fadeSection')))
 </script>
