@@ -13,6 +13,8 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
+import { readSync } from 'to-vfile'
+import { matter } from 'vfile-matter'
 
 // @ts-expect-error failed to resolve types
 import VueMacros from 'unplugin-vue-macros/vite'
@@ -37,6 +39,17 @@ export default defineConfig({
     // https://github.com/hannoeru/vite-plugin-pages
     Pages({
       extensions: ['vue', 'md'],
+      extendRoute(route) {
+        if (route.component.endsWith('.md')) {
+          const mdFilePath = path.resolve(__dirname, route.component.slice(1))
+
+          const file = readSync(mdFilePath)
+          matter(file, { strip: true })
+          route.meta = Object.assign(route.meta || {}, { frontmatter: file.data.matter })
+        }
+
+        return route
+      },
     }),
 
     // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
@@ -98,24 +111,24 @@ export default defineConfig({
     // https://github.com/antfu/vite-plugin-pwa
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
+      includeAssets: ['favicon.ico'],
       manifest: {
-        name: 'Vitesse',
-        short_name: 'Vitesse',
+        name: 'Simon Scholz',
+        short_name: 'Simon Scholz',
         theme_color: '#ffffff',
         icons: [
           {
-            src: '/pwa-192x192.png',
+            src: '/avatar-192px.png',
             sizes: '192x192',
             type: 'image/png',
           },
           {
-            src: '/pwa-512x512.png',
+            src: '/avatar-512px.png',
             sizes: '512x512',
             type: 'image/png',
           },
           {
-            src: '/pwa-512x512.png',
+            src: '/avatar-512px.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable',

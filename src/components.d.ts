@@ -7,9 +7,15 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    AboutMe: typeof import('./components/about-me.md')['default']
+    AboutMeStart: typeof import('./components/about-me-start.md')['default']
     Header: typeof import('./components/Header.vue')['default']
+    Intro: typeof import('./components/intro.md')['default']
     MoveToTopFooter: typeof import('./components/MoveToTopFooter.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    ToolCard: typeof import('./components/ToolCard.vue')['default']
+    Tools: typeof import('./components/Tools.vue')['default']
+    TutorialCard: typeof import('./components/TutorialCard.vue')['default']
   }
 }

@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import type { UseIntersectionObserverReturn } from '@vueuse/core'
 import me from '~/assets/me.png'
+import routes from '~pages'
+
+const tutorials = routes.filter(element => element.path.startsWith('/tutorials/')).sort((a, b) => new Date(b?.meta?.frontmatter?.date).getTime() - new Date(a?.meta?.frontmatter?.date).getTime()).slice(0, 2)
 
 const findMe = ref<HTMLInputElement | null>(null)
 const findMeContent = ref<HTMLInputElement | null>(null)
@@ -47,13 +50,15 @@ useFadeIn(() => Array.from(document.getElementsByClassName('fadeSection')))
   <div flex flex-col snap-y snap-mandatory>
     <section snap-center snap-always>
       <section flex flex-grow flex-row select-none justify-center text-8xl tracking-wider font-mono>
-        Hello<div i-mdi-hand-wave ml-3 skew-y-6 />
+        Hello<div i-mdi-hand-wave ml-3 />
       </section>
-      <section mt-30 flex flex-col select-none justify-center md:flex-row>
-        <span text-4xl md:mt-10 md:w-150 md:text-left>My Name is <span align-text-bottom text-6xl>Simon Scholz</span> and I belief it is the mindset what makes a good Software Engineer <span align-middle font-mono italic text-fuchsia-700>&&</span> his or her eagerness to learn new things.</span>
+      <section mt-20 flex flex-col select-none justify-center md:flex-row>
+        <span text-2xl md:mt-10 md:w-150 md:text-left class="fadeSection">
+          <Intro />
+        </span>
         <img mt-10 h-80 w-80 self-center border-4 rounded-full md:ml-20 md:mt-0 :src="me" alt="me">
       </section>
-      <div mt-10 flex flex-col items-center justify-center text-3xl md:mt-45>
+      <div mt-10 flex flex-col items-center justify-center text-3xl md:mt-20>
         <div ref="findMe" flex flex-row select-none class="findMeHidden">
           Find me here <span i-carbon-location-heart ml-2 />
         </div>
@@ -76,78 +81,38 @@ useFadeIn(() => Array.from(document.getElementsByClassName('fadeSection')))
       </div>
     </section>
     <section mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl class="fadeSection">
-      <div flex flex-row>
-        Tools I am working with <span i-carbon-tool-kit ml-2 />
+      <div mb-6 flex flex-row>
+        Languages & Tools <span i-carbon-tool-kit ml-2 />
+      </div>
+      <div class="md:w-2/3" flex flex-row flex-wrap justify-center>
+        <Tools />
       </div>
     </section>
-    <section ref="tutorialsSection" mt-80 flex flex-col snap-center snap-always items-center justify-center text-3xl class="fadeSection">
-      <div flex flex-row>
+    <section ref="tutorialsSection" mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl class="fadeSection">
+      <div mb-10 flex flex-row>
         Tutorials <span i-carbon-education ml-2 />
       </div>
+      <div class="md:w-2/3" flex flex-row flex-wrap justify-center>
+        <div v-for="(tutorial, index) in tutorials" :key="index">
+          <TutorialCard :href="tutorial.path">
+            {{ tutorial?.meta?.frontmatter?.title }}
+          </TutorialCard>
+        </div>
+      </div>
+      <div>
+        <a href="/tutorials" title="All Tutorials" text-xl>Show all tutorials</a>
+      </div>
     </section>
-    <section ref="aboutMeSection" mt-80 flex flex-col snap-center snap-always items-center justify-center class="fadeSection">
+    <section ref="aboutMeSection" mt-30 flex flex-col snap-center snap-always items-center justify-center class="fadeSection">
       <div flex flex-row text-3xl>
         About Me <span i-carbon-id-management ml-2 />
       </div>
-      <div mt-6 flex flex-col items-center justify-center text-left>
-        <div class="flex-row border-2 border-opacity-50 rounded-lg bg-opacity-50 p-2 text-xl md:w-2/3">
-          I love <span font-bold>open source</span> and to
-          <span font-bold>share</span> my knowledge.
-          <br>
-          Besides that I've started to develop my first website at the age of
-          twelve and have been computer addicted even earlier.
-          <br>
-          This <span font-bold>fascination</span> for computers
-          and technologies remains until today ({{ new Date().toUTCString() }})
-          <br>
-          If you're <span font-bold>passionate</span> about
-          something you're usually also good at doing it...
-          <br>
-          And one of the best things of being a developer is that you can
-          craft code to automate things you're
-          <span font-bold>not</span> passionate about. <br>
-          Automatization over manual work is kind of my credo and I've already
-          pushed a lot of customers in that direction for the better. 😉
-          <br>
-          <br>
-          Currently I work as principal software engineer at MediaMarktSaturn.
-          <br>I am leading the team, which is reponsible for calculating
-          delivery times, giving delivery promises, doing reservations of
-          products and implementing the rules on how to determine a proper
-          outlet/warehouse as source for the products to deliver.
-          <br> The applications, which serve this purpose are realized with
-          Spring Boot and Quarkus and written in Kotlin. For more insights on
-          the tech stack I am usually using you can also check out the tutorials section.
-          <br>I also have the honor to be competency lead of the team with
-          the goal to offer great opportunities for my team members to evolve.
-          <br>
-          <br> Before being with MediaMarktSaturn I've been working for the
-          vogella GmbH, an open source company founded by the Java Champion
-          Lars Vogel. While being with vogella I gave a lot of trainings for a
-          large variety of companies all over the world, but mainly in
-          germany.
-          <br> Besides trainings we offered remote and onsite support for
-          the technologies we taught during our trainings. In order to deliver
-          high quality bleeding edge knowledge for the customers, we were also
-          heavily involved in contributing to the Open Source technologies
-          that we taught during our trainings, e.g., Eclipse 4 RCP, Testing,
-          Spring Boot, build tools (Gradle + Maven) to name a few.
-          <br>
-          <br>
-          One core value of the vogella company is "acquire and distribute
-          knowledge", which I'd still love to do. During that time I've done a
-          couple of talks and workshops on Hackathons, Eclipse Demo Camps,
-          Java User Groups, EclipseCon, Jax, Java Forum Stuttgart and Devoxx.
-          <br>
-          I'd also publish a lot of tutorials on vogella.com and wrote
-          articles in different magazines like Eclipse Magazine and the Java
-          Magazine. Also see
-          <a btn href="https://entwickler.de/experten/simon-scholz">
-            https://entwickler.de/experten/simon-scholz
+      <div mt-6 flex flex-col items-center justify-center text-center>
+        <div class="aboutme flex-row border-2 border-opacity-50 rounded-lg bg-opacity-50 p-2 text-xl">
+          <AboutMeStart />
+          <a href="/about" target="_blank" title="GitHub" mr-2 flex flex-row justify-end text-2xl icon-btn>
+            ... Read more <div i-uil-book-reader mb-2 ml-2 />
           </a>
-        </div>
-        <div mt-3>
-          For more details, also see my <a btn href="#CV">CV</a>
         </div>
       </div>
     </section>

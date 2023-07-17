@@ -1,9 +1,3 @@
----
-title: About
----
-
-<span class="text-3xl">About Me <span i-carbon-id-management ml-2 /></span>
-
 I am a passionate advocate for **open source** and sharing knowledge. With a deep-rooted love for computers and technology from an early age, I embarked on my coding journey, developing my first website at the age of twelve. Since then, my fascination with the endless possibilities of technology has only grown stronger.
 
 Currently serving as the Principal Engineer for the Apps & Store Touchpoints domain of MediamarktSaturn Technology, I have been entrusted with the responsibility of overseeing the entire domain. In this role, I drive technical improvements for overarching topics, including stabilizing product teams, making critical architecture decisions, providing guidance on technology choices, and conducting thorough analyses of technical debt. By spearheading these initiatives, I strive to enhance efficiency, maintain a robust infrastructure, and ensure exceptional user experiences across our services.

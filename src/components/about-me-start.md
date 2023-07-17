@@ -1,0 +1,3 @@
+I am a passionate advocate for **open source** and sharing knowledge. With a deep-rooted love for computers and technology from an early age, I embarked on my coding journey, developing my first website at the age of twelve. Since then, my fascination with the endless possibilities of technology has only grown stronger.
+
+Currently serving as the Principal Engineer for the Apps & Store Touchpoints domain of MediamarktSaturn Technology...
