@@ -13,8 +13,8 @@ import VueDevTools from 'vite-plugin-vue-devtools'
 import LinkAttributes from 'markdown-it-link-attributes'
 import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
-import { readSync } from 'to-vfile'
-import { matter } from 'vfile-matter'
+import fs from 'fs-extra'
+import matter from 'gray-matter'
 
 // @ts-expect-error failed to resolve types
 import VueMacros from 'unplugin-vue-macros/vite'
@@ -43,9 +43,10 @@ export default defineConfig({
         if (route.component.endsWith('.md')) {
           const mdFilePath = path.resolve(__dirname, route.component.slice(1))
 
-          const file = readSync(mdFilePath)
-          matter(file, { strip: true })
-          route.meta = Object.assign(route.meta || {}, { frontmatter: file.data.matter })
+          const md = fs.readFileSync(mdFilePath, 'utf-8')
+
+          const { data } = matter(md)
+          route.meta = Object.assign(route.meta || {}, { frontmatter: data })
         }
 
         return route

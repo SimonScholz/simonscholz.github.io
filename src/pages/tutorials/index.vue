@@ -9,10 +9,11 @@ const tutorials = routes.filter(element => element.path.startsWith('/tutorials/'
     <div mb-10 flex flex-row>
       Tutorials <span i-carbon-education ml-2 />
     </div>
-    <div>
-      <li v-for="(tutorial, index) in tutorials" :key="index">
-        <a :href="tutorial.path">{{ tutorial?.meta?.frontmatter?.title }} at {{ tutorial?.meta?.frontmatter?.date }}</a>
-      </li>
+    <div v-for="(tutorial, index) in tutorials" :key="index">
+      {{ console.log(tutorial) }}
+      <TutorialCard :href="tutorial.path">
+        {{ tutorial?.meta?.frontmatter?.title }} at {{ tutorial?.meta?.frontmatter?.date }}
+      </TutorialCard>
     </div>
   </section>
 </template>

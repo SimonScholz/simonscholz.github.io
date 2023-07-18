@@ -1,0 +1,137 @@
+openapi: 3.0.3
+info:
+  title: Todo
+  description: Todo Sample application
+  contact:
+    name: Simon Scholz
+    url: https://simonscholz.github.io/
+  version: 1.0.0
+servers:
+  - url: http://localhost:8080/
+    description: Local Environment
+security:
+  - UserOAuth2Bearer: []
+paths:
+  /v1/todos:
+    get:
+      tags:
+        - Todo
+      summary: Get all todos
+      description: |
+        Get all todos of a logged in user
+      externalDocs:
+        url: 'https://simonscholz.github.io/'
+      operationId: getAllTodos
+      parameters:
+        - $ref: '#/components/parameters/header.Locale'
+      responses:
+        200:
+          description: Todos as list
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TodoResponse'
+    post:
+      tags:
+        - Todo
+      summary: Create a new todo
+      operationId: createTodo
+      parameters:
+        - $ref: '#/components/parameters/header.Locale'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TodoRequest'
+      responses:
+        201:
+          description: The created Todo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+components:
+  schemas:
+    Todo:
+      type: object
+      required:
+        - id
+        - state
+        - title
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+          description: Id of the Todo.
+          format: UUID
+        state:
+          type: string
+          x-extensible-enum:
+            - NEW
+            - IN_PROGRESS
+            - COMPLETED
+            - CANCELED
+        title:
+          type: string
+          description: Title of the Todo.
+        description:
+          type: string
+          description: Description of the Todo.
+        created_at:
+          type: string
+          description: Time of the creation of a Todo.
+          format: date-time
+        updated_at:
+          type: string
+          description: The last update date for the Todo.
+          format: date-time
+    TodoResponse:
+      required:
+        - todos
+      type: object
+      properties:
+        todos:
+          type: array
+          items:
+            $ref: '#/components/schemas/Todo'
+      description: Contains the Todos as a list
+    TodoRequest:
+      required:
+        - state
+        - title
+      type: object
+      properties:
+        state:
+          type: string
+          x-extensible-enum:
+            - NEW
+            - IN_PROGRESS
+            - COMPLETED
+            - CANCELED
+        title:
+          type: string
+          description: Title of the Todo.
+        description:
+          type: string
+          description: Description of the Todo.
+      description: Create a new todo
+
+  parameters:
+    header.Locale:
+      name: locale
+      in: header
+      description: The language used by the client.
+      required: true
+      schema:
+        type: string
+        x-extensible-enum:
+          - de_DE
+          - en_EN
+
+  securitySchemes:
+    UserOAuth2Bearer:
+      type: apiKey
+      description: The token of the user passed as Bearer header
+      name: Authorization
+      in: header
