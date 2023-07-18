@@ -3,7 +3,7 @@ import type { UseIntersectionObserverReturn } from '@vueuse/core'
 import me from '~/assets/me.png'
 import routes from '~pages'
 
-const tutorials = routes.filter(element => element.path.startsWith('/tutorials/')).sort((a, b) => new Date(b?.meta?.frontmatter?.date).getTime() - new Date(a?.meta?.frontmatter?.date).getTime()).slice(0, 2)
+const tutorials = routes.filter(element => element.path.startsWith('/tutorials/')).sort((a, b) => new Date(b?.meta?.frontmatter?.date).getTime() - new Date(a?.meta?.frontmatter?.date).getTime()).slice(0, 3)
 
 const findMe = ref<HTMLInputElement | null>(null)
 const findMeContent = ref<HTMLInputElement | null>(null)
@@ -92,15 +92,15 @@ useFadeIn(() => Array.from(document.getElementsByClassName('fadeSection')))
       <div mb-10 flex flex-row>
         Tutorials <span i-carbon-education ml-2 />
       </div>
-      <div class="md:w-2/3" flex flex-row flex-wrap justify-center>
+      <div class="md:w-2/3" grid place-content-around justify-center gap-3 align-middle lg:grid-cols-3 md:grid-cols-2>
         <div v-for="(tutorial, index) in tutorials" :key="index">
           <TutorialCard :href="tutorial.path">
             {{ tutorial?.meta?.frontmatter?.title }}
           </TutorialCard>
         </div>
       </div>
-      <div>
-        <a href="/tutorials" title="All Tutorials" text-xl>Show all tutorials</a>
+      <div mt-8>
+        <a href="/tutorials" title="All Tutorials" text-xl btn>Show all tutorials</a>
       </div>
     </section>
     <section ref="aboutMeSection" mt-30 flex flex-col snap-center snap-always items-center justify-center class="fadeSection">
