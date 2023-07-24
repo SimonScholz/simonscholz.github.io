@@ -85,7 +85,7 @@ docker pull grafana/grafana
 To start a docker container, which already has been running on your machine you can use:
 
 ```bash
-docker start <your-desired-container-id>
+docker start {your-desired-container-id}
 ```
 
 # Run docker container and immediately remove it again
@@ -105,7 +105,7 @@ This can be really handy when experimenting with docker images, which you create
 With `docker ps` you also get the ids of the container, which can be used to stop a certain container like this:
 
 ```bash
-docker stop <your-desired-container-id>
+docker stop {your-desired-container-id}
 ```
 
 To stop all running container the following command can be used:
@@ -117,7 +117,7 @@ docker stop $(docker ps -aq)
 To remove a container `docker rm` can be used.
 
 ```bash
-docker rm <your-desired-container-id>
+docker rm {your-desired-container-id}
 ```
 
 So removing all containers would look like this:
@@ -130,7 +130,7 @@ In case you also want to remove a docker image from your machine the `docker rmi
 To see the images and its ids the `docker images` command can be used.
 
 ```bash
-docker rmi <your-desired-image-id>
+docker rmi {your-desired-container-id}
 ```
 
 To remove all images the following command can be used.
@@ -174,7 +174,7 @@ docker images -q
 # Access Docker Container
 
 ```bash
-docker exec -it <container name> /bin/bash
+docker exec -it {container-name} /bin/bash
 ```
 
 # Docker Network

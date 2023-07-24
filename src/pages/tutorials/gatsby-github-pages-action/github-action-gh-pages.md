@@ -37,7 +37,7 @@ Go to your new repository and copy the clone url:
 ![clone-gh-page-repo](./clone-gh-page-repo.png)
 
 ```bash
-git clone git@github.com:<your-github-name>/<your-github-name>.github.io.git
+git clone git@github.com:{your-github-name}/{your-github-name}.github.io.git
 
 e.g.
 
