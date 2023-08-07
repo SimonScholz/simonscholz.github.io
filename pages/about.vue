@@ -1,5 +1,5 @@
 <template>
-  <main class="p-32">
+  <main class="md:p-32">
     <ContentDoc path="/about" />
   </main>
 </template>

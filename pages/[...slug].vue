@@ -7,13 +7,13 @@
           <span class="text-4xl">
             {{ doc.title }}
           </span>
-          <div class="flex flex-row mt-2">
+          <div class="flex flex-col md:flex-row mt-2">
             <span>{{ doc.author }}</span>
-            <span class="ml-3">⚬</span>
+            <span class="hidden md:block ml-3">⚬</span>
             <span class="ml-3">{{ doc.date }}</span>
-            <span class="ml-3">⚬</span>
+            <span class="hidden md:block ml-3">⚬</span>
             <span class="ml-3">{{ doc.readingTime.text }}</span>
-            <span class="ml-3">⚬</span>
+            <span class="hidden md:block ml-3">⚬</span>
             <span class="ml-3">
               <a
                 :href="
