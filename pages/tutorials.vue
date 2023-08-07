@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ParsedContent } from "@nuxt/content/dist/runtime/types";
 
-const tutorials: ParsedContent[] = await queryContent("tutorials")
-  .sort({ date: -1 })
-  .find();
+const { data } = await useAsyncData("tutorialsQueryContent", () =>
+  queryContent("tutorials").sort({ date: -1 }).find()
+);
 
 const filterText = ref("");
 
-const filteredTutorials: Ref<ParsedContent[]> = computed(() => {
+const filteredTutorials: Ref<ParsedContent[] | undefined> = computed(() => {
   const filter = filterText.value;
-  return tutorials.filter((tutorial: any) => {
+  return data.value?.filter((tutorial: any) => {
     const { description, title, tags } = tutorial;
 
     return (
@@ -38,9 +38,9 @@ function clearFilterText() {
         @keyup.esc="clearFilterText"
       />
       <div
-        class="rounded-full h-6 w-6 flex items-center justify-center border-2 border-cyan-500 bg-cyan-500 text-white text-sm"
+        class="rounded-full h-6 w-6 flex items-center justify-center border-2 border-cyan-700 bg-cyan-700 text-white text-sm"
       >
-        {{ filteredTutorials.length }}
+        {{ filteredTutorials?.length || "0" }}
       </div>
     </div>
     <div v-for="tutorial in filteredTutorials" :key="tutorial._path">
