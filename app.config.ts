@@ -1,8 +1,8 @@
 export default defineAppConfig({
-    cover: '/cover.jpg',
+    cover: '/cover.png',
     socials: {
-        twitter: 'Atinux',
-        github: 'Atinux/content-wind'
+        twitter: 'simonscholz',
+        github: 'simonscholz'
     },
     prose: {
         h1: {
