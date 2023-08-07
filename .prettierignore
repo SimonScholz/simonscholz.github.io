@@ -1,5 +1,0 @@
-src/types/graphql.ts
-.cache/
-public/
-node_modules/
-static/

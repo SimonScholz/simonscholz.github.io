@@ -1,18 +1,18 @@
 ---
-id: 'git'
-path: '/tutorials/git'
-date: '2023-07-10'
-title: 'Git - Distributed Version Control System (DVCS)'
-description: 'Tutorial for commonly used git commands'
-author: 'Simon Scholz'
-tags: ['git', 'fork', 'scm', 'dvcs']
-vgWort: 'vg08.met.vgwort.de/na/d0b792cb07314737933980c1702d9b31'
+id: "git"
+path: "/tutorials/git"
+date: "2023-07-10"
+title: "Git - Distributed Version Control System (DVCS)"
+description: "Tutorial for commonly used git commands"
+author: "Simon Scholz"
+tags: ["git", "fork", "scm", "dvcs"]
+vgWort: "vg08.met.vgwort.de/na/d0b792cb07314737933980c1702d9b31"
 ---
 
 Git is a commonly used DVCS (distributed version control system), which was introduced by Linus Torvalds.
 GitHub, GitLab, Bitbucket and others are services, where you can easily create a remote git repository.
 
-# Install Git
+## Install Git
 
 On Ubuntu is is fairly easy:
 
@@ -24,7 +24,7 @@ For Windows you'll have to install the following:
 
 https://git-scm.com/download/win
 
-# Configure Git
+## Configure Git
 
 It is good practice to apply a common global Git config:
 
@@ -53,7 +53,7 @@ ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/id_rsa -C $USER
 
 The created public key needs to be configured on the remote origin, e.g., GitHub.
 
-# Clone a remote Git repository
+## Clone a remote Git repository
 
 ```shell
 git clone {uri-of-your-desired-repo}
@@ -67,7 +67,7 @@ git clone git@github.com:SimonScholz/tutorials.git
 git clone https://github.com/SimonScholz/tutorials.git
 ```
 
-# Creating a Git repository locally
+## Creating a Git repository locally
 
 Besides cloning a remote repository, you can also initialize it locally.
 And on demand this local Git repository can be pushed to a remote origin.
@@ -78,7 +78,7 @@ cd desired-folder-for-git-repo
 git init
 ```
 
-# Adding files to the staging area and commit changes
+## Adding files to the staging area and commit changes
 
 Before files can be commited locally, the desired files have to reside in the staging area.
 
@@ -108,7 +108,7 @@ In case you're certain that you want the latest commit to be undone `--hard` can
 git reset --hard HEAD~1
 ```
 
-# Add a remote origin to your local git repository
+## Add a remote origin to your local git repository
 
 ```shell
 git remote add git@github.com:SimonScholz/tutorials.git
@@ -120,13 +120,13 @@ Once the remote is added a an upstream branch can be configured.
 git push --set-upstream origin main
 ```
 
-# Pushing changes to a remote repository
+## Pushing changes to a remote repository
 
 ```shell
 git push origin main
 ```
 
-# Deleting already merged branches on remote repository
+## Deleting already merged branches on remote repository
 
 ```shell
 git branch -r --merge
