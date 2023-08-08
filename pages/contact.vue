@@ -1,5 +1,5 @@
 <template>
-  <div class="container flex flex-col md:justify-between mx-auto">
+  <div class="container flex flex-col md:justify-between mx-auto mb-10">
     <h1 class="text-xl">Contact</h1>
     <p class="mt-2">
       Hey,

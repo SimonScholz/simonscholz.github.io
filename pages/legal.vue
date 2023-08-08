@@ -1,5 +1,5 @@
 <template>
-    <div id="impressum-en" class="container flex flex-col md:justify-between mx-auto">
+    <div id="impressum-en" class="container flex flex-col md:justify-between mx-auto mb-10">
 				<h1 class="text-2xl mb-3">Legal Disclosure / Impressum</h1>
 				Information in accordance with Section 5 TMG
 				<br />

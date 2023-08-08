@@ -1,7 +1,7 @@
 <template>
   <article
     id="privacy-policy-en"
-    class="container flex flex-col md:justify-between mx-auto"
+    class="container flex flex-col md:justify-between mx-auto mb-10"
   >
     <header>
       <h1>Privacy Policy</h1>

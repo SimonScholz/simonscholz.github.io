@@ -204,7 +204,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
       </div>
     </section>
     <section
-      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10"
+      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
     >
       <div class="mb-6 flex flex-row">
         Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
