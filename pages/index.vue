@@ -1,27 +1,31 @@
 <script setup lang="ts">
 import type { UseIntersectionObserverReturn } from "@vueuse/core";
 import { useIntersectionObserver } from "@vueuse/core";
-import me from "~/assets/me.png";
+import me from "~/assets/me.webp";
 
 const findMe = ref<HTMLInputElement | null>(null);
 const findMeContent = ref<HTMLInputElement | null>(null);
 const tutorialsSection = ref<HTMLInputElement | null>(null);
 const aboutMeSection = ref<HTMLInputElement | null>(null);
 
-function scrollToTutorialsSection() {
+function scrollToTutorialsSection(e: Event) {
+  e.preventDefault();
   tutorialsSection?.value?.scrollIntoView({
     behavior: "smooth",
     block: "center",
     inline: "nearest",
   });
+  return false;
 }
 
-function scrollToaboutMeSection() {
+function scrollToAboutMeSection(e: Event) {
+  e.preventDefault();
   aboutMeSection?.value?.scrollIntoView({
     behavior: "smooth",
     block: "center",
     inline: "nearest",
   });
+  return false;
 }
 
 const findMeObserver: UseIntersectionObserverReturn = useIntersectionObserver(
@@ -89,6 +93,9 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
           class="mt-10 h-80 w-80 self-center border-4 rounded-full md:ml-20 md:mt-0"
           :src="me"
           alt="me"
+          title="me"
+          height="80"
+          width="80"
         />
       </section>
       <div
@@ -104,7 +111,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
           <div
             class="grow grid grid-cols-4 mt-10 gap-y-32 justify-items-center space-x-4"
           >
-            <a
+            <NuxtLink
               class="icon-btn px-10"
               rel="noreferrer"
               href="https://github.com/simonscholz"
@@ -112,8 +119,8 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
               title="GitHub"
             >
               <Icon name="uil:github-alt" />
-            </a>
-            <a
+            </NuxtLink>
+            <NuxtLink
               class="icon-btn"
               rel="noreferrer"
               href="https://www.linkedin.com/in/opensource-simon"
@@ -121,8 +128,8 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
               title="LinkedIn"
             >
               <Icon name="uil:linkedin-alt" />
-            </a>
-            <a
+            </NuxtLink>
+            <NuxtLink
               class="icon-btn"
               rel="noreferrer"
               href="https://twitter.com/simonscholz"
@@ -130,31 +137,22 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
               title="Twitter"
             >
               <Icon name="uil:twitter-alt" />
-            </a>
-            <a
+            </NuxtLink>
+            <NuxtLink
               class="icon-btn hover:hand"
               title="About Me"
-              @click="scrollToaboutMeSection"
+              @click.prevent="scrollToAboutMeSection"
             >
               <Icon name="carbon:id-management" />
-            </a>
+            </NuxtLink>
           </div>
         </div>
       </div>
     </section>
     <section
-      class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection"
-    >
-      <div class="mb-6 flex flex-row">
-        Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
-      </div>
-      <div class="flex flex-row flex-wrap justify-center md:w-2/3">
-        <Tools />
-      </div>
-    </section>
-    <section
+      id="tutorials"
       ref="tutorialsSection"
-      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection"
+      class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection"
     >
       <div class="mb-10 flex flex-row">
         Latest Tutorials <Icon name="carbon:education" class="ml-2" />
@@ -163,15 +161,27 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         <Top3Tutorials />
       </div>
       <div class="mt-8">
-        <a
-          href="/tutorials"
+        <NuxtLink
+          to="/tutorials"
           title="All Tutorials"
           class="text-xl border-0 p-2 px-4 transition duration-500 hover:duration-500 bg-cyan-600 hover:bg-cyan-700 rounded-md"
-          >Show all tutorials</a
+          >Show all tutorials</NuxtLink
         >
       </div>
     </section>
     <section
+      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection"
+    >
+      <div class="mb-6 flex flex-row">
+        Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
+      </div>
+      <div class="flex flex-row flex-wrap justify-center md:w-2/3">
+        <Tools />
+      </div>
+    </section>
+
+    <section
+      id="about"
       ref="aboutMeSection"
       class="fadeSection mt-20 flex flex-col snap-center snap-always items-center justify-center"
     >
@@ -194,21 +204,21 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
             Currently serving as the Principal Engineer for the Apps & Store
             Touchpoints domain of MediamarktSaturn Technology...
           </p>
-          <a
-            href="/about"
+          <NuxtLink
+            to="/about"
             target="_blank"
             title="GitHub"
             class="mr-2 mt-4 flex flex-row justify-end text-2xl icon-btn"
           >
             ... Read more <Icon name="uil:book-reader" class="ml-2" />
-          </a>
+          </NuxtLink>
         </div>
       </div>
     </section>
     <section
       class="grid grid-cols-5 mt-20 justify-items-center gap-6 md:fixed md:grid-cols-1 md:ml-6"
     >
-      <a
+      <NuxtLink
         class="icon-btn"
         rel="noreferrer"
         href="https://github.com/simonscholz"
@@ -216,8 +226,8 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         title="GitHub"
       >
         <Icon name="uil:github-alt" />
-      </a>
-      <a
+      </NuxtLink>
+      <NuxtLink
         class="icon-btn"
         rel="noreferrer"
         href="https://www.linkedin.com/in/opensource-simon"
@@ -225,8 +235,8 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         title="LinkedIn"
       >
         <Icon name="uil:linkedin-alt" />
-      </a>
-      <a
+      </NuxtLink>
+      <NuxtLink
         class="icon-btn"
         rel="noreferrer"
         href="https://twitter.com/simonscholz"
@@ -234,17 +244,21 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         title="Twitter"
       >
         <Icon name="uil:twitter-alt" />
-      </a>
-      <a
+      </NuxtLink>
+      <NuxtLink
         class="icon-btn"
         title="My Tutorials"
-        @click="scrollToTutorialsSection"
+        @click.prevent="scrollToTutorialsSection"
       >
         <Icon name="carbon:education" />
-      </a>
-      <a class="icon-btn" title="About Me" @click="scrollToaboutMeSection">
+      </NuxtLink>
+      <NuxtLink
+        class="icon-btn"
+        title="About Me"
+        @click.prevent="scrollToAboutMeSection"
+      >
         <Icon name="carbon:id-management" />
-      </a>
+      </NuxtLink>
     </section>
   </div>
 </template>

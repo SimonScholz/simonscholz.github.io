@@ -6,19 +6,19 @@
         $route.fullPath?.length > 1 && !$route.fullPath?.match('/tutorials/.+')
       "
     >
-      <a
-        href="/"
+      <NuxtLink
+        to="/"
         class="ml-3 text-xl transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700"
-        ><Icon name="material-symbols:arrow-left-alt" />Home</a
+        ><Icon name="material-symbols:arrow-left-alt" />Home</NuxtLink
       >
     </span>
 
     <!-- Covers everything, which is not root "/" -->
     <span v-show="$route.fullPath?.match('/tutorials/.+')">
-      <a
-        href="/tutorials"
+      <NuxtLink
+        to="/tutorials"
         class="ml-3 text-xl transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700"
-        ><Icon name="material-symbols:arrow-left-alt" />Tutorials</a
+        ><Icon name="material-symbols:arrow-left-alt" />Tutorials</NuxtLink
       >
     </span>
 

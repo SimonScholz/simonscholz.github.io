@@ -14,6 +14,10 @@ const props = defineProps<ToolCardProps>();
     <img
       :src="props.imgSrc"
       :alt="props.imgAlt"
+      :title="props.imgAlt"
+      width="24"
+      height="24"
+      loading="lazy"
       class="h-16 w-16 md:h-24 md:w-24"
     />
     <p class="mt-5 text-xl font-normal text-gray-700 dark:text-gray-400">

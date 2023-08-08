@@ -15,8 +15,8 @@
             <span class="ml-3">{{ doc.readingTime.text }}</span>
             <span class="hidden md:block ml-3">⚬</span>
             <span class="ml-3">
-              <a
-                :href="
+              <NuxtLink
+                :to="
                   'https://github.com/SimonScholz/simonscholz.github.io/issues/new?labels=website,tutorial&title=[' +
                   doc.id +
                   ']'
@@ -25,7 +25,8 @@
                 <img
                   src="https://img.shields.io/badge/-Feedback%3F%20Requests%3F-gray?logo=github"
                   alt="Feedback / Requests?"
-                /> </a
+                  title="Feedback / Requests?"
+                /> </NuxtLink
             ></span>
           </div>
           <hr />

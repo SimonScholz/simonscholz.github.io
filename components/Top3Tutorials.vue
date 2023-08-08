@@ -12,10 +12,10 @@ const { data } = await useAsyncData("top3TutorialsQueryContent", () =>
   <main
     class="grid grid-cols-1 md:grid-cols-3 place-content-around justify-center gap-6 align-middle"
   >
-    <a :href="path" v-for="{ path, title } in data">
+    <NuxtLink :to="path" v-for="{ path, title } in data">
       <IndexTutorialCard class="h-full">
         {{ title }}
       </IndexTutorialCard>
-    </a>
+    </NuxtLink>
   </main>
 </template>
