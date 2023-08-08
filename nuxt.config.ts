@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     "@nuxt/content",
     'nuxt-icon',
     '@nuxtjs/color-mode',
-    '@nuxthq/studio'
+    '@nuxthq/studio',
+    '@nuxtjs/robots',
   ],
   ssr: true,
   experimental: {
@@ -52,7 +53,11 @@ export default defineNuxtConfig({
   },
   nitro: {
     prerender: {
+      routes: ['/sitemap.xml'],
       ignore: ['/__pinceau_tokens_config.json', '/__pinceau_tokens_schema.json']
     }
   },
+  robots: {
+    Sitemap: "https://simonscholz.github.io/sitemap.xml"
+  }
 });
