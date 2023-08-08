@@ -30,8 +30,15 @@ export default defineNuxtConfig({
     documentDriven: true,
     // https://content.nuxtjs.org/api/configuration
     highlight: {
-      theme: "github-dark",
-      preload: ["java", "javascript"],
+      theme: {
+        // Default theme (same as single string)
+        default: 'github-light',
+        // Theme used if `html.dark`
+        dark: 'github-dark',
+        // Theme used if `html.sepia`
+        sepia: 'monokai'
+      },
+      preload: ["kotlin", "java", "bash"],
     },
     markdown: {
       // https://www.npmjs.com/package/remark-reading-time
