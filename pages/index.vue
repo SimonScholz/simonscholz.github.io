@@ -152,7 +152,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
     <section
       id="tutorials"
       ref="tutorialsSection"
-      class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection"
+      class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10"
     >
       <div class="mb-10 flex flex-row">
         Latest Tutorials <Icon name="carbon:education" class="ml-2" />
@@ -169,17 +169,6 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         >
       </div>
     </section>
-    <section
-      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection"
-    >
-      <div class="mb-6 flex flex-row">
-        Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
-      </div>
-      <div class="flex flex-row flex-wrap justify-center md:w-2/3">
-        <Tools />
-      </div>
-    </section>
-
     <section
       id="about"
       ref="aboutMeSection"
@@ -206,8 +195,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
           </p>
           <NuxtLink
             to="/about"
-            target="_blank"
-            title="GitHub"
+            title="About Me"
             class="mr-2 mt-4 flex flex-row justify-end text-2xl icon-btn"
           >
             ... Read more <Icon name="uil:book-reader" class="ml-2" />
@@ -215,6 +203,17 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         </div>
       </div>
     </section>
+    <section
+      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10"
+    >
+      <div class="mb-6 flex flex-row">
+        Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
+      </div>
+      <div class="flex flex-row flex-wrap justify-center md:w-2/3">
+        <Tools />
+      </div>
+    </section>
+
     <section
       class="grid grid-cols-5 mt-20 justify-items-center gap-6 md:fixed md:grid-cols-1 md:ml-6"
     >

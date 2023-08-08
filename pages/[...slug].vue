@@ -1,5 +1,5 @@
 <template>
-  <main class="md:m-10">
+  <main class="mt-10 md:m-10">
     <ContentDoc>
       <template v-slot="{ doc }">
         <div class="flex flex-col md:ml-10 md:mr-10">
@@ -10,11 +10,11 @@
           <div class="flex flex-col md:flex-row mt-2">
             <span>{{ doc.author }}</span>
             <span class="hidden md:block ml-3">⚬</span>
-            <span class="ml-3">{{ doc.date }}</span>
+            <span class="md:ml-3">{{ doc.date }}</span>
             <span class="hidden md:block ml-3">⚬</span>
-            <span class="ml-3">{{ doc.readingTime.text }}</span>
+            <span class="md:ml-3">{{ doc.readingTime.text }}</span>
             <span class="hidden md:block ml-3">⚬</span>
-            <span class="ml-3">
+            <span class="md:ml-3">
               <NuxtLink
                 :to="
                   'https://github.com/SimonScholz/simonscholz.github.io/issues/new?labels=website,tutorial&title=[' +

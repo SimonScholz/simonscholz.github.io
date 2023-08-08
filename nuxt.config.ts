@@ -64,7 +64,4 @@ export default defineNuxtConfig({
       ignore: ['/__pinceau_tokens_config.json', '/__pinceau_tokens_schema.json']
     }
   },
-  robots: {
-    Sitemap: "https://simonscholz.github.io/sitemap.xml"
-  }
 });
