@@ -1,4 +1,7 @@
 export default defineNuxtConfig({
+  app: {
+    baseURL: '/simonscholz.github.io/'
+  },
   components: [
     { path: '~/components/cv', pathPrefix: false, },
     '~/components'
