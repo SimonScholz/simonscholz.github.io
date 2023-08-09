@@ -65,7 +65,8 @@ export default defineNuxtConfig({
   nitro: {
     prerender: {
       routes: ['/sitemap.xml'],
-      ignore: ['/__pinceau_tokens_config.json', '/__pinceau_tokens_schema.json']
+      ignore: ['/__pinceau_tokens_config.json', '/__pinceau_tokens_schema.json'],
+      failOnError: false,
     }
   },
 });
