@@ -1,0 +1,63 @@
+# Name of the action
+name: 🚀 Deploy website on push
+
+# Controls when the action will run.
+# In this case the actions will be run when pushing to the source branch of your repository
+on:
+  push:
+    branches: [nuxt-content]
+
+env:
+  DEPLOY_BRANCH: 'master'
+  USERNAME: 'simonscholz'
+  BUILD_DIR: .output/public
+
+
+jobs:
+  cache-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        with:
+          version: 8
+          run_install: false
+
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Generate project
+        run: pnpm generate
+
+      - name: Push generated project to deploy branch
+        run: |
+              cd ${{ env.BUILD_DIR }}
+              git config --global user.email "building@simonscholz.dev"
+              git config --global user.name "${{ env.USERNAME }}"
+              git init
+              git add -A
+              git commit -m 'Push generated nuxt 3 website'
+              git push -f https://${{ env.USERNAME }}:${{ secrets.NUXT_DEPLOY_TOKEN }}@github.com/${{ env.USERNAME }}/${{ github.context.repo.repo }}.git master:${{ env.DEPLOY_BRANCH }}
+        shell: bash
