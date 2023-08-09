@@ -1,3 +1,14 @@
+<script setup lang="ts">
+const scrollToTutorialsSection = () => {
+  const fn = inject("scrollToTutorialsSection") as Function;
+  fn();
+};
+const scrollToAboutMeSection = () => {
+  const fn = inject("scrollToAboutMeSection") as Function;
+  fn();
+};
+</script>
+
 <template>
   <nav class="print:hidden">
     <!-- Covers everything, which is not root "/" and not "/tutorials" -->
@@ -32,7 +43,7 @@
       <NuxtLink
         class="icon-btn"
         rel="noreferrer"
-        href="https://github.com/simonscholz"
+        to="https://github.com/simonscholz"
         target="_blank"
         title="GitHub"
       >
@@ -41,7 +52,7 @@
       <NuxtLink
         class="icon-btn"
         rel="noreferrer"
-        href="https://www.linkedin.com/in/opensource-simon"
+        to="https://www.linkedin.com/in/opensource-simon"
         target="_blank"
         title="LinkedIn"
       >
@@ -50,25 +61,20 @@
       <NuxtLink
         class="icon-btn"
         rel="noreferrer"
-        href="https://twitter.com/simonscholz"
+        to="https://twitter.com/simonscholz"
         target="_blank"
         title="Twitter"
       >
         <Icon name="uil:twitter-alt" />
       </NuxtLink>
-      <NuxtLink
-        class="icon-btn"
-        title="My Tutorials"
-        @click.prevent="scrollToTutorialsSection"
-      >
+      <NuxtLink class="icon-btn" title="My Tutorials" to="/tutorials">
         <Icon name="carbon:education" />
       </NuxtLink>
-      <NuxtLink
-        class="icon-btn"
-        title="About Me"
-        @click.prevent="scrollToAboutMeSection"
-      >
+      <NuxtLink class="icon-btn" title="About Me" to="/about">
         <Icon name="carbon:id-management" />
+      </NuxtLink>
+      <NuxtLink class="icon-btn" to="/cv" title="My Resume / CV">
+        <Icon name="pepicons-pop:cv" />
       </NuxtLink>
     </section>
   </nav>

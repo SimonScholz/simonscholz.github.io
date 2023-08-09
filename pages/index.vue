@@ -8,16 +8,6 @@ const findMeContent = ref<HTMLInputElement | null>(null);
 const tutorialsSection = ref<HTMLInputElement | null>(null);
 const aboutMeSection = ref<HTMLInputElement | null>(null);
 
-function scrollToTutorialsSection(e: Event) {
-  e.preventDefault();
-  tutorialsSection?.value?.scrollIntoView({
-    behavior: "smooth",
-    block: "center",
-    inline: "nearest",
-  });
-  return false;
-}
-
 function scrollToAboutMeSection(e: Event) {
   e.preventDefault();
   aboutMeSection?.value?.scrollIntoView({
