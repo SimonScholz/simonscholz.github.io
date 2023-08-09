@@ -172,7 +172,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
     <section
       id="about"
       ref="aboutMeSection"
-      class="fadeSection mt-20 flex flex-col snap-center snap-always items-center justify-center"
+      class="fadeSection mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center"
     >
       <div class="flex flex-row text-3xl">
         About Me <Icon name="carbon:id-management" class="ml-2" />
@@ -204,7 +204,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
       </div>
     </section>
     <section
-      class="mt-20 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
+      class="mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
     >
       <div class="mb-6 flex flex-row">
         Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
