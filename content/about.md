@@ -2,7 +2,7 @@
 title: About
 ---
 
-<span class="text-3xl">About Me <span i-carbon-id-management ml-2 /></span>
+<span class="text-3xl">About Me <Icon name="carbon:id-management" class="ml-2" />
 
 I am a passionate advocate for **open source** and sharing knowledge. With a deep-rooted love for computers and technology from an early age, I embarked on my coding journey, developing my first website at the age of twelve. Since then, my fascination with the endless possibilities of technology has only grown stronger.
 
@@ -14,4 +14,4 @@ Previously, I held the position of Senior Lead Engineer at MediaMarktSaturn Tech
 
 Prior to my tenure at MediaMarktSaturn, I worked at vogella GmbH, an esteemed open-source company founded by Java Champion Lars Vogel. During this time, I conducted comprehensive training sessions, delivered talks and workshops at prominent industry events, and actively contributed to open source projects, solidifying my commitment to knowledge acquisition and distribution.
 
-For additional insights into my experience and accomplishments, please refer to my comprehensive CV.
+For additional insights into my experience and accomplishments, please refer to my comprehensive <a href="/cv">CV <Icon name="pepicons-pop:cv" class="ml-2"/></a>.

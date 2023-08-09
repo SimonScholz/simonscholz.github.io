@@ -62,7 +62,7 @@ import me from "~/assets/me.webp";
     <div class="md:w-2/3 p-2 mt-2">
       <ProfessionalBackground />
       <Education />
-      <SpecialKnowledge />
+      <SpecialSkills />
       <TrainingsCertificates />
     </div>
   </div>
