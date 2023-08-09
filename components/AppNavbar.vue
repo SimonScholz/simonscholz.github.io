@@ -25,5 +25,57 @@
     <ColorModeSwitch
       class="dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 absolute right-0 top-0 z-100 mr-10 mt-5 text-xl md:fixed"
     />
+
+    <section
+      class="hidden md:grid grid-cols-5 mt-20 justify-items-center gap-6 md:fixed md:grid-cols-1 md:ml-6"
+    >
+      <NuxtLink
+        class="icon-btn"
+        rel="noreferrer"
+        href="https://github.com/simonscholz"
+        target="_blank"
+        title="GitHub"
+      >
+        <Icon name="uil:github-alt" />
+      </NuxtLink>
+      <NuxtLink
+        class="icon-btn"
+        rel="noreferrer"
+        href="https://www.linkedin.com/in/opensource-simon"
+        target="_blank"
+        title="LinkedIn"
+      >
+        <Icon name="uil:linkedin-alt" />
+      </NuxtLink>
+      <NuxtLink
+        class="icon-btn"
+        rel="noreferrer"
+        href="https://twitter.com/simonscholz"
+        target="_blank"
+        title="Twitter"
+      >
+        <Icon name="uil:twitter-alt" />
+      </NuxtLink>
+      <NuxtLink
+        class="icon-btn"
+        title="My Tutorials"
+        @click.prevent="scrollToTutorialsSection"
+      >
+        <Icon name="carbon:education" />
+      </NuxtLink>
+      <NuxtLink
+        class="icon-btn"
+        title="About Me"
+        @click.prevent="scrollToAboutMeSection"
+      >
+        <Icon name="carbon:id-management" />
+      </NuxtLink>
+    </section>
   </nav>
 </template>
+
+<style scoped>
+.icon-btn {
+  @apply cursor-pointer transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700;
+}
+</style>

@@ -26,7 +26,7 @@ function clearFilterText() {
 </script>
 
 <template>
-  <main class="md:mx-12 mt-4 mb-10">
+  <main class="md:mx-16 mt-4 mb-10">
     <div class="flex items-center border-b border-gray-500 py-2 mt-3 mx-3">
       <input
         class="appearance-none bg-transparent border-none w-full text-gray-700 dark:text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
