@@ -1,4 +1,8 @@
 export default defineNuxtConfig({
+  components: [
+    { path: '~/components/cv', pathPrefix: false, },
+    '~/components'
+  ],
   extends: [
     process.env.THEME_ELEMENTS || '@nuxt-themes/elements',
     process.env.THEME_TYPOGRAPHY || '@nuxt-themes/typography'

@@ -1,5 +1,5 @@
 <template>
-  <nav class="">
+  <nav class="print:hidden">
     <!-- Covers everything, which is not root "/" and not "/tutorials" -->
     <span
       v-show="

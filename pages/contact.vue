@@ -5,11 +5,11 @@
       Hey,
       <br />
       you can reach out to me via email (
-      <a class="text-blue-500" href="mailto:opensource.simon@gmail.com">
+      <a class="text-cyan-500" href="mailto:opensource.simon@gmail.com">
         opensource.simonⓐⓣgmail.com
       </a>
       ) or on social media like
-      <a class="text-blue-500" href="https://twitter.com/simonscholz">
+      <a class="text-cyan-500" href="https://twitter.com/simonscholz">
         twitter.com/simonscholz
       </a>
       .
@@ -18,7 +18,7 @@
       In regards of the tutorials also feel free to open issues in this GitHub
       repository:
       <a
-        class="text-blue-500"
+        class="text-cyan-500"
         href="https://github.com/SimonScholz/simonscholz.github.io/issues"
       >
         https://github.com/SimonScholz/simonscholz.github.io/issues
