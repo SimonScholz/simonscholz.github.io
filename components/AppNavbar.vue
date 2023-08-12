@@ -40,6 +40,9 @@ const scrollToAboutMeSection = () => {
     <section
       class="hidden md:grid grid-cols-5 mt-20 justify-items-center gap-6 md:fixed md:grid-cols-1 md:ml-6"
     >
+      <NuxtLink class="icon-btn" to="/" title="Home">
+        <Icon name="uil:home-alt" />
+      </NuxtLink>
       <NuxtLink
         class="icon-btn"
         rel="noreferrer"
