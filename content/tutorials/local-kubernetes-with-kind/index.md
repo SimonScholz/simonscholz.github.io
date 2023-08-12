@@ -54,6 +54,10 @@ kind create cluster --name your-cluster-name
 
 In order to see the created clusters you can run `kind get clusters`.
 
+Since kind uses docker or podman under the hood, running `docker ps` should result into something similar to this:
+
+![docker ps kind container](./docker-ps.png)
+
 ## Deleting a local kind cluster
 
 ```bash
