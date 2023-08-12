@@ -17,7 +17,7 @@ tags:
     "docker-compose",
     "container",
   ]
-vgWort: ""
+vgWort: "vg09.met.vgwort.de/na/d4c5fb9e0a2f4f75ab0577ae3b02a759"
 ---
 
 ## Keycloak with Postgres

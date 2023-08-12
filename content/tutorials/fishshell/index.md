@@ -6,7 +6,7 @@ title: "Fish Shell"
 description: "Alternative shell for linux with enhanced features like command history and auto completion"
 author: "Simon Scholz"
 tags: ["fishshell", "fish", "cmd", "bash"]
-vgWort: ""
+vgWort: "vg09.met.vgwort.de/na/a00c99c22e6140f4a9f60c581b11d7ed"
 ---
 
 Fish shell is an alternative shell for linux, which comes with better content assist, a history of commands and many additional features contributed via plugins.

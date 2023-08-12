@@ -6,7 +6,7 @@ title: "Running Kubernetes locally using Minikube"
 description: "Tutorial about running Kubernetes locally using Minikube"
 author: "Simon Scholz"
 tags: ["kubernetes", "k8s", "docker", "docker-compose", "container"]
-vgWort: ""
+vgWort: "vg09.met.vgwort.de/na/d16ab475a3e3482f8f63a054dbe4418f"
 ---
 
 Minikube runs a Kubernetes (k8s) environment on your local machine.

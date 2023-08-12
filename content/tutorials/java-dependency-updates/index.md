@@ -16,7 +16,7 @@ tags:
     "jvm",
     "maven central",
   ]
-vgWort: ""
+vgWort: "vg09.met.vgwort.de/na/63ed686f28204da187e0f8438dd67508"
 ---
 
 ## Keeping your dependencies up to date

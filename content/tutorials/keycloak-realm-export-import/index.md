@@ -18,7 +18,7 @@ tags:
     "docker",
     "container",
   ]
-vgWort: ""
+vgWort: "vg01.met.vgwort.de/na/ec5f18141aab4d93a69b33ecb22fc1e2"
 ---
 
 ## Starting a keycloak 19 instance (based on quarkus)
