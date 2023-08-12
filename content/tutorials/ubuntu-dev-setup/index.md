@@ -1,12 +1,12 @@
 ---
 id: "ubuntu-dev-setup"
 path: "/tutorials/ubuntu-dev-setup"
-date: "2023-06-23"
+date: "2023-08-23"
 title: "My Ubuntu dev setup"
 description: "How do I setup my fresh Ubuntu installation for development"
 author: "Simon Scholz"
 tags: ["ubuntu", "os", "tools", "dev setup"]
-vgWort: ""
+vgWort: "vg04.met.vgwort.de/na/989995905b7e49428a551fec44aa0b61"
 ---
 
 Here I'd like to share how I'd setup my freshly installed OS, namely Ubuntu, for development.
@@ -137,6 +137,11 @@ Let me list the ones I'd currently use:
 - YAML: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml
 - XML: https://marketplace.visualstudio.com/items?itemName=redhat.vscode-xml
 - Spell Checker: https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker
+- Base 64 Encoder: https://marketplace.visualstudio.com/items?itemName=adamhartford.vscode-base64
+- Tailwind CSS IntelliSense: https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss
+- ESLint: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+- Iconify IntelliSense: https://marketplace.visualstudio.com/items?itemName=antfu.iconify
+- Vue Language Features (Volar): https://marketplace.visualstudio.com/items?itemName=Vue.volar
 
 ## Node JS + NPM
 
