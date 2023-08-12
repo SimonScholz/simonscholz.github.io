@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - Simon Scholz` : "Simon Scholz";
+  },
+});
 useServerSeoMeta({
   title: "Simon Scholz",
   ogTitle: "Simon Scholz",

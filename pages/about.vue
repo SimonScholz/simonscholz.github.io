@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import mePresentingBg from "~/assets/me-presenting-bg.webp";
+
+useHead({
+  title: "About",
+  meta: [
+    { name: "description", content: "About section describing Simon Scholz" },
+  ],
+});
 </script>
 
 <template>

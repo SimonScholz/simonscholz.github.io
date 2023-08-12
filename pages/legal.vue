@@ -1,3 +1,9 @@
+<script setup lang="ts">
+useHead({
+  title: 'Legal ',
+});
+</script>
+
 <template>
     <div id="impressum-en" class="container flex flex-col md:justify-between mx-auto mb-10">
 				<h1 class="text-2xl mb-3">Legal Disclosure / Impressum</h1>

@@ -1,4 +1,14 @@
 <script setup lang="ts">
+useHead({
+  title: null,
+  meta: [
+    {
+      name: "description",
+      content:
+        "Profile of Simon Scholz including quotes, about me, tutorials and tech stack",
+    },
+  ],
+});
 import type { UseIntersectionObserverReturn } from "@vueuse/core";
 import { useIntersectionObserver } from "@vueuse/core";
 import me from "~/assets/me.webp";

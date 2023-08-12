@@ -1,6 +1,17 @@
 <script setup lang="ts">
 import { ParsedContent } from "@nuxt/content/dist/runtime/types";
 
+useHead({
+  title: "Tutorials",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Tutorials about a lot of tech topics, like kotlin, spring boot, quarkus, keycloak, docker, kubernetes and much more...",
+    },
+  ],
+});
+
 const { data } = await useAsyncData("tutorialsQueryContent", () =>
   queryContent("tutorials").sort({ date: -1 }).find()
 );

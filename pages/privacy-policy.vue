@@ -1,3 +1,9 @@
+<script setup lang="ts">
+useHead({
+  title: "Privacy Policy",
+});
+</script>
+
 <template>
   <article
     id="privacy-policy-en"

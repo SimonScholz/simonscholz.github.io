@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import me from "~/assets/me.webp";
+
+useHead({
+  title: "CV / Resume",
+  meta: [{ name: "description", content: "CV or resume of Simon Scholz" }],
+});
 </script>
 
 <template>
