@@ -60,7 +60,7 @@ function closeMobileMenu() {
     <menu
       ref="mobileMenu"
       :class="{ hidden: hideMobileMenu }"
-      class="fixed top-0 right-0 w-1/2 h-full bg-opacity-100 z-50 bg-gray-100 dark:bg-gray-800 pt-8 pl-4 text-xl print:hidden"
+      class="fixed top-0 right-0 w-1/2 h-full bg-opacity-100 z-50 border-l border-gray-600 dark:border-gray-50 bg-gray-100 dark:bg-gray-800 pt-8 pl-4 text-xl print:hidden"
     >
       <button class="absolute top-2 right-3" @click="closeMobileMenu">
         <Icon name="mdi:close" />
