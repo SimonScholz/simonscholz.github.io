@@ -1,8 +1,23 @@
 <script setup lang="ts">
+import { onClickOutside } from "@vueuse/core";
+
 const hideMobileMenu = ref(true);
+const mobileMenu = ref<HTMLInputElement | null>(null);
+
+onClickOutside(mobileMenu, (event) => {
+  if (event.target.closest("button")?.id !== "burgerMenu") {
+    closeMobileMenu();
+  }
+});
 
 function showMobileMenu() {
   hideMobileMenu.value = !hideMobileMenu.value;
+}
+
+function closeMobileMenu() {
+  if (!hideMobileMenu.value) {
+    hideMobileMenu.value = true;
+  }
 }
 </script>
 
@@ -35,6 +50,7 @@ function showMobileMenu() {
     />
 
     <button
+      id="burgerMenu"
       @click="showMobileMenu"
       class="dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 absolute left-0 top-0 z-100 ml-10 mt-5 text-xl md:hidden print:hidden"
     >
@@ -42,17 +58,18 @@ function showMobileMenu() {
     </button>
 
     <menu
+      ref="mobileMenu"
       :class="{ hidden: hideMobileMenu }"
       class="fixed top-0 right-0 w-1/2 h-full bg-opacity-100 z-50 bg-gray-100 dark:bg-gray-800 pt-8 pl-4 text-xl print:hidden"
     >
-      <button class="absolute top-2 right-3" @click="showMobileMenu">
+      <button class="absolute top-2 right-3" @click="closeMobileMenu">
         <Icon name="mdi:close" />
       </button>
       <NuxtLink
         class="icon-btn align-middle flex flex-row text-xl place-items-center"
         to="/"
         title="Home"
-        @click="showMobileMenu"
+        @click="closeMobileMenu"
       >
         <Icon name="uil:home-alt" />
         <span class="ml-3">Home</span>
@@ -92,7 +109,7 @@ function showMobileMenu() {
         class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3"
         title="My Tutorials"
         to="/tutorials"
-        @click="showMobileMenu"
+        @click="closeMobileMenu"
       >
         <Icon name="carbon:education" />
         <span class="ml-3">Tutorials</span>
@@ -101,7 +118,7 @@ function showMobileMenu() {
         class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3"
         title="About Me"
         to="/about"
-        @click="showMobileMenu"
+        @click="closeMobileMenu"
       >
         <Icon name="carbon:id-management" />
         <span class="ml-3">About</span>
@@ -110,7 +127,7 @@ function showMobileMenu() {
         class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3"
         to="/cv"
         title="My Resume / CV"
-        @click="showMobileMenu"
+        @click="closeMobileMenu"
       >
         <Icon name="pepicons-pop:cv" />
         <span class="ml-3">Resume</span>
