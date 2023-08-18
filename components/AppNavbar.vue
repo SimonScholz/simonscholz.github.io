@@ -50,13 +50,13 @@ function closeMobileMenu() {
     </span>
 
     <ColorModeSwitch
-      class="dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 absolute right-0 top-0 z-100 mr-10 mt-5 text-xl md:fixed print:hidden"
+      class="dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 right-0 top-0 z-100 mr-10 mt-5 text-xl hidden md:block md:fixed print:hidden"
     />
 
     <button
       id="burgerMenu"
       @click="showMobileMenu"
-      class="dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 absolute left-0 top-0 z-100 ml-10 mt-5 text-xl md:hidden print:hidden"
+      class="dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 absolute right-0 top-0 z-100 mr-10 mt-5 text-xl md:hidden print:hidden"
     >
       <Icon name="mdi:menu" title="menu" class="w-5 h-5" />
     </button>
@@ -136,6 +136,11 @@ function closeMobileMenu() {
         <Icon name="pepicons-pop:cv" />
         <span class="ml-3">Resume</span>
       </NuxtLink>
+      <div class="flex mt-10">
+        <ColorModeSwitch
+          class="grow dark:text-primary-100 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700 text-xl"
+        />
+      </div>
     </menu>
 
     <section
