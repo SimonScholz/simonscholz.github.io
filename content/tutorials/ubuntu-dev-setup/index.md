@@ -142,6 +142,7 @@ Let me list the ones I'd currently use:
 - ESLint: https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
 - Iconify IntelliSense: https://marketplace.visualstudio.com/items?itemName=antfu.iconify
 - Vue Language Features (Volar): https://marketplace.visualstudio.com/items?itemName=Vue.volar
+- Excalidraw: https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor
 
 ## Node JS + NPM
 
@@ -163,13 +164,37 @@ sudo nala install flameshot
 
 Also see: https://flameshot.org/docs/installation/installation-linux/
 
-## kubectl
+## Kubernetes
+
+### kubectl
 
 In order to interact with Kubernetes kubectl is a must have.
 
 Follow steps from https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/ to install kubectl.
 
+For me on Ubuntu it works like this:
+
+```bash
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+kubectl version
+```
+
 The usage of kubectl is nicely depicted by the kubectl cheatsheet: https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+
+### k9s
+
+[K9s](https://github.com/derailed/k9s) provides a terminal UI to interact with your Kubernetes clusters.
+
+The easiest way to install k9s is via [Webi](https://webinstall.dev/)
+
+```bash
+curl -sS https://webinstall.dev/k9s | bash
+```
+
+For other options also see https://github.com/derailed/k9s#installation
 
 ## Dropbox
 
