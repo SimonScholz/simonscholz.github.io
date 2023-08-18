@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside } from "@vueuse/core";
 
-const hideMobileMenu = ref(true);
+const hideMobileMenu = ref("hide");
 const mobileMenu = ref<HTMLInputElement | null>(null);
 
 onClickOutside(mobileMenu, (event) => {
@@ -11,12 +11,16 @@ onClickOutside(mobileMenu, (event) => {
 });
 
 function showMobileMenu() {
-  hideMobileMenu.value = !hideMobileMenu.value;
+  if (hideMobileMenu.value === "hide") {
+    hideMobileMenu.value = "show";
+  } else {
+    hideMobileMenu.value = "hide";
+  }
 }
 
 function closeMobileMenu() {
-  if (!hideMobileMenu.value) {
-    hideMobileMenu.value = true;
+  if (hideMobileMenu.value !== "hide") {
+    hideMobileMenu.value = "hide";
   }
 }
 </script>
@@ -59,7 +63,7 @@ function closeMobileMenu() {
 
     <menu
       ref="mobileMenu"
-      :class="{ hidden: hideMobileMenu }"
+      :class="[hideMobileMenu]"
       class="fixed top-0 right-0 w-1/2 h-full bg-opacity-100 z-50 border-l border-gray-600 dark:border-gray-50 bg-gray-100 dark:bg-gray-800 pt-8 pl-4 text-xl print:hidden"
     >
       <button class="absolute top-2 right-3" @click="closeMobileMenu">
@@ -183,5 +187,19 @@ function closeMobileMenu() {
 <style scoped>
 .icon-btn {
   @apply cursor-pointer transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700;
+}
+
+.hide {
+  transition-property: transform;
+  transition-duration: 500ms;
+  transition-timing-function: linear;
+  transform: translateX(200%);
+}
+
+.show {
+  transition-property: transform;
+  transition-duration: 600ms;
+  transition-timing-function: linear;
+  transform: none;
 }
 </style>
