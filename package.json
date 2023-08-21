@@ -18,7 +18,7 @@
   "dependencies": {
     "@nuxt-themes/elements": "^1.0.4",
     "@nuxt-themes/tokens": "^2.0.1",
-    "@nuxt-themes/typography": "^1.0.0",
+    "@nuxt-themes/typography": "^1.0.1",
     "@nuxthq/studio": "^0.13.4",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/robots": "^3.0.0",
