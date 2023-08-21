@@ -16,7 +16,7 @@
     "typescript": "^5.1.6"
   },
   "dependencies": {
-    "@nuxt-themes/elements": "^1.0.4",
+    "@nuxt-themes/elements": "^1.0.5",
     "@nuxt-themes/tokens": "^2.0.1",
     "@nuxt-themes/typography": "^1.0.1",
     "@nuxthq/studio": "^0.13.4",
