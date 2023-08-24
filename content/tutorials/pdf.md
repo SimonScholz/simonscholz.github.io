@@ -11,6 +11,7 @@ vgWort: "vg08.met.vgwort.de/na/d28e8e3bf7d1405c93c9db0cb9181e21"
 
 ## Editing Tools for PDF files
 
+- Xournal++
 - LibreOffice Draw
 - Inkscape
 - Gimp
@@ -22,6 +23,24 @@ Recently I've been using Inkscape, because LibreOffice Draw tends to screw the t
 A drawback of using Inkscape is that it is only capable to open one page at a time.
 So in case you want to modify several pages with Inkscape, you'll have to do it one by one and use tools like PDF Arranger to merge the resulting PDFs afterwards again.
 Since many forms have between 2 or 3 pages it might be worth the effort.
+
+## Xournal++
+
+Xournal++ is an open-source and cross-platform note-taking software that is fast, flexible, and functional. A modern rewrite and a more feature-rich version of the wonderful Xournal program.
+
+You can also easily modify and create PDF files with it.
+
+Also see comprehensive GitHub Page: https://xournalpp.github.io/
+
+### Install Xournal++
+
+```bash
+sudo add-apt-repository ppa:apandada1/xournalpp-stable
+sudo apt update
+sudo apt install xournalpp
+```
+
+Also see [xournalpp installation](https://github.com/xournalpp/xournalpp/#installing)
 
 ## Inkscape
 
