@@ -13,6 +13,10 @@ export default defineTheme({
         }
     },
     prose: {
+        img: {
+            margin: '{typography.verticalMargin.base} 3',
+            borderRadius: '{typography.radii.full}'
+        },
         code: {
             block: {
                 backgroundColor: {
