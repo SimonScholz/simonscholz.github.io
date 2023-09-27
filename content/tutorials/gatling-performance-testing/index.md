@@ -45,7 +45,7 @@ After downloading the Quarkus starter code it can be opened in IntelliJ.
 
 Besides the other plugins the `io.gatling.gradle` needs to be added:
 
-```kotlin
+```kotlin [build.gradle.kts]
 plugins {
     kotlin("jvm") version "1.7.21"
     kotlin("plugin.allopen") version "1.7.21"
@@ -67,7 +67,7 @@ To have a quick win, let's create a small simulation for the hello endpoint, whi
 
 First create a `HelloScenario` object to provide a scenario:
 
-```kotlin
+```kotlin [HelloScenario.kt]
 package io.github.simonscholz.scenario
 
 import io.gatling.javaapi.core.CoreDsl.exec
@@ -86,7 +86,7 @@ object HelloScenario {
 
 And then a `Simulation`, which runs the scenario:
 
-```kotlin
+```kotlin [HelloSimulation.kt]
 package io.github.simonscholz.simulation
 
 /* ktlint-disable no-wildcard-imports */
@@ -150,7 +150,7 @@ This property can be set using `-D` to provide properties:
 
 Let's create an endpoint, which returns availability information of certain products.
 
-```kotlin
+```kotlin [AvailabilityResource.kt]
 package io.github.simonscholz
 
 import java.util.concurrent.TimeUnit
@@ -189,7 +189,7 @@ The `/availability` endpoint expects a product id to return availability informa
 
 To avoid cluttering our Gatling code we'd move the http protocol setup to a `Config` object class.
 
-```kotlin
+```kotlin [Config.kt]
 package io.github.simonscholz.config
 
 import io.gatling.javaapi.http.HttpDsl.http
@@ -219,7 +219,7 @@ Feeders allow to inject dynamic data into a simulation and to choose this data i
 
 Therefore we'd place a `productIds.csv` file inside the `src/gatling/resources` folder to feed the Gating simulation with dynamic product ids.
 
-```csv
+```[productIds.csv]
 productId
 1234
 5678
@@ -231,7 +231,7 @@ productId
 
 The next step would be to create a scenario, which calls the new `/availability` API and utilizes the product ids given in the `productIds.csv` file.
 
-```kotlin
+```kotlin [CSVFeederProductAvailabilityScenario.kt]
 package io.github.simonscholz.scenario
 
 import io.gatling.javaapi.core.CoreDsl.feed
@@ -255,7 +255,7 @@ Also see https://gatling.io/docs/gatling/reference/current/core/session/feeder/
 
 You can now add this `productAvailabilityScenario` to the `HelloSimulation`.
 
-```kotlin
+```kotlin [HelloSimulation.kt]
 package io.github.simonscholz.simulation
 
 import io.gatling.javaapi.core.CoreDsl.rampUsers
@@ -288,7 +288,7 @@ Sometimes you'd want to obtain the feed data from a remote resource to be more d
 
 So let's create a new endpoint in the Quarkus app (`src/main/kotlin`), which provides the product data from before:
 
-```kotlin
+```kotlin [CustomerFeederResource.kt]
 package io.github.simonscholz
 
 import javax.ws.rs.GET
@@ -311,7 +311,7 @@ class CustomerFeederResource {
 
 And then create a `Feeder` object with both feeders in `src/gatling/kotlin`:
 
-```kotlin
+```kotlin [Feeder.kt]
 package io.github.simonscholz.feeder
 
 import com.fasterxml.jackson.databind.ObjectMapper
@@ -355,7 +355,7 @@ Simulating real user behavior in a performance test also means to simulate the u
 
 Let's simply reuse the existing endpoints our Quarkus app currently offers and hit the `/hello` endpoint, then hit the `/feederproducts` four times saving one of the returned products based on the index in each iteration and then reuse the saved product id for the `/availability` endpoint.
 
-```kotlin
+```kotlin [ChainScenario.kt]
 package io.github.simonscholz.scenario
 
 import io.gatling.javaapi.core.CoreDsl.* // ktlint-disable no-wildcard-imports
@@ -392,7 +392,7 @@ More details can be found in the https://gatling.io/docs/gatling/reference/curre
 With a GitHub action in place we cannot simply hit our localhost Quarkus app.
 So let's use `https://computer-database.gatling.io` of Gatling from this sample: https://github.com/gatling/gatling-gradle-plugin-demo-kotlin
 
-```kotlin
+```kotlin [ComputerDatabaseSimXulation.kt]
 package io.github.simonscholz.simulation
 
 import io.gatling.javaapi.core.CoreDsl.* // ktlint-disable no-wildcard-imports
@@ -435,7 +435,7 @@ class ComputerDatabaseSimXulation : Simulation() {
 
 The following GitHub action (`./github/workflows/gatling-performance.yaml`) can be used to run the Gatling simulation and upload the report:
 
-```yaml
+```yaml [gatling-performance.yaml]
 name: Run Gatling performance test
 
 # Controls when the workflow will run
@@ -507,7 +507,7 @@ Once the workflow is done the Gatling report can be downloaded afterwards.
 In some cases you'd rather want to have an executable Jar file to run a performance test.
 To archive this the following can to be added at the end of the `build.gradle.kts` file to create an executable jar file.
 
-```kotlin
+```kotlin [build.gradle.kts]
 tasks.register("gatlingJar", Jar::class) {
     group = "build"
     archiveBaseName.set("gatling-performance-analysis")
@@ -557,7 +557,7 @@ I decided to use Jib, which is great for layering of JVM apps.
 
 For this to work we have to add the Jib Gradle plugin to our project:
 
-```kotlin
+```kotlin [build.gradle.kts]
 plugins {
     // .... other plugins ....
 
@@ -568,7 +568,7 @@ plugins {
 Jib as of now cannot easily deal with custom source folders used by Gatling, e.g., `src/gatling/kotlin/`.
 That's why we need to tweak our build config a little bit.
 
-```kotlin
+```kotlin [build.gradle.kts]
 // Copy over the gatling classes to the app/classes folder
 tasks.register("copyGatlingToAppDir", Copy::class) {
     dependsOn("gatlingClasses")

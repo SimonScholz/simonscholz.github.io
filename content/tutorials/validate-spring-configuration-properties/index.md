@@ -34,7 +34,7 @@ But of course you could also start by creating a new Spring Boot project. You ca
 
 In order to introduce validation for the properties the `org.springframework.boot:spring-boot-starter-validation` dependency has to be added:
 
-```gradle
+```kotlin[build.gradle.kts]
 implementation("org.springframework.boot:spring-boot-starter-validation")
 ```
 
