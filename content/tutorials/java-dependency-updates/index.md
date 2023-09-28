@@ -1,7 +1,7 @@
 ---
 id: "java-dependency-updates"
 path: "/tutorials/java-dependency-updates"
-date: "2022-04-29"
+date: "2023-09-29"
 title: "Java dependency updates with Maven/Gradle and GitHub`s Dependabot"
 description: "Keeping Java dependencies up to date with Maven/Gradle and GitHub`s Dependabot"
 author: "Simon Scholz"
@@ -48,7 +48,7 @@ It can be configured like this in your `build.gradle.kts` file:
 plugins {
     // ... all your other Gradle plugins
 
-    id("com.github.ben-manes.versions") version "0.42.0"
+    id("com.github.ben-manes.versions") version "0.48.0"
 }
 
 tasks.withType<DependencyUpdatesTask> {
