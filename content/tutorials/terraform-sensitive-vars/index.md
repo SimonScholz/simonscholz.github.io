@@ -2,10 +2,10 @@
 id: "terraform-sensitive-vars"
 path: "/tutorials/terraform-sensitive-vars"
 date: "2023-09-31"
-title: "Reading .env file and use it for sensitive vars in terraform run"
+title: "Reading .env file and use it for sensitive vars in Terraform"
 description: "Terraform can apply env variables prefixed with TF_VAR_, so a bash script reading a .env file is helpful to provide sensitive data"
 author: "Simon Scholz"
-tags: ["bash", "terraform", "variables", "devops", "cloud"]
+tags: ["bash", "terraform", "variables", "environment", "devops", "cloud"]
 vgWort: "vg06.met.vgwort.de/na/715998ce7e6140ca8adcdba657d44053"
 ---
 
@@ -22,7 +22,7 @@ In this tutorial, I'll walk you through the process of reading variables from a 
 
 In the `variables.tf` file the variables of your terraform script are listed:
 
-```kotlin [variables.tf]
+```hcl [variables.tf]
 variable "project_id" {
   type        = string
   description = "Project ID of the Google project"
@@ -56,7 +56,7 @@ When setting the `sensitive` property to `true` the contents of this variable wi
 
 Non confidential or non secret values are usually specified in a `terraform.tfvars` file:
 
-```kotlin [terraform.tfvars]
+```hcl [terraform.tfvars]
 project_id = "example-gcp-project"
 region     = "europe-west4"
 zone       = "europe-west4-b"
@@ -140,3 +140,5 @@ Wish you happy "terraforming" without repetitive entering of data in the prompts
 ## Other strategies
 
 Of course there are also other (mostly commercial) options to work with sensitive data in terraform, e.g., KMS from Google or AWS etc, which are worth looking at.
+
+Or you can have a look at [Terraform Enterprise](https://developer.hashicorp.com/terraform/enterprise), which I'd consider the most sophisticated solution.
