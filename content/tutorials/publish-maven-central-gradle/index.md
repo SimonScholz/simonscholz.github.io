@@ -35,7 +35,7 @@ Besides kotling-library you can also use various other types, which you can find
 In order to publish to maven central you need to publish your library in public, e.g., on [GitHub](https://github.com), [GitLab](https://about.gitlab.com/), [Sourceforge](https://sourceforge.net/) or others.
 I'd recommend using GitHub for this, since we'll also use GitHub Actions to publish the library to Maven Central.
 
-When creating the repository on GitHub, make sure to Add a `README` file and pick a proper `License` (e.g., Apache 2.0).
+When creating the repository on GitHub, make sure to add a `README` file and pick a proper `License` (e.g., Apache 2.0).
 
 ## Using the com.vanniktech.maven.publish plugin
 
@@ -54,7 +54,7 @@ plugins {
 }
 ```
 
-Adding `org.jetbrains.dokka` is used to generate the kddoc for a `kotlin-library`. Without it the kdoc in the library will not be part of the generated javadoc.
+Adding `org.jetbrains.dokka` is used to generate the kdoc for a `kotlin-library`. Without it the kdoc in the library will not be part of the generated javadoc.
 
 ### Configure the plugin
 
@@ -70,7 +70,7 @@ mavenPublishing {
 
 `SonatypeHost.S01` is used here, since all new projects are forced to use this host.
 
-Maven Central requires that all artifacts are signed. Therefore we need to sign all publications.
+Maven Central requires that all non `-SNAPSHOT` artifacts are signed. Therefore we need to sign all publications.
 
 It is also required to add certain meta data, which can either be specified within the `build.gradle.kts` file or `gradle.properties` like this:
 
@@ -139,7 +139,7 @@ mavenCentralUsername=username
 mavenCentralPassword=the_password
 ```
 
-Do *not* put these credentials into the `gradle.properties` file located in the project folder, since this file will be committed to your repository and therefore the credentials will be public.
+Do **not** put these credentials into the `gradle.properties` file located in the project folder, since this file will be committed to your repository and therefore the credentials will be public.
 
 Then in your project folder you can run:
 
@@ -168,3 +168,4 @@ You'll not have many users of your library if you only provide snapshots. Theref
 
 - https://github.com/vanniktech/gradle-maven-publish-plugin
 - https://github.com/SimonScholz/qr-code-with-logo
+- https://central.sonatype.org/publish/publish-guide/
