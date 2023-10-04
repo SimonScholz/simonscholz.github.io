@@ -8,7 +8,7 @@ author: 'Simon Scholz'
 tags:
   [
     'postman',
-	'API',
+	  'API',
     'rest-client',
     'automatization',
     'newman',
@@ -60,7 +60,7 @@ To make it easy we'll utilize https://httpbin.org/ to create a simple get reques
 
 The following json can be imported into your Postman instance or workspace:
 
-```json
+```json [http-bin-get-request.json]
 {
   "info": {
     "_postman_id": "85a61698-50ea-42ac-822d-93cf95046eef",
@@ -195,7 +195,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: matt-ball/newman-action@master
+
+      - uses: SimonScholz/postman-newman-action@v1.0.0
         with:
           collection: postman/http-bin-get-request.json
           envVar: '[{ "key": "user", "value": "Newman" }]'
@@ -246,7 +247,7 @@ jobs:
 		      -d 'username=${{ secrets.USER_NAME }}' -d 'password=${{ secrets.PASSWORD }}' \
           --header 'Cache-Control: no-cache' | echo "access_token=$(jq -r '.access_token')" >> $GITHUB_OUTPUT
 
-      - uses: matt-ball/newman-action@master
+      - uses: SimonScholz/postman-newman-action@v1.0.0
         with:
           collection: postman/http-bin-get-request.json
           envVar: '[{ "key": "user", "value": "Newman" }]'
@@ -306,7 +307,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - uses: matt-ball/newman-action@master
+      - uses: SimonScholz/postman-newman-action@v1.0.0
         with:
           collection: postman/sophisticated-postman-collection-with-plenty-of-tests.json
           envVar: '[{ "key": "user", "value": "Newman" }]'
@@ -337,7 +338,8 @@ Besides running the action manually (workflow_dispatch) and on push to certain b
 ## Sources
 
 - https://github.com/postmanlabs/newman
-- https://github.com/marketplace/actions/newman-action
+- https://github.com/marketplace/actions/newman-postman-action-with-different-outputs
+- https://github.com/SimonScholz/postman-newman-action
 - https://www.postman.com/
 - https://postman-quick-reference-guide.readthedocs.io/en/latest/
 - https://httpbin.org/

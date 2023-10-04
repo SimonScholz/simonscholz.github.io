@@ -44,7 +44,9 @@ The output can then look similar to this depending on your dependencies in the p
 When you're using Gradle the `com.github.ben-manes.versions` (https://plugins.gradle.org/plugin/com.github.ben-manes.versions) is really helpful.
 It can be configured like this in your `build.gradle.kts` file:
 
-```kotlin
+```kotlin [build.gradle.kts]
+import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
+
 plugins {
     // ... all your other Gradle plugins
 
@@ -58,7 +60,7 @@ tasks.withType<DependencyUpdatesTask> {
 }
 
 fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
