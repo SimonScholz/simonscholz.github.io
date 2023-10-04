@@ -31,7 +31,7 @@ Start by creating a new Spring Boot project. You can use the Spring Initializer 
 
 In the `application.properties` or `application.yml` file we'd define some properties, we want to read.
 
-```yaml
+```yaml [application.yml]
 simonscholz:
     third-party-url: ${THIRD_PARTY_URL}
     third-party-auth: ${THIRD_PARTY_JWT_TOKEN}
@@ -42,7 +42,7 @@ simonscholz:
 
 Create a Kotlin data class to represent your configuration properties. This class will be annotated with `@ConfigurationProperties` and will contain properties corresponding to your configuration properties.
 
-```kotlin
+```kotlin [SimonScholzProperties.kt]
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
 
@@ -61,7 +61,7 @@ Make sure to use the prefix, in this case `simonscholz`, specified in your `@Con
 
 The `@EnableConfigurationProperties` annotation must be used to enable the initialization of the data classes annotated with `@ConfigurationProperties`. The `@EnableConfigurationProperties` annotation can be used in any `@Configuration` class, e.g., `@SpringBootApplication`.
 
-```kotlin
+```kotlin [Application.kt]
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
@@ -77,7 +77,7 @@ fun main(args: Array<String>) {
 
 or
 
-```kotlin
+```kotlin [ApplicationConfigurationProperties.kt]{2} meta-info=val
 @Configuration
 @EnableConfigurationProperties(SimonScholzProperties::class)
 class ApplicationConfigurationProperties
