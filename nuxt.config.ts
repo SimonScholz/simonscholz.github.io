@@ -72,4 +72,11 @@ export default defineNuxtConfig({
       failOnError: false,
     }
   },
+  hooks: {
+    close: (nuxt) => {
+      if (!nuxt.options._prepare) {
+        process.exit()
+      }
+    },
+  },
 });
