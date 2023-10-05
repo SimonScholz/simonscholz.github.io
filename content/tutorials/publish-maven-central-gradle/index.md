@@ -6,7 +6,7 @@ title: "Publish library to Maven Central with Gradle and GitHub Actions"
 description: "Creating a library using Gradle, register at Maven Central and publish it to Maven Central using GitHub Actions"
 author: "Simon Scholz"
 tags: ["gradle", "maven-central", "library", "publish", "github-actions"]
-vgWort: ""
+vgWort: "vg07.met.vgwort.de/na/55e92b5d1a3f466ea0cc172f2d3d5f6c"
 ---
 
 When you want to publish a library to Maven Central you have to follow a few steps. This tutorial will guide you through the process of creating a library using Gradle, register at Maven Central and publish it to Maven Central using GitHub Actions.
