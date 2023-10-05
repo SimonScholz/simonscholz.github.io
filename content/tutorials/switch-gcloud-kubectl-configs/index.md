@@ -2,8 +2,8 @@
 id: "switch-gcloud-kubectl-configs"
 path: "/tutorials/switch-gcloud-kubectl-configs"
 date: "2023-10-14"
-title: "Easily switch gcloud and kubectl configurations."
-description: "Switching both gcloud and kubectl config at once via command line."
+title: "Easily switch gcloud config and kubectl context"
+description: "Switching both gcloud and kubectl config at once via command line"
 author: "Simon Scholz"
 tags: ["gke", "kubernetes", "gcloud", "tool", "cli", "kubectl", "bash"]
 vgWort: "vg07.met.vgwort.de/na/b04c627883b44b4fa1d2b1f7c55d75a0"
