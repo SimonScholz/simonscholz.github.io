@@ -72,7 +72,7 @@ export default defineNuxtConfig({
       failOnError: false,
     }
   },
-  hooks: {
+  hooks: { // Workaround for not exiting - https://github.com/nuxt/cli/issues/193#issuecomment-1722161822
     close: (nuxt) => {
       if (!nuxt.options._prepare) {
         process.exit()
