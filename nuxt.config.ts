@@ -23,6 +23,7 @@ export default defineNuxtConfig({
   ssr: true,
   experimental: {
     payloadExtraction: false,
+    inlineSSRStyles: false,
   },
   // https://color-mode.nuxtjs.org
   colorMode: {
@@ -46,7 +47,7 @@ export default defineNuxtConfig({
         // Theme used if `html.sepia`
         sepia: 'monokai'
       },
-      preload: ["kotlin", "java", "bash"],
+      preload: ["kotlin", "java", "bash", "ini", "json", "yaml", "xml"],
     },
     markdown: {
       // https://www.npmjs.com/package/remark-reading-time
@@ -63,11 +64,9 @@ export default defineNuxtConfig({
       ],
     },
   },
-  experimental: {
-    inlineSSRStyles: false
-  },
   nitro: {
     prerender: {
+      crawlLinks: true,
       routes: ['/sitemap.xml'],
       ignore: ['/__pinceau_tokens_config.json', '/__pinceau_tokens_schema.json'],
       failOnError: false,
