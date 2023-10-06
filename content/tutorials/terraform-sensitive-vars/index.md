@@ -137,6 +137,82 @@ chmod +x terraform-plan.sh
 
 Wish you happy "terraforming" without repetitive entering of data in the prompts. ;)
 
+## Automatically generate a .env.example file (optional)
+
+It it convenient for others if you provide an `.env.example` file, which is checked into version control.
+With that in place one can simply remove the `.exmaple` from the file name and add the secrets.
+
+Therefore we add the following to the bash scripts:
+
+```bash [terraform-apply.sh]
+#!/bin/bash
+
+# The properties in the .env file must be prefixed with TF_VAR_ so that Terraform picks them up.
+
+if [ -f .env ]; then
+  # Load environment variables from .env file
+  set -a
+  . .env
+
+  # remove existing example file
+  rm -f .env.example
+
+  # write all keys to the .env.example file
+  while IFS='=' read -r key value || [[ -n "$value" ]]
+  do
+      echo "$key=" >> .env.example
+  done < .env
+else
+  echo "Error: .env file not found."
+  exit 1
+fi
+
+terraform fmt
+terraform apply
+```
+
+The resulting `.env.example` file might look like this:
+
+```bash [.env.example]
+TF_VAR_cloud_sql_database_username=
+TF_VAR_cloud_sql_database_password=
+```
+
+## Make script more generic with variables (optional)
+
+Instead of repeating `.env` and `.env.example` everywhere we might want to use variables.
+This would make it easier to change the file name:
+
+```bash [terraform-apply.sh]
+#!/bin/bash
+
+# The properties in the .env file must be prefixed with TF_VAR_ so that Terraform picks them up.
+
+file=".env"
+example=".env.example"
+
+if [ -f "$file" ]; then
+  # Load environment variables from .env file
+  set -a
+  . "$file"
+
+  # remove existing example file
+  rm -f "$example"
+
+  # write all keys to the .env.example file
+  while IFS='=' read -r key value || [[ -n "$value" ]]
+  do
+      echo "$key=" >> "$example"
+  done < "$file"
+else
+  echo "Error: '$file' file not found."
+  exit 1
+fi
+
+terraform fmt
+terraform apply
+```
+
 ## Other strategies
 
 Of course there are also other (mostly commercial) options to work with sensitive data in terraform, e.g., KMS from Google or AWS etc, which are worth looking at.
