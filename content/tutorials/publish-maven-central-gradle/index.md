@@ -160,9 +160,54 @@ This approach will also be used later on in the GitHub Actions workflow.
 
 ## Create a GPG key
 
+We'll now walk through the whole process creating a GPG key, but you can also have a look at the [GPG documentation on central.sonatype.org](https://central.sonatype.org/publish/requirements/gpg/#releasing-to-central)
+
+### Install GnuPG
+
 You'll not have many users of your library if you only provide snapshots. Therefore you'll need to publish releases of your library to Maven Central, which requires you to sign your artifacts.
 
-// ...to be contined...
+First of all GnuPG needs to be installed: [https://gnupg.org/download/](https://gnupg.org/download/index.html#sec-1-2)
+
+Verify installation of gpg:
+
+```bash
+gpg --version
+
+# Should produce a similar output:
+gpg (GnuPG) 2.2.27
+libgcrypt 1.9.4
+Copyright (C) 2021 Free Software Foundation, Inc.
+License GNU GPL-3.0-or-later <https://gnu.org/licenses/gpl.html>
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Home: /home/simon/.gnupg
+Supported algorithms:
+Pubkey: RSA, ELG, DSA, ECDH, ECDSA, EDDSA
+Cipher: IDEA, 3DES, CAST5, BLOWFISH, AES, AES192, AES256, TWOFISH,
+        CAMELLIA128, CAMELLIA192, CAMELLIA256
+Hash: SHA1, RIPEMD160, SHA256, SHA384, SHA512, SHA224
+Compression: Uncompressed, ZIP, ZLIB, BZIP2
+```
+
+### Generating gpg key
+
+You'll be prompted to enter your real name, your email address and a passphrase, when generating a key:
+
+```bash
+gpg --gen-key
+```
+
+The output will look similar to this:
+
+![Output of gpg --gen-key](./gpg-generate.png)
+
+Make sure to keep your passphrase and private key protected!
+
+Run `gpg --list-keys` to show your GPG keys.
+
+### Distribute the public key
+
 
 ## Sources 
 
