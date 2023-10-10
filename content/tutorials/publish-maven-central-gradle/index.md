@@ -208,6 +208,18 @@ Run `gpg --list-keys` to show your GPG keys.
 
 ### Distribute the public key
 
+Other people and maven central need your public key to verify your files.
+Therefore you have to distribute your public key to a key server:
+
+```bash
+gpg --keyserver ${target-key-server} --send-keys ${keyid-of-public-gpg-key}
+
+# e.g.
+
+gpg --keyserver keyserver.ubuntu.com --send-keys 93118BDD624014E8EF9A83847D0C56D86BBFCAA3
+```
+
+For more information see [distributing your public key](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key) in the official sonatype docs.
 
 ## Sources 
 
