@@ -174,6 +174,61 @@ repositories {
 `https://s01.oss.sonatype.org/content/repositories/snapshots/` is the URL of the snapshot repository.
 Also see https://central.sonatype.org/publish/publish-guide/#accessing-repositories
 
+### Publishing the SNAPSHOT using a GitHub Action
+
+In order to build and publish the SNAPSHOT using a GitHub Action you can use the following workflow.
+This workflow will be triggered on every push and pull request, but the publish step will only be executed when the push is on the `main` branch.
+
+```yaml [.github/workflows/CI.yml]
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  jvm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: gradle/wrapper-validation-action@v1
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 20
+
+      - uses: gradle/gradle-build-action@v2.9.0
+
+      - name: Build
+        run: ./gradlew build
+
+  publish:
+    runs-on: ubuntu-latest
+    if: github.repository == 'SimonScholz/qr-code-with-logo' && github.ref == 'refs/heads/main'
+    needs:
+      - jvm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 20
+
+      - uses: gradle/gradle-build-action@v2.9.0
+
+      - name: Publish Artifacts
+        run: ./gradlew publishAllPublicationsToMavenCentral
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+```
+
+Note that you need to add the `mavenCentralUsername` and `mavenCentralPassword` as secrets to your repository.
+In order to do that you need to go to your repository on GitHub, then click on `Settings` and then on `Secrets and variables` and finally on `Actions`.
+
+![Screenshot of the secrets and variables page](./github-secrets-snapshot.png)
+
 ## Create a GPG key
 
 We'll now walk through the whole process creating a GPG key, but you can also have a look at the [GPG documentation on central.sonatype.org](https://central.sonatype.org/publish/requirements/gpg/#releasing-to-central)
@@ -236,6 +291,20 @@ gpg --keyserver keyserver.ubuntu.com --send-keys 93118BDD624014E8EF9A83847D0C56D
 ```
 
 For more information see [distributing your public key](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key) in the official sonatype docs.
+
+### Export the private key
+
+You can export your private key and show it in the terminal, and can use this later in the GitHub Actions workflow:
+
+```bash
+gpg --export-secret-keys --armor ${key-id} ${path-to-secring.gpg} | grep -v '\-\-' | grep -v '^=.' | tr -d '\n'
+
+# e.g.
+
+gpg --export-secret-keys --armor 93118BDD624014E8EF9A83847D0C56D86BBFCAA3 /home/simon/.gnupg/trustdb.gpg | grep -v '\-\-' | grep -v '^=.' | tr -d '\n'
+```
+
+When running this command you'll be prompted to enter your passphrase, which you specified earlier during the key generation.
 
 ## Sources 
 
