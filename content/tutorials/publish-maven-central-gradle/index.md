@@ -158,6 +158,22 @@ export mavenCentralPassword=the_password
 
 This approach will also be used later on in the GitHub Actions workflow.
 
+### Using the snapshot from maven central
+
+In order to use the snapshot from maven central you need to add the following to your `build.gradle.kts` file:
+
+```kotlin [build.gradle.kts]
+repositories {
+    mavenCentral()
+    maven(
+        url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+    )
+}
+```
+
+`https://s01.oss.sonatype.org/content/repositories/snapshots/` is the URL of the snapshot repository.
+Also see https://central.sonatype.org/publish/publish-guide/#accessing-repositories
+
 ## Create a GPG key
 
 We'll now walk through the whole process creating a GPG key, but you can also have a look at the [GPG documentation on central.sonatype.org](https://central.sonatype.org/publish/requirements/gpg/#releasing-to-central)
