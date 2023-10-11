@@ -279,7 +279,7 @@ Run `gpg --list-keys` to show your GPG keys.
 
 ### Distribute the public key
 
-Other people and maven central need your public key to verify your files.
+Other people and maven central itself need your public key to verify your signed files.
 Therefore you have to distribute your public key to a key server:
 
 ```bash
@@ -290,24 +290,65 @@ gpg --keyserver ${target-key-server} --send-keys ${keyid-of-public-gpg-key}
 gpg --keyserver keyserver.ubuntu.com --send-keys 93118BDD624014E8EF9A83847D0C56D86BBFCAA3
 ```
 
+You can then search your key on http://keyserver.ubuntu.com/ and see that it is available there.
+
 For more information see [distributing your public key](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key) in the official sonatype docs.
+
+### Adjust ~/.gradle/gradle.properties
+
+Add the following to your `~/.gradle/gradle.properties` file:
+
+```properties [~/.gradle/gradle.properties]
+mavenCentralUsername=${username}
+mavenCentralPassword=${password}
+
+# must be the short key id format
+signing.keyId=6BBFCAA3
+signing.password=${passphrase}
+# must be the absolute path to the secring.gpg file, ~/.gnupg/secring.gpg won't work
+signing.secretKeyRingFile=/home/simon/.gnupg/secring.gpg
+```
+
+Adjust the values for username, password, keyId, passphrase and the path to the secring.gpg file accordingly.
+
+To get the short key id use the following command:
+
+```bash
+gpg --list-keys --keyid-format short
+```
+
+![Short key format screenshot](short-format-key.png)
+
+With this setup you can now run `./gradlew publishAllPublicationsToMavenCentral` to publish your library to Maven Central.
 
 ### Export the private key
 
-You can export your private key and show it in the terminal, and can use this later in the GitHub Actions workflow:
+For the GitHub Actions workflow we need to export the private key and use it in the workflow by utilizing action secrets, since there won't and shouldn't be a `secring.gpg` file available on GitHub.
+
+Have a look at the `~/.gnupg` folder and check if there is a `secring.gpg` file.
+If you only find a `pubring.kbx` file, then you need to export your private key:
+
+```bash
+gpg --export-secret-keys > ~/.gnupg/secring.gpg
+```
+
+With the `secring.gpg` in place you can export your private key and show it in the terminal, and can use this later in the GitHub Actions workflow:
 
 ```bash
 gpg --export-secret-keys --armor ${key-id} ${path-to-secring.gpg} | grep -v '\-\-' | grep -v '^=.' | tr -d '\n'
 
 # e.g.
 
-gpg --export-secret-keys --armor 93118BDD624014E8EF9A83847D0C56D86BBFCAA3 /home/simon/.gnupg/trustdb.gpg | grep -v '\-\-' | grep -v '^=.' | tr -d '\n'
+gpg --export-secret-keys --armor 93118BDD624014E8EF9A83847D0C56D86BBFCAA3 ~/.gnupg/secring.gpg | grep -v '\-\-' | grep -v '^=.' | tr -d '\n'
 ```
 
 When running this command you'll be prompted to enter your passphrase, which you specified earlier during the key generation.
+
+Warning: Make sure to keep your private key protected! With the command above you'll print your private key to the terminal.
 
 ## Sources 
 
 - https://github.com/vanniktech/gradle-maven-publish-plugin
 - https://github.com/SimonScholz/qr-code-with-logo
 - https://central.sonatype.org/publish/publish-guide/
+- https://docs.gradle.org/current/userguide/signing_plugin.html
