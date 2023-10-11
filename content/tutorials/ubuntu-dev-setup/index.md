@@ -243,3 +243,18 @@ sudo nala install teams-for-linux
 ```
 
 Also see https://github.com/IsmaelMartinez/teams-for-linux
+
+## Useful aliases and functions
+
+Update your applications and packages with one command:
+
+```bash [~/.bashrc]
+
+alias uAll='sudo apt update && sudo apt upgrade -y && sudo snap refresh'
+
+# alternatively use nala
+
+alias uAll='sudo nala update && sudo nala upgrade -y && sudo snap refresh'
+```
+
+This updates all apt packages, upgrades them and also refreshes the snap installations.
