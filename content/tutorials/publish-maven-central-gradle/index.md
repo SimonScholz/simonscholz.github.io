@@ -11,7 +11,7 @@ vgWort: "vg07.met.vgwort.de/na/55e92b5d1a3f466ea0cc172f2d3d5f6c"
 
 When you want to publish a library to Maven Central you have to follow a few steps. This tutorial will guide you through the process of creating a library using Gradle, register at Maven Central and publish it to Maven Central using GitHub Actions.
 
-## Prerequisites:
+## Prerequisites
 
 - Gradle installed on your local machine. You can download it from [here](https://gradle.org/install/) or use [SDKMan](https://simonscholz.github.io/tutorials/ubuntu-dev-setup#sdkman) for this.
 - A GitHub repository where you'll host your library.
@@ -28,7 +28,7 @@ Create a new Gradle library project using the following command:
 gradle init --type kotlin-library
 ```
 
-Besides kotling-library you can also use various other types, which you can find here: [supported gradle build types](https://docs.gradle.org/current/userguide/build_init_plugin.html#supported_gradle_build_types)
+Besides kotlin-library you can also use various other types, which you can find here: [supported gradle build types](https://docs.gradle.org/current/userguide/build_init_plugin.html#supported_gradle_build_types)
 
 ## Publishing your library on GitHub
 
@@ -319,7 +319,7 @@ gpg --list-keys --keyid-format short
 
 ![Short key format screenshot](short-format-key.png)
 
-With this setup you can now run `./gradlew publishAllPublicationsToMavenCentral` to publish your library to Maven Central.
+With this setup you can now run `./gradlew publishAllPublicationsToMavenCentral` to publish your signed library to Maven Central.
 
 ### Export the private key
 
@@ -345,6 +345,60 @@ gpg --export-secret-keys --armor 93118BDD624014E8EF9A83847D0C56D86BBFCAA3 ~/.gnu
 When running this command you'll be prompted to enter your passphrase, which you specified earlier during the key generation.
 
 Warning: Make sure to keep your private key protected! With the command above you'll print your private key to the terminal.
+
+## Adjust the GitHub Action to publish signed artifacts
+
+Now that we have the private key we can adjust the GitHub Action workflow to use it.
+
+```yaml [.github/workflows/CI.yml]
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  jvm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: gradle/wrapper-validation-action@v1
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 20
+
+      - uses: gradle/gradle-build-action@v2.9.0
+
+      - name: Build
+        run: ./gradlew build
+
+  publish:
+    runs-on: ubuntu-latest
+    if: github.repository == 'SimonScholz/qr-code-with-logo' && github.ref == 'refs/heads/main'
+    needs:
+      - jvm
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 20
+
+      - uses: gradle/gradle-build-action@v2.9.0
+
+      - name: Publish Artifacts
+        run: ./gradlew publishAllPublicationsToMavenCentral
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+```
+
+Note that we added the `signingInMemoryKey`, `signingInMemoryKeyId` and `signingInMemoryKeyPassword` as secret environment variables.
 
 ## Sources 
 
