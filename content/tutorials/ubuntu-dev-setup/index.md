@@ -250,11 +250,17 @@ Update your applications and packages with one command:
 
 ```bash [~/.bashrc]
 
-alias uAll='sudo apt update && sudo apt upgrade -y && sudo snap refresh'
+alias uAll='sudo snap refresh && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y'
 
 # alternatively use nala
 
-alias uAll='sudo nala update && sudo nala upgrade -y && sudo snap refresh'
+alias uAll='sudo snap refresh && sudo nala update && sudo nala upgrade -y'
+
+# including auto remove and clean
+
+alias uAll='sudo snap refresh && sudo nala update && sudo nala upgrade -y && sudo nala autoremove -y'
 ```
 
 This updates all apt packages, upgrades them and also refreshes the snap installations.
+
+In case you're working with kubernetes and the gcloud cli then this tutorial is for you: [Easily switch gcloud config and kubectl context](https://simonscholz.github.io/tutorials/switch-gcloud-kubectl-configs)
