@@ -65,8 +65,8 @@ gcloud config configurations list
 By default only the `default` configuration is present, which is sufficient when only working with one project:
 
 ```bash
-NAME     IS_ACTIVE  ACCOUNT           PROJECT          COMPUTE_DEFAULT_ZONE  COMPUTE_DEFAULT_REGION
-default  True       simon@google.com  YOUR_PROJECT_ID  europe-west1-b        europe-west1
+NAME     IS_ACTIVE  ACCOUNT            PROJECT          COMPUTE_DEFAULT_ZONE  COMPUTE_DEFAULT_REGION
+default  True       simon@example.com  YOUR_PROJECT_ID  europe-west1-b        europe-west1
 ```
 
 ### Create dev-config:
@@ -94,10 +94,10 @@ Replace `YOUR_PROD_PROJECT_ID` and `YOUR_PROD_COMPUTE_ZONE` with the appropriate
 After this has been done running `gcloud config configurations list` should result in something similar to this:
 
 ```bash
-NAME         IS_ACTIVE  ACCOUNT             PROJECT            COMPUTE_DEFAULT_ZONE  COMPUTE_DEFAULT_REGION
-default      False      simon@google.com    YOUR_PROJECT_ID    europe-west1-b        europe-west1
-dev-config   False      simon@google.com    YOUR_PROJECT_ID    europe-west1-b        europe-west1
-prod-config  True       simon@google.com    YOUR_PROJECT_ID    europe-west1-b        europe-west1
+NAME         IS_ACTIVE  ACCOUNT              PROJECT            COMPUTE_DEFAULT_ZONE  COMPUTE_DEFAULT_REGION
+default      False      simon@example.com    YOUR_PROJECT_ID    europe-west1-b        europe-west1
+dev-config   False      simon@example.com    YOUR_PROJECT_ID    europe-west1-b        europe-west1
+prod-config  True       simon@example.com    YOUR_PROJECT_ID    europe-west1-b        europe-west1
 ```
 
 ## Renaming k8s context name (optional)
