@@ -294,6 +294,19 @@ You can then search your key on http://keyserver.ubuntu.com/ and see that it is 
 
 For more information see [distributing your public key](https://central.sonatype.org/publish/requirements/gpg/#distributing-your-public-key) in the official sonatype docs.
 
+### Creating a secring.gpg file (optional)
+
+Please have a look at the `~/.gnupg` folder and check if there is a `secring.gpg` file.
+In case there already is a `secring.gpg` file you can skip this step.
+
+If you only find a `pubring.kbx` file, then you need to export your private key:
+
+```bash
+gpg --export-secret-keys > ~/.gnupg/secring.gpg
+```
+
+This secring.gpg file can now be used in the following steps.
+
 ### Adjust ~/.gradle/gradle.properties
 
 Add the following to your `~/.gradle/gradle.properties` file:
@@ -325,14 +338,8 @@ With this setup you can now run `./gradlew publishAllPublicationsToMavenCentral`
 
 For the GitHub Actions workflow we need to export the private key and use it in the workflow by utilizing action secrets, since there won't and shouldn't be a `secring.gpg` file available on GitHub.
 
-Have a look at the `~/.gnupg` folder and check if there is a `secring.gpg` file.
-If you only find a `pubring.kbx` file, then you need to export your private key:
-
-```bash
-gpg --export-secret-keys > ~/.gnupg/secring.gpg
-```
-
-With the `secring.gpg` in place you can export your private key and show it in the terminal, and can use this later in the GitHub Actions workflow:
+With the `secring.gpg` in place you can export your private key and show it in the terminal.
+This can later be used in a GitHub Actions workflow:
 
 ```bash
 gpg --export-secret-keys --armor ${key-id} ${path-to-secring.gpg} | grep -v '\-\-' | grep -v '^=.' | tr -d '\n'
@@ -346,7 +353,7 @@ When running this command you'll be prompted to enter your passphrase, which you
 
 Warning: Make sure to keep your private key protected! With the command above you'll print your private key to the terminal.
 
-## Adjust the GitHub Action to publish signed artifacts
+## Adjust the GitHub Action to publish gpg signed artifacts
 
 Now that we have the private key we can adjust the GitHub Action workflow to use it.
 
@@ -398,7 +405,89 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
 ```
 
-Note that we added the `signingInMemoryKey`, `signingInMemoryKeyId` and `signingInMemoryKeyPassword` as secret environment variables.
+Note that the `signingInMemoryKey`, `signingInMemoryKeyId` and `signingInMemoryKeyPassword` must be added as secret environment variables.
+
+## Create a real release
+
+So far we only published SNAPSHOTs of our library to Maven Central, but since we now also have accoplished the signing of our artifacts we can also publish real releases.
+
+### Adjust the version
+
+First of all we need to adjust the version of our library by removing the `-SNAPSHOT` suffix.
+
+```properties [gradle.properties]
+GROUP=io.github.simonscholz
+POM_ARTIFACT_ID=qr-code-with-logo
+VERSION_NAME=0.1.0
+
+... other properties
+```
+
+### Create the release
+
+After removing `-SNAPSHOT` from the version, you can now run `./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache` to prepare a release for Maven Central.
+
+Once this is done you can either run `./gradlew closeAndReleaseRepository` or do it manually on [S1 Sonatype OSS](https://s01.oss.sonatype.org/#stagingRepositories) by clicking on `Close` and then on `Release`.
+
+Or to do everything in one shot the formerly created `mavenPublishing` block can be extended like this:
+
+```kotlin [build.gradle.kts]
+import com.vanniktech.maven.publish.SonatypeHost
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.S01, true)
+}
+```
+
+Also see [vanniktech - publish releases](https://vanniktech.github.io/gradle-maven-publish-plugin/central/#publishing-releases)
+
+### Using a GitHub Action to publish releases
+
+In order to publish releases using a GitHub Action you can use the following workflow.
+
+```yaml [.github/workflows/release.yml]
+name: Release
+
+on:
+  release:
+    types: [ published ]
+
+jobs:
+  publish-release:
+    runs-on: ubuntu-latest
+    if: github.repository == 'SimonScholz/qr-code-with-logo' && github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21
+
+      - uses: gradle/gradle-build-action@v2.9.0
+
+      - name: Publish Artifacts
+        run: ./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache
+        env:
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_PASSWORD }}
+          ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_IN_MEMORY_KEY }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyId: ${{ secrets.SIGNING_KEY_ID }}
+          ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
+```
+
+For a completely headless release the complete publising should be enabled by passing `true` as second param to the `publishToMavenCentral` function as described in the previous section.
+
+```kotlin [build.gradle.kts]
+import com.vanniktech.maven.publish.SonatypeHost
+
+mavenPublishing {
+  publishToMavenCentral(SonatypeHost.S01, true)
+}
+```
+
+Then the version with `-SNAPSHOT` must be pushed to the main branch and a release must be created on GitHub.
+This will trigger the `release.yml` workflow, which will then publish the release to Maven Central.
 
 ## Sources 
 
