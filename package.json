@@ -19,7 +19,7 @@
     "@nuxt-themes/elements": "^1.0.6",
     "@nuxt-themes/tokens": "^2.1.1",
     "@nuxt-themes/typography": "^1.0.1",
-    "@nuxthq/studio": "^1.0.0",
+    "@nuxthq/studio": "^1.0.1",
     "@nuxtjs/color-mode": "^3.3.0",
     "@nuxtjs/robots": "^3.0.0",
     "@vueuse/core": "^10.4.1",
