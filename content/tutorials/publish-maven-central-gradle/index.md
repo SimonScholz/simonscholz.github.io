@@ -406,6 +406,7 @@ jobs:
 ```
 
 Note that the `signingInMemoryKey`, `signingInMemoryKeyId` and `signingInMemoryKeyPassword` must be added as secret environment variables.
+Remember that the `signingInMemoryKeyId` must be the short key id format.
 
 ## Create a real release
 
@@ -413,7 +414,7 @@ So far we only published SNAPSHOTs of our library to Maven Central, but since we
 
 ### Adjust the version
 
-First of all we need to adjust the version of our library by removing the `-SNAPSHOT` suffix.
+First of all we need to adjust the version of our library by removing the `-SNAPSHOT` suffix in the `gradle.properties` file.
 
 ```properties [gradle.properties]
 GROUP=io.github.simonscholz
@@ -428,6 +429,8 @@ VERSION_NAME=0.1.0
 After removing `-SNAPSHOT` from the version, you can now run `./gradlew publishAllPublicationsToMavenCentral --no-configuration-cache` to prepare a release for Maven Central.
 
 Once this is done you can either run `./gradlew closeAndReleaseRepository` or do it manually on [S1 Sonatype OSS](https://s01.oss.sonatype.org/#stagingRepositories) by clicking on `Close` and then on `Release`.
+
+![release in nexus repository manager](release-in-nexus-repository-manager.png)
 
 Or to do everything in one shot the formerly created `mavenPublishing` block can be extended like this:
 
@@ -455,7 +458,7 @@ on:
 jobs:
   publish-release:
     runs-on: ubuntu-latest
-    if: github.repository == 'SimonScholz/qr-code-with-logo' && github.ref == 'refs/heads/main'
+    if: github.repository == 'SimonScholz/qr-code-with-logo'
     steps:
       - uses: actions/checkout@v4
 
@@ -486,7 +489,7 @@ mavenPublishing {
 }
 ```
 
-Then the version with `-SNAPSHOT` must be pushed to the main branch and a release must be created on GitHub.
+Then the version without `-SNAPSHOT` suffix in the `gradle.properties` file must be pushed to the main branch and a release must be created on GitHub.
 This will trigger the `release.yml` workflow, which will then publish the release to Maven Central.
 
 ## Sources 
