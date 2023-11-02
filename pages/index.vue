@@ -7,6 +7,10 @@ useHead({
       content:
         "Profile of Simon Scholz including quotes, about me, tutorials and tech stack",
     },
+    {
+      name: "google-site-verification",
+      content: "5yp0dYpg1Ju9MGSKzgARXou20J1q0iKY1dapJyR8daI",
+    }
   ],
 });
 import type { UseIntersectionObserverReturn } from "@vueuse/core";
