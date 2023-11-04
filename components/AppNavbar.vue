@@ -116,7 +116,7 @@ function closeMobileMenu() {
         target="_blank"
         title="Instagram"
       >
-        <Icon name="uil:instagram-alt" />
+        <Icon name="mdi:instagram" />
         <span class="ml-3">Instagram</span>
       </NuxtLink>
       <NuxtLink
@@ -193,7 +193,7 @@ function closeMobileMenu() {
         target="_blank"
         title="Instagram"
       >
-        <Icon name="uil:instagram-alt" />
+        <Icon name="mdi:instagram" />
       </NuxtLink>
       <NuxtLink class="icon-btn" title="My Tutorials" to="/tutorials">
         <Icon name="carbon:education" />
