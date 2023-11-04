@@ -4,7 +4,7 @@
       'flex flex-rowitems-center cursor-pointer',
       isVisible ? 'mb-2' : '',
     ]" @click="toggleToc" aria-label="Expand the table of contents.">
-      <span class="mb-0 text-2xl text-gray-400 align-middle">
+      <span class="mb-0 text-2xl align-middle text-gray-600 dark:text-gray-400">
         Table of Contents
         <Icon v-if="isVisible" name="mdi:chevron-down" class="text-3xl" />
         <Icon v-else name="mdi:chevron-up" class="text-3xl" />
@@ -14,7 +14,7 @@
       <!-- render each link with depth class -->
       <li v-for="link of flattenLinks(links)" :key="link.id"
         :class="`toc-link_${link.depth} first:mt-0 mt-2 md:mt-1 ml-3`">
-        <a :href="`#${link.id}`" class="hover:underline text-gray-400">
+        <a :href="`#${link.id}`" class="hover:underline text-gray-600 dark:text-gray-400">
           {{ link.text }}
         </a>
       </li>
