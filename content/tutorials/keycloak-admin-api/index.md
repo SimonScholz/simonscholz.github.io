@@ -113,6 +113,10 @@ curl --location 'http://localhost:8180/realms/simon/protocol/openid-connect/toke
 --data-urlencode 'client_secret={your-client-secret}' \
 ```
 
+You can find the client secret in the `Credentials` tab of the `admin-api-sample` client.
+
+![Client secret](./client-secret.png)
+
 If you have [jq installed](https://jqlang.github.io/jq/download/), you can also directly assign the access token to a variable in bash:
 
 ```bash
