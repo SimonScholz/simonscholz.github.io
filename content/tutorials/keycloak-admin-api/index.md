@@ -16,7 +16,7 @@ tags:
     "container",
     "admin"
   ]
-vgWort: ""
+vgWort: "vg04.met.vgwort.de/na/58263af62f7a4ac782777c0f91985b27"
 ---
 
 In this tutorial we will learn how to use the Keycloak admin API to create a service account and how to use it to access the admin API.
@@ -69,9 +69,10 @@ In the admin console, click on the realm dropdown menu and click on `Create real
 
 Then enter a realm name, e.g., `Simon` and click on `Create`.
 
-## Create a service account
+## Create a client with service account roles
 
-In order to access the Keycloak admin API, you need to create a service account. Therefore you need to login to the admin console and navigate to the `Simon` realm and then to `Clients` and click on `Create client`.
+In order to access the Keycloak admin API, you need to create a client with `service account roles` authentication flow.
+Therefore you need to login to the admin console and navigate to the `Simon` realm and then to `Clients` and click on `Create client`.
 
 ![Create client button](./create-client-button.png)
 
