@@ -1,5 +1,5 @@
 <template>
-  <main class="mt-10 md:m-10 mb-10">
+  <main class="mt-10 md:m-12 mb-10">
     <ContentDoc>
       <template v-slot="{ doc }">
         <div class="flex flex-col md:ml-10 md:mr-10">
