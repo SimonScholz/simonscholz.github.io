@@ -1,140 +1,159 @@
 <script setup lang="ts">
 useHead({
-  title: 'Legal ',
+	title: 'Legal ',
 });
 </script>
 
 <template>
-    <div id="impressum-en" class="container flex flex-col md:justify-between mx-auto mb-10">
-				<h1 class="text-2xl mb-3">Legal Disclosure / Impressum</h1>
-				Information in accordance with Section 5 TMG
-				<br />
-                <br />
-				Simon Scholz
-				<br />
-				Uckermarkweg 1️⃣2️⃣a
-				<br />
-				2️⃣2️⃣4️⃣1️⃣5️⃣ Hamburg
-				<br />
-                <br />
-				<h2 class="text-xl">Contact Information</h2>
-				Telephone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣
-				<br />
-				E-Mail:
-				<a href="mailto:opensource.simon@gmail.com">
-					opensource.simonⓐⓣgmail.com
+	<div id="impressum-en" class="container flex flex-col md:justify-between mx-auto mb-10">
+		<h1 class="text-2xl mb-3">Legal Disclosure / Impressum</h1>
+		Information in accordance with Section 5 TMG
+		<br />
+		<br />
+		Simon Scholz
+		<br />
+		Uckermarkweg 1️⃣2️⃣a
+		<br />
+		2️⃣2️⃣4️⃣1️⃣5️⃣ Hamburg
+		<br />
+		<br />
+		<h2 class="text-xl">Contact Information</h2>
+		Telephone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣
+		<br />
+		E-Mail:
+		<a href="mailto:opensource.simon@gmail.com">
+			opensource.simonⓐⓣgmail.com
+		</a>
+		<br />
+		Internet address:
+		<a href="https://simonscholz.github.io/" target="_blank" rel="noreferrer">
+			https://simonscholz.github.io/
+		</a>
+		<br />
+		<br />
+		<h2>Disclaimer</h2>
+		Accountability for content
+		<br />
+		The contents of our pages have been created with the utmost care.
+		However, we cannot guarantee the contents' accuracy, completeness or
+		topicality. According to statutory provisions, we are furthermore
+		responsible for our own content on these web pages. In this matter,
+		please note that we are not obliged to monitor the transmitted or saved
+		information of third parties, or investigate circumstances pointing to
+		illegal activity. Our obligations to remove or block the use of
+		information under generally applicable laws remain unaffected by this as
+		per §§ 8 to 10 of the Telemedia Act (TMG).
+		<br />
+		<br />
+		Accountability for links
+		<br />
+		Responsibility for the content of external links (to web pages of third
+		parties) lies solely with the operators of the linked pages. No
+		violations were evident to us at the time of linking. Should any legal
+		infringement become known to us, we will remove the respective link
+		immediately.
+		<br />
+		General Information
+		<br />
+		We are responsible for the content of our websites in accordance with the general laws, especially pursuant to § 7
+		TMG (Telemedia Act). All content is created with care and to the best of our knowledge.
+		<br />
+		The information on this website (especially in text articles, videos, forum posts, news articles, etc.), on linked
+		or hosted videos, or on linked external sources, is provided for general information purposes only and does not
+		constitute advice, declarations of intent, or any other legally binding statements unless they concern service or
+		product descriptions.
+		<br />
+		For content, posts, forum contributions, user comments, or any other content, we do not guarantee accuracy,
+		completeness, and timeliness unless they relate to service or product descriptions.
+		<br />
+		When we refer to third-party websites on our web pages through links, we cannot guarantee the currency, accuracy,
+		and completeness of the linked content. These are beyond our area of responsibility, and we have no influence on
+		their future design.
+		<br />
+		In particular, answering user questions, both on our website and on any other social media platform, does not
+		constitute advice, declarations of intent, or any other legally binding statements.
+		<br />
+		If you believe that any content violates applicable law or is inappropriate, please inform us.
+		<br />
+		The legal notices on this page, as well as all questions and disputes related to the design of this website, are
+		subject to the laws of the Federal Republic of Germany.
+		<br />
+		If you intend to send us a cease and desist letter (Abmahnung), in order to avoid unnecessary legal disputes and
+		costs, we kindly request that you contact us in advance. The legal fees of a lawyer's cease and desist letter
+		without prior contact with the operator will be rejected as unfounded in the interest of reducing damages. The costs
+		incurred by us will be invoiced.
+		<br />
+		<br />
+		Copyright
+		<br /> Our web pages and their contents are subject to German copyright
+		law. Unless expressly permitted by law, every form of utilizing,
+		reproducing or processing works subject to copyright protection on our
+		web pages requires the prior consent of the respective owner of the
+		rights. Individual reproductions of a work are only allowed for private
+		use. The materials from these pages are copyrighted and any unauthorized
+		use may violate copyright laws.
+		<br />
+		<br />
+		<h2>Google Analytics</h2>
+		<p>
+			This website uses Google Analytics, a web analytics service provided
+			by Google, Inc. (»Google«). Google Analytics uses cookies, which are
+			text files placed on your computer, to help the website analyze how
+			users use the site. The information generated by the cookie about your
+			use of the website (including your IP address) will be transmitted to
+			and stored by Google on servers in the United States. In case of
+			activation of the IP anonymization, Google will truncate/anonymize the
+			last octet of the IP address for Member States of the European Union
+			as well as for other parties to the Agreement on the European Economic
+			Area. Only in exceptional cases, the full IP address is sent to and
+			shortened by Google servers in the USA. On behalf of the website
+			provider Google will use this information for the purpose of
+			evaluating your use of the website, compiling reports on website
+			activity for website operators and providing other services relating
+			to website activity and internet usage to the website provider. Google
+			will not associate your IP address with any other data held by Google.
+			By using this website, you consent to the processing of data about you
+			by Google in the manner and for the purposes set out above.
+		</p>
+		<h2>How to prevent being tracked by Google Analytics</h2>
+		<p>
+		<ul>
+			<li>
+				You may refuse the use of cookies by selecting the appropriate
+				settings on your browser. However, please note that if you do
+				this, you may not be able to use the full functionality of this
+				website.
+			</li>
+			<li>
+				Furthermore you can prevent Google's collection and use of data
+				(cookies and IP address) by downloading and installing the browser
+				plug-in available under
+				<a href="https://tools.google.com/dlpage/gaoptout?hl=en" target="_blank" rel="noreferrer">
+					https://tools.google.com/dlpage/gaoptout?hl=en
 				</a>
-				<br />
-				Internet address:
-				<a
-					href="https://simonscholz.github.io/"
-					target="_blank"
-					rel="noreferrer"
-				>
-					https://simonscholz.github.io/
-				</a>
-				<br />
-				<br />
-				<h2>Disclaimer</h2>
-				Accountability for content
-				<br />
-				The contents of our pages have been created with the utmost care.
-				However, we cannot guarantee the contents' accuracy, completeness or
-				topicality. According to statutory provisions, we are furthermore
-				responsible for our own content on these web pages. In this matter,
-				please note that we are not obliged to monitor the transmitted or saved
-				information of third parties, or investigate circumstances pointing to
-				illegal activity. Our obligations to remove or block the use of
-				information under generally applicable laws remain unaffected by this as
-				per §§ 8 to 10 of the Telemedia Act (TMG).
-				<br />
-				<br />
-				Accountability for links
-				<br />
-				Responsibility for the content of external links (to web pages of third
-				parties) lies solely with the operators of the linked pages. No
-				violations were evident to us at the time of linking. Should any legal
-				infringement become known to us, we will remove the respective link
-				immediately.
-				<br />
-				<br />
-				Copyright
-				<br /> Our web pages and their contents are subject to German copyright
-				law. Unless expressly permitted by law, every form of utilizing,
-				reproducing or processing works subject to copyright protection on our
-				web pages requires the prior consent of the respective owner of the
-				rights. Individual reproductions of a work are only allowed for private
-				use. The materials from these pages are copyrighted and any unauthorized
-				use may violate copyright laws.
-				<br />
-				<br />
-				<h2>Google Analytics</h2>
-				<p>
-					This website uses Google Analytics, a web analytics service provided
-					by Google, Inc. (»Google«). Google Analytics uses cookies, which are
-					text files placed on your computer, to help the website analyze how
-					users use the site. The information generated by the cookie about your
-					use of the website (including your IP address) will be transmitted to
-					and stored by Google on servers in the United States. In case of
-					activation of the IP anonymization, Google will truncate/anonymize the
-					last octet of the IP address for Member States of the European Union
-					as well as for other parties to the Agreement on the European Economic
-					Area. Only in exceptional cases, the full IP address is sent to and
-					shortened by Google servers in the USA. On behalf of the website
-					provider Google will use this information for the purpose of
-					evaluating your use of the website, compiling reports on website
-					activity for website operators and providing other services relating
-					to website activity and internet usage to the website provider. Google
-					will not associate your IP address with any other data held by Google.
-					By using this website, you consent to the processing of data about you
-					by Google in the manner and for the purposes set out above.
-				</p>
-				<h2>How to prevent being tracked by Google Analytics</h2>
-				<p>
-					<ul>
-						<li>
-							You may refuse the use of cookies by selecting the appropriate
-							settings on your browser. However, please note that if you do
-							this, you may not be able to use the full functionality of this
-							website.
-						</li>
-						<li>
-							Furthermore you can prevent Google's collection and use of data
-							(cookies and IP address) by downloading and installing the browser
-							plug-in available under
-							<a
-								href="https://tools.google.com/dlpage/gaoptout?hl=en"
-								target="_blank"
-								rel="noreferrer"
-							>
-								https://tools.google.com/dlpage/gaoptout?hl=en
-							</a>
-							.
-						</li>
-					</ul>
-				</p>
-				<i>Source: </i>
-				<a href="http://www.translate-24h.de" target="_blank" rel="noreferrer">
-					Deutsch-Englisch Übersetzungen
-				</a>
-				<br />
-				<a
-					href="https://language-boutique.de/naithani/blogpost/impressum-auf-englisch.html"
-					target="_blank"
-					rel="noreferrer"
-				>
-					Language Boutique.de/Muster-Impressum
-				</a>
-				<br />
-			</div>
+				.
+			</li>
+		</ul>
+		</p>
+		<i>Source: </i>
+		<a href="http://www.translate-24h.de" target="_blank" rel="noreferrer">
+			Deutsch-Englisch Übersetzungen
+		</a>
+		<br />
+		<a href="https://language-boutique.de/naithani/blogpost/impressum-auf-englisch.html" target="_blank"
+			rel="noreferrer">
+			Language Boutique.de/Muster-Impressum
+		</a>
+		<br />
+	</div>
 </template>
 
 <style scoped>
 p {
-  @apply mt-6;
+	@apply mt-6;
 }
 
 h1 {
-  @apply text-3xl;
+	@apply text-3xl;
 }
 </style>
