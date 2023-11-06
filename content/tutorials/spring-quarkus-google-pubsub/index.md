@@ -92,7 +92,7 @@ Later, we'll use a Spring Boot application and a Quarkus application to publish 
 To pull from a Google Cloud Pub/Sub subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8681/v1/projects/my-project-id/subscriptions/my-topic-sub:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/my-project-id/subscriptions/my-topic-sub:pull" \
 -H "Content-Type: application/json" \
 -d '{
   "returnImmediately": true,
@@ -231,3 +231,5 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/my-project-id/topics/my-topic:publ
 - https://cloud.google.com/pubsub/docs/emulator
 - https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.topics
 - https://cloud.google.com/pubsub/docs/reference/rest/v1/projects.subscriptions
+- https://spring.io/guides/gs/messaging-gcp-pubsub/
+- https://docs.quarkiverse.io/quarkus-google-cloud-services/main/pubsub.html
