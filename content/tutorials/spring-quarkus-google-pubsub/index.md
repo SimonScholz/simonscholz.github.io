@@ -48,21 +48,37 @@ The `init-pubsub.sh` script is used to start the emulator, create a topic and a 
 #!/bin/sh
 
 # Start the Pub/Sub emulator
-gcloud beta emulators pubsub start --host-port 0.0.0.0:8685 --project=my-project-id &
+gcloud beta emulators pubsub start --host-port 0.0.0.0:8685 --project=sample-project-id &
 
 # Wait for the emulator to start (adjust sleep time as needed)
 sleep 5
 
 # Create Pub/Sub topics
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/my-project-id/topics/my-topic'
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic'
+
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic'
 
 # Create Pub/Sub subscriptions
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/my-project-id/subscriptions/my-topic-sub' \
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub' \
     -H 'Content-Type: application/json' \
-    --data '{"topic":"projects/my-project-id/topics/my-topic"}'
+    --data '{"topic":"projects/sample-project-id/topics/event-topic"}'
+
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub' \
+    -H 'Content-Type: application/json' \
+    --data '{"topic":"projects/sample-project-id/topics/json-topic"}'
 
 # Keep the script running to keep the container alive
 tail -f /dev/null
+```
+
+The `&` at the end of the emulator start command is used to run the emulator in the background. The `tail -f /dev/null` command is used to keep the container alive.
+
+Check if topics and subscriptions were created successfully:
+
+```bash
+curl -X GET 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics'
+
+curl -X GET 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions'
 ```
 
 ## Publish to a Google Cloud Pub/Sub Topic
@@ -70,20 +86,43 @@ tail -f /dev/null
 To publish to a Google Cloud Pub/Sub topic, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/my-project-id/topics/my-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
     {
       "attributes": {
-        "KEY": "VALUE",
+        "ID": "12345",
         "anotherKey": "anotherValue"
-      },
-      "data": "MESSAGE_DATA"
+      }
     }
   ]
 }'
 ```
+
+Or using json data:
+
+```bash
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic:publish" \
+-H "Content-Type: application/json" \
+-d '{
+  "messages": [
+    {
+      "attributes": {
+        "ID": "12345",
+        "anotherKey": "anotherValue"
+      },
+      "data": "eyJJRCI6ICIxMjM0NSIsICJuYW1lIjogIkpvaG4gRG9lIn0="
+    }
+  ]
+}'
+```
+
+The actual json data is `{"ID": "12345", "name": "John Doe"}`, but it must be base64 encoded.
+Also see [Publishing json message to PubSub](https://cloud.google.com/knowledge/kb/publishing-json-message-to-pub-sub-topic-fails-with-400-bad-request-error-000004171)
+
+The first example does not use the `data` property, since it is optional. 
+You can either use at least one property in `attributes` or `data` or both.
 
 Later, we'll use a Spring Boot application and a Quarkus application to publish to a Google Cloud Pub/Sub topic.
 
@@ -92,11 +131,51 @@ Later, we'll use a Spring Boot application and a Quarkus application to publish 
 To pull from a Google Cloud Pub/Sub subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/my-project-id/subscriptions/my-topic-sub:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub:pull" \
 -H "Content-Type: application/json" \
 -d '{
-  "returnImmediately": true,
-  "maxMessages": 1
+  "maxMessages": 10
+}'
+```
+
+Or from the json subscription:
+
+```bash
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub:pull" \
+-H "Content-Type: application/json" \
+-d '{
+  "maxMessages": 10
+}'
+```
+
+When the message is only pulled, PubSub will keep the message, unless it is `acked`.
+Whats why the return value of a pull should look similar to this:
+
+```json
+{
+  "receivedMessages": [{
+    "ackId": "projects/sample-project-id/subscriptions/event-topic-sub:1",
+    "message": {
+      "attributes": {
+        "ID": "12345",
+        "anotherKey": "anotherValue"
+      },
+      "messageId": "1",
+      "publishTime": "2023-11-07T23:04:40.028Z"
+    }
+  }]
+}
+```
+
+You can ackknowledge these messages by using the given `ackId` and calling the following:
+
+```bash
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub:acknowledge" \
+-H "Content-Type: application/json" \
+-d '{
+  "ackIds": [
+    "projects/sample-project-id/subscriptions/event-topic-sub:1"
+  ]
 }'
 ```
 
@@ -120,16 +199,46 @@ implementation("org.springframework.boot:spring-boot-starter-web")
 
 ### Configure Application Properties
 
-In the `application.properties` or `application.yml` file we'd define some properties, we want to read.
+In the `application.properties` or `application.yml` file we need to configure the Google Cloud Pub/Sub project ID and the Google Cloud Pub/Sub emulator host:
 
 ```yaml [application.yml]
 ---
 spring:
   cloud:
     gcp:
-      project-id: my-project-id
+      project-id: sample-project-id
       pubsub:
         emulator-host: "localhost:8685"
+```
+
+### General GCP Configuration
+
+To configure the Google Cloud project ID and credentials, we need to create a `@Configuration` like this:
+
+```kotlin [GcpConfig.kt]
+package io.github.simonscholz.pubsub.config
+
+import com.google.api.gax.core.CredentialsProvider
+import com.google.api.gax.core.NoCredentialsProvider
+import com.google.cloud.spring.core.GcpProjectIdProvider
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+
+@Configuration
+class GcpConfig {
+    @Bean
+    fun projectIdProvider(
+        @Value("\${spring.cloud.gcp.project-id}") projectId: String?,
+    ): GcpProjectIdProvider {
+        return GcpProjectIdProvider { projectId }
+    }
+
+    @Bean
+    fun credentialsProvider(): CredentialsProvider {
+        return NoCredentialsProvider.create()
+    }
+}
 ```
 
 ### Subscribe to a Google Cloud Pub/Sub Topic
@@ -164,7 +273,7 @@ class PubSubConfig {
     fun messageChannelAdapter(
         @Qualifier("pubsubInputChannel") inputChannel: MessageChannel,
         pubSubTemplate: PubSubTemplate,
-    ): PubSubInboundChannelAdapter = PubSubInboundChannelAdapter(pubSubTemplate, "my-topic-sub").apply {
+    ): PubSubInboundChannelAdapter = PubSubInboundChannelAdapter(pubSubTemplate, "sample-topic-sub").apply {
             outputChannel = inputChannel
             setAckMode(AckMode.MANUAL)
         }
@@ -210,13 +319,13 @@ class Receiver {
 To test the subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/my-project-id/topics/my-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
     {
       "attributes": {
-        "KEY": "VALUE",
+        "ID": "12345",
         "anotherKey": "anotherValue"
       },
       "data": "MESSAGE_DATA"
