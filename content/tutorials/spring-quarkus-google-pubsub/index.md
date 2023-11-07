@@ -241,6 +241,10 @@ class GcpConfig {
 }
 ```
 
+Of course this only applies for the use of the Google Cloud Pub/Sub emulator.
+If you want to use the Google Cloud Pub/Sub in production, you can configure the Google Cloud project ID and credentials differently.
+On how to do this with secrets, environment variables and terraform see later sections of this tutorial.
+
 ### Subscribe to a Google Cloud Pub/Sub Topic
 
 To subscribe to a Google Cloud Pub/Sub topic, we need to create a `@Configuration` like this:
