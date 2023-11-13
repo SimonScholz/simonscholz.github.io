@@ -11,7 +11,7 @@
     "@nuxtjs/tailwindcss": "^6.9.4",
     "@types/node": "^20.8.10",
     "nuxt": "^3.8.0",
-    "nuxt-icon": "^0.6.1",
+    "nuxt-icon": "^0.6.5",
     "sitemap": "^7.1.1",
     "typescript": "^5.2.2"
   },
