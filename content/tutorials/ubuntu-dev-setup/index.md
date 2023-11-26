@@ -244,6 +244,21 @@ sudo nala install teams-for-linux
 
 Also see https://github.com/IsmaelMartinez/teams-for-linux
 
+# upx
+
+Upx is a tool to compress executables, which can be helpful in case you want to distribute your application as a single executable.
+You can download the latest version from GitHub: [UPX Releases](https://github.com/upx/upx/releases)
+
+For ubuntu you'll most likely want to use `upx-{latest-upx-version}-amd64_linux.tar.xz`.
+
+You can simply move the `upx` executable to `/usr/local/bin`:
+
+```bash
+tar -xf upx-{latest-upx-version}-amd64_linux.tar.xz upx
+
+sudo mv upx /usr/local/bin
+```
+
 ## Useful aliases and functions
 
 Update your applications and packages with one command:
