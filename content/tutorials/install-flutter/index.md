@@ -39,11 +39,11 @@ It will also give guidance on how to install or configure any missing dependenci
 Some packages need to be installed before you can run Flutter on Linux.
 
 ```bash
-sudo apt install clang cmake ninja-build pkg-config libgtk-3-dev
+sudo apt install clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libsecret-tools libsecret-1-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 
 # or ussing Nala
 
-sudo nala install clang cmake ninja-build pkg-config libgtk-3-dev
+sudo nala install clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libsecret-tools libsecret-1-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
 ```
 
 ## Download Android Studio
