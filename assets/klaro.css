@@ -1,0 +1,17 @@
+.klaro .cm-btn.cn-decline {
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+    color: #fff;
+}
+
+.klaro.klaro-simon .cm-footer .cm-footer-buttons .cm-btn.cm-btn-success.cm-btn-info.cm-btn-accept {
+    background-color: #5c5c5c;
+    border-color: #5c5c5c;
+    color: #fff;
+}
+
+.klaro .cm-btn.cm-btn-accept-all {
+    background-color: #1a936f;
+    border-color: #1a936f;
+    color: #fff;
+}
