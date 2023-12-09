@@ -110,7 +110,7 @@ fun main() {
 
 The `doOCR` method is overloaded and can also take a `BufferedImage` or a `ByteBuffer` as input, which is pretty handy if you want to do ocr on images in memory, e.g., on a web server.
 
-### Cloning tessdata (optional)
+## Cloning tessdata (optional)
 
 If you want to use the latest version of the language data you can clone the tessdata repository.
 But this repository is quite big (about 5 GB) and you will need to set the datapath for Tess4J.

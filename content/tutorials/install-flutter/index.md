@@ -161,6 +161,35 @@ Install the following extensions in VS Code:
 - Flutter - https://marketplace.visualstudio.com/items?itemName=Dart-Code.flutter
 - Bloc - https://marketplace.visualstudio.com/items?itemName=FelixAngelov.bloc
 
+## Setup Android Emulator (optional)
+
+If you want to run your Flutter app on an Android Emulator, you need to install the Android Emulator.
+By default the Pixel 3a emulator is installed, which can be used to run your Flutter app.
+
+### Install KVM
+
+For the Android Emulator to run, you need to install KVM (Kernel-based Virtual Machine).
+
+```bash
+# using apt
+sudo apt -y install bridge-utils cpu-checker libvirt-clients libvirt-daemon qemu qemu-kvm
+
+# or using Nala
+sudo nala install bridge-utils cpu-checker libvirt-clients libvirt-daemon qemu qemu-kvm
+```
+
+After that you need to add a user to kvm:
+
+```bash
+sudo adduser $USER kvm
+```
+
+You can check if KVM is installed correctly by running the following command:
+
+```bash
+kvm-ok
+```
+
 ## Create a Flutter App
 
 Now you are ready to go to create your first Flutter App.
@@ -176,3 +205,5 @@ Happy Fluttering! 🎉
 - https://flutter.dev/docs/get-started/install/linux
 - https://developer.android.com/tools
 - https://developer.android.com/studio
+- https://ubuntu.com/blog/kvm-hyphervisor
+- https://bce.berkeley.edu/enabling-virtualization-in-your-pc-bios.html
