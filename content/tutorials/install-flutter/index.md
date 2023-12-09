@@ -166,6 +166,23 @@ Install the following extensions in VS Code:
 If you want to run your Flutter app on an Android Emulator, you need to install the Android Emulator.
 By default the Pixel 3a emulator is installed, which can be used to run your Flutter app.
 
+### Enable virtualization in BIOS
+
+Before you can use the Android Emulator, you need to enable virtualization in your BIOS and then install KVM (see next step).
+
+How to enable virtualization is described here: https://bce.berkeley.edu/enabling-virtualization-in-your-pc-bios.html
+Basically it depends on your hardware and BIOS version.
+
+For me it were the following steps:
+
+1. Reboot your computer
+2. Press [F2] to enter BIOS
+3. Navigate to "Tweaker" > "Advanced CPU Settings"
+![Advanced CPU Settings](./bios-advanced-cpu-settings.jpg)
+4. Enable "SVM Mode"
+![SVM Mode](./bios-svm-mode.jpg)
+5. Save and exit BIOS
+
 ### Install KVM
 
 For the Android Emulator to run, you need to install KVM (Kernel-based Virtual Machine).
@@ -190,6 +207,23 @@ You can check if KVM is installed correctly by running the following command:
 kvm-ok
 ```
 
+The output should look similar to this:
+
+```bash
+INFO: /dev/kvm exists
+KVM acceleration can be used
+```
+
+### Create an Android Emulator
+
+Within Adnroid Studio navigate to Tools > Device Manager and start the Pixel 3a emulator, which is installed by default.
+
+Or you can create a new emulator by clicking on "Create Virtual Device..." and follow the instructions.
+
+You can lookup which devices and SDKs are supported here:
+
+https://docs.flutter.dev/reference/supported-platforms
+
 ## Create a Flutter App
 
 Now you are ready to go to create your first Flutter App.
@@ -207,3 +241,4 @@ Happy Fluttering! 🎉
 - https://developer.android.com/studio
 - https://ubuntu.com/blog/kvm-hyphervisor
 - https://bce.berkeley.edu/enabling-virtualization-in-your-pc-bios.html
+- https://docs.flutter.dev/reference/supported-platforms
