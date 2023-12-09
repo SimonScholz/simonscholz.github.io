@@ -39,12 +39,26 @@ It will also give guidance on how to install or configure any missing dependenci
 Some packages need to be installed before you can run Flutter on Linux.
 
 ```bash
-sudo apt install clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libsecret-tools libsecret-1-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+# using apt
+sudo apt install clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libsecret-tools libsecret-1-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev liblzma-dev
 
 # or ussing Nala
-
-sudo nala install clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libsecret-tools libsecret-1-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev
+sudo nala install clang cmake ninja-build pkg-config libgtk-3-dev libsecret-1-dev libsecret-tools libsecret-1-0 libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev liblzma-dev
 ```
+
+## Install audio player dependencies
+
+If you want to use the audio player package, you need to install the following packages:
+
+```bash
+# using apt
+sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-good gstreamer1.0-plugins-bad libunwind-dev
+
+# or using Nala
+sudo nala install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-plugins-good gstreamer1.0-plugins-bad libunwind-dev
+```
+
+Also see https://pub.dev/packages/audioplayers_linux
 
 ## Download Android Studio
 
@@ -233,6 +247,20 @@ Just hit [CTRL + SHIFT + P] and type `Flutter: New Project` and follow the instr
 ![Flutter VS code command](./vs-code-flutter-command.png)
 
 Happy Fluttering! 🎉
+
+## Troubleshooting
+
+While troubleshooting, you should run `flutter clean` and `flutter pub get` before trying the next steps.
+
+### Linux desktop
+
+Sometimes your flutter project won't run on Linux desktop, because of missing dependencies.
+
+You can find out which dependencies are missing by running the app in verbose mode adding the `-v` flag:
+
+```bash
+flutter run -v -d linux
+```
 
 ## Sources
 
