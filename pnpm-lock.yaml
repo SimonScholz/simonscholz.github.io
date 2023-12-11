@@ -50,8 +50,8 @@ devDependencies:
     specifier: ^3.8.2
     version: 3.8.2(@types/node@20.10.0)(rollup@3.29.4)(typescript@5.3.2)(vite@4.5.0)
   nuxt-icon:
-    specifier: ^0.6.6
-    version: 0.6.6(nuxt@3.8.2)(rollup@3.29.4)(vite@4.5.0)(vue@3.3.9)
+    specifier: ^0.6.7
+    version: 0.6.7(nuxt@3.8.2)(rollup@3.29.4)(vite@4.5.0)(vue@3.3.9)
   sitemap:
     specifier: ^7.1.1
     version: 7.1.1
@@ -1141,8 +1141,8 @@ packages:
       - vue
     dev: false
 
-  /@iconify/collections@1.0.361:
-    resolution: {integrity: sha512-9pNOo/RgVMPs6U952DYMKXaSBw+gW7NWJIDIhuukE/rat9xbY7KmUsyp7DnLOuYd9XR8oDbK5/JvMAHditX5kg==}
+  /@iconify/collections@1.0.367:
+    resolution: {integrity: sha512-BLdt/i0ikrCdZxgw1pkTlU7L/RK0vzmlEEbLxQSx205ObsACMPd7z/+HMCrNikQBixVDTg1rR/0mNExpBry2eA==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -6547,10 +6547,10 @@ packages:
       - vue
     dev: false
 
-  /nuxt-icon@0.6.6(nuxt@3.8.2)(rollup@3.29.4)(vite@4.5.0)(vue@3.3.9):
-    resolution: {integrity: sha512-rTRUIjYVlYAyj6ZPVVwGxyyiINNudhC6r9vF96Ec5ZaLOC6mSdUBnJ3oV6sJgViYrIkDLwbIjviFvRcZzvgu3g==}
+  /nuxt-icon@0.6.7(nuxt@3.8.2)(rollup@3.29.4)(vite@4.5.0)(vue@3.3.9):
+    resolution: {integrity: sha512-0QnQM0yqJCb8PWt+gAn6RiXy1/CHScFuOPbsfIIwHMvyKkea+blj5/unq7F9ZHMkfrHozyCID8ErFPSzwEYLeA==}
     dependencies:
-      '@iconify/collections': 1.0.361
+      '@iconify/collections': 1.0.367
       '@iconify/vue': 4.1.1(vue@3.3.9)
       '@nuxt/devtools-kit': 1.0.4(nuxt@3.8.2)(rollup@3.29.4)(vite@4.5.0)
       '@nuxt/kit': 3.8.2(rollup@3.29.4)
