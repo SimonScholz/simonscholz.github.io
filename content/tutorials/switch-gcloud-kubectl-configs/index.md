@@ -1,7 +1,7 @@
 ---
 id: "switch-gcloud-kubectl-configs"
 path: "/tutorials/switch-gcloud-kubectl-configs"
-date: "2023-10-14"
+date: "2023-12-20"
 title: "Easily switch gcloud config and kubectl context"
 description: "Switching both gcloud and kubectl config at once via command line"
 author: "Simon Scholz"
@@ -40,7 +40,7 @@ gcloud container clusters get-credentials CLUSTER_NAME --zone ZONE --project PRO
 Replace the placeholders with your specific cluster information:
 
 - CLUSTER_NAME: The name of your GKE cluster.
-- ZONE: The Google Cloud zone where your cluster is located.
+- ZONE: The Google Cloud zone where your cluster is located, e.g., europe-west1.
 - PROJECT_ID: Your Google Cloud Project ID.
 
 You can verify if `kubectl` is properly configured by looking at the contexts:
@@ -73,8 +73,10 @@ default  True       simon@example.com  YOUR_PROJECT_ID  europe-west1-b        eu
 
 ```bash
 gcloud config configurations create dev-config
+gcloud config set account YOUR_DEV_ACCOUNT # e.g. simon@example.com
 gcloud config set project YOUR_DEV_PROJECT_ID
 gcloud config set compute/zone YOUR_DEV_COMPUTE_ZONE
+gcloud config set compute/region YOUR_DEV_COMPUTE_REGION
 # Configure other properties as needed
 ```
 
@@ -84,8 +86,10 @@ Replace `YOUR_DEV_PROJECT_ID` and `YOUR_DEV_COMPUTE_ZONE` with the appropriate v
 
 ```bash
 gcloud config configurations create prod-config
+gcloud config set account YOUR_PROD_ACCOUNT # e.g. simon@example.com
 gcloud config set project YOUR_PROD_PROJECT_ID
 gcloud config set compute/zone YOUR_PROD_COMPUTE_ZONE
+gcloud config set compute/region YOUR_PROD_COMPUTE_REGION
 # Configure other properties as needed
 ```
 
@@ -121,6 +125,8 @@ contexts:
 ```
 
 `gke_dev` and `gke_prod` are way shorter names than the default used to be.
+
+Be sure to configure kubectl for your development and production gcp project as described in the previous section: [Configure kubectl with Google Cloud](https://simonscholz.github.io/tutorials/switch-gcloud-kubectl-configs#configure-kubectl-with-google-cloud)
 
 ## Alias for Easy Switching of Both gcloud and kubectl
 
