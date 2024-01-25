@@ -111,16 +111,6 @@ function closeMobileMenu() {
       </NuxtLink>
       <NuxtLink
         class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3"
-        rel="noreferrer"
-        to="https://www.instagram.com/simonscholz_codes/"
-        target="_blank"
-        title="Instagram"
-      >
-        <Icon name="mdi:instagram" />
-        <span class="ml-3">Instagram</span>
-      </NuxtLink>
-      <NuxtLink
-        class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3"
         title="My Tutorials"
         to="/tutorials"
         @click="closeMobileMenu"
@@ -185,15 +175,6 @@ function closeMobileMenu() {
         title="Twitter"
       >
         <Icon name="uil:twitter-alt" />
-      </NuxtLink>
-      <NuxtLink
-        class="icon-btn"
-        rel="noreferrer"
-        to="https://www.instagram.com/simonscholz_codes/"
-        target="_blank"
-        title="Instagram"
-      >
-        <Icon name="mdi:instagram" />
       </NuxtLink>
       <NuxtLink class="icon-btn" title="My Tutorials" to="/tutorials">
         <Icon name="carbon:education" />
