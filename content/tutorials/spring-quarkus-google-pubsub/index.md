@@ -1,7 +1,8 @@
 ---
 id: "spring-quarkus-google-pubsub"
 path: "/tutorials/spring-quarkus-google-pubsub"
-date: "2023-11-11"
+created: "2023-11-11"
+updated: "2023-11-11"
 title: "Using the Google Cloud Pub/Sub with Spring Boot and Quarkus"
 description: "Make use of the Google Cloud Pub/Sub with Spring Boot and Quarkus"
 author: "Simon Scholz"
@@ -54,14 +55,14 @@ gcloud beta emulators pubsub start --host-port 0.0.0.0:8685 --project=sample-pro
 sleep 5
 
 # Create Pub/Sub topics
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic'
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-event-topic'
 
 curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic'
 
 # Create Pub/Sub subscriptions
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub' \
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/domain-event-topic-sub' \
     -H 'Content-Type: application/json' \
-    --data '{"topic":"projects/sample-project-id/topics/event-topic"}'
+    --data '{"topic":"projects/sample-project-id/topics/domain-event-topic"}'
 
 curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub' \
     -H 'Content-Type: application/json' \
@@ -86,7 +87,7 @@ curl -X GET 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions'
 To publish to a Google Cloud Pub/Sub topic, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-event-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
@@ -122,7 +123,7 @@ The actual json data is `{"ID": "12345", "name": "John Doe"}`, but it must be ba
 Also see [Publishing json message to PubSub](https://cloud.google.com/knowledge/kb/publishing-json-message-to-pub-sub-topic-fails-with-400-bad-request-error-000004171)
 
 The first example does not use the `data` property, since it is optional. 
-You can either use at least one property in `attributes` or `data` or both.
+You'll have to use at least one property in `attributes` or `data` or both.
 
 Later, we'll use a Spring Boot application and a Quarkus application to publish to a Google Cloud Pub/Sub topic.
 
@@ -131,7 +132,7 @@ Later, we'll use a Spring Boot application and a Quarkus application to publish 
 To pull from a Google Cloud Pub/Sub subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/domain-event-topic-sub:pull" \
 -H "Content-Type: application/json" \
 -d '{
   "maxMessages": 10
@@ -149,12 +150,12 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/js
 ```
 
 When the message is only pulled, PubSub will keep the message, unless it is `acked`.
-Whats why the return value of a pull should look similar to this:
+The return value of a pull should look similar to this:
 
 ```json
 {
   "receivedMessages": [{
-    "ackId": "projects/sample-project-id/subscriptions/event-topic-sub:1",
+    "ackId": "projects/sample-project-id/subscriptions/domain-event-topic-sub:1",
     "message": {
       "attributes": {
         "ID": "12345",
@@ -167,14 +168,14 @@ Whats why the return value of a pull should look similar to this:
 }
 ```
 
-You can ackknowledge these messages by using the given `ackId` and calling the following:
+You can acknowledge these messages by using the given `ackId` and calling the following:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub:acknowledge" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/domain-event-topic-sub:acknowledge" \
 -H "Content-Type: application/json" \
 -d '{
   "ackIds": [
-    "projects/sample-project-id/subscriptions/event-topic-sub:1"
+    "projects/sample-project-id/subscriptions/domain-event-topic-sub:1"
   ]
 }'
 ```
@@ -226,6 +227,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
 @Configuration
+@Profile("local")
 class GcpConfig {
     @Bean
     fun projectIdProvider(
@@ -323,7 +325,7 @@ class Receiver {
 To test the subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-event-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [

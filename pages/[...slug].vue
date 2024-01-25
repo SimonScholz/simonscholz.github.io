@@ -10,7 +10,10 @@
           <div class="flex flex-col md:flex-row mt-2">
             <span>{{ doc.author }}</span>
             <span class="hidden md:block ml-3">⚬</span>
-            <span class="md:ml-3">{{ doc.date }}</span>
+            <span v-if="doc.created !== doc.updated" class="md:ml-3">created {{ doc.created }}</span>
+            <span v-if="doc.created !== doc.updated" class="hidden md:block ml-3">⚬</span>
+            <span v-if="doc.created !== doc.updated" class="md:ml-3">updated {{ doc.updated }}</span>
+            <span v-else class="md:ml-3">{{ doc.created }}</span>
             <span class="hidden md:block ml-3">⚬</span>
             <span class="md:ml-3">{{ doc.readingTime.text }}</span>
             <span class="hidden md:block ml-3">⚬</span>

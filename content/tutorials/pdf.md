@@ -1,7 +1,8 @@
 ---
 id: "pdf"
 path: "/tutorials/pdf"
-date: "2020-10-09"
+created: "2020-10-09"
+updated: "2020-10-09"
 title: "PDF Tools"
 description: "Tutorial about tools for editing PDF files."
 author: "Simon Scholz"

@@ -1,7 +1,8 @@
 ---
 id: "spring-rest-template-interceptors"
 path: "/tutorials/spring-rest-template-interceptors"
-date: "2023-09-30"
+created: "2023-09-30"
+updated: "2023-09-30"
 title: "Using interceptors in RestTemplate to modify the request"
 description: "Modify requests of RestTemplate by adjusting the request, e.g., by the auth header and custom headers."
 author: "Simon Scholz"

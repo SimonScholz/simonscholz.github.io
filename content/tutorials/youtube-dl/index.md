@@ -1,7 +1,8 @@
 ---
 id: "youtube-dl"
 path: "/tutorials/youtube-dl"
-date: "2023-09-12"
+created: "2023-09-12"
+updated: "2023-09-12"
 title: "Youtube-dl - Download videos or audio from youtube"
 description: "CLI Tool to download youtube videos or audio"
 author: "Simon Scholz"

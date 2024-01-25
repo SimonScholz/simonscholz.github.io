@@ -1,7 +1,8 @@
 ---
 id: "install-flutter"
 path: "/tutorials/install-flutter"
-date: "2023-11-26"
+created: "2023-11-26"
+updated: "2023-11-26"
 title: "Install Flutter on Ubuntu"
 description: "Install Flutter and its depenedencies/pre-requisites on Ubuntu"
 author: "Simon Scholz"

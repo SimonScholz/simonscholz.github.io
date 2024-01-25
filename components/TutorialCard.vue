@@ -6,7 +6,8 @@ interface TutorialCardProps {
   timeToRead: string;
   description: string;
   author: string;
-  date: string;
+  created: string;
+  updated: string;
   tags: string[];
 }
 
@@ -32,7 +33,7 @@ const props = defineProps<TutorialCardProps>();
               <div class="flex flex-row flex-grow-0">
                 <p class="mr-2">{{ props.author }}</p>
                 <span class="mr-2">⚬</span>
-                <time>{{ props.date }}</time>
+                <time>{{ props.updated }}</time>
               </div>
               <div class="hidden md:flex flex-row flex-grow justify-end">
                 <span

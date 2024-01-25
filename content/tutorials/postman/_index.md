@@ -1,7 +1,8 @@
 ---
 id: "postman"
 path: "/tutorials/postman"
-date: "2022-09-10"
+created: "2022-09-10"
+updated: "2022-09-10"
 title: "Usage of the Postman rest client"
 description: "This tutorial is supposed to guide you through the usage and configuration of the Postman rest client user interface. Creating collections with requests and setting up variables and running tests will also be covered"
 author: "Simon Scholz"

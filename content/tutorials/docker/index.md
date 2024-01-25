@@ -1,7 +1,8 @@
 ---
 id: "docker"
 path: "/tutorials/docker"
-date: "2020-09-09"
+created: "2020-09-09"
+updated: "2020-09-09"
 title: "Using Docker"
 description: "Tutorial about Docker concerning containers and networking."
 author: "Simon Scholz"

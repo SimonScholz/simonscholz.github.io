@@ -1,7 +1,8 @@
 ---
 id: "terraform-sensitive-vars"
 path: "/tutorials/terraform-sensitive-vars"
-date: "2023-09-31"
+created: "2023-09-31"
+updated: "2023-09-31"
 title: "Reading .env file and use it for sensitive vars in Terraform"
 description: "Terraform can apply env variables prefixed with TF_VAR_, so a bash script reading a .env file is helpful to provide sensitive data"
 author: "Simon Scholz"

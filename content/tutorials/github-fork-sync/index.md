@@ -1,7 +1,8 @@
 ---
 id: "github-fork-sync"
 path: "/tutorials/github-fork-sync"
-date: "2020-11-20"
+created: "2020-11-20"
+updated: "2020-11-20"
 title: "GitHub forking and syncing"
 description: "How to sync your fork on GitHub with the original repository"
 author: "Simon Scholz"

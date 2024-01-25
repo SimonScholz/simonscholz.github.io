@@ -1,7 +1,8 @@
 ---
 id: "git"
 path: "/tutorials/git"
-date: "2023-07-10"
+created: "2023-07-10"
+updated: "2024-01-25"
 title: "Git - Distributed Version Control System (DVCS)"
 description: "Tutorial for commonly used git commands"
 author: "Simon Scholz"
@@ -44,6 +45,11 @@ git config --global commit.gpgsign true
 
 Besides configuring name and email setting up rebase and autoStash is really helpful, since this will stash uncommitted changes when pulling from the remote and then pop the changes once your local commits have been rebased onto the changes from the remote repository.
 The GPG configs will verify that your commits are really created by you.
+
+Use `git config --list` to see all your current Git configs.
+To see the config of a repository use `git config --list --show-origin`.
+
+## Create a SSH key
 
 In case you want to make use of SSH for cloning a SSH key needs to be created:
 

@@ -1,7 +1,8 @@
 ---
 id: "gatling-performance-testing"
 path: "/tutorials/gatling-performance-testing"
-date: "2023-03-25"
+created: "2023-03-25"
+updated: "2023-03-25"
 title: "Performance testing with Gatling using Gradle and Kotlin"
 description: "Tutorial on how to create a project for Gatling performance testing with Gradle and Kotlin"
 author: "Simon Scholz"

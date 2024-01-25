@@ -1,7 +1,8 @@
 ---
 id: "kind"
 path: "/tutorials/local-kubernetes-with-kind"
-date: "2023-08-12"
+created: "2023-08-12"
+updated: "2023-08-12"
 title: "Running Kubernetes locally using kind"
 description: "Tutorial about running Kubernetes locally using kind"
 author: "Simon Scholz"

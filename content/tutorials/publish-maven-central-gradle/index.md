@@ -1,7 +1,8 @@
 ---
 id: "publish-maven-central-gradle"
 path: "/tutorials/publish-maven-central-gradle"
-date: "2023-10-07"
+created: "2023-10-07"
+updated: "2023-10-07"
 title: "Publish library to Maven Central with Gradle and GitHub Actions"
 description: "Creating a library using Gradle, register at Maven Central and publish it to Maven Central using GitHub Actions"
 author: "Simon Scholz"

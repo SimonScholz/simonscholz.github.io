@@ -1,7 +1,8 @@
 ---
 id: "gpg-archive-encryption"
 path: "/tutorials/gpg-archive-encryption"
-date: "2022-01-09"
+created: "2022-01-09"
+updated: "2022-01-09"
 title: "Security - Encrypt archive files with GPG"
 description: "Security - Tutorial about encrypting archive files using GPG."
 author: "Simon Scholz"

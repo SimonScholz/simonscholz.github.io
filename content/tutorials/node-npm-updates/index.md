@@ -1,7 +1,8 @@
 ---
 id: "node-npm-updates"
 path: "/tutorials/node-npm-updates"
-date: "2022-03-19"
+created: "2022-03-19"
+updated: "2022-03-19"
 title: "Update node + npm and package.json dependencies"
 description: "Tutorial on updating node and npm and package.json dependencies."
 author: "Simon Scholz"

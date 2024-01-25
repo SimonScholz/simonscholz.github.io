@@ -1,7 +1,8 @@
 ---
 id: 'ocr-tess4j-tesseract-ubuntu'
 path: '/tutorials/ocr-tess4j-tesseract-ubuntu'
-date: '2023-11-28'
+created: '2023-11-28'
+updated: '2023-11-28'
 title: 'Doing ocr using Tess4J on Ubuntu'
 description: 'This tutorial shows how to do ocr using Tess4J on Ubuntu'
 author: 'Simon Scholz'

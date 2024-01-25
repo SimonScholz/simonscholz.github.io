@@ -1,7 +1,8 @@
 ---
 id: "c4"
 path: "/tutorials/c4-software-architecture-diagrams"
-date: "2023-08-13"
+created: "2023-08-13"
+updated: "2023-08-13"
 title: "C4 Model for visualizing software architecture"
 description: "Description on how to create C4 Model diagrams and tools to use it"
 author: "Simon Scholz"

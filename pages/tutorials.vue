@@ -13,7 +13,7 @@ useHead({
 });
 
 const { data } = await useAsyncData("tutorialsQueryContent", () =>
-  queryContent("tutorials").sort({ date: -1 }).find()
+  queryContent("tutorials").sort({ updated: -1 }).find()
 );
 
 const filterText = ref("");
@@ -62,7 +62,8 @@ function clearFilterText() {
         :time-to-read="tutorial.readingTime.text"
         :description="tutorial.description"
         :author="tutorial.author"
-        :date="tutorial.date"
+        :created="tutorial.created"
+        :updated="tutorial.updated"
         :tags="tutorial.tags"
       />
     </div>

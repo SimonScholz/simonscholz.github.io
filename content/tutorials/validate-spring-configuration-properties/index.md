@@ -1,7 +1,8 @@
 ---
 id: "validate-spring-configuration-properties"
 path: "/tutorials/validate-spring-configuration-properties"
-date: "2023-08-22"
+created: "2023-08-22"
+updated: "2023-08-22"
 title: "Add validation to @ConfigurationProperties in Spring Boot"
 description: "Often configuration properties need to be in a certain shape in order to be used properly. So why not validate them upfront?"
 author: "Simon Scholz"

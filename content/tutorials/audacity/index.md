@@ -1,7 +1,8 @@
 ---
 id: "audacity"
 path: "/tutorials/audacity"
-date: "2023-09-16"
+created: "2023-09-16"
+updated: "2023-09-16"
 title: "Audacity"
 description: "Tutorial about the usage of Audacity"
 author: "Simon Scholz"

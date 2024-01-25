@@ -1,7 +1,8 @@
 ---
 id: "spring-configuration-properties"
 path: "/tutorials/spring-configuration-properties"
-date: "2023-09-05"
+created: "2023-09-05"
+updated: "2023-09-05"
 title: "Using @ConfigurationProperties or @Value in Spring Boot"
 description: "Make use of @ConfigurationProperties or @Value in Spring Boot applications"
 author: "Simon Scholz"

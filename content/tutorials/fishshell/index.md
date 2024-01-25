@@ -1,7 +1,8 @@
 ---
 id: "fishshell"
 path: "/tutorials/fishshell"
-date: "2022-10-08"
+created: "2022-10-08"
+updated: "2022-10-08"
 title: "Fish Shell"
 description: "Alternative shell for linux with enhanced features like command history and auto completion"
 author: "Simon Scholz"

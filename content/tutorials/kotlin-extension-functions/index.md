@@ -1,7 +1,8 @@
 ---
 id: 'kotlin-extension-functions'
 path: '/tutorials/kotlin-extension-functions'
-date: '2022-03-26'
+created: '2022-03-26'
+updated: '2022-03-26'
 title: 'Using Kotlin extension functions/methods'
 description: 'Using Kotlin extension functions/methods and create your own custom ones'
 author: 'Simon Scholz'

@@ -1,7 +1,8 @@
 ---
 id: "java-dependency-updates"
 path: "/tutorials/java-dependency-updates"
-date: "2023-09-29"
+created: "2023-09-29"
+updated: "2023-09-29"
 title: "Java dependency updates with Maven/Gradle and GitHub`s Dependabot"
 description: "Keeping Java dependencies up to date with Maven/Gradle and GitHub`s Dependabot"
 author: "Simon Scholz"

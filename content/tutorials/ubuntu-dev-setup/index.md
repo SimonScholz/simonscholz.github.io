@@ -1,7 +1,8 @@
 ---
 id: "ubuntu-dev-setup"
 path: "/tutorials/ubuntu-dev-setup"
-date: "2023-08-23"
+created: "2023-08-23"
+updated: "2023-08-23"
 title: "My Ubuntu dev setup"
 description: "How do I setup my fresh Ubuntu installation for development"
 author: "Simon Scholz"

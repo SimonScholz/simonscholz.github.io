@@ -1,7 +1,8 @@
 ---
 id: "openapi-gradle-kotlin-webflux"
 path: "/tutorials/openapi-gradle-kotlin-webflux"
-date: "2021-12-10"
+created: "2021-12-10"
+updated: "2021-12-10"
 title: "Spring Webflux endpoints and clients with OpenApi using Gradle"
 description: "Based on an OpenApi api specification the OpenApi generator can to used to create server stubs and web clients."
 author: "Simon Scholz"
