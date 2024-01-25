@@ -2,7 +2,7 @@
 const { data } = await useAsyncData("top3TutorialsQueryContent", () =>
   queryContent("tutorials")
     .only(["path", "title"])
-    .sort({ date: -1 })
+    .sort({ updated: -1 })
     .limit(3)
     .find()
 );
