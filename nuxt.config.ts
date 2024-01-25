@@ -23,7 +23,6 @@ export default defineNuxtConfig({
   ssr: true,
   experimental: {
     payloadExtraction: false,
-    inlineSSRStyles: false,
   },
   // https://color-mode.nuxtjs.org
   colorMode: {
