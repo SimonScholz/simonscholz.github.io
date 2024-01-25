@@ -35,7 +35,10 @@ export default defineNuxtConfig({
   },
   sourcemap: false,
   content: {
-    documentDriven: true,
+    experimental: {
+      clientDB: true
+    },
+    documentDriven: false,
     // https://content.nuxtjs.org/api/configuration
     highlight: {
       theme: {
