@@ -163,6 +163,11 @@ const tools: Tool[] = [
   },
   {
     imgSrc:
+      "https://nuxt.com/assets/design-kit/icon-green.svg",
+    name: "Nuxt",
+  },
+  {
+    imgSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     name: "React",
   },
@@ -170,11 +175,6 @@ const tools: Tool[] = [
     imgSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
     name: "GraphQl",
-  },
-  {
-    imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatsby/gatsby-plain.svg",
-    name: "Gatsby",
   },
   {
     imgSrc:
@@ -186,14 +186,13 @@ const tools: Tool[] = [
 
 <template>
   <main
-    class="grid grid-cols-2 md:grid-cols-6 place-content-around justify-center gap-3 align-middle"
+    class="grid gap-4 max-[400px]:grid-cols-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6"
   >
     <ToolCard
       v-for="(tool, index) in tools"
       :key="index"
       :img-src="tool.imgSrc"
       :img-alt="tool.imgAlt || tool.name"
-      class="m-2"
     >
       {{ tool.name }}
     </ToolCard>

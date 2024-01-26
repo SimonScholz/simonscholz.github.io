@@ -213,7 +213,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
       <div class="mb-6 flex flex-row">
         Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
       </div>
-      <div class="flex flex-row flex-wrap justify-center md:w-2/3">
+      <div class="container mx-auto p-4 md:w-2/3">
         <Tools />
       </div>
     </section>
