@@ -2,12 +2,12 @@
 id: "gradle-toml-version-catalogs"
 path: "/tutorials/gradle-toml-version-catalogs"
 created: "2024-01-06"
-updated: "2024-01-06"
+updated: "2024-01-26"
 title: "Using toml version catalogs in Gradle"
 description: "Using toml version catalogs in Gradle is a great way to manage dependencies and their versions."
 author: "Simon Scholz"
-tags: ["gradle", "toml", "version catalog", "IntelliJ"]
-vgWort: ""
+tags: ["gradle", "toml", "version catalog", "IntelliJ", "Dependabot", "GitHub"]
+vgWort: "https://vg08.met.vgwort.de/na/ad5b7f0b0d684fb69a1827832aed7240"
 ---
 
 Using toml version catalogs in Gradle is a great way to manage dependencies and their versions.
@@ -45,44 +45,45 @@ curl https://start.spring.io/starter.zip \
 unzip gradle-toml.zip
 ```
 
-The generated project contains a `build.gradle.kts` file, which should look like this:
+The generated project contains a `build.gradle.kts` file, which should look similar to:
 
 ```kotlin [build.gradle.kts]
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	id("org.springframework.boot") version "3.2.1"
-	id("io.spring.dependency-management") version "1.1.4"
-	kotlin("jvm") version "1.9.21"
-	kotlin("plugin.spring") version "1.9.21"
+    id("org.springframework.boot") version "3.2.1"
+    id("io.spring.dependency-management") version "1.1.4"
+    kotlin("jvm") version "1.9.21"
+    kotlin("plugin.spring") version "1.9.21"
 }
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 
 java {
-	sourceCompatibility = JavaVersion.VERSION_21
+    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.21")
 }
 
 tasks.withType<KotlinCompile> {
-	kotlinOptions {
-		freeCompilerArgs += "-Xjsr305=strict"
-		jvmTarget = "21"
-	}
+    kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+        jvmTarget = "21"
+    }
 }
 
 tasks.withType<Test> {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 ```
 
@@ -113,8 +114,64 @@ Note that `kotlin("jvm")` in the `build.gradle.kt` becomes `org.jetbrains.kotlin
 After you created the `libs.versions.toml` file, you can use it in your `build.gradle.kts` file.
 
 ```kotlin [build.gradle.kts]
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+plugins {
+    alias(libs.plugins.spring.boot)
+    alias(libs.plugins.spring.dependency.management)
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.kotlin.spring)
+}
+
+group = "com.example"
+version = "0.0.1-SNAPSHOT"
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testImplementation(libs.kotlin.junit)
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        freeCompilerArgs += "-Xjsr305=strict"
+        jvmTarget = "21"
+    }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+}
 ```
+
+The nice thing about the Gradle Version Catalogs plugin is that it will automatically resolve the version references and show you the actual version in the editor.
+
+![Gradle Version Catalogs plugin](./gradle-version-catalogs-editor.png)
+
+## Using GitHub's Dependabot (optional)
+
+Dependabot is a GitHub feature that automatically creates pull requests to update dependencies in your project.
+It supports toml version catalogs, so you can use it to update your dependencies.
+Therefore the dependabot configuration file `.github/dependabot.yml` does not need to have special treatment and can look like this:
+
+```yaml [.github/dependabot.yml]
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+```    
 
 ## Gradle init task (optional)
 
