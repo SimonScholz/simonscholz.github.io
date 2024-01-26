@@ -103,6 +103,9 @@ kotlin-junit = { group = "org.jetbrains.kotlin", name = "kotlin-test-junit5", ve
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version = "3.2.1" }
+spring-dependency-management = { id = "io.spring.dependency-management", version = "1.1.4" }
+
 ```
 
 Every dependency that uses the Kotlin version can now use the `kotlin` version reference.
