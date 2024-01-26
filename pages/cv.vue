@@ -14,7 +14,7 @@ useHead({
         :src="me"
         alt="Simon Scholz"
         title="Simon Scholz"
-        class="rounded-2xl m-3 p-4"
+        class="rounded-3xl m-3 p-4"
       />
       <span class="font-semibold text-xl text-cyan-500">
         Simon Scholz
@@ -59,7 +59,7 @@ useHead({
             :src="me"
             alt="Simon Scholz"
             title="Simon Scholz"
-            class="rounded m-3"
+            class="rounded-3xl m-3"
           />
         </div>
       </div>

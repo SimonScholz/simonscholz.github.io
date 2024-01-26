@@ -7,20 +7,19 @@ import medal from "~/assets/medal.png";
     <div class="flex flex-col mt-3" id="special-skills">
       <h2 class="font-semibold">Programming / Expressive Languages</h2>
       <span>
-        Kotlin, Java, Groovy, JavaScript/TypeScript, SQL, XSLT, CSS, HTML 5,
-        AsciiDoc, Markdown
+        Kotlin, Java, Groovy, Dart, JavaScript/TypeScript, SQL, Bash,
+        XSLT, CSS, HTML 5, AsciiDoc, Markdown
       </span>
     </div>
     <div class="flex flex-col mt-3">
       <h2 class="font-semibold">Technologies / Frameworks</h2>
       <span>
-        Spring (Spring Boot 2 incl. Webflux and Spring Cloud), Quarkus IO,
-        Micrometer Metrics, Android, Dojo IO, React JS, Gatsby, NextJS, Eclipse
-        RCP (Rich Client Platform), JPA/Hibernate/EclipseLink, Junit 5, AssertJ,
-        Mockito, Mockk, Hamcrest, Spock, RxJava/Project Reactor IO/Mutiny,
-        Kubernetes, Terraform, GitOps/Flux, Ansible, Inbluxdb, Stackdriver,
-        Prometheus, Grafana, Swagger, OpenAPI Generator, GCP (Google Cloud
-        Platform)
+        Spring (Spring Boot 2 incl. Webflux and Spring Cloud), Quarkus IO, Flutter, Android,
+        Vue, Nuxt, React JS, Gatsby, NextJS, Eclipse RCP (Rich Client Platform), SWT/JFace/Databinding, JavaFX/AWT/Swing,
+        JPA/Hibernate/EclipseLink, Junit 5, AssertJ/Assertk,
+        Mockito, Mockk, Hamcrest, Spock, RxJava/Project Reactor IO/Mutiny, Resilience4J, ArrowKt, Ktor,
+        Kubernetes, Terraform, GitOps/Flux, Ansible, Keycloak, Micrometer Metrics, Inbluxdb, Stackdriver,
+        Prometheus, Grafana, Swagger / OAS, OpenAPI Generator, GCP (Google Cloud Platform)
       </span>
     </div>
     <div class="flex flex-col mt-3">
@@ -34,7 +33,7 @@ import medal from "~/assets/medal.png";
       <h2 class="font-semibold">Tools</h2>
       <span>
         IntelliJ, VS Code, Eclipse, Git, Gerrit, Gradle, Maven, NPM, Spring CLI,
-        DOJO CLI, GitHub Actions, Jenkins, Postman/Newman
+        DOJO CLI, GitHub Actions, K9s, Lazygit, Jenkins, Postman/Newman
       </span>
     </div>
   </IconLeftBorder>

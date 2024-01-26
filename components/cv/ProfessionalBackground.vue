@@ -6,7 +6,125 @@ import gears from "~/assets/gears.png";
   <IconLeftBorder :img-src="gears" title="Professional Background">
     <div class="flex md:flex-row mt-3">
       <FlexInitialXlBlock>
-        <span>Since Nov 2020</span>
+        <span>Since Sept 2023</span>
+      </FlexInitialXlBlock>
+      <div class="flex-1 flex flex-col">
+        <span class="font-semibold xl:mb-1">
+          Doorbit Technology (Proptech Startup), Hamburg
+        </span>
+        <XlHiddenTimeFrame timeFrame="Since Sept 2023" />
+        <span class="mb-1 font-medium">
+          Principal Software Engineer
+        </span>
+        <ul class="list-disc list-outside ml-4">
+          <li class="mb-1">
+            Design new microservices landscape for the Doorbit (Proptech Startup) platform.
+          </li>
+          <li class="mb-1">
+            Design and implement a scalable and reliable cloud infrastructure using Google Cloud Platform with Kubernetes and Terraform.
+          </li>
+          <li class="mb-1">
+            Manage Kubernetes clusters and services using GitOps / FluxCD.
+          </li>
+          <li class="mb-1">
+            Establish a monitoring stack with Alerting using Prometheus, Google Cloud Monitoring, Google Uptime Checks, Google Synthetic Monitoring, and Allquiet.
+          </li>
+          <li class="mb-1">
+            Setup and maintain Keycloak for authentication and authorization using OpenID Connect, Social Logins, custom Keycloak themes, and custom Keycloak extensions.
+          </li>
+          <li class="mb-1">
+            Manage CI/CD pipelines using GitHub Actions including automated API smoke tests and performance tests.
+          </li>
+          <li>
+            Integrate several real estate management systems using REST APIs and/or async messaging in a resilient fashion.
+          </li>
+          <li>
+            Implement custom OpenStreetMap algorithms to find POIs around the customers real estate and utilized GPT-4 for automated Expose text generation based on customer input and POIs.
+          </li>
+          <li>Relevant Technologies:</li>
+          <ul class="list-disc list-outside ml-4 text-sm print:hidden">
+            <li>C4 Diagrams</li>
+            <li>Spring Boot 3</li>
+            <li>Google PubSub</li>
+            <li>MongoDB</li>
+            <li>Google Cloud Platform</li>
+            <li>Kubernetes</li>
+            <li>Terraform (Enterprise)</li>
+            <li>GitOps</li>
+            <li>GitHub Actions</li>
+            <li>Micrometer + Prometheus + Grafana + Allquiet</li>
+            <li>Gatling Performance Testing</li>
+            <li>Newman GitHub Actions for API smoke tests</li>
+            <li>Kotlin</li>
+            <li>Gradle</li>
+            <li>Log4Brains</li>
+          </ul>
+          <ul class="hidden text-sm print:block">
+            C4 Diagrams, Spring Boot 3, Google PubSub, MongoDB, Google Cloud Platform, Kubernetes, Terraform (Enterprise), GitOps,
+            GitHub Actions, Micrometer + Prometheus + Grafana + Allquiet, Gatling Performance Testing,
+            Newman GitHub Actions for API smoke tests, Kotlin, Gradle, Log4Brains
+          </ul>
+        </ul>
+      </div>
+    </div>
+    <div class="flex md:flex-row mt-3">
+      <FlexInitialXlBlock>
+        <span>May 2023 - Sept 2023</span>
+      </FlexInitialXlBlock>
+      <div class="flex-1 flex flex-col">
+        <span class="font-semibold xl:mb-1">
+          MediaMarktSaturn Technology, Ingolstadt
+        </span>
+        <XlHiddenTimeFrame timeFrame="May 2023 - Sept 2023" />
+        <span class="mb-1 font-medium">
+          Principal Software Engineer for the Apps & Store Touchpoints domain
+        </span>
+        <ul class="list-disc list-outside ml-4">
+          <li class="mb-1">
+            Lead technical projects and make critical architectural decisions to drive software excellence.
+          </li>
+          <li class="mb-1">
+            Stay up to date with the latest technologies and best practices, and share knowledge by conducting tech talks and workshops.
+          </li>
+          <li class="mb-1">
+            Mentor and guide team members, fostering a culture of continuous learning and growth.
+          </li>
+          <li class="mb-1">
+            Identify and address technical debt to optimize existing systems.
+          </li>
+          <li class="mb-1">
+            Redesign legacy systems to improve scalability, performance, and reliability.
+          </li>
+          <li class="mb-1">
+            Reduce costs by optimizing cloud infrastructure and services.
+          </li>
+          <li>Relevant Technologies:</li>
+          <ul class="list-disc list-outside ml-4 text-sm print:hidden">
+            <li>C4 Diagrams</li>
+            <li>Google PubSub</li>
+            <li>Apache Kafka</li>
+            <li>MongoDB</li>
+            <li>Google Cloud Platform</li>
+            <li>Kubernetes</li>
+            <li>Terraform (Enterprise)</li>
+            <li>GitOps</li>
+            <li>Kotlin</li>
+            <li>Ktor</li>
+            <li>ArrowKt</li>
+            <li>Gradle</li>
+            <li>Log4Brains</li>
+          </ul>
+          <ul class="hidden text-sm print:block">
+            C4 Diagrams, Google PubSub, Apache Kafka, MongoDB,
+            Google Cloud Platform, Kubernetes, Terraform (Enterprise),
+            GitOps, Kotlin, Ktor, ArrowKt, Gradle, Log4Brains
+          </ul>
+        </ul>
+      </div>
+    </div>
+    <div class="flex md:flex-row mt-3">
+      <FlexInitialXlBlock>
+        <span>Nov 2020 - May 2023</span>
         <br />
         <span>(Black Friday)</span>
       </FlexInitialXlBlock>
@@ -158,7 +276,7 @@ import gears from "~/assets/gears.png";
           <li>
             Creating online tutorials and documentation (e.g., on vogella.com)
           </li>
-          <li>Creation of tools for customers (See GitHub)</li>
+          <li>Creation of tools for customers (<a href="https://github.com/simonscholz">See GitHub</a>)</li>
         </ul>
       </div>
     </div>
