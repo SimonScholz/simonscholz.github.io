@@ -11,7 +11,7 @@ const year = new Date().getFullYear();
 <template>
   <nav class="">
     <section
-      class="fixed bottom-0 right-0 mb-5 mr-10 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700"
+      class="fixed bottom-0 right-10 mb-5 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700"
     >
       <a
         class="text-xl hover:cursor-pointer"

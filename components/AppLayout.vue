@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const { cover } = useAppConfig();
 </script>
 
@@ -7,6 +8,7 @@ const { cover } = useAppConfig();
     <Html lang="en" />
     <Meta property="og:image" :content="cover" />
     <AppLoadingBar />
+    <AppHeaderMenu />
     <AppNavbar />
     <slot />
     <AppFooter />
