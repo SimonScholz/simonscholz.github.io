@@ -62,15 +62,11 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
 <template>
   <div class="flex flex-col snap-y snap-mandatory">
     <section class="snap-center snap-always">
-      <section
-        class="mt-12 md:mt-0 flex flex-grow flex-row select-none justify-center text-8xl font-mono"
-      >
-        <span class="tracking-wider">Hello</span
-        ><Icon name="mdi:hand-wave" class="ml-3" />
+      <section class="mt-12 md:mt-0 flex flex-grow flex-row select-none justify-center text-8xl font-mono">
+        <span class="tracking-wider">Hello</span>
+        <Icon name="mdi:hand-wave" class="ml-3" />
       </section>
-      <section
-        class="mt-20 flex flex-col select-none justify-center md:flex-row"
-      >
+      <section class="mt-20 flex flex-col select-none justify-center md:flex-row">
         <span class="text-2xl m-3 md:w-1/3 md:mt-10 md:text-left fadeSection">
           <div class="m-auto">
             <p>
@@ -85,106 +81,72 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
             <br />
             <p>
               Automatization over manual work is kind of my credo
-              <span class="align-middle font-mono italic text-fuchsia-700 mx-2"
-                >&&</span
-              >
+              <span class="align-middle font-mono italic text-fuchsia-700 mx-2">&&</span>
               I've already pushed a lot of customers in that direction for the
               better.
             </p>
           </div>
         </span>
-        <img
-          class="mt-10 h-80 w-80 self-center border-4 rounded-full md:ml-20 md:mt-0"
-          :src="me"
-          alt="me"
-          title="me"
-          height="80"
-          width="80"
-        />
+        <div class="flex flex-col items-center mt-10 md:ml-20 md:mt-0">
+          <img class="h-80 w-80 self-center border-4 border-black dark:border-white rounded-full " :src="me" alt="me"
+            title="me" height="80" width="80" />
+          <span class="mt-2 text-lg">
+            Principal Software Engineer
+          </span>
+          <span>
+            14+ years of experience
+          </span>
+        </div>
       </section>
-      <div
-        class="mt-10 flex flex-col items-center justify-center text-3xl md:mt-32"
-      >
-        <div
-          ref="findMe"
-          class="flex flex-row select-none text-3xl findMeHidden"
-        >
-          Find me here <Icon name="carbon:location-heart" class="ml-2" />
+      <div class="mt-10 flex flex-col items-center justify-center text-3xl md:mt-32">
+        <div ref="findMe" class="flex flex-row select-none text-3xl findMeHidden">
+          Find me here
+          <Icon name="carbon:location-heart" class="ml-2" />
         </div>
         <div ref="findMeContent" class="flex flex-row findMeContentsHidden">
-          <div
-            class="grow grid grid-cols-4 mt-10 gap-y-32 justify-items-center space-x-4"
-          >
-            <NuxtLink
-              class="icon-btn px-10"
-              rel="noreferrer"
-              href="https://github.com/simonscholz"
-              target="_blank"
-              title="GitHub"
-            >
+          <div class="grow grid grid-cols-4 mt-10 gap-y-32 justify-items-center space-x-4">
+            <NuxtLink class="icon-btn px-10" rel="noreferrer" href="https://github.com/simonscholz" target="_blank"
+              title="GitHub">
               <Icon name="uil:github-alt" />
             </NuxtLink>
-            <NuxtLink
-              class="icon-btn"
-              rel="noreferrer"
-              href="https://www.linkedin.com/in/opensource-simon"
-              target="_blank"
-              title="LinkedIn"
-            >
+            <NuxtLink class="icon-btn" rel="noreferrer" href="https://www.linkedin.com/in/opensource-simon"
+              target="_blank" title="LinkedIn">
               <Icon name="uil:linkedin-alt" />
             </NuxtLink>
-            <NuxtLink
-              class="icon-btn"
-              rel="noreferrer"
-              href="https://twitter.com/simonscholz"
-              target="_blank"
-              title="Twitter"
-            >
+            <NuxtLink class="icon-btn" rel="noreferrer" href="https://twitter.com/simonscholz" target="_blank"
+              title="Twitter">
               <Icon name="uil:twitter-alt" />
             </NuxtLink>
-            <NuxtLink
-              class="icon-btn hover:hand"
-              title="About Me"
-              @click.prevent="scrollToAboutMeSection"
-            >
+            <NuxtLink class="icon-btn hover:hand" title="About Me" @click.prevent="scrollToAboutMeSection">
               <Icon name="carbon:id-management" />
             </NuxtLink>
           </div>
         </div>
       </div>
     </section>
-    <section
-      id="tutorials"
-      ref="tutorialsSection"
-      class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10"
-    >
+    <section id="tutorials" ref="tutorialsSection"
+      class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10">
       <div class="mb-10 flex flex-row">
-        Latest Tutorials <Icon name="carbon:education" class="ml-2" />
+        Latest Tutorials
+        <Icon name="carbon:education" class="ml-2" />
       </div>
       <div class="md:w-2/3">
         <Top3Tutorials />
       </div>
       <div class="mt-8">
-        <NuxtLink
-          to="/tutorials"
-          title="All Tutorials"
-          class="text-xl border-0 p-2 px-4 transition duration-500 hover:duration-500 bg-cyan-600 hover:bg-cyan-700 rounded-md"
-          >Show all tutorials</NuxtLink
-        >
+        <NuxtLink to="/tutorials" title="All Tutorials"
+          class="text-xl border-0 p-2 px-4 transition duration-500 hover:duration-500 bg-cyan-600 hover:bg-cyan-700 rounded-md">
+          Show all tutorials</NuxtLink>
       </div>
     </section>
-    <section
-      id="about"
-      ref="aboutMeSection"
-      class="fadeSection mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center"
-    >
+    <section id="about" ref="aboutMeSection"
+      class="fadeSection mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center">
       <div class="flex flex-row text-3xl">
-        About Me <Icon name="carbon:id-management" class="ml-2" />
+        About Me
+        <Icon name="carbon:id-management" class="ml-2" />
       </div>
       <div class="mt-6 flex flex-col items-center justify-center text-center">
-        <div
-          class="aboutme flex-row border-2 border-opacity-50 rounded-lg bg-opacity-50 p-2 text-xl md:w-2/3"
-        >
+        <div class="aboutme flex-row border-2 border-opacity-50 rounded-lg bg-opacity-50 p-2 text-xl md:w-2/3">
           <p>
             I am a passionate advocate for <b>open source</b> and sharing
             knowledge. With a deep-rooted love for computers and technology from
@@ -197,31 +159,28 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
             Currently serving as the Principal Engineer for the Apps & Store
             Touchpoints domain of MediamarktSaturn Technology...
           </p>
-          <NuxtLink
-            to="/about"
-            title="About Me"
-            class="mr-2 mt-4 flex flex-row justify-end text-2xl icon-btn"
-          >
-            ... Read more <Icon name="uil:book-reader" class="ml-2" />
+          <NuxtLink to="/about" title="About Me" class="mr-2 mt-4 flex flex-row justify-end text-2xl icon-btn">
+            ... Read more
+            <Icon name="uil:book-reader" class="ml-2" />
           </NuxtLink>
         </div>
       </div>
     </section>
     <section
-      class="mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
-    >
+      class="mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10">
       <div class="mb-6 flex flex-row">
-        Languages <Icon name="carbon:language" class="ml-2" />
+        Languages
+        <Icon name="carbon:language" class="ml-2" />
       </div>
       <div class="container mx-auto p-4 md:w-2/3">
         <Languages />
       </div>
     </section>
     <section
-      class="mt-10 md:mt-16 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
-    >
+      class="mt-10 md:mt-16 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10">
       <div class="mb-6 flex flex-row">
-        Frameworks & Tools <Icon name="carbon:tool-kit" class="ml-2" />
+        Frameworks & Tools
+        <Icon name="carbon:tool-kit" class="ml-2" />
       </div>
       <div class="container mx-auto p-4 md:w-2/3">
         <Tools />
@@ -234,6 +193,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
 .icon-btn {
   @apply cursor-pointer transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700;
 }
+
 .findMeHidden {
   opacity: 0;
   transition-property: transform, opacity, blur;
