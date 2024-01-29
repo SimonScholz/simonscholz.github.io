@@ -2,7 +2,7 @@
 id: "gradle-toml-version-catalogs"
 path: "/tutorials/gradle-toml-version-catalogs"
 created: "2024-01-06"
-updated: "2024-01-26"
+updated: "2024-01-28"
 title: "Using toml version catalogs in Gradle"
 description: "Using toml version catalogs in Gradle is a great way to manage dependencies and their versions."
 author: "Simon Scholz"
@@ -27,6 +27,8 @@ The [Gradle Version Catalogs](https://plugins.jetbrains.com/plugin/20324-gradle-
 
 ![Gradle Version Catalogs plugin](./gradle-version-catalogs-plugin.png)
 
+For example it adds syntax highlighting, auto completion, navigation to the version references and shows the versions within the `build.gradle.kts` file.
+
 ## Create a Spring Boot Project (optional)
 
 In case you want to migrate an existing project to use toml version catalogs, you can skip this step.
@@ -45,6 +47,8 @@ curl https://start.spring.io/starter.zip \
 unzip gradle-toml.zip
 ```
 
+The `gradle-toml.zip` file can be extracted and then opened in IntelliJ IDEA.
+
 The generated project contains a `build.gradle.kts` file, which should look similar to:
 
 ```kotlin [build.gradle.kts]
@@ -53,8 +57,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
-    kotlin("jvm") version "1.9.21"
-    kotlin("plugin.spring") version "1.9.21"
+    kotlin("jvm") version "1.9.22"
+    kotlin("plugin.spring") version "1.9.22"
 }
 
 group = "com.example"
@@ -72,7 +76,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.21")
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5:1.9.22")
 }
 
 tasks.withType<KotlinCompile> {
@@ -86,6 +90,8 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 ```
+
+As you can see, the Kotlin version `1.9.22` is repeated multiple times.
 
 ## Create a toml file
 
@@ -156,7 +162,7 @@ tasks.withType<Test> {
 }
 ```
 
-The nice thing about the Gradle Version Catalogs plugin is that it will automatically resolve the version references and show you the actual version in the editor.
+As stated earlier, with the [Gradle Version Catalogs](https://plugins.jetbrains.com/plugin/20324-gradle-version-catalogs) plugin you can now simply use auto completion by typing `libs.` and then pressing `Ctrl + Space` to see all available versions.
 
 ![Gradle Version Catalogs plugin](./gradle-version-catalogs-editor.png)
 
