@@ -8,36 +8,6 @@ interface Tool {
 const tools: Tool[] = [
   {
     imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
-    name: "Kotlin",
-  },
-  {
-    imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-    name: "Java",
-  },
-  {
-    imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/groovy/groovy-original.svg",
-    name: "Groovy",
-  },
-  {
-    imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
-    name: "Dart",
-  },
-  {
-    imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-plain.svg",
-    name: "TypeScript",
-  },
-  {
-    imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-plain.svg",
-    name: "JavaScript",
-  },
-  {
-    imgSrc:
       "https://raw.githubusercontent.com/SimonScholz/simonscholz/c826feb58203a6eb3be9247f38d48d55c63a7c7e/img/quarkus.svg",
     name: "Quarkus",
   },
@@ -188,13 +158,13 @@ const tools: Tool[] = [
   <main
     class="grid gap-4 max-[400px]:grid-cols-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6"
   >
-    <ToolCard
+    <SkillCard
       v-for="(tool, index) in tools"
       :key="index"
       :img-src="tool.imgSrc"
       :img-alt="tool.imgAlt || tool.name"
     >
       {{ tool.name }}
-    </ToolCard>
+    </SkillCard>
   </main>
 </template>

@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="flex items-center justify-end space-x-6 mr-16 print:hidden">
+    <div class="items-center justify-end space-x-6 mr-16 hidden md:flex print:hidden">
         <!-- <NuxtLink to="/offers" class="transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700">Offers</NuxtLink> -->
         <NuxtLink to="/tutorials"
             class="align-middle flex flex-row items-center transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700">

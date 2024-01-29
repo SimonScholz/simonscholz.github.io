@@ -211,7 +211,17 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
       class="mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
     >
       <div class="mb-6 flex flex-row">
-        Languages & Tools <Icon name="carbon:tool-kit" class="ml-2" />
+        Languages <Icon name="carbon:language" class="ml-2" />
+      </div>
+      <div class="container mx-auto p-4 md:w-2/3">
+        <Languages />
+      </div>
+    </section>
+    <section
+      class="mt-10 md:mt-16 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10"
+    >
+      <div class="mb-6 flex flex-row">
+        Frameworks & Tools <Icon name="carbon:tool-kit" class="ml-2" />
       </div>
       <div class="container mx-auto p-4 md:w-2/3">
         <Tools />

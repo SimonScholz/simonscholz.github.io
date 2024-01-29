@@ -1,10 +1,10 @@
 <script setup lang="ts">
-interface ToolCardProps {
+interface SkillCardProps {
   imgSrc: string;
   imgAlt?: string;
 }
 
-const props = defineProps<ToolCardProps>();
+const props = defineProps<SkillCardProps>();
 </script>
 
 <template>
