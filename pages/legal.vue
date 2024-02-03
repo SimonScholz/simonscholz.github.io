@@ -18,7 +18,7 @@ useHead({
 		<br />
 		<br />
 		<h2 class="text-xl">Contact Information</h2>
-		Telephone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣
+		Telephone: +4️⃣9️⃣ 1️⃣5️⃣️6️⃣️7️⃣️9️⃣️ 1️⃣6️⃣️1️⃣3️⃣️5️⃣4️⃣
 		<br />
 		E-Mail:
 		<a href="mailto:opensource.simon@gmail.com">

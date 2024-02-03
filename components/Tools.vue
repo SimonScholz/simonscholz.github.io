@@ -38,7 +38,7 @@ const tools: Tool[] = [
   },
   {
     imgSrc: "https://cdn.icon-icons.com/icons2/1381/PNG/512/eclipse_94656.png",
-    name: "Eclipse",
+    name: "Eclipse RCP",
   },
   {
     imgSrc:
