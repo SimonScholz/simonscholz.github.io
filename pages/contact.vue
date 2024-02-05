@@ -12,28 +12,28 @@ useHead({
       <Icon name="mdi:hand-wave" class="ml-3" />
     </h1>
 
-    <div class="max-w-md w-full rounded shadow-md">
+    <div class="md:w-1/2">
       <form action="https://fabform.io/f/nmmFae0" method="post">
         <div class="mb-4">
           <label for="name" class="block text-sm font-bold mb-2">Name</label>
           <input name="name" type="text" required
-            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-600">
+            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-600 dark:text-black">
         </div>
 
         <div class="mb-4">
           <label for="email" class="block text-sm font-bold mb-2">Email</label>
           <input name="email" type="email"
-            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-600">
+            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-600 dark:text-black">
         </div>
 
         <div class="mb-4">
           <label for="message" class="block text-sm font-bold mb-2">Message</label>
           <textarea name="message" required
-            class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-cyan-600"></textarea>
+            class="w-full resize p-2 border border-gray-300 rounded md:h-24 focus:outline-none focus:border-cyan-600 dark:text-black"></textarea>
         </div>
 
         <button type="submit"
-          class="text-xl border-0 p-2 px-4 bg-cyan-600 rounded-md transition duration-500 hover:duration-500 hover:bg-cyan-700 !important">
+          class="text-xl right-0 border-0 p-2 px-4 bg-cyan-600 rounded-md transition duration-500 hover:duration-500 hover:bg-cyan-700 !important">
           Send
         </button>
       </form>
@@ -45,18 +45,16 @@ useHead({
         opensource.simonⓐⓣgmail.com
       </a>
       ) or on social media.
-      .
     </p>
 
     <p>
       In regards of the tutorials also feel free to open issues in this GitHub
       repository:
       <a class="text-cyan-500" href="https://github.com/SimonScholz/simonscholz.github.io/issues">
-        https://github.com/SimonScholz/simonscholz.github.io/issues
+        github.com/SimonScholz/simonscholz.github.io/issues
       </a>
     </p>
     <p>I am really happy to receive feedback about my content.</p>
-    <div class="md:h-96"></div>
   </div>
 </template>
 
@@ -67,6 +65,14 @@ useHead({
 button {
   @apply bg-cyan-600;
 }
+
+[type=button]:hover,
+[type=reset]:hover,
+[type=submit]:hover,
+button:hover {
+  @apply bg-cyan-700;
+}
+
 
 p {
   @apply mt-6;

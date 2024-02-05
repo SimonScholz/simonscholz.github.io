@@ -77,6 +77,11 @@ function closeMobileMenu() {
         <Icon name="pepicons-pop:cv" />
         <span class="ml-3">Resume</span>
       </NuxtLink>
+      <NuxtLink class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3" to="/contact"
+        title="Contact" @click="closeMobileMenu">
+        <Icon name="mdi:hand-wave" />
+        <span class="ml-3">Contact</span>
+      </NuxtLink>
 
       <NuxtLink class="icon-btn align-middle flex flex-row text-xl place-items-center mt-8" rel="noreferrer"
         to="https://github.com/simonscholz" target="_blank" title="GitHub">
