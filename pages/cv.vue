@@ -21,7 +21,7 @@ useHead({
         <br />* 27.04.1986
       </span>
     </div>
-    <div class="hidden print:block">
+    <div class="hidden print:block p-6">
       <div class="flex flex-row justify-between">
         <div class="flex flex-col">
           <h1 class="text-3xl text-cyan-500 mb-4">Simon Scholz</h1>

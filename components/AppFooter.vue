@@ -9,7 +9,7 @@ const year = new Date().getFullYear();
 </script>
 
 <template>
-  <nav class="">
+  <nav class="print:hidden">
     <section
       class="fixed bottom-0 right-10 mb-5 transition duration-500 hover:duration-500 hover:text-cyan-700 dark:hover:text-cyan-700"
     >
@@ -22,7 +22,7 @@ const year = new Date().getFullYear();
       </a>
     </section>
     <footer
-      class="container flex flex-col md:flex-row md:justify-between mx-auto border-t-2 sticky bottom-0 print:hidden"
+      class="container flex flex-col md:flex-row md:justify-between mx-auto border-t-2 sticky bottom-0"
     >
       <span class="block md:flex-grow ml-4 text-gray-800 dark:text-gray-300"
         >© Simon Scholz 2020 - {{ year }}</span
