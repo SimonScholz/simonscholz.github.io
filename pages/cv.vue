@@ -44,7 +44,7 @@ useHead({
             </span>
             <span class="p-1">
               <Icon name="fa:phone" class="mr-1" />
-              +49 1590 633 7690
+              +49 15679 161354 
             </span>
             <span class="p-1">
               <Icon name="material-symbols:house-outline" class="mr-1" />

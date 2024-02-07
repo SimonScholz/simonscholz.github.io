@@ -21,25 +21,30 @@ import gears from "~/assets/gears.png";
             Design new microservices landscape for the Doorbit (Proptech Startup) platform.
           </li>
           <li class="mb-1">
-            Design and implement a scalable and reliable cloud infrastructure using Google Cloud Platform with Kubernetes and Terraform.
+            Design and implement a scalable and reliable cloud infrastructure using Google Cloud Platform with Kubernetes
+            and Terraform.
           </li>
           <li class="mb-1">
             Manage Kubernetes clusters and services using GitOps / FluxCD.
           </li>
           <li class="mb-1">
-            Establish a monitoring stack with Alerting using Prometheus, Google Cloud Monitoring, Google Uptime Checks, Google Synthetic Monitoring, and Allquiet.
+            Establish a monitoring stack with Alerting using Prometheus, Google Cloud Monitoring, Google Uptime Checks,
+            Google Synthetic Monitoring, and Allquiet.
           </li>
           <li class="mb-1">
-            Setup and maintain Keycloak for authentication and authorization using OpenID Connect, Social Logins, custom Keycloak themes, and custom Keycloak extensions.
+            Setup and maintain Keycloak for authentication and authorization using OpenID Connect, Social Logins, custom
+            Keycloak themes, and custom Keycloak extensions.
           </li>
           <li class="mb-1">
             Manage CI/CD pipelines using GitHub Actions including automated API smoke tests and performance tests.
           </li>
           <li>
-            Integrate several real estate management systems using REST APIs and/or async messaging in a resilient fashion.
+            Integrate several real estate management systems using REST APIs and/or async messaging in a resilient
+            fashion.
           </li>
           <li>
-            Implement custom OpenStreetMap algorithms to find POIs around the customers real estate and utilized GPT-4 for automated Expose text generation based on customer input and POIs.
+            Implement custom OpenStreetMap algorithms to find POIs around the customers real estate and utilized GPT-4 for
+            automated Expose text generation based on customer input and POIs.
           </li>
           <li>Relevant Technologies:</li>
           <ul class="list-disc list-outside ml-4 text-sm print:hidden">
@@ -60,7 +65,8 @@ import gears from "~/assets/gears.png";
             <li>Log4Brains</li>
           </ul>
           <ul class="hidden text-sm print:block">
-            C4 Diagrams, Spring Boot 3, Google PubSub, MongoDB, Google Cloud Platform, Kubernetes, Terraform (Enterprise), GitOps,
+            C4 Diagrams, Spring Boot 3, Google PubSub, MongoDB, Google Cloud Platform, Kubernetes, Terraform (Enterprise),
+            GitOps,
             GitHub Actions, Micrometer + Prometheus + Grafana + Allquiet, Gatling Performance Testing,
             Newman GitHub Actions for API smoke tests, Kotlin, Gradle, Log4Brains
           </ul>
@@ -84,7 +90,8 @@ import gears from "~/assets/gears.png";
             Lead technical projects and make critical architectural decisions to drive software excellence.
           </li>
           <li class="mb-1">
-            Stay up to date with the latest technologies and best practices, and share knowledge by conducting tech talks and workshops.
+            Stay up to date with the latest technologies and best practices, and share knowledge by conducting tech talks
+            and workshops.
           </li>
           <li class="mb-1">
             Mentor and guide team members, fostering a culture of continuous learning and growth.
@@ -267,7 +274,6 @@ import gears from "~/assets/gears.png";
           <li>
             Software architect and developer for several open source projects
           </li>
-          <li>Working onsite in international projects</li>
           <li>
             Nominated as committer of the month by the Eclipse Platform project
           </li>
@@ -277,6 +283,58 @@ import gears from "~/assets/gears.png";
             Creating online tutorials and documentation (e.g., on vogella.com)
           </li>
           <li>Creation of tools for customers (<a href="https://github.com/simonscholz">See GitHub</a>)</li>
+          <li>Working onsite for international projects</li>
+        </ul>
+        <span class="mb-1 mt-2 font-medium">
+          Highlighted Projects
+        </span>
+        <ul class="list-disc list-inside ml-3">
+          <li>Eclipse Trading (Hongkong)</li>
+          <ul class="list-none ml-7">
+            <li>Simon created a CI/CD Pipeline using Jenkins and Maven Tycho for a Eclipse Platform based rich client
+              trading application.
+              While introducing Maven Tycho, he also added valuable tests and ui tests (utilizing SWTBot) to the project
+              to ensure the quality of the application.
+              Like for many other customers he gave invaluable guidance on how to migrate the application to the latest
+              version of the framework namely Eclipse 4.</li>
+          </ul>
+          <li>Gradle</li>
+          <ul class="list-none ml-7">
+            <li>Right from the beginning when Gradle decided to provide their own Eclipse IDE support called "Buildship"
+              Simon was on board giving expert advice and implemented several different plugins to enable developers to
+              use Gradle in the Eclipse IDE with ease.</li>
+            <li>Quote from the <a href="https://blog.gradle.org/buildship-eclipse" class="underline font-medium">Gradle
+                blog</a>: <br />
+              "To accelerate the development of Buildship and to ensure that we would meet the deadline for the Eclipse
+              Mars release in June 2015, we got Simon Scholz from Vogella GmbH to help us with work that required in-depth
+              Eclipse knowledge, which proved to be invaluable."</li>
+          </ul>
+          <li>Traffic Telematics Company</li>
+          <ul class="list-none ml-7">
+            <li>Clients (mainly public transportation) of the company demanded to have a solution for their control
+              centers to monitor the daily business of e.g. busses and trains.
+              The company decided to create a new product to fulfill these requirements using the Eclipse RCP framework
+              with custom css stylable Widgets and GEF (Graphical Editing Framework) to visualize the routes and the
+              current position
+              of the vehicles.
+              As a consultant Simon helped to create a new architecture and to implement the new features of the product.
+              The technologies behind the product were Java, Eclipse RCP, GEF, SWT, SWTBot, Maven Tycho, Jenkins, JFace,
+              JPA, EclipseLink, EMF (Eclipse Modeling Framework)
+            </li>
+          </ul>
+          <li>Zahnärztekasse AG (Zürich/Wädenswil)</li>
+          <ul class="list-none ml-7">
+            <li>Due to operating system incompatibilities and performance issues with their Eclipse RCP based dentist
+              invoice application Simon was asked to provide consultancy and to fix the issues.
+              Basically the clients operating systems have been updated to a new Microsoft Windows version and therefore
+              the application needed to be updated as well.
+              Besides migrating the application to the latest Eclipse version, Simon also added new features, introduced
+              Eclipse Databinding for better separation of concerns between the UI and the business logic.
+              And to tackle the performance issues he created a dedicated <a href="https://github.com/SimonScholz/RxSWT"
+                class="underline font-medium">RxSWT</a> library to enable the application to use
+              reactive async programming to avoid a frozen user interface.
+            </li>
+          </ul>
         </ul>
       </div>
     </div>
