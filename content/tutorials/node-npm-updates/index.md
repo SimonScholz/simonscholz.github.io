@@ -39,6 +39,12 @@ node --version
 npm --version
 ```
 
+To set the default node version for new shells you can use the following command:
+
+```shell
+nvm alias default node
+```
+
 For the usage of nvm within the Fishshell also see this: https://simonscholz.github.io/tutorials/fishshell#the-nvm-plugin
 
 ## Updating project dependencies
