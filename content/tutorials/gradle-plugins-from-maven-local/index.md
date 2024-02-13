@@ -28,6 +28,7 @@ mdkir local-gradle-plugin
 cd local-gradle-plugin
 
 gradle init \
+    --use-defaults
     --type kotlin-gradle-plugin \
     --dsl kotlin \
     --project-name local-gradle-plugin \
@@ -38,7 +39,7 @@ gradle init \
 ```
 
 With this you can start developing your Gradle plugin.
-Feel to choose Java as language or other options if you prefer.
+Feel free to choose Java as language or other options if you prefer.
 
 For this tutorial we will use the following code:
 
@@ -91,7 +92,17 @@ With the `maven-publish` plugin in place we can now deploy the plugin to the loc
 ./gradlew publishToMavenLocal
 ```
 
+## Add a version to the plugin
+
+To use the plugin in another project we need to add a version to the plugin. We can do that by adding a `version` property to the `gradlePlugin` block in the `build.gradle.kts` file of the `plugin` folder:
+
+```kotlin [build.gradle.kts]
+version = "0.1.0"
+```
+
 ## Use the plugin in another project
+
+### Create a new project
 
 Let's use the init task again to create an application, which uses the plugin we just created.
 
@@ -108,6 +119,57 @@ gradle init \
     --no-incubating \
     --java-version 21
 ```
+
+### Apply the plugin
+
+Add the following to the `settings.gradle.kts` file:
+
+```kotlin [settings.gradle.kts]
+pluginManagement {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+// ... other generated code
+```
+
+Now that mavenLocal is part to the repositories block, we can apply the plugin to the project:
+
+```kotlin [build.gradle.kts]
+plugins {
+    // ... other plugins
+
+    id("com.example.greeting") version("0.1.0")
+}
+```
+
+### Run the plugin task
+
+Now we can run the plugin task with the following command:
+
+```bash
+./gradlew greeting
+```
+
+## Using the local plugin in CI/CD pipeline
+
+The easiest way to use the local plugin in a CI/CD pipeline without publishing it to a remote repository is to reference it in the `settings.gradle.kts` file of the project, which uses the plugin.
+
+```kotlin [settings.gradle.kts]
+pluginManagement {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+        maven(url = "./locaL-plugins/repository")
+    }
+}
+```
+
+The contents of the `local-plugins/repository` then need to be copied from the local Maven repository.
+For our example it would be `~/.m2/repository/com/example/local-gradle-plugin/0.1.0`.
 
 ## Sources
 
