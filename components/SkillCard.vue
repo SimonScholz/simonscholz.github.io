@@ -9,7 +9,7 @@ const props = defineProps<SkillCardProps>();
 
 <template>
   <div
-    class="w-40 h-40 md:w-50 md:h-50 flex flex-col items-center justify-center border border-gray-200 rounded-lg bg-white shadow dark:border-gray-700 dark:bg-gray-800"
+    class="w-40 h-40 md:w-50 md:h-50 flex flex-col items-center justify-center border border-gray-200 rounded-lg bg-white shadow dark:border-gray-700 dark:bg-gray-700"
   >
     <img
       :src="props.imgSrc"

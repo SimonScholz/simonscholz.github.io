@@ -18,6 +18,11 @@ const tools: Tool[] = [
   },
   {
     imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/ktor/ktor-original.svg",
+    name: "Ktor",
+  },
+  {
+    imgSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
     name: "Git",
   },
@@ -61,12 +66,17 @@ const tools: Tool[] = [
   },
   {
     imgSrc:
-      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatling/gatling-plain.svg",
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/gatling/gatling-original.svg",
     name: "Gatling",
   },
   {
     imgSrc: "https://api.iconify.design/material-symbols/terminal-rounded.svg",
     name: "Bash",
+  },
+  {
+    imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/openapi/openapi-original.svg",
+    name: "Openapi",
   },
   {
     imgSrc:
@@ -87,6 +97,11 @@ const tools: Tool[] = [
     imgSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain.svg",
     name: "Postgresql",
+  },
+  {
+    imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/liquibase/liquibase-original-wordmark.svg",
+    name: "Liquibase",
   },
   {
     imgSrc:
@@ -113,6 +128,11 @@ const tools: Tool[] = [
   },
   {
     imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg",
+    name: "Cloudflare",
+  },
+  {
+    imgSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg",
     name: "Prometheus",
   },
@@ -120,6 +140,16 @@ const tools: Tool[] = [
     imgSrc:
       "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg",
     name: "Grafana",
+  },
+  {
+    imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/opentelemetry/opentelemetry-original.svg",
+    name: "Opentelemetry",
+  },
+  {
+    imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jaegertracing/jaegertracing-original.svg",
+    name: "Jaeger",
   },
   {
     imgSrc:
