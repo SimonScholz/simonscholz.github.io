@@ -21,12 +21,13 @@ const filterText = ref("");
 const filteredTutorials: Ref<ParsedContent[] | undefined> = computed(() => {
   const filter = filterText.value;
   return data.value?.filter((tutorial: any) => {
-    const { description, title, tags } = tutorial;
+    const { description, title, tags, draft } = tutorial;
 
     return (
-      description.toLowerCase().includes(filter.toLowerCase()) ||
+      !draft &&
+      (description.toLowerCase().includes(filter.toLowerCase()) ||
       title.toLowerCase().includes(filter.toLowerCase()) ||
-      (tags && tags.join("").toLowerCase().includes(filter.toLowerCase()))
+      (tags && tags.join("").toLowerCase().includes(filter.toLowerCase())))
     );
   });
 });
