@@ -8,7 +8,7 @@ description: "This tutorial is supposed to guide you through the usage and confi
 author: "Simon Scholz"
 tags: ["postman", "rest-client", "newman", "testing"]
 vgWort: "vg05.met.vgwort.de/na/051f9c6c291a4229a93dd5863e3845bc"
-publish: false
+draft: true
 ---
 
 Postman (https://www.postman.com/) is a great tool with a user interface for testing your REST APIs.

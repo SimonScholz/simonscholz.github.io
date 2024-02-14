@@ -3,8 +3,8 @@ id: 'ocr-tess4j-tesseract-ubuntu'
 path: '/tutorials/ocr-tess4j-tesseract-ubuntu'
 created: '2023-11-28'
 updated: '2023-11-28'
-title: 'Doing ocr using Tess4J on Ubuntu'
-description: 'This tutorial shows how to read text from images with ocr using Tess4J on Ubuntu'
+title: 'OCR using Tess4J on Ubuntu'
+description: 'This tutorial shows how to read text from images with OCR using Tess4J on Ubuntu'
 author: 'Simon Scholz'
 tags:
   [

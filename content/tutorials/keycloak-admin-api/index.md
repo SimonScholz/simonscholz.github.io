@@ -3,7 +3,7 @@ id: "keycloak-admin-api"
 path: "/tutorials/keycloak-admin-api"
 created: "2023-11-04"
 updated: "2023-11-04"
-title: "Using the keycloak admin api"
+title: "Keycloak admin api"
 description: "Giving access to a realm using service providers"
 author: "Simon Scholz"
 tags:

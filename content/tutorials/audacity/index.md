@@ -5,6 +5,7 @@ created: "2023-09-16"
 updated: "2023-09-16"
 title: "Audacity"
 description: "Tutorial about the usage of Audacity"
+draft: true
 author: "Simon Scholz"
 tags: ["audio", "sound", "editing", "tool"]
 vgWort: "vg08.met.vgwort.de/na/17b559a93cb14a089ba7fce3a4f176d8"
