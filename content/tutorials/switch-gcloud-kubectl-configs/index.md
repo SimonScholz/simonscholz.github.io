@@ -70,7 +70,7 @@ NAME     IS_ACTIVE  ACCOUNT            PROJECT          COMPUTE_DEFAULT_ZONE  CO
 default  True       simon@example.com  YOUR_PROJECT_ID  europe-west1-b        europe-west1
 ```
 
-### Create dev-config:
+### Create dev-config
 
 ```bash
 gcloud config configurations create dev-config
@@ -83,7 +83,7 @@ gcloud config set compute/region YOUR_DEV_COMPUTE_REGION
 
 Replace `YOUR_DEV_PROJECT_ID` and `YOUR_DEV_COMPUTE_ZONE` with the appropriate values for your development environment. Configure other properties, such as credentials or region, as needed for your use case.
 
-### Create prod-config:
+### Create prod-config
 
 ```bash
 gcloud config configurations create prod-config
@@ -129,7 +129,7 @@ contexts:
 
 Be sure to configure kubectl for your development and production gcp project as described in the previous section: [Configure kubectl with Google Cloud](https://simonscholz.github.io/tutorials/switch-gcloud-kubectl-configs#configure-kubectl-with-google-cloud)
 
-## Alias for Easy Switching of Both gcloud and kubectl
+## Alias for switching both, gcloud and kubectl
 
 To simplify context switching and ensure that both gcloud and kubectl are using the correct configurations, you can create aliases that activate the appropriate Google Cloud configuration and switch the kubectl context simultaneously.
 

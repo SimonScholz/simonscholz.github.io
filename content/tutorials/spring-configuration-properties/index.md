@@ -84,6 +84,22 @@ or
 class ApplicationConfigurationProperties
 ```
 
+## Inject Configuration Properties
+
+With these steps completed, you can now inject the `SimonScholzProperties` data class into your Spring components.
+
+```kotlin [SomeService.kt]
+import org.springframework.stereotype.Service
+
+@Service
+class SomeService(private val simonScholzProperties: SimonScholzProperties) {
+    fun someMethod() {
+        println(simonScholzProperties.thirdPartyUrl)
+        println(simonScholzProperties.thirdPartyAuth)
+    }
+}
+```
+
 # Sources
 
 - https://reflectoring.io/spring-boot-configuration-properties/
