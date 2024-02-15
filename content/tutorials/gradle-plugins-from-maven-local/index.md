@@ -24,11 +24,11 @@ And besides local testing I recently created a Pull Request for a Gradle plugin 
 First, we need a Gradle plugin to test. We can create one with the [Gradle plugin development plugin](https://docs.gradle.org/current/userguide/java_gradle_plugin.html#sec:java_gradle_plugin). Create a new directory and run the following command in it:
 
 ```bash
-mdkir local-gradle-plugin
+mkdir local-gradle-plugin
 cd local-gradle-plugin
 
 gradle init \
-    --use-defaults
+    --use-defaults \
     --type kotlin-gradle-plugin \
     --dsl kotlin \
     --project-name local-gradle-plugin \
@@ -69,6 +69,15 @@ class LocalPluginDependenciesPlugin: Plugin<Project> {
 }
 ```
 
+## Add a group and a version to the plugin
+
+To use the plugin in another project we need to add a version to the plugin. We can do that by adding a `version` property to the `gradlePlugin` block in the `build.gradle.kts` file of the `plugin` folder:
+
+```kotlin [build.gradle.kts]
+version = "0.1.0"
+group = "com.example.greeting"
+```
+
 ## Deploy the plugin to the local Maven repository
 
 To test the plugin locally we need to deploy it to the local Maven repository. We can do that with the [Maven Publish plugin](https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:plugin).
@@ -92,14 +101,6 @@ With the `maven-publish` plugin in place we can now deploy the plugin to the loc
 ./gradlew publishToMavenLocal
 ```
 
-## Add a version to the plugin
-
-To use the plugin in another project we need to add a version to the plugin. We can do that by adding a `version` property to the `gradlePlugin` block in the `build.gradle.kts` file of the `plugin` folder:
-
-```kotlin [build.gradle.kts]
-version = "0.1.0"
-```
-
 ## Use the plugin in another project
 
 ### Create a new project
@@ -107,6 +108,7 @@ version = "0.1.0"
 Let's use the init task again to create an application, which uses the plugin we just created.
 
 ```bash
+cd .. # go back to the parent directory, where we created the plugin
 mkdir local-plugin-dependency
 cd local-plugin-dependency
 
@@ -163,13 +165,19 @@ pluginManagement {
     repositories {
         mavenCentral()
         gradlePluginPortal()
-        maven(url = "./locaL-plugins/repository")
+        maven(url = "./local-plugins/repository")
     }
 }
 ```
 
 The contents of the `local-plugins/repository` then need to be copied from the local Maven repository.
-For our example it would be `~/.m2/repository/com/example/local-gradle-plugin/0.1.0`.
+For our example it would be `~/.m2/repository/com/example/greeting/`.
+
+![Use local dependency](./use-local-dependency.png)
+
+When the plugin you want to use is part of the source code repository a CI/CD pipeline can pick up the local plugin and use it in the pipeline.
+
+Now you can run `./gradlew greeting` again and this time it will use the local plugin.
 
 ## Sources
 
