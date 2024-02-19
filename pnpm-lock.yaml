@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.0.1
     version: 1.0.1(postcss@8.4.35)(rollup@3.29.4)(vue@3.4.18)
   '@nuxthq/studio':
-    specifier: ^1.0.10
-    version: 1.0.10(rollup@3.29.4)
+    specifier: ^1.0.11
+    version: 1.0.11(rollup@3.29.4)
   '@nuxtjs/color-mode':
     specifier: ^3.3.2
     version: 3.3.2(rollup@3.29.4)
@@ -1552,12 +1552,15 @@ packages:
       - vti
       - vue-tsc
 
-  /@nuxthq/studio@1.0.10(rollup@3.29.4):
-    resolution: {integrity: sha512-F0Gd4H/YfsVorg0EZ5+++/pG7WC8S9jvWg4CNQH0ZZXCcqFE6cSvxExtkfjJEDLEswp2OYLF8tCSkrYVQsFQqQ==}
+  /@nuxthq/studio@1.0.11(rollup@3.29.4):
+    resolution: {integrity: sha512-MLrs/qvGqaSp+q3pezBTcRfkTHOJs9+MP0IIzSPwVCl4mncu4/1jyVLF7XjcjV4V91NFXJ/cjCNBQQWRsU7uLg==}
     dependencies:
       '@nuxt/kit': 3.10.1(rollup@3.29.4)
       defu: 6.1.4
+      git-url-parse: 14.0.0
       nuxt-component-meta: 0.6.3(rollup@3.29.4)
+      parse-git-config: 3.0.0
+      pkg-types: 1.0.3
       socket.io-client: 4.7.4
       ufo: 1.4.0
       untyped: 1.4.2
@@ -4010,6 +4013,12 @@ packages:
     resolution: {integrity: sha512-PCFJyeSSdtnbfhSNRw9Wk96dDCNx+sogTe4YNXeXSJxt7xz5hvXekuRn9JX7m+Mf4OscCu8h+mtAl3+h5Fo8lQ==}
     dependencies:
       git-up: 7.0.0
+
+  /git-url-parse@14.0.0:
+    resolution: {integrity: sha512-NnLweV+2A4nCvn4U/m2AoYu0pPKlsmhK9cknG7IMwsjFY1S2jxM+mAhsDxyxfCIGfGaD+dozsyX4b6vkYc83yQ==}
+    dependencies:
+      git-up: 7.0.0
+    dev: false
 
   /github-slugger@2.0.0:
     resolution: {integrity: sha512-IaOQ9puYtjrkq7Y0Ygl9KDZnrf/aiUJYUpVf89y8kyaxbRG7Y1SrX/jaumrv81vc61+kiMempujsM3Yw7w5qcw==}
