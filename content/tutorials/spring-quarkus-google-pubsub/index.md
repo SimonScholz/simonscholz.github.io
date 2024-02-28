@@ -2,7 +2,7 @@
 id: "spring-quarkus-google-pubsub"
 path: "/tutorials/spring-quarkus-google-pubsub"
 created: "2023-11-11"
-updated: "2023-11-11"
+updated: "2023-02-28"
 title: "Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 description: "Make use of the Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 author: "Simon Scholz"
@@ -72,6 +72,12 @@ curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/
 tail -f /dev/null
 ```
 
+Make sure that the `init-pubsub.sh` script is executable:
+
+```bash
+chmod +x init-pubsub.sh
+```
+
 The `&` at the end of the emulator start command is used to run the emulator in the background. The `tail -f /dev/null` command is used to keep the container alive.
 
 Check if topics and subscriptions were created successfully:
@@ -93,7 +99,7 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-crea
   "messages": [
     {
       "attributes": {
-        "ID": "12345",
+        "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       }
     }
@@ -110,16 +116,16 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-crea
   "messages": [
     {
       "attributes": {
-        "ID": "12345",
+        "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       },
-      "data": "eyJJRCI6ICIxMjM0NSIsICJuYW1lIjogIkpvaG4gRG9lIn0="
+      "data": "eyJET01BSU5fT0JKRUNUX0lEIjogIjEyMzQ1IiwgIm5hbWUiOiAiSm9obiBEb2UifQ=="
     }
   ]
 }'
 ```
 
-The actual json data is `{"ID": "12345", "name": "John Doe"}`, but it must be base64 encoded.
+The actual json data is `{"DOMAIN_OBJECT_ID": "12345", "name": "John Doe"}`, but it must be base64 encoded.
 Also see [Publishing json message to PubSub](https://cloud.google.com/knowledge/kb/publishing-json-message-to-pub-sub-topic-fails-with-400-bad-request-error-000004171)
 
 The first example does not use the `data` property, since it is optional. 
@@ -158,7 +164,7 @@ The return value of a pull should look similar to this:
     "ackId": "projects/sample-project-id/subscriptions/user-created-topic-sub:1",
     "message": {
       "attributes": {
-        "ID": "12345",
+        "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       },
       "messageId": "1",
@@ -191,11 +197,11 @@ Start by creating a new Spring Boot project. You can use the Spring Initializer 
 You just need to make sure to add the following dependencies:
 
 ```kotlin [build.gradle.kts]
+implementation("org.springframework.boot:spring-boot-starter-integration")
 implementation("com.google.cloud:spring-cloud-gcp-starter-pubsub")
-implementation("org.springframework.integration:spring-integration-core")
 
 // optional, but helpful to use rest to test publishing
-implementation("org.springframework.boot:spring-boot-starter-web")
+implementation("org.springframework.boot:spring-boot-starter-webflux")
 ```
 
 ### Configure Application Properties
@@ -217,7 +223,7 @@ spring:
 To configure the Google Cloud project ID and credentials, we need to create a `@Configuration` like this:
 
 ```kotlin [GcpConfig.kt]
-package io.github.simonscholz.pubsub.config
+package io.github.simonscholz.pubsub
 
 import com.google.api.gax.core.CredentialsProvider
 import com.google.api.gax.core.NoCredentialsProvider
@@ -225,6 +231,7 @@ import com.google.cloud.spring.core.GcpProjectIdProvider
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 
 @Configuration
 @Profile("local")
@@ -251,7 +258,7 @@ On how to do this with secrets, environment variables and terraform see later se
 
 To subscribe to a Google Cloud Pub/Sub topic, we need to create a `@Configuration` like this:
 
-```kotlin [PubSubConfiguration.kt]
+```kotlin [PubSubConfig.kt]
 package io.github.simonscholz.pubsub
 
 import com.google.cloud.spring.pubsub.core.PubSubTemplate
@@ -273,13 +280,12 @@ import org.springframework.messaging.MessageHandler
 @Configuration
 class PubSubConfig {
 
-    private val LOGGER: Logger = LoggerFactory.getLogger(PubSubConfig::class.java)
-
     @Bean
     fun messageChannelAdapter(
         @Qualifier("pubsubInputChannel") inputChannel: MessageChannel,
         pubSubTemplate: PubSubTemplate,
-    ): PubSubInboundChannelAdapter = PubSubInboundChannelAdapter(pubSubTemplate, "sample-topic-sub").apply {
+    ): PubSubInboundChannelAdapter =
+        PubSubInboundChannelAdapter(pubSubTemplate, "user-created-json-topic-sub").apply {
             outputChannel = inputChannel
             setAckMode(AckMode.MANUAL)
         }
@@ -291,15 +297,123 @@ class PubSubConfig {
     @ServiceActivator(inputChannel = "pubsubInputChannel")
     fun messageReceiver(): MessageHandler =
         MessageHandler { message ->
-            LOGGER.info("Message arrived! Payload: " + String((message.payload as ByteArray)))
+            LOGGER.info("Message arrived! Payload: ${String((message.payload as ByteArray))}")
+            LOGGER.info("Headers: ${message.headers}")
             val originalMessage: BasicAcknowledgeablePubsubMessage? = message.headers.get(GcpPubSubHeaders.ORIGINAL_MESSAGE, BasicAcknowledgeablePubsubMessage::class.java)
-            LOGGER.info(originalMessage?.pubsubMessage?.data?.toStringUtf8())
+            LOGGER.info("Data: ${originalMessage?.pubsubMessage?.data?.toStringUtf8()}")
+            LOGGER.info("Attributes: ${originalMessage?.pubsubMessage?.attributesMap}")
             originalMessage?.ack()
         }
+
+    companion object {
+        private val LOGGER: Logger = LoggerFactory.getLogger(PubSubConfig::class.java)
+    }
 }
 ```
 
-Alternatively, you can use the `@ServiceActivator` annotation in a separate `@Component` to subscribe to a Google Cloud Pub/Sub topic:
+When having the `PubSubInboundChannelAdapter` bean and `MessageChannel` bean, the `@ServiceActivator` bean will be called when a message arrives.
+
+There are many different ways to use a `@ServiceActivator`, the following examples will illustrate some of them.
+
+### Using a MessageHandler bean
+
+You can use a `MessageHandler` instance to subscribe to a Google Cloud Pub/Sub topic:
+
+```kotlin [PubSubConfig.kt]
+package io.github.simonscholz.pubsub
+
+import com.google.cloud.spring.pubsub.core.PubSubTemplate
+import com.google.cloud.spring.pubsub.integration.AckMode
+import com.google.cloud.spring.pubsub.integration.inbound.PubSubInboundChannelAdapter
+import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage
+import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+import org.springframework.integration.annotation.ServiceActivator
+import org.springframework.integration.channel.DirectChannel
+import org.springframework.messaging.MessageChannel
+import org.springframework.messaging.MessageHandler
+
+
+@Configuration
+class PubSubConfig {
+
+    @Bean
+    fun messageChannelAdapter(
+        @Qualifier("pubsubInputChannel") inputChannel: MessageChannel,
+        pubSubTemplate: PubSubTemplate,
+    ): PubSubInboundChannelAdapter =
+        PubSubInboundChannelAdapter(pubSubTemplate, "user-created-json-topic-sub").apply {
+            outputChannel = inputChannel
+            setAckMode(AckMode.MANUAL)
+        }
+
+    @Bean
+    fun pubsubInputChannel(): MessageChannel = DirectChannel()
+
+    @Bean
+    @ServiceActivator(inputChannel = "pubsubInputChannel")
+    fun messageReceiver(): MessageHandler =
+        MessageHandler { message ->
+            LOGGER.info("Message arrived! Payload: ${String((message.payload as ByteArray))}")
+            LOGGER.info("Headers: ${message.headers}")
+            val originalMessage: BasicAcknowledgeablePubsubMessage? = message.headers.get(GcpPubSubHeaders.ORIGINAL_MESSAGE, BasicAcknowledgeablePubsubMessage::class.java)
+            LOGGER.info("Data: ${originalMessage?.pubsubMessage?.data?.toStringUtf8()}")
+            LOGGER.info("Attributes: ${originalMessage?.pubsubMessage?.attributesMap}")
+            originalMessage?.ack()
+        }
+
+    companion object {
+        private val LOGGER: Logger = LoggerFactory.getLogger(PubSubConfig::class.java)
+    }
+}
+```
+
+### Using a `@ServiceActivator` with `@Payload` and `@Header` annotations
+
+You can use a `@ServiceActivator` with `@Payload` and `@Header` annotations to subscribe to a Google Cloud Pub/Sub topic:
+
+```kotlin [Receiver.kt]
+package io.github.simonscholz.pubsub
+
+import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage
+import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders
+import org.slf4j.LoggerFactory
+import org.springframework.integration.annotation.ServiceActivator
+import org.springframework.messaging.handler.annotation.Header
+import org.springframework.messaging.handler.annotation.Payload
+import org.springframework.stereotype.Component
+
+@Component
+class Receiver {
+
+    @ServiceActivator(inputChannel = "pubsubInputChannel")
+    fun messageReceiver(
+        @Header(GcpPubSubHeaders.ORIGINAL_MESSAGE) message: BasicAcknowledgeablePubsubMessage,
+        @Header("DOMAIN_OBJECT_ID") domainObjectId: String,
+        @Payload payload: String,
+    ) {
+        LOGGER.info("Message arrived! ORIGINAL_MESSAGE: $message")
+        LOGGER.info("DOMAIN_OBJECT_ID: $domainObjectId")
+        LOGGER.info("Payload: $payload")
+        message.ack()
+    }
+
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(Receiver::class.java)
+    }
+}
+```
+
+It is convenient to use the `@Header` and `@Payload` annotations to obtain the message payload and headers.
+There this is my preferred way to use the `@ServiceActivator` annotation.
+
+### Just obtain the message payload
+
+You can even just obtain the message payload in the `@ServiceActivator` method:
 
 ```kotlin [Receiver.kt]
 package io.github.simonscholz.pubsub
@@ -322,23 +436,27 @@ class Receiver {
 }
 ```
 
+This is less explicit, but it is possible to obtain the message payload directly without using the `@Header` and `@Payload` annotations.
+
+### Test the Subscription
+
 To test the subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" \
--H "Content-Type: application/json" \
--d '{
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" -H "Content-Type: application/json" -d '{
   "messages": [
     {
       "attributes": {
-        "ID": "12345",
+        "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       },
-      "data": "MESSAGE_DATA"
+      "data": "eyJET01BSU5fT0JKRUNUX0lEIjogIjEyMzQ1IiwgIm5hbWUiOiAiSm9obiBEb2UifQ=="
     }
   ]
 }'
 ```
+
+Watch the logs of the Spring Boot application to see the message being received.
 
 # Sources
 
