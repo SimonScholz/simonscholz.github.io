@@ -9,8 +9,8 @@
   "devDependencies": {
     "@nuxt/content": "^2.12.0",
     "@nuxtjs/tailwindcss": "^6.11.4",
-    "@types/node": "^20.11.17",
-    "nuxt": "^3.10.1",
+    "@types/node": "^20.11.22",
+    "nuxt": "^3.10.3",
     "nuxt-icon": "^0.6.8",
     "sitemap": "^7.1.1",
     "typescript": "^5.3.3"
@@ -19,10 +19,10 @@
     "@nuxt-themes/elements": "^1.0.6",
     "@nuxt-themes/tokens": "^2.1.1",
     "@nuxt-themes/typography": "^1.0.1",
-    "@nuxthq/studio": "^1.0.10",
+    "@nuxthq/studio": "^1.0.12",
     "@nuxtjs/color-mode": "^3.3.2",
     "@nuxtjs/robots": "^3.0.0",
-    "@vueuse/core": "^10.7.2",
+    "@vueuse/core": "^10.9.0",
     "klaro": "^0.7.18",
     "nuxt-content-assets": "^1.3.3",
     "remark-reading-time": "^2.0.1"
