@@ -52,6 +52,10 @@ export default defineNuxtConfig({
       preload: ["kotlin", "java", "bash", "ini", "json", "yaml", "xml"],
     },
     markdown: {
+      toc: {
+        depth: 3,
+        searchDepth: 3,
+      },
       // https://www.npmjs.com/package/remark-reading-time
       remarkPlugins: ["remark-reading-time"],
       // https://github.com/rehypejs/rehype-external-links

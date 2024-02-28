@@ -60,6 +60,15 @@ const toggleToc = () => {
 
 .toc-link_3::before {
   @apply pr-2;
-  content: "-";
+  content: "•";
+}
+
+.toc-link_4 {
+  @apply pl-8;
+}
+
+.toc-link_4::before {
+  @apply pr-2;
+  content: "‣";
 }
 </style>
