@@ -6,7 +6,7 @@ updated: "2023-11-11"
 title: "Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 description: "Make use of the Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 author: "Simon Scholz"
-tags: ["kotlin", "jvm", "Spring Boot", "Spring", "Quarkus", "Google Cloud", "Pub/Sub"]
+tags: ["kotlin", "jvm", "Spring Boot", "Spring", "Quarkus", "Google Cloud", "Pub/Sub", "PubSub"]
 vgWort: "vg09.met.vgwort.de/na/6f076d8ae6c94cabb754f02cab413c70"
 ---
 
@@ -33,7 +33,7 @@ version: '3.9'
 services:
   
   pubsub-emulator:
-    image: gcr.io/google.com/cloudsdktool/cloud-sdk:453.0.0-emulators
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:466.0.0-emulators
     container_name: pubsub-emulator
     ports:
       - "8685:8685"
@@ -55,18 +55,18 @@ gcloud beta emulators pubsub start --host-port 0.0.0.0:8685 --project=sample-pro
 sleep 5
 
 # Create Pub/Sub topics
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-event-topic'
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-topic'
 
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic'
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic'
 
 # Create Pub/Sub subscriptions
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/domain-event-topic-sub' \
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-topic-sub' \
     -H 'Content-Type: application/json' \
-    --data '{"topic":"projects/sample-project-id/topics/domain-event-topic"}'
+    --data '{"topic":"projects/sample-project-id/topics/user-created-topic"}'
 
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub' \
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-json-topic-sub' \
     -H 'Content-Type: application/json' \
-    --data '{"topic":"projects/sample-project-id/topics/json-topic"}'
+    --data '{"topic":"projects/sample-project-id/topics/user-created-json-topic"}'
 
 # Keep the script running to keep the container alive
 tail -f /dev/null
@@ -87,7 +87,7 @@ curl -X GET 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions'
 To publish to a Google Cloud Pub/Sub topic, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-event-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
@@ -104,7 +104,7 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-ev
 Or using json data:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
@@ -132,17 +132,17 @@ Later, we'll use a Spring Boot application and a Quarkus application to publish 
 To pull from a Google Cloud Pub/Sub subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/domain-event-topic-sub:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-topic-sub:pull" \
 -H "Content-Type: application/json" \
 -d '{
   "maxMessages": 10
 }'
 ```
 
-Or from the json subscription:
+Or from the `user-created-json-topic` subscription:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-json-topic:pull" \
 -H "Content-Type: application/json" \
 -d '{
   "maxMessages": 10
@@ -155,7 +155,7 @@ The return value of a pull should look similar to this:
 ```json
 {
   "receivedMessages": [{
-    "ackId": "projects/sample-project-id/subscriptions/domain-event-topic-sub:1",
+    "ackId": "projects/sample-project-id/subscriptions/user-created-topic-sub:1",
     "message": {
       "attributes": {
         "ID": "12345",
@@ -171,11 +171,11 @@ The return value of a pull should look similar to this:
 You can acknowledge these messages by using the given `ackId` and calling the following:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/domain-event-topic-sub:acknowledge" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-topic-sub:acknowledge" \
 -H "Content-Type: application/json" \
 -d '{
   "ackIds": [
-    "projects/sample-project-id/subscriptions/domain-event-topic-sub:1"
+    "projects/sample-project-id/subscriptions/user-created-topic-sub:1"
   ]
 }'
 ```
@@ -325,7 +325,7 @@ class Receiver {
 To test the subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/domain-event-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
