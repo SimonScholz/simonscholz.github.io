@@ -2,7 +2,7 @@
 id: "spring-quarkus-google-pubsub"
 path: "/tutorials/spring-quarkus-google-pubsub"
 created: "2023-11-11"
-updated: "2023-02-28"
+updated: "2024-02-28"
 title: "Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 description: "Make use of the Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 author: "Simon Scholz"
@@ -264,17 +264,11 @@ package io.github.simonscholz.pubsub
 import com.google.cloud.spring.pubsub.core.PubSubTemplate
 import com.google.cloud.spring.pubsub.integration.AckMode
 import com.google.cloud.spring.pubsub.integration.inbound.PubSubInboundChannelAdapter
-import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage
-import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.integration.annotation.ServiceActivator
 import org.springframework.integration.channel.DirectChannel
 import org.springframework.messaging.MessageChannel
-import org.springframework.messaging.MessageHandler
 
 
 @Configuration
@@ -292,22 +286,6 @@ class PubSubConfig {
 
     @Bean
     fun pubsubInputChannel(): MessageChannel = DirectChannel()
-
-    @Bean
-    @ServiceActivator(inputChannel = "pubsubInputChannel")
-    fun messageReceiver(): MessageHandler =
-        MessageHandler { message ->
-            LOGGER.info("Message arrived! Payload: ${String((message.payload as ByteArray))}")
-            LOGGER.info("Headers: ${message.headers}")
-            val originalMessage: BasicAcknowledgeablePubsubMessage? = message.headers.get(GcpPubSubHeaders.ORIGINAL_MESSAGE, BasicAcknowledgeablePubsubMessage::class.java)
-            LOGGER.info("Data: ${originalMessage?.pubsubMessage?.data?.toStringUtf8()}")
-            LOGGER.info("Attributes: ${originalMessage?.pubsubMessage?.attributesMap}")
-            originalMessage?.ack()
-        }
-
-    companion object {
-        private val LOGGER: Logger = LoggerFactory.getLogger(PubSubConfig::class.java)
-    }
 }
 ```
 
@@ -315,7 +293,7 @@ When having the `PubSubInboundChannelAdapter` bean and `MessageChannel` bean, th
 
 There are many different ways to use a `@ServiceActivator`, the following examples will illustrate some of them.
 
-### Using a MessageHandler bean
+#### Using a MessageHandler bean
 
 You can use a `MessageHandler` instance to subscribe to a Google Cloud Pub/Sub topic:
 
@@ -372,7 +350,7 @@ class PubSubConfig {
 }
 ```
 
-### Using a `@ServiceActivator` with `@Payload` and `@Header` annotations
+#### Using a `@ServiceActivator` with `@Payload` and `@Header` annotations
 
 You can use a `@ServiceActivator` with `@Payload` and `@Header` annotations to subscribe to a Google Cloud Pub/Sub topic:
 
@@ -411,7 +389,7 @@ class Receiver {
 It is convenient to use the `@Header` and `@Payload` annotations to obtain the message payload and headers.
 There this is my preferred way to use the `@ServiceActivator` annotation.
 
-### Just obtain the message payload
+#### Just obtain the message payload
 
 You can even just obtain the message payload in the `@ServiceActivator` method:
 
