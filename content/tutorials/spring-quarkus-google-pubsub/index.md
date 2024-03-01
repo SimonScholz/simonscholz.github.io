@@ -188,7 +188,7 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/us
 
 Later, we'll use a Spring Boot application and a Quarkus application to pull from a Google Cloud Pub/Sub subscription.
 
-## Create a Spring Boot Project
+## Spring Boot Project
 
 Start by creating a new Spring Boot project. You can use the Spring Initializer (https://start.spring.io/) or your IDE to generate a new project.
 
@@ -436,7 +436,133 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-crea
 
 Watch the logs of the Spring Boot application to see the message being received.
 
-# Sources
+### Publish to a Google Cloud Pub/Sub Topic
+
+The `PubSubConfig` can be adjusted to also provide a `MessageHandler` instance for outgoing messages:
+
+```kotlin [PubSubConfig.kt]
+  
+  // ... other existing code
+
+  @Bean
+  @ServiceActivator(inputChannel = "pubsubOutputChannel")
+  fun messageSender(pubsubTemplate: PubSubTemplate): MessageHandler {
+      return PubSubMessageHandler(pubsubTemplate, "user-created-json-topic")
+  }
+```
+
+This `pubsubOutputChannel` can then be used by a `MessagingGateway` interface:
+
+```kotlin [PubsubOutboundGateway.kt]
+package io.github.simonscholz.pubsub
+
+import org.springframework.integration.annotation.MessagingGateway
+import org.springframework.messaging.handler.annotation.Header
+
+@MessagingGateway(defaultRequestChannel = "pubsubOutputChannel")
+interface PubsubOutboundGateway {
+    fun sendToPubsub(text: String, @Header("DOMAIN_OBJECT_ID") domainObjectId: String)
+}
+```
+
+Note that instead of using plain text and `@Header` domainObjectId as parameters, you can also use a `import org.springframework.messaging.Message` object as parameter to get more fine grained control over the message being sent.
+
+The `PubsubOutboundGateway` can then be injected into a `@Service` or `@RestController`, so that it can be used to send messages to the Google Cloud Pub/Sub topic:
+
+```kotlin [SampleRestController.kt]
+package io.github.simonscholz.pubsub
+
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class SampleRestController(
+    private val pubsubOutboundGateway: PubsubOutboundGateway,
+) {
+
+    @PostMapping("/send")
+    fun sendToPubsub() {
+        pubsubOutboundGateway.sendToPubsub(
+            text = "{\"DOMAIN_OBJECT_ID\": \"12345\", \"name\": \"John Doe\"}",
+            domainObjectId = "12345"
+        )
+    }
+}
+```
+
+The following `curl` command can be used to test the `SampleRestController`:
+
+```bash
+curl -X POST -H "Content-Type: application/json" --data '{"DOMAIN_OBJECT_ID": "12345", "name": "John Doe"}' http://localhost:8080/send
+```
+
+This will then send a message to the Google Cloud Pub/Sub topic and the former created `@ServiceActivator` will receive the message.
+
+### Using low level Google Cloud Pub/Sub API
+
+If you want to use the low level Google Cloud Pub/Sub API, you can use the `PubSubTemplate` bean to publish messages to a Google Cloud Pub/Sub topic:
+
+```kotlin [Publisher.kt]
+package io.github.simonscholz.pubsub
+
+import com.google.api.core.ApiFutureCallback
+import com.google.api.core.ApiFutures
+import com.google.api.gax.core.CredentialsProvider
+import com.google.api.gax.rpc.TransportChannelProvider
+import com.google.cloud.pubsub.v1.Publisher
+import com.google.cloud.spring.core.GcpProjectIdProvider
+import com.google.common.util.concurrent.MoreExecutors
+import com.google.pubsub.v1.ProjectTopicName
+import com.google.pubsub.v1.PubsubMessage
+import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Component
+
+@Component
+class Publisher(
+    gcpProjectIdProvider: GcpProjectIdProvider,
+    credentialsProvider: CredentialsProvider,
+    publisherTransportChannelProvider: TransportChannelProvider,
+) {
+
+    private val publisher = Publisher.newBuilder(
+        ProjectTopicName.ofProjectTopicName(
+            gcpProjectIdProvider.projectId,
+            "user-created-json-topic",
+        )
+    )
+        .setChannelProvider(publisherTransportChannelProvider)
+        .setCredentialsProvider(credentialsProvider)
+        .build()
+
+    fun publishUserCreated() {
+        val pubsubMessage = PubsubMessage.newBuilder()
+            .putAttributes("DOMAIN_OBJECT_ID", "12345")
+            .setData(ByteString.copyFrom("{\"DOMAIN_OBJECT_ID\": \"12345\", \"name\": \"John Doe\"}".toByteArray()))
+            .build()
+
+        val apiFuture = publisher.publish(pubsubMessage)
+        ApiFutures.addCallback(
+            apiFuture,
+            object : ApiFutureCallback<String?> {
+                override fun onFailure(throwable: Throwable) {
+                    LOGGER.error("Error publishing user created event: $pubsubMessage", throwable)
+                }
+
+                override fun onSuccess(messageId: String?) {
+                    LOGGER.trace("Published user created event, messageId: $messageId, PubSub-Message: $pubsubMessage")
+                }
+            },
+            MoreExecutors.directExecutor(),
+        )
+    }
+
+    companion object {
+        private val LOGGER = LoggerFactory.getLogger(Publisher::class.java)
+    }
+}
+```
+
+## Sources
 
 - https://cloud.google.com/pubsub/docs/publisher#rest
 - https://cloud.google.com/pubsub/docs/emulator
