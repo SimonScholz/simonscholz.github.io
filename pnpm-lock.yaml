@@ -15,8 +15,8 @@ dependencies:
     specifier: ^1.0.1
     version: 1.0.1(postcss@8.4.35)(rollup@3.29.4)(vue@3.4.21)
   '@nuxthq/studio':
-    specifier: ^1.0.12
-    version: 1.0.12(rollup@3.29.4)
+    specifier: ^1.0.13
+    version: 1.0.13(rollup@3.29.4)
   '@nuxtjs/color-mode':
     specifier: ^3.3.2
     version: 3.3.2(rollup@3.29.4)
@@ -1562,8 +1562,8 @@ packages:
       - vti
       - vue-tsc
 
-  /@nuxthq/studio@1.0.12(rollup@3.29.4):
-    resolution: {integrity: sha512-3Ak5reS5B6onFg41dgB8a5vcZRXeoSIlReHDiWghz7gMjlpE0cGSAdu/xYcOZvHWgjOKVhPAQ6zNwUbUvBlU1w==}
+  /@nuxthq/studio@1.0.13(rollup@3.29.4):
+    resolution: {integrity: sha512-C4j+K53om5Kj5xLrehWEbnDJlid5tDsHP7QdOIsK550dHOxPmvaXMH4YxsSNU8cDppMheMbN59zdYhQaQfko6g==}
     dependencies:
       '@nuxt/kit': 3.10.3(rollup@3.29.4)
       defu: 6.1.4
