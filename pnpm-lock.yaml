@@ -31,15 +31,15 @@ dependencies:
     version: 0.7.18
   nuxt-content-assets:
     specifier: ^1.3.3
-    version: 1.3.3(@nuxt/content@2.12.0)(rollup@3.29.4)
+    version: 1.3.3(@nuxt/content@2.12.1)(rollup@3.29.4)
   remark-reading-time:
     specifier: ^2.0.1
     version: 2.0.1
 
 devDependencies:
   '@nuxt/content':
-    specifier: ^2.12.0
-    version: 2.12.0(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21)
+    specifier: ^2.12.1
+    version: 2.12.1(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21)
   '@nuxtjs/tailwindcss':
     specifier: ^6.11.4
     version: 6.11.4(rollup@3.29.4)
@@ -1293,11 +1293,11 @@ packages:
       - vue
     dev: false
 
-  /@nuxt/content@2.12.0(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21):
-    resolution: {integrity: sha512-XQkbkJzFRWKdX4aoVDprqLphbQGDsRX35ZRgHe4i7Phe3F1z2EzXVhZ9WXBTmpXau3MkLlmsQ+NzcRns1kOOvQ==}
+  /@nuxt/content@2.12.1(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21):
+    resolution: {integrity: sha512-xW4xjyYm6zqglb17Tu0J+rpKUV1PF9zp6SLu1lopylFnerdyImtce84206HT6Zd/DJgivKtoW4dyyJn0ZaSqCQ==}
     dependencies:
       '@nuxt/kit': 3.10.3(rollup@3.29.4)
-      '@nuxtjs/mdc': 0.5.0(rollup@3.29.4)
+      '@nuxtjs/mdc': 0.6.1(rollup@3.29.4)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       '@vueuse/head': 2.0.0(vue@3.4.21)
       '@vueuse/nuxt': 10.9.0(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21)
@@ -1592,8 +1592,8 @@ packages:
       - supports-color
     dev: false
 
-  /@nuxtjs/mdc@0.5.0(rollup@3.29.4):
-    resolution: {integrity: sha512-480Ajc7o/YAl9b21btd0oRtVe/UjUWmVSEWauS+H+izwEGdGvJTVfZRdaiAXcXKl+UmUTpf+POel027sE9HAZQ==}
+  /@nuxtjs/mdc@0.6.1(rollup@3.29.4):
+    resolution: {integrity: sha512-zS5QK7DZ/SBrjqQX1DOy7GnxKy+wbj2+LvooefOWmQqHfLTAqJLVIjuv/BmKnQWiRCq19+uysys3iY42EoY5/A==}
     dependencies:
       '@nuxt/kit': 3.10.3(rollup@3.29.4)
       '@shikijs/transformers': 1.1.7
@@ -1620,7 +1620,7 @@ packages:
       rehype-sort-attributes: 5.0.0
       remark-emoji: 4.0.1
       remark-gfm: 4.0.0
-      remark-mdc: 3.0.2
+      remark-mdc: 3.1.0
       remark-parse: 11.0.0
       remark-rehype: 11.1.0
       scule: 1.3.0
@@ -5851,13 +5851,13 @@ packages:
       - supports-color
     dev: false
 
-  /nuxt-content-assets@1.3.3(@nuxt/content@2.12.0)(rollup@3.29.4):
+  /nuxt-content-assets@1.3.3(@nuxt/content@2.12.1)(rollup@3.29.4):
     resolution: {integrity: sha512-AfxE83bPt4FVkdnzV1UxFz9IC8j/UT7qWutroa5EDqAjDv1229Kz9MxY3ixIDk+JlgxWKELSoQn8/xu9QCii2w==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@nuxt/content': ^2.0.0
     dependencies:
-      '@nuxt/content': 2.12.0(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21)
+      '@nuxt/content': 2.12.1(nuxt@3.10.3)(rollup@3.29.4)(vue@3.4.21)
       '@nuxt/kit': 3.10.3(rollup@3.29.4)
       crosspath: 2.0.0
       debounce: 1.2.1
@@ -6919,8 +6919,8 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /remark-mdc@3.0.2:
-    resolution: {integrity: sha512-HoCaTwIkvYp1Kj9EiKMNpfAjLO53PwiaeA5J2o+uIBfCHjcOWai3oDmCkEZVCIHbHgU/qSZ8JeiQftksnVKTeQ==}
+  /remark-mdc@3.1.0:
+    resolution: {integrity: sha512-5Hf5w2u59AgzclopOPwMUW4FgEWW6s7AVJf1yRIRIIfydBGrq7sW1rhnwMxsswt9bbMPxiuDwImh8DXPfyA85Q==}
     dependencies:
       '@types/mdast': 4.0.3
       '@types/unist': 3.0.2
