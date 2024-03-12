@@ -11,7 +11,7 @@ useHead({
       Contact Me
       <Icon name="mdi:hand-wave" class="ml-3" />
     </h1>
-
+<!--
     <div class="md:w-1/2">
       <form action="https://fabform.io/f/nmmFae0" method="post">
         <div class="mb-4">
@@ -38,9 +38,10 @@ useHead({
         </button>
       </form>
     </div>
+-->
 
     <p>
-      Of course you can reach out to me via email (
+      Reach out to me via email (
       <a class="text-cyan-500" href="mailto:opensource.simon@gmail.com">
         opensource.simonⓐⓣgmail.com
       </a>
