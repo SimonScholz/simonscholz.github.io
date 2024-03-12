@@ -562,6 +562,22 @@ class Publisher(
 }
 ```
 
+## Quarkus Project
+
+Start by creating a new Quarkus project. You can use the Quarkus Initializer (https://code.quarkus.io/) or your IDE to generate a new project.
+
+![Quarkus Code Generator](./code-quarkus-generator.png)
+
+This will then have the following dependencies to your `build.gradle.kts` file:
+
+```kotlin [build.gradle.kts]
+    // other dependencies
+
+    implementation(enforcedPlatform("${quarkusPlatformGroupId}:quarkus-google-cloud-services-bom:${quarkusPlatformVersion}"))
+    implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-pubsub")
+```
+
+
 ## Sources
 
 - https://cloud.google.com/pubsub/docs/publisher#rest
