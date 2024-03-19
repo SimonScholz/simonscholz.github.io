@@ -54,10 +54,16 @@ To see the config of a repository use `git config --list --show-origin`.
 In case you want to make use of SSH for cloning a SSH key needs to be created:
 
 ```shell
+ssh-keygen -t ed25519 -C $USER
+
+# or use rsa in case ed25519 is not available on your system
+
 ssh-keygen -q -t rsa -b 4096 -f ~/.ssh/id_rsa -C $USER
 ```
 
 The created public key needs to be configured on the remote origin, e.g., GitHub.
+
+You can show the public key by running `cat ~/.ssh/id_ed25519.pub` or `cat ~/.ssh/id_rsa.pub`.
 
 ## Clone a remote Git repository
 
