@@ -31,6 +31,16 @@ sudo apt update && sudo apt install nala
 
 Also see https://gitlab.com/volian/nala
 
+## Curl
+
+Curl is a really helpful cli tool for sending network requests.
+
+```bash
+sudo apt install curl
+# or using nala
+sudo nala install curl
+```
+
 ## KeePassXC
 
 One of the first things to do is installing KeePassXC where I usually store the majority of my passwords in a secure manner.
@@ -145,6 +155,17 @@ Let me list the ones I'd currently use:
 - Vue Language Features (Volar): https://marketplace.visualstudio.com/items?itemName=Vue.volar
 - Excalidraw: https://marketplace.visualstudio.com/items?itemName=pomdtr.excalidraw-editor
 
+## IntelliJ
+
+IntelliJ is a powerful IDE for using Java and/or Kotlin.
+
+```bash
+# Use ultimate
+sudo snap install intellij-idea-ultimate --classic
+# or community
+sudo snap install intellij-idea-community --classic
+```
+
 ## Node JS + NPM
 
 To run Node and NPM you can follow the steps from my other tutorial:
@@ -202,6 +223,14 @@ For other options also see https://github.com/derailed/k9s#installation
 Dropbox offers a really convenient way to store data in the cloud by integrating a dropbox client into the system file explorer.
 
 Also see: https://www.dropbox.com/install-linux
+
+You might also need to install, which is required by the dropbox client.
+
+```bash
+sudo apt install libpango
+# or using nala
+sudo nala install libpango
+```
 
 ## Chrome
 
