@@ -131,7 +131,7 @@ import gears from "~/assets/gears.png";
     </div>
     <div class="flex md:flex-row mt-3">
       <FlexInitialXlBlock>
-        <span>Nov 2020 - May 2023</span>
+        <span>Nov 2020 - April 2023</span>
         <br />
         <span>(Black Friday)</span>
       </FlexInitialXlBlock>
@@ -139,7 +139,7 @@ import gears from "~/assets/gears.png";
         <span class="font-semibold xl:mb-1">
           MediaMarktSaturn Technology, Ingolstadt
         </span>
-        <XlHiddenTimeFrame timeFrame="Since Nov 2020 (Black Friday)" />
+        <XlHiddenTimeFrame timeFrame="Nov 2020 (Black Friday) - April 2023" />
         <span class="mb-1 font-medium">
           Senior Lead Software Engineer and Competency Lead for the ADPS team
           (Availability, Delivery Promise and Sourcing)
