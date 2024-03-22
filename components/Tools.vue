@@ -61,7 +61,7 @@ const tools: Tool[] = [
     name: "Gradle",
   },
   {
-    imgSrc: "https://www.zeespire.com/assets/images/posts/0013/maven.png",
+    imgSrc: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/maven/maven-original.svg",
     name: "Maven",
   },
   {

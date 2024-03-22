@@ -577,6 +577,8 @@ This will then have the following dependencies to your `build.gradle.kts` file:
     implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-pubsub")
 ```
 
+I´ll finish this part once this issue is actually resolved: https://github.com/quarkiverse/quarkus-google-cloud-services/issues/595
+
 
 ## Sources
 
