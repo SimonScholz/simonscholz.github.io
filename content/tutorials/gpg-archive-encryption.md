@@ -2,11 +2,11 @@
 id: "gpg-archive-encryption"
 path: "/tutorials/gpg-archive-encryption"
 created: "2022-01-09"
-updated: "2022-01-09"
-title: "Security - Encrypt archive files with GPG"
-description: "Security - Tutorial about encrypting archive files using GPG."
+updated: "2024-01-20"
+title: "Security - Encrypt and decrypt files with GPG"
+description: "Security - Tutorial about encrypting and decrypting files or archives using GPG."
 author: "Simon Scholz"
-tags: ["gpg", "tar", "archive", "security"]
+tags: ["gpg", "tar", "archive", "encryption", "security"]
 vgWort: "vg08.met.vgwort.de/na/02907f362c054753bcd6be722b03301c"
 ---
 
@@ -15,6 +15,33 @@ vgWort: "vg08.met.vgwort.de/na/02907f362c054753bcd6be722b03301c"
 GPG or GnuPG is an open source software that let's you encrypt your files, which should be protected.
 
 Please visit https://gnupg.org/ for more information.
+
+## Encrypt single file
+
+```bash
+gpg -cv --no-symkey-cache desired-file
+```
+
+|                    | gpg command parameter                 |
+| ------------------ | ------------------------------------- |
+| -c                 | encryption only with symmetric cipher |
+| -v                 | verbose (get more output)             |
+| --no-symkey-cache  | do NOT cache the password             |
+
+Then you´ll be promted to enter a password.
+This will result in a `desired-file.gpg`  file, which can be decrypted again as follows:
+
+```bash
+gpg --no-symkey-cache desired-file.gpg
+```
+
+|                    | gpg command parameter                 |
+| ------------------ | ------------------------------------- |
+| --no-symkey-cache  | do NOT cache the password             |
+
+
+In case you´d omit the `--no-symkey-cache` flag the given password will be cached in the gpg-agent
+and you won´t be promted for the password when decrypting the file.
 
 ## Create an encrypted archive
 
