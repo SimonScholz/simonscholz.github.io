@@ -1,0 +1,1 @@
+import{l as s,b as c,c as o,L as t}from"./Ce5-VIi1.js";const r={},n={class:"prose-ul"};function a(e,l){return c(),o("ul",n,[t(e.$slots,"default",{},void 0,!0)])}const d=s(r,[["render",a],["__scopeId","data-v-fc70040c"]]);export{d as default};

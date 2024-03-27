@@ -1,0 +1,1 @@
+import{l as o,b as t,c as s,L as c}from"./Ce5-VIi1.js";const n={},r={class:"prose-tbody"};function _(e,a){return t(),s("tbody",r,[c(e.$slots,"default")])}const d=o(n,[["render",_]]);export{d as default};

@@ -1,0 +1,1 @@
+import{l as t,b as o,c as s,L as n}from"./Ce5-VIi1.js";const r={},c={class:"prose-tr"};function _(e,a){return o(),s("tr",c,[n(e.$slots,"default",{},void 0,!0)])}const f=t(r,[["render",_],["__scopeId","data-v-06a04ff6"]]);export{f as default};
