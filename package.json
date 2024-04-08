@@ -13,7 +13,7 @@
     "nuxt": "^3.11.1",
     "nuxt-icon": "^0.6.10",
     "sitemap": "^7.1.1",
-    "typescript": "^5.4.3"
+    "typescript": "^5.4.4"
   },
   "dependencies": {
     "@nuxt-themes/elements": "^1.0.6",
