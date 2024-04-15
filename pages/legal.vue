@@ -21,8 +21,8 @@ useHead({
 		Telephone: +4️⃣9️⃣ 1️⃣5️⃣️6️⃣️7️⃣️9️⃣️ 1️⃣6️⃣️1️⃣3️⃣️5️⃣4️⃣
 		<br />
 		E-Mail:
-		<a href="mailto:opensource.simon@gmail.com">
-			opensource.simonⓐⓣgmail.com
+		<a href="mailto:me@simonscholz.dev">
+			meⓐⓣsimonscholz.dev
 		</a>
 		<br />
 		Internet address:

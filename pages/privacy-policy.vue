@@ -185,7 +185,7 @@ useHead({
     <p>2️⃣2️⃣4️⃣1️⃣5️⃣ Hamburg</p>
     <p>Germany / Deutschland</p>
     <p>Phone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣</p>
-    <p>Email: opensource.simonⓐⓣgmail.com</p>
+    <p>Email: meⓐⓣsimonscholz.dev</p>
     <p>Website: https://simonscholz.github.io/</p>
 
     <h4>3. Cookies</h4>

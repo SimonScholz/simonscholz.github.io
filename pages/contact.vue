@@ -42,8 +42,8 @@ useHead({
 
     <p>
       Reach out to me via email (
-      <a class="text-cyan-500" href="mailto:opensource.simon@gmail.com">
-        opensource.simonⓐⓣgmail.com
+      <a class="text-cyan-500" href="mailto:me@simonscholz.dev">
+        meⓐⓣsimonscholz.dev
       </a>
       ) or on social media.
     </p>

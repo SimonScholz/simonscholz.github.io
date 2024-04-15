@@ -38,8 +38,8 @@ useHead({
             </span>
             <span class="p-1">
               <Icon name="fa-solid:paper-plane" class="mr-1" />
-              <a href="mailto:opensource.simon@gmail.com">
-                opensource.simon@gmail.com
+              <a href="mailto:me@simonscholz.dev">
+                me@simonscholz.dev
               </a>
             </span>
             <span class="p-1">
