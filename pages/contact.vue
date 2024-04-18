@@ -5,7 +5,7 @@ useHead({
 </script>
 
 <template>
-  <div class="container flex flex-col md:justify-between mx-auto mb-10 md:p-8">
+  <div class="container flex flex-col md:justify-between mx-auto mb-10 md:mb-96 md:p-8">
 
     <h1 class="mt-2 mb-10 text-3xl">
       Contact Me
