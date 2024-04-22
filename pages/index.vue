@@ -63,7 +63,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
   <div class="flex flex-col snap-y snap-mandatory">
     <section class="snap-center snap-always">
       <section class="mt-12 md:mt-0 flex flex-grow flex-row select-none justify-center text-8xl font-mono">
-        <span class="tracking-wider">Hello</span>
+        <h1 class="tracking-wider">Hello</h1>
         <Icon name="mdi:hand-wave" class="ml-3" />
       </section>
       <section class="mt-20 flex flex-col select-none justify-center md:flex-row">
@@ -99,10 +99,10 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
         </div>
       </section>
       <div class="mt-10 flex flex-col items-center justify-center text-3xl md:mt-32">
-        <div ref="findMe" class="flex flex-row select-none text-3xl findMeHidden">
+        <h1 ref="findMe" class="flex flex-row select-none text-3xl findMeHidden">
           Find me here
           <Icon name="carbon:location-heart" class="ml-2" />
-        </div>
+        </h1>
         <div ref="findMeContent" class="flex flex-row findMeContentsHidden">
           <div class="grow grid grid-cols-4 mt-10 gap-y-32 justify-items-center space-x-4">
             <NuxtLink class="icon-btn px-10" rel="noreferrer" href="https://github.com/simonscholz" target="_blank"
@@ -126,10 +126,10 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
     </section>
     <section id="tutorials" ref="tutorialsSection"
       class="mt-32 md:mt-40 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10">
-      <div class="mb-10 flex flex-row">
+      <h1 class="mb-10 flex flex-row">
         Latest Tutorials
         <Icon name="carbon:education" class="ml-2" />
-      </div>
+      </h1>
       <div class="md:w-2/3">
         <Top3Tutorials />
       </div>
@@ -141,10 +141,10 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
     </section>
     <section id="about" ref="aboutMeSection"
       class="fadeSection mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center">
-      <div class="flex flex-row text-3xl">
+      <h1 class="flex flex-row text-3xl">
         About Me
         <Icon name="carbon:id-management" class="ml-2" />
-      </div>
+      </h1>
       <div class="mt-6 flex flex-col items-center justify-center text-center">
         <div class="aboutme flex-row border-2 border-opacity-50 rounded-lg bg-opacity-50 p-2 text-xl md:w-2/3">
           <p>
@@ -168,20 +168,20 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
     </section>
     <section
       class="mt-20 md:mt-32 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10">
-      <div class="mb-6 flex flex-row">
+      <h1 class="mb-6 flex flex-row">
         Languages
         <Icon name="carbon:language" class="ml-2" />
-      </div>
+      </h1>
       <div class="container mx-auto p-4 md:w-2/3">
         <Languages />
       </div>
     </section>
     <section
       class="mt-10 md:mt-16 flex flex-col snap-center snap-always items-center justify-center text-3xl fadeSection md:mx-10 mb-10">
-      <div class="mb-6 flex flex-row">
+      <h1 class="mb-6 flex flex-row">
         Frameworks & Tools
         <Icon name="carbon:tool-kit" class="ml-2" />
-      </div>
+      </h1>
       <div class="container mx-auto p-4 md:w-2/3">
         <Tools />
       </div>
