@@ -14,7 +14,8 @@ import crown from "~/assets/crown.png";
         <li>Groovy &amp; Gradle &amp; Testing</li>
         <li>Apache Maven and Testing</li>
         <li>Eclipse RCP</li>
-        <li>Eclipse IDE Extensions Android Development</li>
+        <li>Eclipse IDE Extensions</li>
+        <li>Android Development</li>
         <li>and more...</li>
       </ul>
     </div>

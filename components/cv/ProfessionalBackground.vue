@@ -46,6 +46,9 @@ import gears from "~/assets/gears.png";
             Implement custom OpenStreetMap algorithms to find POIs around the customers real estate and utilized GPT-4 for
             automated Expose text generation based on customer input and POIs.
           </li>
+          <li>
+            Create custom GitHub Action for ChatOps
+          </li>
           <li>Relevant Technologies:</li>
           <ul class="list-disc list-outside ml-4 text-sm print:hidden">
             <li>C4 Diagrams</li>
@@ -269,7 +272,7 @@ import gears from "~/assets/gears.png";
         </span>
         <ul class="list-disc list-inside ml-3">
           <li>Trainer and consultant for several technologies</li>
-          <li>Speaker on conferences and user groups</li>
+          <li>Speaker on conferences and software meetups</li>
           <li>Author for the Java and Eclipse magazine</li>
           <li>
             Software architect and developer for several open source projects
