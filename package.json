@@ -24,7 +24,7 @@
     "@nuxtjs/robots": "^3.0.0",
     "@vueuse/core": "^10.9.0",
     "klaro": "^0.7.21",
-    "nuxt-content-assets": "^1.3.7",
+    "nuxt-content-assets": "^1.4.3",
     "remark-reading-time": "^2.0.1"
   }
 }
