@@ -1,6 +1,6 @@
 ---
-id: "github-pages-and-actions"
-path: "/tutorials/github-pages-and-actions"
+id: "gatsby-github-pages-action"
+path: "/tutorials/gatsby-github-pages-action"
 created: "2020-11-22"
 updated: "2020-11-22"
 title: "GitHub Pages with Gatsby built by GitHub Actions"
