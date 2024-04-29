@@ -18,8 +18,8 @@ dependencies:
     specifier: ^1.0.13
     version: 1.0.13(rollup@3.29.4)
   '@nuxtjs/color-mode':
-    specifier: ^3.4.0
-    version: 3.4.0(rollup@3.29.4)
+    specifier: ^3.4.1
+    version: 3.4.1(rollup@3.29.4)
   '@nuxtjs/robots':
     specifier: ^3.0.0
     version: 3.0.0(rollup@3.29.4)
@@ -1426,7 +1426,7 @@ packages:
   /@nuxt-themes/tokens@2.1.1(postcss@8.4.38)(rollup@3.29.4)(vue@3.4.21):
     resolution: {integrity: sha512-sf0Pi3M2o2KaetYwaGMKQWuB244qPokRm7ns69z8csbYq1Ur8Hm3jDdhmAFnFKW5Awh+cCAUYVOOIi6tNExWlQ==}
     dependencies:
-      '@nuxtjs/color-mode': 3.4.0(rollup@3.29.4)
+      '@nuxtjs/color-mode': 3.4.1(rollup@3.29.4)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       pinceau: 0.20.1(postcss@8.4.38)
     transitivePeerDependencies:
@@ -1441,7 +1441,7 @@ packages:
   /@nuxt-themes/typography@1.0.1(postcss@8.4.38)(rollup@3.29.4)(vue@3.4.21):
     resolution: {integrity: sha512-7bWpFCOfrgors80tfpzdfmGhEM4+HTTT8A9G41TninSvb64l2f+s6DdqeDeaQX5D6CgqkHdOBhbl8u4E8cJXzA==}
     dependencies:
-      '@nuxtjs/color-mode': 3.4.0(rollup@3.29.4)
+      '@nuxtjs/color-mode': 3.4.1(rollup@3.29.4)
       '@vueuse/core': 10.9.0(vue@3.4.21)
       nuxt-config-schema: 0.4.6(rollup@3.29.4)
       nuxt-icon: 0.5.0(rollup@3.29.4)(vue@3.4.21)
@@ -1765,12 +1765,12 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@nuxtjs/color-mode@3.4.0(rollup@3.29.4):
-    resolution: {integrity: sha512-rS51nG3zW8ksOwNubIP3BPQ+vBL0r2M6td1kkB/VaR1e1uVtNfWlBPfZjb604bgNCE2AeRNqaI0CrxkfnQ6h6Q==}
+  /@nuxtjs/color-mode@3.4.1(rollup@3.29.4):
+    resolution: {integrity: sha512-vZgJqDstxInGw3RGSWbLoCLXtU1mvh1LLeuEA/X3a++DYA4ifwSbNoiSiOyb9qZHFEwz1Xr99H71sXV4IhOaEg==}
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@3.29.4)
       pathe: 1.1.2
-      pkg-types: 1.0.3
+      pkg-types: 1.1.0
       semver: 7.6.0
     transitivePeerDependencies:
       - rollup
@@ -3706,6 +3706,9 @@ packages:
 
   /confbox@0.1.6:
     resolution: {integrity: sha512-ONc4FUXne/1UBN1EuxvQ5rAjjAbo+N4IxrxWI8bzGHbd1PyrFlI/E3G23/yoJZDFBaFFxPGfI0EOq0fa4dgX7A==}
+
+  /confbox@0.1.7:
+    resolution: {integrity: sha512-uJcB/FKZtBMCJpK8MQji6bJHgu1tixKPxRLeGkNzBoOZzpnZUJm0jm2/sBDWcuBx1dYgxV4JU+g5hmNxCyAmdA==}
 
   /consola@3.2.3:
     resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
@@ -6197,7 +6200,7 @@ packages:
     dependencies:
       acorn: 8.11.3
       pathe: 1.1.2
-      pkg-types: 1.0.3
+      pkg-types: 1.1.0
       ufo: 1.5.3
 
   /mri@1.2.0:
@@ -7068,6 +7071,13 @@ packages:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}
     dependencies:
       jsonc-parser: 3.2.1
+      mlly: 1.6.1
+      pathe: 1.1.2
+
+  /pkg-types@1.1.0:
+    resolution: {integrity: sha512-/RpmvKdxKf8uILTtoOhAgf30wYbP2Qw+L9p3Rvshx1JZVX+XQNZQFjlbmGHEGIm4CkVPlSn+NXmIM8+9oWQaSA==}
+    dependencies:
+      confbox: 0.1.7
       mlly: 1.6.1
       pathe: 1.1.2
 
