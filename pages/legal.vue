@@ -26,8 +26,8 @@ useHead({
 		</a>
 		<br />
 		Internet address:
-		<a href="https://simonscholz.github.io/" target="_blank" rel="noreferrer">
-			https://simonscholz.github.io/
+		<a href="https://simonscholz.dev/" target="_blank" rel="noreferrer">
+			https://simonscholz.dev/
 		</a>
 		<br />
 		<br />

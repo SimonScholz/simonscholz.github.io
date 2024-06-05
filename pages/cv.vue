@@ -48,8 +48,8 @@ useHead({
             </span>
             <span class="p-1">
               <Icon name="material-symbols:house-outline" class="mr-1" />
-              <a href="https://simonscholz.github.io">
-                https://simonscholz.github.io
+              <a href="https://simonscholz.dev">
+                https://simonscholz.dev
               </a>
             </span>
           </div>

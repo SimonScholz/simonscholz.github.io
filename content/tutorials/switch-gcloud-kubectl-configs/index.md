@@ -127,7 +127,7 @@ contexts:
 
 `gke_dev` and `gke_prod` are way shorter names than the default used to be.
 
-Be sure to configure kubectl for your development and production gcp project as described in the previous section: [Configure kubectl with Google Cloud](https://simonscholz.github.io/tutorials/switch-gcloud-kubectl-configs#configure-kubectl-with-google-cloud)
+Be sure to configure kubectl for your development and production gcp project as described in the previous section: [Configure kubectl with Google Cloud](https://simonscholz.dev/tutorials/switch-gcloud-kubectl-configs#configure-kubectl-with-google-cloud)
 
 ## Alias for switching both, gcloud and kubectl
 

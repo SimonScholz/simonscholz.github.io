@@ -15,7 +15,7 @@ In many cases the "fail fast" paradigm helps to spot issues early on
 and makes problems easier to fix, because you'd show a descriptive error message on what went wrong.
 That's were also validations of configuration properties comes into play.
 
-To find out more about the various ways to inject configuration properties into your classes please check out my other tutorial about configuration properties in Spring Boot: https://simonscholz.github.io/tutorials/spring-configuration-properties
+To find out more about the various ways to inject configuration properties into your classes please check out my other tutorial about configuration properties in Spring Boot: https://simonscholz.dev/tutorials/spring-configuration-properties
 
 ## Prerequisites
 

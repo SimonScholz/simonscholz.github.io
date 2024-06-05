@@ -25,7 +25,7 @@ Creating a workspace can be done here: https://web.postman.co/workspace/create
 
 ![Create Postman Workspace for http bin](./create-workspace.png)
 
-This workspace can actually be found here: https://www.postman.com/simonscholz/workspace/http-bin and is used in this tutorial: https://simonscholz.github.io/tutorials/newman-postman
+This workspace can actually be found here: https://www.postman.com/simonscholz/workspace/http-bin and is used in this tutorial: https://simonscholz.dev/tutorials/newman-postman
 
 Once the workspace has been created you can hit the `new` button and create a `collection` to group certain requests and share them easily.
 
@@ -51,7 +51,7 @@ Many operations are pretty self explanatory, therefore let's focus on the most i
 
 ## Using the newman CLI
 
-Also see my other tutorial about running postman collections automatically with newman CLI and GitHub actions: https://simonscholz.github.io/tutorials/newman-postman
+Also see my other tutorial about running postman collections automatically with newman CLI and GitHub actions: https://simonscholz.dev/tutorials/newman-postman
 This can be useful in particular if you want to run smoke tests on a regular basis.
 
 ## Sources

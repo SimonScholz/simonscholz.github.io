@@ -186,7 +186,7 @@ useHead({
     <p>Germany / Deutschland</p>
     <p>Phone: +4️⃣9️⃣ 1️⃣7️⃣6️⃣ - 4️⃣3️⃣ 6️⃣2️⃣2️⃣ 0️⃣6️⃣0️⃣</p>
     <p>Email: meⓐⓣsimonscholz.dev</p>
-    <p>Website: https://simonscholz.github.io/</p>
+    <p>Website: https://simonscholz.dev/</p>
 
     <h4>3. Cookies</h4>
     <p>

@@ -40,7 +40,7 @@ info:
   description: Todo Sample application
   contact:
     name: Simon Scholz
-    url: https://simonscholz.github.io/
+    url: https://simonscholz.dev/
   version: "1.0.0"
 servers:
   - url: http://localhost:8080/
@@ -56,7 +56,7 @@ paths:
       description: |
         Get all todos of a logged in user
       externalDocs:
-        url: "https://simonscholz.github.io/"
+        url: "https://simonscholz.dev/"
       operationId: getAllTodos
       parameters:
         - $ref: "#/components/parameters/header.Locale"

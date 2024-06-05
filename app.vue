@@ -29,7 +29,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 useServerSeoMeta({
   title: "Simon Scholz",
   ogTitle: "Simon Scholz",
-  ogUrl: "https://simonscholz.github.io/",
+  ogUrl: "https://simonscholz.dev/",
   description:
     "View the profile and skills of Simon Scholz plus tutorials he has written for you",
   ogDescription:

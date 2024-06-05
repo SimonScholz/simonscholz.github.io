@@ -26,7 +26,7 @@ In this tutorial we will learn how to use the Keycloak admin API to create a ser
 
 In order to follow this tutorial Docker and docker-compose need to be installed.
 
-Also see [docker and docker compose](https://simonscholz.github.io/tutorials/ubuntu-dev-setup#docker-docker-compose).
+Also see [docker and docker compose](https://simonscholz.dev/tutorials/ubuntu-dev-setup#docker-docker-compose).
 
 ## Start Keycloak using docker-compose
 
@@ -151,5 +151,5 @@ Also see [Keycloak Admin Rest API docs](https://www.keycloak.org/docs-api/22.0.5
 ## Sources
 
 - https://www.keycloak.org/docs-api/22.0.5/rest-api/index.html
-- https://simonscholz.github.io/tutorials/keycloak-realm-export-import
+- https://simonscholz.dev/tutorials/keycloak-realm-export-import
 - https://www.keycloak.org/guides#getting-started

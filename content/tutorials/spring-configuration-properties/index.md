@@ -13,7 +13,7 @@ vgWort: "vg08.met.vgwort.de/na/755bbdc6a6c54ac3a4278a26d75c584d"
 In Spring Boot, `@ConfigurationProperties` is a powerful feature that allows you to externalize configuration properties and bind them to Kotlin data classes. This tutorial will walk you through the steps of using `@ConfigurationProperties` to simplify configuration management in your Spring Boot application.
 
 I'd favor the `@ConfigurationProperties` annotation over using `@Value` or the `Environment` bean.
-On advantage is that `@ConfigurationProperties` are type safe and you can validate `@ConfigurationProperties` on startup of the application: https://simonscholz.github.io/tutorials/validate-spring-configuration-properties
+On advantage is that `@ConfigurationProperties` are type safe and you can validate `@ConfigurationProperties` on startup of the application: https://simonscholz.dev/tutorials/validate-spring-configuration-properties
 
 
 ## Prerequisites

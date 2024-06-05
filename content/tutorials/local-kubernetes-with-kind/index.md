@@ -16,7 +16,7 @@ kind was primarily designed for testing Kubernetes itself, but may be used for l
 ## Install kind
 
 In order to run kind docker needs to be installed on your maschine.
-Also see my docker tutorial for this purpose: https://simonscholz.github.io/tutorials/docker
+Also see my docker tutorial for this purpose: https://simonscholz.dev/tutorials/docker
 
 On Ubuntu the installation of kind is as easy as:
 

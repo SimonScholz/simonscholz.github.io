@@ -23,7 +23,7 @@ vgWort: 'vg05.met.vgwort.de/na/610d332c575f4c6f96ff55a886ab07bd'
 ---
 
 Postman (https://www.postman.com/) is a great tool with a user interface for testing your REST apis.
-For further information about Postman in general and its usage also see https://simonscholz.github.io/tutorials/postman
+For further information about Postman in general and its usage also see https://simonscholz.dev/tutorials/postman
 
 In this tutorial we want to concentrate on automating the calls towards your REST api by running your Postman collections automatically with the newman CLI and GitHub actions.
 

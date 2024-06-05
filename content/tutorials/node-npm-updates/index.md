@@ -45,7 +45,7 @@ To set the default node version for new shells you can use the following command
 nvm alias default node
 ```
 
-For the usage of nvm within the Fishshell also see this: https://simonscholz.github.io/tutorials/fishshell#the-nvm-plugin
+For the usage of nvm within the Fishshell also see this: https://simonscholz.dev/tutorials/fishshell#the-nvm-plugin
 
 ## Updating project dependencies
 

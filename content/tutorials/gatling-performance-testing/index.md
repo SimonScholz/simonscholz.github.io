@@ -627,7 +627,7 @@ docker run --rm -it -e gatlingBaseUrl='http://host.docker.internal:8080' --add-h
 Therefore also the `gatlingBaseUrl` must be changed to `http://host.docker.internal:8080`.
 
 For testing purposes the `--rm` flag is added to remove the container after it has run, which makes cleanups easier.
-Also see https://simonscholz.github.io/tutorials/docker#run-docker-container-and-immediately-remove-it-again
+Also see https://simonscholz.dev/tutorials/docker#run-docker-container-and-immediately-remove-it-again
 
 Optionally you can also add the `--image=desired-image-name` flag to have a different image name as `performance-analysis:1.0.0-SNAPSHOT`.
 

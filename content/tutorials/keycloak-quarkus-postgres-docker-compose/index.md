@@ -23,7 +23,7 @@ vgWort: "vg09.met.vgwort.de/na/d4c5fb9e0a2f4f75ab0577ae3b02a759"
 
 ## Keycloak with Postgres
 
-In https://simonscholz.github.io/tutorials/keycloak-realm-export-import I described how to load initial data for Keycloak using realm data export and import capabilities.
+In https://simonscholz.dev/tutorials/keycloak-realm-export-import I described how to load initial data for Keycloak using realm data export and import capabilities.
 This can be really helpful for demonstration purposes and tutorials. ;-)
 But in this tutorial I'd like to share some insights on setting up Keycloak with a Postgres database on your local machine using docker compose.
 Having a Postgres instance as a persisted volume can be quite handy to store different Keycloak realms between sessions.

@@ -14,7 +14,7 @@ When you want to publish a library to Maven Central you have to follow a few ste
 
 ## Prerequisites
 
-- Gradle installed on your local machine. You can download it from [here](https://gradle.org/install/) or use [SDKMan](https://simonscholz.github.io/tutorials/ubuntu-dev-setup#sdkman) for this.
+- Gradle installed on your local machine. You can download it from [here](https://gradle.org/install/) or use [SDKMan](https://simonscholz.dev/tutorials/ubuntu-dev-setup#sdkman) for this.
 - A GitHub repository where you'll host your library.
 - A Sonatype OSS account (required for publishing to Maven Central).
 - A GPG key for signing your artifacts.

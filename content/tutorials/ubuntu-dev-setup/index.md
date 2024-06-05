@@ -56,7 +56,7 @@ Also see: https://keepassxc.org/download/#linux
 ## Git
 
 Nowadays almost every developer uses Git as distributed version control system (DVCS).
-More details on Git can be found here: https://simonscholz.github.io/tutorials/git
+More details on Git can be found here: https://simonscholz.dev/tutorials/git
 
 ## Lazy Git
 
@@ -170,7 +170,7 @@ sudo snap install intellij-idea-community --classic
 
 To run Node and NPM you can follow the steps from my other tutorial:
 
-https://simonscholz.github.io/tutorials/node-npm-updates
+https://simonscholz.dev/tutorials/node-npm-updates
 
 ## Flameshot
 
@@ -240,7 +240,7 @@ One of the most popular browsers can be found here: https://www.google.com/chrom
 
 Using the default terminal of Ubuntu is usually sufficient, but there are alternatives like Fish Shell, which offers powerful features like a command history with auto completion and much more.
 
-Also see my dedicated tutorial about the fish shell: https://simonscholz.github.io/tutorials/fishshell
+Also see my dedicated tutorial about the fish shell: https://simonscholz.dev/tutorials/fishshell
 
 ## Messenger
 
@@ -308,4 +308,4 @@ alias uAll='sudo snap refresh && sudo nala update && sudo nala upgrade -y && sud
 
 This updates all apt packages, upgrades them and also refreshes the snap installations.
 
-In case you're working with kubernetes and the gcloud cli then this tutorial is for you: [Easily switch gcloud config and kubectl context](https://simonscholz.github.io/tutorials/switch-gcloud-kubectl-configs)
+In case you're working with kubernetes and the gcloud cli then this tutorial is for you: [Easily switch gcloud config and kubectl context](https://simonscholz.dev/tutorials/switch-gcloud-kubectl-configs)
