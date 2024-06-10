@@ -24,8 +24,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0(rollup@3.29.4)
   '@vueuse/core':
-    specifier: ^10.9.0
-    version: 10.9.0(vue@3.4.21)
+    specifier: ^10.10.0
+    version: 10.10.0(vue@3.4.21)
   klaro:
     specifier: ^0.7.21
     version: 0.7.21(@babel/core@7.24.4)(eslint@8.57.0)
@@ -1400,7 +1400,7 @@ packages:
       '@floating-ui/vue': 1.0.6(vue@3.4.21)
       '@nuxt-themes/tokens': 2.1.1(postcss@8.4.38)(rollup@3.29.4)(vue@3.4.21)
       '@nuxt-themes/typography': 1.0.1(postcss@8.4.38)(rollup@3.29.4)(vue@3.4.21)
-      '@vueuse/core': 10.9.0(vue@3.4.21)
+      '@vueuse/core': 10.10.0(vue@3.4.21)
       '@vueuse/integrations': 10.9.0(focus-trap@7.5.4)(vue@3.4.21)
       focus-trap: 7.5.4
     transitivePeerDependencies:
@@ -1427,7 +1427,7 @@ packages:
     resolution: {integrity: sha512-sf0Pi3M2o2KaetYwaGMKQWuB244qPokRm7ns69z8csbYq1Ur8Hm3jDdhmAFnFKW5Awh+cCAUYVOOIi6tNExWlQ==}
     dependencies:
       '@nuxtjs/color-mode': 3.4.0(rollup@3.29.4)
-      '@vueuse/core': 10.9.0(vue@3.4.21)
+      '@vueuse/core': 10.10.0(vue@3.4.21)
       pinceau: 0.20.1(postcss@8.4.38)
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -1442,7 +1442,7 @@ packages:
     resolution: {integrity: sha512-7bWpFCOfrgors80tfpzdfmGhEM4+HTTT8A9G41TninSvb64l2f+s6DdqeDeaQX5D6CgqkHdOBhbl8u4E8cJXzA==}
     dependencies:
       '@nuxtjs/color-mode': 3.4.0(rollup@3.29.4)
-      '@vueuse/core': 10.9.0(vue@3.4.21)
+      '@vueuse/core': 10.10.0(vue@3.4.21)
       nuxt-config-schema: 0.4.6(rollup@3.29.4)
       nuxt-icon: 0.5.0(rollup@3.29.4)(vue@3.4.21)
       pinceau: 0.20.1(postcss@8.4.38)
@@ -1461,7 +1461,7 @@ packages:
     dependencies:
       '@nuxt/kit': 3.11.2(rollup@3.29.4)
       '@nuxtjs/mdc': 0.6.1(rollup@3.29.4)
-      '@vueuse/core': 10.9.0(vue@3.4.21)
+      '@vueuse/core': 10.10.0(vue@3.4.21)
       '@vueuse/head': 2.0.0(vue@3.4.21)
       '@vueuse/nuxt': 10.9.0(nuxt@3.11.2)(rollup@3.29.4)(vue@3.4.21)
       consola: 3.2.3
@@ -2920,7 +2920,7 @@ packages:
     dependencies:
       '@unocss/reset': 0.59.2
       '@vueuse/components': 10.9.0(vue@3.4.21)
-      '@vueuse/core': 10.9.0(vue@3.4.21)
+      '@vueuse/core': 10.10.0(vue@3.4.21)
       '@vueuse/integrations': 10.9.0(focus-trap@7.5.4)(vue@3.4.21)
       colord: 2.9.3
       floating-vue: 5.2.2(vue@3.4.21)
@@ -3001,6 +3001,17 @@ packages:
       - '@vue/composition-api'
       - vue
 
+  /@vueuse/core@10.10.0(vue@3.4.21):
+    resolution: {integrity: sha512-vexJ/YXYs2S42B783rI95lMt3GzEwkxzC8Hb0Ndpd8rD+p+Lk/Za4bd797Ym7yq4jXqdSyj3JLChunF/vyYjUw==}
+    dependencies:
+      '@types/web-bluetooth': 0.0.20
+      '@vueuse/metadata': 10.10.0
+      '@vueuse/shared': 10.10.0(vue@3.4.21)
+      vue-demi: 0.14.7(vue@3.4.21)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+
   /@vueuse/core@10.9.0(vue@3.4.21):
     resolution: {integrity: sha512-/1vjTol8SXnx6xewDEKfS0Ra//ncg4Hb0DaZiwKf7drgfMsKFExQ+FnnENcN6efPen+1kIzhLQoGSy0eDUVOMg==}
     dependencies:
@@ -3072,6 +3083,9 @@ packages:
       - '@vue/composition-api'
       - vue
 
+  /@vueuse/metadata@10.10.0:
+    resolution: {integrity: sha512-UNAo2sTCAW5ge6OErPEHb5z7NEAg3XcO9Cj7OK45aZXfLLH1QkexDcZD77HBi5zvEiLOm1An+p/4b5K3Worpug==}
+
   /@vueuse/metadata@10.9.0:
     resolution: {integrity: sha512-iddNbg3yZM0X7qFY2sAotomgdHK7YJ6sKUvQqbvwnf7TmaVPxS4EJydcNsVejNdS8iWCtDk+fYXr7E32nyTnGA==}
 
@@ -3090,6 +3104,14 @@ packages:
       - '@vue/composition-api'
       - rollup
       - supports-color
+      - vue
+
+  /@vueuse/shared@10.10.0(vue@3.4.21):
+    resolution: {integrity: sha512-2aW33Ac0Uk0U+9yo3Ypg9s5KcR42cuehRWl7vnUHadQyFvCktseyxxEPBi1Eiq4D2yBGACOnqLZpx1eMc7g5Og==}
+    dependencies:
+      vue-demi: 0.14.7(vue@3.4.21)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
       - vue
 
   /@vueuse/shared@10.9.0(vue@3.4.21):
