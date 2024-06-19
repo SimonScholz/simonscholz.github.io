@@ -1,0 +1,1 @@
+import{l as t,b as o,c as s,L as n}from"./DgIHL35W.js";const c={},r={class:"prose-td"};function _(e,a){return o(),s("td",r,[n(e.$slots,"default",{},void 0,!0)])}const l=t(c,[["render",_],["__scopeId","data-v-495b8393"]]);export{l as default};

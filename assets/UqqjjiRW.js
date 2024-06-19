@@ -1,0 +1,1 @@
+import{l as s,b as o,c as t,L as c}from"./DgIHL35W.js";const r={},n={class:"prose-em"};function a(e,_){return o(),t("em",n,[c(e.$slots,"default",{},void 0,!0)])}const f=s(r,[["render",a],["__scopeId","data-v-37cb293f"]]);export{f as default};
