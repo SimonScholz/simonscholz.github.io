@@ -80,6 +80,58 @@ By using the [k9s tool](https://github.com/derailed/k9s) you can now see certain
 
 ![Flux CD default pods](./flux-cd-default-pods.png)
 
+## Clone the bootstrapped repository
+
+In my case it is a simple `git clone git@github.com:SimonScholz/flux-cd-gitops-example.git`
+
+In case you have chosen the same repository name, you just need to change the owner.
+
+## Deploy a container to the cluster using FluxCD
+
+Within the `clusters/development/` folder you can add a `podinfo` folder, which would contain the following yaml files.
+
+One file for declaring the source where to obtain the HelmChart from:
+
+```yaml [podinfo-source.yaml]
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  interval: 10m
+  url: https://stefanprodan.github.io/podinfo
+```
+
+And a file to declare the HelmRelease itself:
+
+```yaml [podinfo-helmrelease.yaml]
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: podinfo
+  namespace: default
+spec:
+  interval: 10m
+  chart:
+    spec:
+      chart: podinfo
+      version: '6.6.3'
+      sourceRef:
+        kind: HelmRepository
+        name: podinfo
+        namespace: default
+      interval: 10m
+  values:
+    replicaCount: 1
+```
+
+When you now push these files to the remote repository Flux will grab the changes and apply it to your cluster.
+
+While Flux is applying the changes your can run `flux get all -A --status-selector ready=false` to see whats happening. Also see https://fluxcd.io/flux/cheatsheets/troubleshooting/
+
 
 ## Sources
 
