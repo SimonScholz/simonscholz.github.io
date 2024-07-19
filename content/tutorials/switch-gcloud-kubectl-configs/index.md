@@ -2,7 +2,7 @@
 id: "switch-gcloud-kubectl-configs"
 path: "/tutorials/switch-gcloud-kubectl-configs"
 created: "2023-12-20"
-updated: "2023-12-20"
+updated: "2024-07-19"
 title: "Easily switch gcloud config and kubectl context"
 description: "Switching both gcloud and kubectl config at once via command line"
 author: "Simon Scholz"
@@ -17,6 +17,7 @@ In this tutorial, we'll guide you through setting up gcloud configurations and m
 Before you begin, ensure you have the following:
 
 - Google Cloud SDK (gcloud): Install it from [Google Cloud SDK Installation](https://cloud.google.com/sdk/docs/install).
+- Google Auth Plugin: [Google Auth Plugin](https://cloud.google.com/kubernetes-engine/docs/how-to/cluster-access-for-kubectl#install_plugin)
 - Kubernetes (kubectl): Install kubectl following the instructions at [Install and Set Up kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/).
 - Two different gcp projects are being used, e.g., dev and prod.
 
@@ -37,6 +38,8 @@ To configure kubectl to use your GKE cluster, run the following command:
 ```bash
 gcloud container clusters get-credentials CLUSTER_NAME --zone ZONE --project PROJECT_ID
 ```
+
+The command above should be executed for your dev **and** prod cluster.
 
 Replace the placeholders with your specific cluster information:
 
@@ -158,7 +161,7 @@ With these steps, you have a complete setup for easily switching between differe
 ## Using a function instead of an alias
 
 If you're dealing with a lot of different projects and contexts, then maintaining a lot of `alias` in your shell might be cumbersome.
-Then using a function might be easier:
+Then adding a function to your `~/.bashrc`  file might be easier:
 
 ```bash [~/.bashrc]
 function switch() {
