@@ -7,7 +7,7 @@ title: "Using toml version catalogs in Gradle"
 description: "Using toml version catalogs in Gradle is a great way to manage dependencies and their versions."
 author: "Simon Scholz"
 tags: ["gradle", "toml", "version catalog", "IntelliJ", "Dependabot", "GitHub"]
-vgWort: "https://vg08.met.vgwort.de/na/ad5b7f0b0d684fb69a1827832aed7240"
+vgWort: "vg08.met.vgwort.de/na/ad5b7f0b0d684fb69a1827832aed7240"
 ---
 
 Using toml version catalogs in Gradle is a great way to manage dependencies and their versions.
