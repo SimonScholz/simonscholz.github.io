@@ -39,7 +39,7 @@ gradle init \
 ```
 
 Once the *kotlin-coroutines-tutorial* project is created you can open it in IntelliJ.
-Then open the Libary class and add a suspending main function:
+Then open the Library class and add a suspending main function:
 
 ```kotlin[Library.kt]
 package com.example
@@ -124,10 +124,10 @@ When we now run the main function having the `-Dkotlinx.coroutines.debug` mentio
 ```
 
 What we see here is that the second log entry is done by a `DefaultExecutor` unlike the first log entry, which simply used the main Thread.
-So invoking a coroutine is capble to free the current Thread from the execution and may or may not continue on another "free" worker Thread.
+So invoking a coroutine is capable to free the current Thread from the execution and may or may not continue on another "free" worker Thread.
 Also see the official docs on how this [continuation process](https://kotlinlang.org/spec/asynchronous-programming-with-coroutines.html#kotlin.coroutines.continuationt) works.
 
-If we would remove the `suspend`  modifier the koltin compiler would complain about the `delay` function being called outside of a coroutine scope.
+If we would remove the `suspend`  modifier the Kotlin compiler would complain about the `delay` function being called outside of a coroutine scope.
 
 ![Coroutine Scope Error](./coroutine-scope-error.png)
 
@@ -245,7 +245,7 @@ Thanks to the `-Dkotlinx.coroutines.debug` flag `@coroutine#1` and `@coroutine#2
 
 Using `launch` creates a new coroutine, but the `launch` closure itself returns an instance of `Job`, which can be joined or cancelled.
 
-```kotlin
+```kotlin[Library.kt]
 // ... code from above
 
 suspend fun main() {
@@ -265,7 +265,7 @@ suspend fun main() {
 
 This code now resulted in putting the clothes in the washing machine and starting the dishwasher,
 but choosing the program and starting the washing machine was not done.
-Probaly because it is already too late, looking at the timestamps of the logs ;)
+Probably because it is already too late, looking at the timestamps of the logs ;)
 
 
 ```console[Console]
@@ -273,11 +273,133 @@ Probaly because it is already too late, looking at the timestamps of the logs ;)
 22:43:05.553 [DefaultDispatcher-worker-2 @coroutine#2] INFO example -- Start dish washer
 ```
 
+## Using join or just another coroutineScope
+
+Let´s get back to the washing machine example:
+
+```kotlin[Library.kt]
+package com.example
+
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+
+val logger: Logger = LoggerFactory.getLogger("example")
+
+suspend fun sequentialWashing() {
+    coroutineScope {
+        logger.info("Put cloth into the washing machine")
+        delay(500L)
+    }
+    val washingProgram = coroutineScope {
+        logger.info("Choose proper program")
+        delay(500L)
+        "60 degree"
+    }
+    coroutineScope {
+        logger.info("Start the washing machine with $washingProgram program")
+    }
+}
+
+suspend fun dryer() {
+    logger.info("Put washed cloths into the dryer")
+    delay(500L)
+    logger.info("Start the dryer")
+}
+
+suspend fun main() {
+    coroutineScope {
+        val job = launch{
+            sequentialWashing()
+        }
+        job.join()
+        launch {
+            dryer()
+        }
+    }
+}
+```
+
+This code will wait until the washing is done and then handles the dryer.
+
+But returning the `Job` instance and joining it can really clutter the code.
+
+A more elegant way to ensure that certain coroutines are done in advance it so utilize the `coroutineScope`.
+So the `main` function could also look like this and do the same as before:
+
+```kotlin[Library.kt]
+suspend fun main() {
+    coroutineScope {
+        coroutineScope {
+            launch {
+                sequentialWashing()
+            }
+        }
+        launch {
+            dryer()
+        }
+    }
+}
+```
+
+Basically `coroutineScope` will ensure that any coroutine running within it is done before followup code is being executed.
+
+## Using async to return a result
+
+Besides `launch`, which returns an instance of `Job`, you can also use `async` to also return a computed value from the coroutine.
+
+Many times that´s exactly what you want to do when calling a remote api and want to work with the response.
+
+```kotlin[Library.kt]
+package com.example
+
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+
+val logger: Logger = LoggerFactory.getLogger("example")
+
+suspend fun callingTwoApisAndMerge() : List<String> =
+   coroutineScope {
+        val fuelPrice1 = async{
+            logger.info("Getting fuel price")
+            delay(500L)
+            "1.56"
+        }
+        val fuelPrice2 = async{
+            logger.info("Getting 2nd fuel price")
+            delay(500L)
+            "1.65"
+        }
+        listOf(fuelPrice1.await(), fuelPrice2.await())
+    }
+
+suspend fun main() {
+    callingTwoApisAndMerge()
+}
+```
+
+So both fuel prices will be fetched concurrently at the same time.
+Calling `await()` on the `Deferred` instance returned by the `async` closure will wait until the coroutine is done.
+So once both async executions are done a list of prices will be returned.
+
+Note that you can also call `await()` on instances of `CompletableFuture` to also threat these as coroutines.
+
 ## Testing Coroutines
+
+```kotlin[Library.kt]
+
+```
 
 ## Compare to reactive libraries
 
-```kotlin
+```kotlin[Library.kt]
 
 ```
 
