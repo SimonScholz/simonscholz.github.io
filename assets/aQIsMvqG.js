@@ -1,0 +1,1 @@
+import{l as t,b as o,c as s,L as n}from"./B69cHqM_.js";const c={},r={class:"prose-th"};function _(e,a){return o(),s("th",r,[n(e.$slots,"default",{},void 0,!0)])}const l=t(c,[["render",_],["__scopeId","data-v-31432090"]]);export{l as default};

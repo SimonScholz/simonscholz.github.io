@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: 
+
+# Simon Scholz Profile + Tutorials
+Host: https://simonscholz.dev
+Sitemap: https://simonscholz.dev/sitemap.xml
