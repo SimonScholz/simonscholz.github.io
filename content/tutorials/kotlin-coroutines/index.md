@@ -241,7 +241,7 @@ which we can see in the output when running the application:
 
 Thanks to the `-Dkotlinx.coroutines.debug` flag `@coroutine#1` and `@coroutine#2`  is also shown.
 
-## Cancel or Join a coroutine
+### Cancel or Join a coroutine
 
 Using `launch` creates a new coroutine, but the `launch` closure itself returns an instance of `Job`, which can be joined or cancelled.
 
@@ -273,7 +273,7 @@ Probably because it is already too late, looking at the timestamps of the logs ;
 22:43:05.553 [DefaultDispatcher-worker-2 @coroutine#2] INFO example -- Start dish washer
 ```
 
-## Using join or just another coroutineScope
+### Using join or just another coroutineScope
 
 Let´s get back to the washing machine example:
 
@@ -347,7 +347,7 @@ suspend fun main() {
 
 Basically `coroutineScope` will ensure that any coroutine running within it is done before followup code is being executed.
 
-## Using async to return a result
+### Using async to return a result
 
 Besides `launch`, which returns an instance of `Job`, you can also use `async` to also return a computed value from the coroutine.
 
@@ -390,6 +390,62 @@ Calling `await()` on the `Deferred` instance returned by the `async` closure wil
 So once both async executions are done a list of prices will be returned.
 
 Note that you can also call `await()` on instances of `CompletableFuture` to also threat these as coroutines.
+
+### Loop over a list and start a coroutine for every entry
+
+```kotlin[Library.kt]
+package com.example
+
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+
+val logger: Logger = LoggerFactory.getLogger("example")
+
+suspend fun callingTwoApisAndMerge() : List<String> =
+   coroutineScope {
+        val fuelPrice1 = async{
+            logger.info("Getting fuel price")
+            delay(500L)
+            "1.56"
+        }
+        val fuelPrice2 = async{
+            logger.info("Getting 2nd fuel price")
+            delay(500L)
+            "1.65"
+        }
+        listOf(fuelPrice1.await(), fuelPrice2.await())
+    }
+
+suspend fun updateFuelPrices(prices: List<String>, batchSize: Int = 10) {
+    prices.chunked(batchSize).forEach { skuChunk ->
+        coroutineScope {
+            skuChunk.forEach {
+                launch { // launch a new coroutine for every update
+                    delay(500L)
+                    logger.info("Updating prices in database or remote system")
+                }
+            }
+        }
+    }
+}
+
+suspend fun main() {
+    val fetchedPrices = callingTwoApisAndMerge()
+    updateFuelPrices(fetchedPrices)
+}
+```
+
+Let´s have a closer look at the `updateFuelPrices` function.
+Here we obtain the list of fuel prices and loop over the prices list.
+The `chunked` function just ensures that the list will be iterated in chunks/batches to avoid running too many parallel coroutines at the same time,
+which might overwhelm the database or remote system.
+
+As you already know from previous sections `coroutineScope` will ensure that all chunks/batches are handled in sequence and `launch` will then spawn a new coroutine for every price update.
 
 ## Testing Coroutines
 
