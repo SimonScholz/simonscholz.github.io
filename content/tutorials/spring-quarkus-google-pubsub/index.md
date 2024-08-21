@@ -2,7 +2,7 @@
 id: "spring-quarkus-google-pubsub"
 path: "/tutorials/spring-quarkus-google-pubsub"
 created: "2023-11-11"
-updated: "2024-02-28"
+updated: "2024-08-21"
 title: "Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 description: "Make use of the Google Cloud Pub/Sub (emulator) with Spring Boot and Quarkus"
 author: "Simon Scholz"
@@ -33,7 +33,7 @@ version: '3.9'
 services:
   
   pubsub-emulator:
-    image: gcr.io/google.com/cloudsdktool/cloud-sdk:466.0.0-emulators
+    image: gcr.io/google.com/cloudsdktool/cloud-sdk:488.0.0-emulators
     container_name: pubsub-emulator
     ports:
       - "8685:8685"
@@ -568,17 +568,181 @@ Start by creating a new Quarkus project. You can use the Quarkus Initializer (ht
 
 ![Quarkus Code Generator](./code-quarkus-generator.png)
 
-This will then have the following dependencies to your `build.gradle.kts` file:
+This will then have the following dependencies in your `build.gradle.kts` file:
 
 ```kotlin [build.gradle.kts]
-    // other dependencies
-
+dependencies {
+    implementation(enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}"))
     implementation(enforcedPlatform("${quarkusPlatformGroupId}:quarkus-google-cloud-services-bom:${quarkusPlatformVersion}"))
+    implementation("io.quarkus:quarkus-kotlin")
     implementation("io.quarkiverse.googlecloudservices:quarkus-google-cloud-pubsub")
+    implementation("io.quarkus:quarkus-config-yaml")
+    implementation("io.quarkus:quarkus-rest-kotlin-serialization")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("io.quarkus:quarkus-arc")
+    implementation("io.quarkus:quarkus-rest")
+    implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
+    testImplementation("io.quarkus:quarkus-junit5")
+    testImplementation("io.rest-assured:rest-assured")
+}
 ```
 
-I´ll finish this part once this issue is actually resolved: https://github.com/quarkiverse/quarkus-google-cloud-services/issues/595
+NOTE: I´ve added `implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")` to also have logging in place.
 
+### Creating the model dto class
+
+In order to pass around data let´s reuse the `Event` class from the Spring Boot example:
+
+```kotlin [Event.kt]
+package dev.simonscholz.model
+
+data class Event(val id: String, val message: String)
+```
+
+### Creating an event handler
+
+In order to have proper separation of concerns, let´s create a dedicated `UserEventHandler` class:
+
+```kotlin [UserEventHandler.kt]
+package dev.simonscholz
+
+import dev.simonscholz.model.Event
+import io.github.oshai.kotlinlogging.KotlinLogging
+import jakarta.enterprise.context.ApplicationScoped
+
+@ApplicationScoped
+class UserEventHandler {
+    private val logger = KotlinLogging.logger {}
+
+    fun handleUserEvent(event: Event) {
+        logger.info { "Event: $event" }
+    }
+}
+```
+
+### application.yml adjustments and .env
+
+By default all google cloud extensions provided by quarkus share the `quarkus.google.cloud.project-id` property and can utilize this under the hood.
+Also see https://docs.quarkiverse.io/quarkus-google-cloud-services/main/index.html
+
+```yaml [application.yml]
+quarkus:
+  google:
+    cloud:
+      project-id: ${GCP_PROJECT_ID}
+
+pubsub:
+  user:
+    subscription-id: ${PUBSUB_USER_SUBSCRIPTION_ID}
+```
+
+The `pubsub.user.subscription-id` is a custom property in order to declaratively define the desired subscription-id.
+
+In the root folder of the project a `.env` file can be created and provide the `GCP_PROJECT_ID` and `PUBSUB_USER_SUBSCRIPTION_ID` environment variables.
+
+```shell [.env]
+GCP_PROJECT_ID=sample-project-id
+PUBSUB_USER_SUBSCRIPTION_ID=user-created-json-topic-sub
+```
+
+### Start subscribing with QuarkusPubSub
+
+In order to initialize the PubSub subscription the startup event is observed:
+
+```kotlin [PubSubInitializer.kt]
+package dev.simonscholz
+
+import com.google.cloud.pubsub.v1.AckReplyConsumer
+import com.google.cloud.pubsub.v1.MessageReceiver
+import com.google.cloud.pubsub.v1.Subscriber
+import com.google.pubsub.v1.PubsubMessage
+import dev.simonscholz.model.Event
+import io.github.oshai.kotlinlogging.KotlinLogging
+import io.quarkiverse.googlecloudservices.pubsub.QuarkusPubSub
+import io.quarkus.runtime.ShutdownEvent
+import io.quarkus.runtime.StartupEvent
+import jakarta.enterprise.event.Observes
+import jakarta.inject.Singleton
+import kotlinx.serialization.json.Json
+import org.eclipse.microprofile.config.inject.ConfigProperty
+
+@Singleton
+class PubSubInitializer(
+    private val userEventHandler: UserEventHandler,
+    private val quarkusPubSub: QuarkusPubSub,
+    @ConfigProperty(name = "pubsub.user.subscription-id")
+    private val gcpSubscriptionId: String,
+) {
+    private val logger = KotlinLogging.logger {}
+
+    private lateinit var subscriber: Subscriber
+
+    fun onStart(@Observes ev: StartupEvent) {
+        val receiver = MessageReceiver { message: PubsubMessage, consumer: AckReplyConsumer ->
+            runCatching {
+                logger.debug { "Data: " + message.data.toStringUtf8() }
+                logger.debug { "Attributes: " + message.attributesMap }
+                val eventObject = Json.decodeFromString<Event>(message.data.toStringUtf8())
+                logger.debug { "event: $eventObject" }
+                userEventHandler.handleUserEvent(eventObject)
+            }.onSuccess {
+                consumer.ack()
+                logger.debug { "Successfully processed pubsub event ${message.messageId}" }
+            }.onFailure {
+                logger.error(it) { "Failed to process pubsub event ${message.messageId}. Message data: ${message.data.toStringUtf8()}" }
+                consumer.nack()
+            }
+        }
+
+        runCatching {
+            subscriber = quarkusPubSub.subscriber(gcpSubscriptionId, receiver)
+            subscriber.startAsync().awaitRunning()
+        }.onFailure {
+            logger.error(it) { "Subscribing to $gcpSubscriptionId failed." }
+        }
+    }
+
+    fun onShutdown(@Observes ev: ShutdownEvent) {
+        subscriber.stopAsync()
+    }
+}
+```
+
+Here the `UserEventHandler`, `QuarkusPubSub` and the `gcpSubscriptionId` is injected.
+
+Within the onStart method a `MessageReceiver` instance is created, which will receive the `PubsubMessage` and `AckReplyConsumer`.
+
+The `PubsubMessage` consists of the data being send and Kotlinx Serialization is being used to parse the json object, which is then passed to the `UserEventHandler`, which is supposed to cover the business logic of handling the event.
+
+If this is successful the `AckReplyConsumer` can be used to `ack` the massage.
+
+On failure the `nack` function of the `AckReplyConsumer` is called, which indicates an error,
+which will then usually trigger Google PubSub to retry delivering the message.
+The allowed amount of `nacks` can be individually configured and even a dead letter queue can be added for massages, that cannot be delivered for later recovery. Sometimes it is also applicable to just also `ack` on failure and by that kind of "throw away" the message.
+
+### Send a message and let the Quarkus app consume it
+
+Like in the Spring Example from above the same `curl` can be used:
+
+```bash
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" -H "Content-Type: application/json" -d '{
+  "messages": [
+    {
+      "attributes": {
+        "DOMAIN_OBJECT_ID": "12345",
+        "anotherKey": "anotherValue"
+      },
+      "data": "eyJET01BSU5fT0JKRUNUX0lEIjogIjEyMzQ1IiwgIm5hbWUiOiAiSm9obiBEb2UifQ=="
+    }
+  ]
+}'
+```
+
+This should then log the message data and attributes.
+
+## Putting it all together
+
+Please feel free to play around and let the Spring app send messages to the Quarkus app and the other way round.
 
 ## Sources
 
