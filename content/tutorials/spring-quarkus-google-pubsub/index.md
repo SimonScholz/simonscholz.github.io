@@ -19,7 +19,8 @@ Google Cloud Pub/Sub is a fully-managed real-time messaging service that allows 
 - JDK
 - Kotlin
 - Spring Boot
-- Gradle or Maven
+- Quarkus
+- Gradle
 - Docker and Docker Compose
 - An Integrated Development Environment (IDE) such as IntelliJ IDEA or Eclipse or VS Code
 
@@ -55,18 +56,18 @@ gcloud beta emulators pubsub start --host-port 0.0.0.0:8685 --project=sample-pro
 sleep 5
 
 # Create Pub/Sub topics
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-topic'
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic'
 
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic'
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic'
 
 # Create Pub/Sub subscriptions
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-topic-sub' \
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub' \
     -H 'Content-Type: application/json' \
-    --data '{"topic":"projects/sample-project-id/topics/user-created-topic"}'
+    --data '{"topic":"projects/sample-project-id/topics/event-topic"}'
 
-curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-json-topic-sub' \
+curl -s -X PUT 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub' \
     -H 'Content-Type: application/json' \
-    --data '{"topic":"projects/sample-project-id/topics/user-created-json-topic"}'
+    --data '{"topic":"projects/sample-project-id/topics/json-topic"}'
 
 # Keep the script running to keep the container alive
 tail -f /dev/null
@@ -93,7 +94,7 @@ curl -X GET 'http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions'
 To publish to a Google Cloud Pub/Sub topic, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/event-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
@@ -110,7 +111,7 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-crea
 Or using json data:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic:publish" \
 -H "Content-Type: application/json" \
 -d '{
   "messages": [
@@ -119,7 +120,7 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-crea
         "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       },
-      "data": "eyJET01BSU5fT0JKRUNUX0lEIjogIjEyMzQ1IiwgIm5hbWUiOiAiSm9obiBEb2UifQ=="
+      "data": "eyJpZCI6ICIxMjM0NSIsICJtZXNzYWdlIjogIkpvaG4gRG9lIn0="
     }
   ]
 }'
@@ -138,7 +139,7 @@ Later, we'll use a Spring Boot application and a Quarkus application to publish 
 To pull from a Google Cloud Pub/Sub subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-topic-sub:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/event-topic-sub:pull" \
 -H "Content-Type: application/json" \
 -d '{
   "maxMessages": 10
@@ -148,7 +149,7 @@ curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/us
 Or from the `user-created-json-topic` subscription:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-json-topic:pull" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub:pull" \
 -H "Content-Type: application/json" \
 -d '{
   "maxMessages": 10
@@ -161,7 +162,7 @@ The return value of a pull should look similar to this:
 ```json
 {
   "receivedMessages": [{
-    "ackId": "projects/sample-project-id/subscriptions/user-created-topic-sub:1",
+    "ackId": "projects/sample-project-id/subscriptions/json-topic-sub:1",
     "message": {
       "attributes": {
         "DOMAIN_OBJECT_ID": "12345",
@@ -177,11 +178,11 @@ The return value of a pull should look similar to this:
 You can acknowledge these messages by using the given `ackId` and calling the following:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/user-created-topic-sub:acknowledge" \
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/subscriptions/json-topic-sub:acknowledge" \
 -H "Content-Type: application/json" \
 -d '{
   "ackIds": [
-    "projects/sample-project-id/subscriptions/user-created-topic-sub:1"
+    "projects/sample-project-id/subscriptions/json-topic-sub:1"
   ]
 }'
 ```
@@ -223,7 +224,7 @@ spring:
 To configure the Google Cloud project ID and credentials, we need to create a `@Configuration` like this:
 
 ```kotlin [GcpConfig.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub.config
 
 import com.google.api.gax.core.CredentialsProvider
 import com.google.api.gax.core.NoCredentialsProvider
@@ -231,10 +232,8 @@ import com.google.cloud.spring.core.GcpProjectIdProvider
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.context.annotation.Profile
 
 @Configuration
-@Profile("local")
 class GcpConfig {
     @Bean
     fun projectIdProvider(
@@ -259,7 +258,7 @@ On how to do this with secrets, environment variables and terraform see later se
 To subscribe to a Google Cloud Pub/Sub topic, we need to create a `@Configuration` like this:
 
 ```kotlin [PubSubConfig.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import com.google.cloud.spring.pubsub.core.PubSubTemplate
 import com.google.cloud.spring.pubsub.integration.AckMode
@@ -279,7 +278,7 @@ class PubSubConfig {
         @Qualifier("pubsubInputChannel") inputChannel: MessageChannel,
         pubSubTemplate: PubSubTemplate,
     ): PubSubInboundChannelAdapter =
-        PubSubInboundChannelAdapter(pubSubTemplate, "user-created-json-topic-sub").apply {
+        PubSubInboundChannelAdapter(pubSubTemplate, "json-topic-sub").apply {
             outputChannel = inputChannel
             setAckMode(AckMode.MANUAL)
         }
@@ -298,7 +297,7 @@ There are many different ways to use a `@ServiceActivator`, the following exampl
 You can use a `MessageHandler` instance to subscribe to a Google Cloud Pub/Sub topic:
 
 ```kotlin [PubSubConfig.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import com.google.cloud.spring.pubsub.core.PubSubTemplate
 import com.google.cloud.spring.pubsub.integration.AckMode
@@ -324,7 +323,7 @@ class PubSubConfig {
         @Qualifier("pubsubInputChannel") inputChannel: MessageChannel,
         pubSubTemplate: PubSubTemplate,
     ): PubSubInboundChannelAdapter =
-        PubSubInboundChannelAdapter(pubSubTemplate, "user-created-json-topic-sub").apply {
+        PubSubInboundChannelAdapter(pubSubTemplate, "json-topic-sub").apply {
             outputChannel = inputChannel
             setAckMode(AckMode.MANUAL)
         }
@@ -355,7 +354,7 @@ class PubSubConfig {
 You can use a `@ServiceActivator` with `@Payload` and `@Header` annotations to subscribe to a Google Cloud Pub/Sub topic:
 
 ```kotlin [Receiver.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import com.google.cloud.spring.pubsub.support.BasicAcknowledgeablePubsubMessage
 import com.google.cloud.spring.pubsub.support.GcpPubSubHeaders
@@ -394,7 +393,7 @@ There this is my preferred way to use the `@ServiceActivator` annotation.
 You can even just obtain the message payload in the `@ServiceActivator` method:
 
 ```kotlin [Receiver.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import org.slf4j.LoggerFactory
 import org.springframework.integration.annotation.ServiceActivator
@@ -421,14 +420,14 @@ This is less explicit, but it is possible to obtain the message payload directly
 To test the subscription, you can use the following `curl` command:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" -H "Content-Type: application/json" -d '{
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic:publish" -H "Content-Type: application/json" -d '{
   "messages": [
     {
       "attributes": {
         "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       },
-      "data": "eyJET01BSU5fT0JKRUNUX0lEIjogIjEyMzQ1IiwgIm5hbWUiOiAiSm9obiBEb2UifQ=="
+      "data": "eyJpZCI6ICIxMjM0NSIsICJtZXNzYWdlIjogIkpvaG4gRG9lIn0="
     }
   ]
 }'
@@ -447,14 +446,14 @@ The `PubSubConfig` can be adjusted to also provide a `MessageHandler` instance f
   @Bean
   @ServiceActivator(inputChannel = "pubsubOutputChannel")
   fun messageSender(pubsubTemplate: PubSubTemplate): MessageHandler {
-      return PubSubMessageHandler(pubsubTemplate, "user-created-json-topic")
+      return PubSubMessageHandler(pubsubTemplate, "json-topic")
   }
 ```
 
 This `pubsubOutputChannel` can then be used by a `MessagingGateway` interface:
 
 ```kotlin [PubsubOutboundGateway.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import org.springframework.integration.annotation.MessagingGateway
 import org.springframework.messaging.handler.annotation.Header
@@ -470,7 +469,7 @@ Note that instead of using plain text and `@Header` domainObjectId as parameters
 The `PubsubOutboundGateway` can then be injected into a `@Service` or `@RestController`, so that it can be used to send messages to the Google Cloud Pub/Sub topic:
 
 ```kotlin [SampleRestController.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RestController
@@ -503,7 +502,7 @@ This will then send a message to the Google Cloud Pub/Sub topic and the former c
 If you want to use the low level Google Cloud Pub/Sub API, you can use the `PubSubTemplate` bean to publish messages to a Google Cloud Pub/Sub topic:
 
 ```kotlin [Publisher.kt]
-package io.github.simonscholz.pubsub
+package dev.simonscholz.pubsub
 
 import com.google.api.core.ApiFutureCallback
 import com.google.api.core.ApiFutures
@@ -527,7 +526,7 @@ class Publisher(
     private val publisher = Publisher.newBuilder(
         ProjectTopicName.ofProjectTopicName(
             gcpProjectIdProvider.projectId,
-            "user-created-json-topic",
+            "json-topic",
         )
     )
         .setChannelProvider(publisherTransportChannelProvider)
@@ -581,13 +580,13 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("io.quarkus:quarkus-arc")
     implementation("io.quarkus:quarkus-rest")
-    implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")
+    implementation("dev.oshai:kotlin-logging-jvm:7.0.0")
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
 }
 ```
 
-NOTE: I´ve added `implementation("io.github.oshai:kotlin-logging-jvm:7.0.0")` to also have logging in place.
+NOTE: I´ve added `implementation("dev.oshai:kotlin-logging-jvm:7.0.0")` to also have logging in place.
 
 ### Creating the model dto class
 
@@ -607,7 +606,7 @@ In order to have proper separation of concerns, let´s create a dedicated `UserE
 package dev.simonscholz
 
 import dev.simonscholz.model.Event
-import io.github.oshai.kotlinlogging.KotlinLogging
+import dev.oshai.kotlinlogging.KotlinLogging
 import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
@@ -642,7 +641,7 @@ In the root folder of the project a `.env` file can be created and provide the `
 
 ```shell [.env]
 GCP_PROJECT_ID=sample-project-id
-PUBSUB_USER_SUBSCRIPTION_ID=user-created-json-topic-sub
+PUBSUB_USER_SUBSCRIPTION_ID=json-topic-sub
 ```
 
 ### Start subscribing with QuarkusPubSub
@@ -657,7 +656,7 @@ import com.google.cloud.pubsub.v1.MessageReceiver
 import com.google.cloud.pubsub.v1.Subscriber
 import com.google.pubsub.v1.PubsubMessage
 import dev.simonscholz.model.Event
-import io.github.oshai.kotlinlogging.KotlinLogging
+import dev.oshai.kotlinlogging.KotlinLogging
 import io.quarkiverse.googlecloudservices.pubsub.QuarkusPubSub
 import io.quarkus.runtime.ShutdownEvent
 import io.quarkus.runtime.StartupEvent
@@ -725,14 +724,16 @@ The allowed amount of `nacks` can be individually configured and even a dead let
 Like in the Spring Example from above the same `curl` can be used:
 
 ```bash
-curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/user-created-json-topic:publish" -H "Content-Type: application/json" -d '{
+curl -X POST "http://0.0.0.0:8685/v1/projects/sample-project-id/topics/json-topic:publish" \
+-H "Content-Type: application/json" \
+-d '{
   "messages": [
     {
       "attributes": {
         "DOMAIN_OBJECT_ID": "12345",
         "anotherKey": "anotherValue"
       },
-      "data": "eyJET01BSU5fT0JKRUNUX0lEIjogIjEyMzQ1IiwgIm5hbWUiOiAiSm9obiBEb2UifQ=="
+      "data": "eyJpZCI6ICIxMjM0NSIsICJtZXNzYWdlIjogIkpvaG4gRG9lIn0="
     }
   ]
 }'
