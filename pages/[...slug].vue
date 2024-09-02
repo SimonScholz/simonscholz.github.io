@@ -18,18 +18,12 @@
             <span class="md:ml-3">{{ doc.readingTime.text }}</span>
             <span class="hidden md:block ml-3">⚬</span>
             <span class="md:ml-3">
-              <NuxtLink
-                :to="
-                  'https://github.com/SimonScholz/simonscholz.github.io/issues/new?labels=website,tutorial&title=[' +
-                  doc.id +
-                  ']'
-                "
-              >
+              <a href="#comments">
                 <img
                   src="https://img.shields.io/badge/-Feedback%3F%20Requests%3F-gray?logo=github"
                   alt="Feedback / Requests?"
                   title="Feedback / Requests?"
-                /> </NuxtLink
+                /> </a
             ></span>
           </div>
           <hr />
@@ -44,8 +38,13 @@
             <!-- Blog content -->
             <ContentRenderer :value="doc" class="ml-1 mr-1" />
           </article>
+          <Giscus />
         </div>
       </template>
     </ContentDoc>
   </main>
 </template>
+
+<script setup>
+import Giscus from '~/components/Giscus.vue'
+</script>
