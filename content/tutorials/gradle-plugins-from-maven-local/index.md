@@ -31,6 +31,7 @@ gradle init \
     --use-defaults \
     --type kotlin-gradle-plugin \
     --dsl kotlin \
+    --test-framework junit-jupiter \
     --project-name local-gradle-plugin \
     --package com.example \
     --no-split-project \
@@ -115,6 +116,7 @@ cd local-plugin-dependency
 gradle init \
     --type kotlin-application \
     --dsl kotlin \
+    --test-framework junit-jupiter \
     --project-name local-plugin-dependency \
     --package com.example \
     --no-split-project \

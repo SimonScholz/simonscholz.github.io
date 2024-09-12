@@ -190,6 +190,7 @@ The latest gradle version's init task already generates a toml file for you.
 gradle init \
     --type kotlin-application \
     --dsl kotlin \
+    --test-framework junit-jupiter \
     --project-name gradle-toml \
     --package com.example \
     --no-split-project \
