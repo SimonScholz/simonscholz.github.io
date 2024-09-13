@@ -521,12 +521,201 @@ Exception in thread "main" de.gmuth.ipp.client.IppExchangeException: Print-Job f
 	at de.gmuth.ipp.client.IppClient.exchange(IppClient.kt:85)
 ```
 
+But other image formats being supported by my printer are: `image/jpeg`, `image/urf` and `image/pwg-raster`.
+
+In order to print an image you should choose the format, which is supported by your printer.
+In my case I´ll go for JPEG and therefore copy a `simonscholz-website-qr.jpg` file into my resources folder.
+
+```kotlin [App.kt]
+fun main() {
+    // runPrinterLookup()
+    printImage()
+}
+
+private fun printImage() {
+    val ippPrinter = IppPrinter("ipp://192.168.35.29/ipp/print")
+    Thread.currentThread().contextClassLoader.getResourceAsStream("simonscholz-website-qr.jpg")?.let {
+        val printJob =
+            ippPrinter.printJob(
+                inputStream = it,
+                DocumentFormat.JPEG,
+            )
+        fixedRateTimer("jobStatusChecker", initialDelay = 1000L, period = 5000L) {
+            val jobAttributes = ippPrinter.getJob(printJob.id)
+
+            javaLogger.info { "Job Update: $jobAttributes" }
+            javaLogger.info { "Job State: ${jobAttributes.state}" }
+        }
+        Thread.sleep(Long.MAX_VALUE)
+    } ?: throw IllegalStateException("Cannot find image")
+}
+```
+
+The `printImage` function creates an `IppPrinter` instance using the current IP-Address of my printer.
+Then the `simonscholz-website-qr.jpg` image file is loaded from the resources folder and passed to the `printJob` function of the `IppPrinter`.
+The `fixedRateTimer` is again used to track and print the state of the print job.
+
 ### Printing a pdf
+
+In case your printer supports `application/pdf` as document format you´re lucky and simply can use the following, similar to what we´ve done with the JPEG image.
+
+```kotlin
+val yourPdfInputStream = getYourPdfInputStream()
+val printJob =
+    ippPrinter.printJob(
+        inputStream = yourPdfInputStream,
+        DocumentFormat.PDF,
+    )
+```
+
+In my case I again receive the `de.gmuth.ipp.client.IppExchangeException: Print-Job failed: 'client-error-document-format-not-supported'` error.
+How to cope with this issue is explained in the next section.
 
 ### Cope with pdf printing issues
 
 My printer does not directly support `application/pdf` as format that´s why I need to convert my pdf files into `pwg-raster` files.
 Doing so can be done using [JIPP](https://github.com/HPInc/jipp).
+
+This issue is the reason why I added the `com.hp.jipp:jipp-core:0.7.16`, `com.hp.jipp:jipp-pdl:0.7.16` and `org.apache.pdfbox:pdfbox:3.0.3` dependencies.
+
+
+```kotlin [PdfToPwg.kt]
+import com.hp.jipp.model.MediaSource
+import com.hp.jipp.model.Sides
+import com.hp.jipp.pdl.ColorSpace
+import com.hp.jipp.pdl.OutputSettings
+import com.hp.jipp.pdl.RenderableDocument
+import com.hp.jipp.pdl.RenderablePage
+import com.hp.jipp.pdl.pwg.PwgSettings
+import com.hp.jipp.pdl.pwg.PwgWriter
+import org.apache.pdfbox.Loader
+import org.apache.pdfbox.io.RandomAccessReadBuffer
+import org.apache.pdfbox.pdmodel.PDPageTree
+import org.apache.pdfbox.rendering.ImageType
+import org.apache.pdfbox.rendering.PDFRenderer
+import java.io.InputStream
+import java.io.OutputStream
+
+class PdfToPwg {
+    fun turnPdfInputStreamIntoRenderableDocument(pdfInputStream: InputStream): RenderableDocument {
+        pdfInputStream.use { pdf ->
+            RandomAccessReadBuffer(pdf).use { randomAccessReadBuffer ->
+                return Loader.loadPDF(randomAccessReadBuffer).use {
+                    val pdfRenderer = PDFRenderer(it)
+                    val pages: PDPageTree = it.pages
+                    val renderablePages = mutableListOf<RenderablePage>()
+
+                    for (pageIndex in 0 until pages.count) {
+                        val image = pdfRenderer.renderImageWithDPI(pageIndex, DPI, IMAGE_TYPE)
+                        val width = image.width
+                        val height = image.height
+
+                        val renderablePage: RenderablePage =
+                            object : RenderablePage(width, height) {
+                                override fun render(
+                                    yOffset: Int,
+                                    swathHeight: Int,
+                                    colorSpace: ColorSpace,
+                                    byteArray: ByteArray,
+                                ) {
+                                    var red: Int
+                                    var green: Int
+                                    var blue: Int
+                                    var rgb: Int
+
+                                    var byteIndex = 0
+                                    for (y in yOffset until (yOffset + swathHeight)) {
+                                        for (x in 0 until width) {
+                                            rgb = image.getRGB(x, y)
+                                            red = (rgb shr 16) and 0xFF
+                                            green = (rgb shr 8) and 0xFF
+                                            blue = rgb and 0xFF
+
+                                            if (colorSpace === ColorSpace.Grayscale) {
+                                                byteArray[byteIndex++] =
+                                                    (RED_COEFFICIENT * red + GREEN_COEFFICIENT * green + BLUE_COEFFICIENT * blue)
+                                                        .toInt()
+                                                        .toByte()
+                                            } else {
+                                                byteArray[byteIndex++] = red.toByte()
+                                                byteArray[byteIndex++] = green.toByte()
+                                                byteArray[byteIndex++] = blue.toByte()
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                        renderablePages.add(renderablePage)
+                    }
+
+                    object : RenderableDocument() {
+                        override fun iterator(): Iterator<RenderablePage> = renderablePages.iterator()
+
+                        override val dpi: Int
+                            get() = DPI.toInt()
+                    }
+                }
+            }
+        }
+    }
+
+    fun writeRenderableDocumentAsPWG(
+        renderableDocument: RenderableDocument,
+        outputStream: OutputStream,
+    ) {
+        val outputSettings = OutputSettings(ColorSpace.Rgb, Sides.oneSided, MediaSource.auto, null, false)
+        val caps = PwgSettings(outputSettings)
+
+        PwgWriter(outputStream, caps).use {
+            it.write(renderableDocument)
+        }
+    }
+
+    companion object {
+        const val DPI: Float = 300f
+        val IMAGE_TYPE: ImageType = ImageType.RGB
+        const val RED_COEFFICIENT: Double = 0.2126
+        const val GREEN_COEFFICIENT: Double = 0.7512
+        const val BLUE_COEFFICIENT: Double = 0.0722
+    }
+}
+```
+
+This `PdfToPwg` class is inspired by the [JIPP sample code](https://github.com/HPInc/jipp/blob/master/sample/jrender/src/main/java/sample/jrender/Main.java).
+
+Now let´s make use of the `PdfToPwg` to convert our pdf file into the pwg format and print it.
+
+```kotlin [App.kt]
+fun main() {
+    // runPrinterLookup()
+    // printImage()
+    convertPdfToPwgAndPrintPwg()
+}
+
+private fun convertPdfToPwgAndPrintPwg() {
+    val ippPrinter = IppPrinter("ipp://192.168.35.29/ipp/print")
+    Thread.currentThread().contextClassLoader.getResourceAsStream("website.pdf")?.let {
+        val pdfToPwg = PdfToPwg()
+        val renderableDocument = pdfToPwg.turnPdfInputStreamIntoRenderableDocument(it)
+        val pwgOutputStream = ByteArrayOutputStream()
+        pdfToPwg.writeRenderableDocumentAsPWG(renderableDocument, pwgOutputStream)
+
+        val printJob =
+            ippPrinter.printJob(
+                inputStream = ByteArrayInputStream(pwgOutputStream.toByteArray()),
+                DocumentFormat.PWG_RASTER,
+            )
+        fixedRateTimer("jobStatusChecker", initialDelay = 1000L, period = 5000L) {
+            val jobAttributes = ippPrinter.getJob(printJob.id)
+
+            javaLogger.info { "Job Update: $jobAttributes" }
+            javaLogger.info { "Job State: ${jobAttributes.state}" }
+        }
+        Thread.sleep(Long.MAX_VALUE)
+    } ?: throw IllegalStateException("Cannot find pdf")
+}
+```
 
 ## Visualize pwg files
 
@@ -537,6 +726,27 @@ I installed it using snap on my Ubuntu OS.
 ```bash
 sudo snap install rasterview
 ```
+
+So instead of writing the converted PWG to a `ByteArrayOutputStream` it can also be passed to a `FileOutputStream`:
+
+```kotlin [App.kt]
+fun main() {
+    // runPrinterLookup()
+    // printImage()
+    // convertPdfToPwgAndPrintPwg()
+    justConvertPwg()
+}
+
+private fun justConvertPwg() {
+    Thread.currentThread().contextClassLoader.getResourceAsStream("website.pdf")?.let {
+        val pdfToPwg = PdfToPwg()
+        val renderableDocument = pdfToPwg.turnPdfInputStreamIntoRenderableDocument(it)
+        pdfToPwg.writeRenderableDocumentAsPWG(renderableDocument, FileOutputStream("/home/simon/website.pwg"))
+    }
+}
+```
+
+And now rasterview can be used to open the `website.pwg` file in my home directory.
 
 ## Sources
 
