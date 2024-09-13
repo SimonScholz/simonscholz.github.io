@@ -41,6 +41,29 @@ export default defineNuxtConfig({
     documentDriven: false,
     // https://content.nuxtjs.org/api/configuration
     highlight: {
+      langs: [ // see https://shiki.style/languages
+        'java',
+        'kotlin',
+        'dart',
+        'javascript',
+        'typescript',
+        'json',
+        'tsx',
+        'vue',
+        'vue-html',
+        'terraform',
+        'log',
+        'bash',
+        'shell',
+        'console',
+        'yaml',
+        'toml',
+        'xml',
+        'html',
+        'css',
+        'csv',
+        'properties'
+      ],
       theme: {
         // Default theme (same as single string)
         default: 'github-light',
@@ -49,7 +72,7 @@ export default defineNuxtConfig({
         // Theme used if `html.sepia`
         sepia: 'monokai'
       },
-      preload: ["kotlin", "java", "bash", "ini", "json", "yaml", "xml"],
+      preload: ["kotlin", "java", "bash", "ini", "json", "yaml", "xml", "log"],
     },
     markdown: {
       toc: {
