@@ -52,7 +52,6 @@ export default defineNuxtConfig({
         'vue',
         'vue-html',
         'terraform',
-        'log',
         'bash',
         'shell',
         'console',
@@ -72,7 +71,7 @@ export default defineNuxtConfig({
         // Theme used if `html.sepia`
         sepia: 'monokai'
       },
-      preload: ["kotlin", "java", "bash", "ini", "json", "yaml", "xml", "log"],
+      preload: ["kotlin", "java", "bash", "ini", "json", "yaml", "xml"],
     },
     markdown: {
       toc: {
