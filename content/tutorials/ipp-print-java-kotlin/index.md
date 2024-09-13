@@ -151,21 +151,25 @@ In the next steps the printers being found will actually be used.
 The `main` function in the generated `App.kt` file can now be modified like this:
 
 ```kotlin[App.kt]
+import de.gmuth.ipp.attributes.DocumentFormat
 import de.gmuth.ipp.client.IppPrinter
-import java.util.concurrent.Executors
-import java.util.concurrent.TimeUnit
 import java.util.logging.Logger
+import kotlin.concurrent.fixedRateTimer
 
 private val javaLogger: Logger = Logger.getLogger("PrinterLogger")
 
 fun main() {
+    runPrinterLookup()
+}
+
+private fun runPrinterLookup() {
     val lookup = PrinterLookup()
     try {
         lookup.registerPrinterListener()
-        val scheduler = Executors.newSingleThreadScheduledExecutor()
-        scheduler.scheduleAtFixedRate({
+
+        fixedRateTimer("jobStatusChecker", initialDelay = 1000L, period = 5000L) {
             printPrinterData(lookup)
-        }, 10, 20, TimeUnit.SECONDS)
+        }
 
         Thread.sleep(Long.MAX_VALUE)
     } finally {
@@ -505,7 +509,17 @@ The `de.gmuth.ipp.attributes.DocumentFormat` class consists of the most commonly
 
 ### Printing an image
 
+When I now try using `DocumentFormat.PNG` meaning `image/png` with my printer, it would result in an `IppExchangeException`:
 
+```log
+Sep 13, 2024 9:58:39 PM de.gmuth.ipp.client.IppValueSupport isAttributeValueSupported
+WARNING: According to printer attributes value 'image/png' is not supported.
+Sep 13, 2024 9:58:40 PM de.gmuth.ipp.client.IppValueSupport isAttributeValueSupported
+WARNING: document-format-supported (1setOf mimeMediaType) = application/vnd.hp-PCL,image/jpeg,application/PCLm,image/urf,image/pwg-raster,application/octet-stream
+Exception in thread "main" de.gmuth.ipp.client.IppExchangeException: Print-Job failed: 'client-error-document-format-not-supported'
+	at de.gmuth.ipp.client.IppClient.validateResponse(IppClient.kt:120)
+	at de.gmuth.ipp.client.IppClient.exchange(IppClient.kt:85)
+```
 
 ### Printing a pdf
 
