@@ -55,10 +55,12 @@ jobs:
       - name: Push generated project to deploy branch
         run: |
               cd ${{ env.BUILD_DIR }}
+              ls -la
               git config --global user.email "building@simonscholz.dev"
               git config --global user.name "${{ env.USERNAME }}"
               git init
               git add -A
+              git status
               git commit -m 'Push generated nuxt 3 website'
               git push -f https://${{ env.USERNAME }}:${{ secrets.NUXT_DEPLOY_TOKEN }}@github.com/${{ env.USERNAME }}/${{ github.event.repository.name }}.git master:${{ env.DEPLOY_BRANCH }}
         shell: bash
