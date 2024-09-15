@@ -19,9 +19,9 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4.0.0
+      - uses: pnpm/action-setup@v4
         name: Install pnpm
         with:
           version: 9.10.0
@@ -55,12 +55,11 @@ jobs:
       - name: Push generated project to deploy branch
         run: |
               cd ${{ env.BUILD_DIR }}
-              ls -la
+              rm .gitignore  # Remove the generated .gitignore file
               git config --global user.email "building@simonscholz.dev"
               git config --global user.name "${{ env.USERNAME }}"
               git init
               git add -A
-              git status
               git commit -m 'Push generated nuxt 3 website'
               git push -f https://${{ env.USERNAME }}:${{ secrets.NUXT_DEPLOY_TOKEN }}@github.com/${{ env.USERNAME }}/${{ github.event.repository.name }}.git master:${{ env.DEPLOY_BRANCH }}
         shell: bash
