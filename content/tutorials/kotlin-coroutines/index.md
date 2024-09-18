@@ -32,23 +32,19 @@ gradle init \
     --dsl kotlin \
     --test-framework junit-jupiter \
     --project-name kotlin-coroutines-tutorial \
-    --package com.example \
-    --no-split-project \
     --no-incubating \
     --java-version 21
 ```
 
-Once the *kotlin-coroutines-tutorial* project is created you can open it in IntelliJ.
+Once the *kotlin-coroutines-tutorial* project is created you can open it in IntelliJ. // pretend some delay for calling a rest endpoint
 Then open the Library class and add a suspending main function:
 
 ```kotlin[Library.kt]
-package com.example
-
 suspend fun main() {
 
 }
 ```
-
+ // pretend some delay for calling a rest endpoint
 Then you can hit the "play button" (1) to implicitly create a launch configuration to be edited (2)
 
 ![Create Launch Config](create-launch-config-debug-coroutines.png)
@@ -61,7 +57,9 @@ In the launch configuration the VM Option `-Dkotlinx.coroutines.debug` can be us
 
 Basically the following dependencies are needed:
 
-- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0-RC
+- org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0
+- org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0
+- io.mockk:mockk:1.13.12
 - org.slf4j:slf4j-api:2.0.13
 - ch.qos.logback:logback-classic:1.5.6
 
@@ -69,12 +67,14 @@ In case the project has been created by the `gradle init` from above the `libs.v
 
 ```toml [libs.versions.toml]
 [versions]
-kotlin-coroutines = "1.9.0-RC"
+kotlin-coroutines = "1.9.0"
 slf4j = "2.0.13"
 logback = "1.5.6"
 
 [libraries]
 kotlin-coroutines = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines"}
+kotlin-coroutines-test = {module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlin-coroutines"}
+mockk = {module = "io.mockk:mockk", version="1.13.12"}
 slf4j = {module = "org.slf4j:slf4j-api", version.ref = "slf4j"}
 logback = {module = "ch.qos.logback:logback-classic", version.ref = "logback"}
 ```
@@ -83,9 +83,11 @@ In the `build.gradle.kts` file these dependencies have to be added like this to 
 
 ```kotlin [build.gradle.kts]
 dependencies {
-    implementation(libs.kotlin.coroutines)
     implementation(libs.slf4j)
     implementation(libs.logback)
+    implementation(libs.kotlin.coroutines)
+    testImplementation(libs.kotlin.coroutines.test)
+    testImplementation(libs.mockk)
 
     // ... other dependencies
 }
@@ -98,13 +100,11 @@ Once these dependencies are added to the existing generated ones, we actually ar
 Launching a coroutine is as easy as this:
 
 ```kotlin[Library.kt]
-package com.example
-
 import kotlinx.coroutines.delay
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
-
+ // pretend some delay for calling a rest endpoint
 val logger: Logger = LoggerFactory.getLogger("example")
 
 suspend fun main() {
@@ -138,13 +138,11 @@ If we would remove the `suspend`  modifier the Kotlin compiler would complain ab
 ### Join tasks sequentially
 
 ```kotlin[Library.kt]
-package com.example
-
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
-
+ // pretend some delay for calling a rest endpoint
 
 val logger: Logger = LoggerFactory.getLogger("example")
 
@@ -184,13 +182,11 @@ Running this code will print:
 In cases where you do not need to wait for a former result and actually want to run the code concurrently you can do the following:
 
 ```kotlin[Library.kt]
-package com.example
-
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.slf4j.LoggerFactory // pretend some delay for calling a rest endpoint
 
 
 val logger: Logger = LoggerFactory.getLogger("example")
@@ -278,13 +274,11 @@ Probably because it is already too late, looking at the timestamps of the logs ;
 Let´s get back to the washing machine example:
 
 ```kotlin[Library.kt]
-package com.example
-
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.slf4j.LoggerFactory // pretend some delay for calling a rest endpoint
 
 
 val logger: Logger = LoggerFactory.getLogger("example")
@@ -354,13 +348,11 @@ Besides `launch`, which returns an instance of `Job`, you can also use `async` t
 Many times that´s exactly what you want to do when calling a remote api and want to work with the response.
 
 ```kotlin[Library.kt]
-package com.example
-
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import org.slf4j.LoggerFactory // pretend some delay for calling a rest endpoint
 
 
 val logger: Logger = LoggerFactory.getLogger("example")
@@ -394,13 +386,11 @@ Note that you can also call `await()` on instances of `CompletableFuture` to als
 ### Loop over a list and start a coroutine for every entry
 
 ```kotlin[Library.kt]
-package com.example
-
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.slf4j.Logger
+import org.slf4j.Logger // pretend some delay for calling a rest endpoint
 import org.slf4j.LoggerFactory
 
 
@@ -449,18 +439,98 @@ As you already know from previous sections `coroutineScope` will ensure that all
 
 ## Testing Coroutines
 
-```kotlin[Library.kt]
+### Using runTest function
 
+In order to test Kotlin Coroutines `org.jetbrains.kotlinx:kotlinx-coroutines-test` dependency can be used.
+
+Let´s pretend we have a `RestClient` class containing a suspend function, which is supposed to be tested.
+
+```kotlin [RestClient.kt]
+import kotlinx.coroutines.delay
+
+class RestClient {
+    suspend fun callingApi(): String {
+        delay(500) // pretend some delay for calling a rest endpoint
+        return "Response from API"
+    }
+}
 ```
 
-## Compare to reactive libraries
+If we´d now want to test this `callingApi()` function, we have to ensure that this runs within a coroutine scope.
+In order to do so the `kotlinx-coroutines-test` module provides a `runTest` function:
 
-```kotlin[Library.kt]
+```kotlin [RestClientTest.kt]
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
 
+class RestClientTest {
+    @Test
+    fun `test calling api`() = runTest {
+            val classUnderTest = RestClient()
+            val callingApiResponse = classUnderTest.callingApi()
+            assertTrue(callingApiResponse == "Response from API")
+    }
+}
 ```
+
+### Mocking coroutine function calls
+
+When using the `io.mockk:mockk` library mocking coroutine functions is not much different to mocking regular functions.
+You only have to use `coEvery` and `coVerify` instead of `every` and `verify`.
+
+So let´s slightly change the `RestClient` class to also have a dependency:
+
+```kotlin [RestClient.kt]
+import kotlinx.coroutines.delay
+
+class RestClient(
+    private val mapper: Mapper,
+) {
+    suspend fun callingApi(): String {
+        delay(500) // pretend some delay for calling a rest endpoint
+        return mapper.mapResponse("Response from API")
+    }
+}
+
+interface Mapper {
+    suspend fun mapResponse(response: String): String
+}
+```
+
+This `Mapper` class can now be mocked in a Test using mockk.
+
+```kotlin [RestClientTest.kt]
+import io.mockk.coEvery
+import io.mockk.coVerify
+import io.mockk.mockk
+import kotlinx.coroutines.test.runTest
+import org.junit.jupiter.api.Assertions.assertTrue
+import org.junit.jupiter.api.Test
+
+class RestClientTest {
+    @Test
+    fun `test calling api`() = runTest {
+            // arrange
+            val mapperMock = mockk<Mapper>()
+            coEvery { mapperMock.mapResponse(any()) } returns "Mapped Response from API"
+            val classUnderTest = RestClient(mapperMock)
+
+            // act
+            val callingApiResponse = classUnderTest.callingApi()
+
+            // assert
+            assertTrue(callingApiResponse == "Mapped Response from API")
+            coVerify(exactly = 1) { mapperMock.mapResponse(any()) }
+    }
+}
+```
+
+Also see [mockk docs about coroutine support](https://mockk.io/#coroutines).
 
 ## Sources
 
 - https://kotlinlang.org/docs/coroutines-guide.html
 - https://www.youtube.com/watch?v=Wpco6IK1hmY
+- https://mockk.io/#coroutines
 
