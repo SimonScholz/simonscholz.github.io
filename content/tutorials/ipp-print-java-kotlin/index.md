@@ -763,6 +763,7 @@ And now rasterview can be used to open the `website.pwg` file in my home directo
 
 ## Sources
 
+- https://www.pwg.org/ipp/ippguide.html
 - https://github.com/gmuth/ipp-client-kotlin
 - https://github.com/jmdns/jmdns
 - https://github.com/HPInc/jipp
