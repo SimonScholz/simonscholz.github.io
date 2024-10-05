@@ -1,5 +1,5 @@
 <template>
-  <main class="mt-10 md:m-12 mb-10">
+  <main class="mt-10 md:mx-36 mb-10">
     <ContentDoc>
       <template v-slot="{ doc }">
         <div class="flex flex-col md:ml-10 md:mr-10">
@@ -20,9 +20,9 @@
             <span class="md:ml-3">
               <a href="#comments">
                 <img
-                  src="https://img.shields.io/badge/-Feedback%3F%20Requests%3F-gray?logo=github"
-                  alt="Feedback / Requests?"
-                  title="Feedback / Requests?"
+                  src="https://img.shields.io/badge/-Comments%3F%20Feedback%3F%20Requests%3F-gray?logo=github"
+                  alt="Comments /Feedback / Requests?"
+                  title="Comments /Feedback / Requests?"
                 /> </a
             ></span>
           </div>
