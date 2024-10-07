@@ -62,11 +62,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
 <template>
   <div class="flex flex-col snap-y snap-mandatory">
     <section class="snap-center snap-always">
-      <section class="mt-12 md:mt-0 flex flex-grow flex-row select-none justify-center text-8xl font-mono">
-        <h1 class="tracking-wider">Hello</h1>
-        <Icon name="mdi:hand-wave" class="ml-3" />
-      </section>
-      <section class="mt-20 flex flex-col select-none justify-center md:flex-row">
+      <section class="mt-32 flex flex-col select-none justify-center md:flex-row">
         <span class="text-2xl m-3 md:w-1/3 md:mt-10 md:text-left fadeSection">
           <div class="m-auto">
             <p>
@@ -98,7 +94,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
           </span>
         </div>
       </section>
-      <div class="mt-10 flex flex-col items-center justify-center text-3xl md:mt-32">
+      <div class="mt-10 flex flex-col items-center justify-center text-3xl md:mt-40">
         <h1 ref="findMe" class="flex flex-row select-none text-3xl findMeHidden">
           Find me here
           <Icon name="carbon:location-heart" class="ml-2" />
