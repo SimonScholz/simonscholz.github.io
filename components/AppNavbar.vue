@@ -94,9 +94,9 @@ function closeMobileMenu() {
         <span class="ml-3">LinkedIn</span>
       </NuxtLink>
       <NuxtLink class="icon-btn align-middle flex flex-row text-xl place-items-center mt-3" rel="noreferrer"
-        to="https://twitter.com/simonscholz" target="_blank" title="Twitter">
-        <Icon name="uil:twitter-alt" />
-        <span class="ml-3">Twitter</span>
+        to="https://x.com/simonscholz" target="_blank" title="X">
+        <Icon name="hugeicons:new-twitter" />
+        <span class="ml-3">X</span>
       </NuxtLink>
       <div class="flex mt-10">
         <ColorModeSwitch
@@ -126,8 +126,8 @@ function closeMobileMenu() {
         title="LinkedIn">
         <Icon name="uil:linkedin-alt" />
       </NuxtLink>
-      <NuxtLink class="icon-btn" rel="noreferrer" to="https://twitter.com/simonscholz" target="_blank" title="Twitter">
-        <Icon name="uil:twitter-alt" />
+      <NuxtLink class="icon-btn" rel="noreferrer" to="https://x.com/simonscholz" target="_blank" title="X">
+        <Icon name="hugeicons:new-twitter" />
       </NuxtLink>
     </section>
   </nav>

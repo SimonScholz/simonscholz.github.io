@@ -113,9 +113,9 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
               target="_blank" title="LinkedIn">
               <Icon name="uil:linkedin-alt" />
             </NuxtLink>
-            <NuxtLink class="icon-btn" rel="noreferrer" href="https://twitter.com/simonscholz" target="_blank"
-              title="Twitter">
-              <Icon name="uil:twitter-alt" />
+            <NuxtLink class="icon-btn" rel="noreferrer" href="https://x.com/simonscholz" target="_blank"
+              title="X">
+              <Icon name="hugeicons:new-twitter" />
             </NuxtLink>
             <NuxtLink class="icon-btn hover:hand" title="About Me" @click.prevent="scrollToAboutMeSection">
               <Icon name="carbon:id-management" />
