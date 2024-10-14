@@ -62,7 +62,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
 <template>
   <div class="flex flex-col snap-y snap-mandatory">
     <section class="snap-center snap-always">
-      <section class="mt-32 flex flex-col select-none justify-center md:flex-row">
+      <section class="mt-10 flex flex-col select-none justify-center md:flex-row md:mt-32">
         <span class="text-2xl m-3 md:w-1/3 md:mt-10 md:text-left fadeSection">
           <div class="m-auto">
             <p>
