@@ -7,7 +7,7 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@nuxt/content": "^2.13.2",
+    "@nuxt/content": "^2.13.4",
     "@nuxtjs/tailwindcss": "^6.12.1",
     "@types/node": "^22.7.4",
     "nuxt": "^3.13.2",
