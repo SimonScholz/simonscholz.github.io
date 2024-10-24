@@ -101,6 +101,128 @@ Now you can ssh into your server using your ssh key:
 ssh -i ~/.ssh/ansible -p 22222 localhost
 ```
 
+## Git Repository
+
+As mentioned earlier it makes sense to use version control to store the ansible config and playbooks.
+
+```bash
+mkdir ansible
+cd ansible
+git init
+```
+
+To let Ansible know, which servers it should ssh into an `inventory` file can be created:
+
+```txt [inventory]
+localhost
+
+{other-ip-addresses-or-domains}
+```
+
+To let Ansible implicitly pickup the `inventory` file an `ansible.cfg` config file can be created:
+
+```ini [ansible.cfg]
+[defaults]
+inventory = inventory
+private_key_file = ~/.ssh/ansible
+```
+
+## First Ansible commands
+
+Within the git repository `ansible` folder the following commands can be run:
+
+```bash
+# Simply ping all servers
+ansible all -m ping
+
+# Gather meta data from all servers
+ansible all -m gather_facts
+```
+
+The ping command will result in the following:
+
+![Ansible ping](./ansible-ping.png)
+
+In case you do not have the `ansible.cfg` in place you can reference the key file and inventory.
+
+```bash
+# Simply ping all servers
+ansible all --key-file ~/.ssh/ansible -i inventory -m ping
+
+# Gather meta data from all servers
+ansible all --key-file ~/.ssh/ansible -i inventory -m gather_facts
+```
+
+### Grep dedicated facts
+
+When running `gather_facts` the list is quite long 
+and using `grep` can help to target certain meta data.
+
+```bash
+ansible all -m gather_facts | grep ansible_distribution
+```
+
+![grep ansible_distribution](./grep-ansible_distribution.png)
+
+In case you're having multiple servers in your inventory
+and want to target a certain server the `--limit` flag can be used:
+
+```bash
+ansible all -m gather_facts --limit localhost | grep ansible_distribution
+```
+
+## Using VS Code (optional)
+
+Red Hat provides a helpful Ansible extension for VS Code in the [Extension marketplace](https://marketplace.visualstudio.com/items?itemName=redhat.ansible).
+
+This extension comes with reasonable syntax highlighting and code completion for Ansible files.
+
+The following rules apply to make the Ansible extension work out of the box.
+
+* yaml files under /playbooks dir.
+* files with the following double extension: .ansible.yml or .ansible.yaml.
+* notable yaml names recognized by ansible like site.yml or site.yaml
+* yaml files having playbook in their filename: *playbook*.yml or *playbook*.yaml
+
+That's the reason why I add `playbook` to the file name of a playbook in the next chapter.
+
+## First Ansible playbook
+
+Let's create our first Ansible playbook called `first_playbook.yml` inside the git repository.
+
+```yml [first_playbook.yml]
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+```
+
+1. `become: true` is used since we need `sudo` for the `apt` commands.
+2. Then we simply give the one task a `name`.
+3. Using the `apt` instruction. See [ansible apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html).
+4. The `when` expression can be used to specify for which kind of server this task applies.
+
+The `first_playbook.yml` playbook can be run like this:
+
+```bash
+ansible-playbook --ask-become-pass first_playbook.yml
+```
+
+Running this should lead to a similar result:
+
+![ansible playbook run](./ansible-first-playbook.png)
+
+Any time a playbook is run the `gather_facts` task will be run implicitly to make use of the facts within the playbooks,
+e.g., in the `when` expression.
+
+We can also see here that the apt cache is updated, so we successfully ran our first playbook. 🙌
+
 ## Sources
 
 - https://www.ansible.com/
