@@ -74,12 +74,12 @@ For better security and convenience it is highly recommended to use ssh keys to 
 ssh-keygen -t ed25519 -C "ansible"
 ```
 
-Now you´ll be prompted to enter the file path.
+Now you'll be prompted to enter the file path.
 Since there usually already is a default file you might want to choose a different file name, e.g., `/home/your-username/.ssh/ansible`.
 
-In order to let ansible do it´s job later on we won´t add a passphrase for this ssh key.
+In order to let ansible do it's job later on we won't add a passphrase for this ssh key.
 
-Please keep this ssh secret, since this will be the credential/password to your server.
+⚠️ Please keep this ssh secret, since this will be the credential/password to your server.
 
 ## Copy ssh key to the server
 
@@ -100,6 +100,8 @@ Now you can ssh into your server using your ssh key:
 ```bash
 ssh -i ~/.ssh/ansible -p 22222 localhost
 ```
+
+`-p 22222` is used to set 22222 as port, because otherwise the default ssh port 22 is used.
 
 ## Git Repository
 
@@ -125,6 +127,8 @@ To let Ansible implicitly pickup the `inventory` file an `ansible.cfg` config fi
 [defaults]
 inventory = inventory
 private_key_file = ~/.ssh/ansible
+# optional if not using default 22 port
+remote_port = 22222
 ```
 
 ## First Ansible commands
@@ -222,6 +226,251 @@ Any time a playbook is run the `gather_facts` task will be run implicitly to mak
 e.g., in the `when` expression.
 
 We can also see here that the apt cache is updated, so we successfully ran our first playbook. 🙌
+
+In case you do not want to consider apt update as a change, since it is normal that this changes, `changed_when: false` can be used:
+
+```yml [first_playbook.yml]
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    changed_when: false
+```
+
+1. `changed_when: false` means that this task won't be considered as change, since apt update usually changes a lot
+
+## Adding files to the system
+
+In order to work with files a `files` directory needs to be added.
+
+So let's create a `files` directory and create a `README.md` file in it.
+
+```bash
+mkdir files
+echo "## My Ansible Setup" >> files/README.md
+```
+
+Now that the README.md is in place another `Add README.md` task can be added to our playbook.
+
+```yml [first_playbook.yml]
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Add README.md
+    copy:
+      src: README.md
+      dest: /home/simon
+      owner: root
+      group: root
+```
+
+Please note that `src:` assumes that the files are located in the `files` directory.
+
+```bash
+ansible-playbook --ask-become-pass first_playbook.yml
+```
+
+After running the playbook the `README.md` file can be found in `/home/simon/` on the server.
+
+## Dedicated ansible user
+
+It is considered good practice to have a dedicated user to run the ansible playbooks.
+
+Since that new user should also be a sudoer (allowed to run sudo commands),
+we'll add a `sudoer_simon_ansible` file to the `files` directory.
+
+```bash
+echo "simon-ansible ALL=(ALL) NOPASSWD: ALL" >> files/sudoer_simon_ansible
+```
+
+This `sudoer_simon_ansible` will now also be used in the playbook:
+
+```yml [first_playbook.yml]
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: update repository index
+    apt:
+      update_cache: yes
+    changed_when: false
+    when: ansible_distribution == "Ubuntu"
+
+  - name: Add README.md
+    copy:
+      src: README.md
+      dest: /home/simon
+      owner: root
+      group: root
+
+  - name: Add simon-ansible user
+    user:
+      name: simon-ansible
+      groups:
+        - root
+
+  - name: Add ssh key (user simon-ansible)
+    authorized_key:
+      user: simon-ansible
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM0IWm4fVLFOYFydagOnkqaEvu9jnTUARRUYfQ0XnxFR ansible"
+
+  - name: Add sudoers file (user simon-ansible)
+    copy:
+      src: sudoer_simon_ansible
+      dest: /etc/sudoers.d/simon-ansible
+      owner: root
+      group: root
+```
+
+1. The `Add simon-ansible user` task just creates a user called `simon-ansible` and adds it to the root group.
+2. `Add ssh key (user simon-ansible)` adds our public key `~/.ssh/ansible.pub` for the user `simon-ansible` as authorized_key
+3. `Add sudoers file (user simon-ansible)` will copy the contents of `sudoer_simon_ansible` into `/etc/sudoers.d/simon-ansible`.
+
+⚠️ Please be cautious adding a user to the root group, but we'll elaborate on security later on.
+
+Now we can run the playbook once again to create the `simon-ansible` user.
+
+```bash
+ansible-playbook --ask-become-pass first_playbook.yml
+```
+
+Once the user is in place we can tell ansible to use this user using the `remote_user` property.
+
+`remote_user:` can either be added to any task, but I prefer to simply add it to the `ansible.cfg` file:
+
+```ini [ansible.cfg]
+[defaults]
+inventory = inventory
+private_key_file = ~/.ssh/ansible
+remote_user=simon-ansible
+# optional if not using default 22 port
+remote_port = 22222
+```
+
+Once this is done `--ask-become-pass` can be omitted, since the `simon-ansible` is authorized by the ssh key:
+
+```bash
+ansible-playbook first_playbook.yml
+```
+
+## Using roles
+
+Having all tasks inside one playbook will decrease the readability
+and harder to maintain.
+Roles can be used to organize certain tasks in a dedicated file structure,
+which make them reusable and fosters proper separation of concerns.
+
+Basically our current playbook does 3 things right now:
+
+* apt update
+* copy a file
+* creates and configures a dedicated ansible user
+
+We now intend to move these tasks into respective roles and just let the playbook delegate to these roles:
+
+![playbook to roles](./playbook-to-roles.excalidraw.png)
+
+Therefore we create the following directories and files:
+
+```bash
+mkdir -p roles/apt-update/tasks/ \
+         roles/copy-readme/tasks/ \
+         roles/copy-readme/files/ \
+         roles/user-create/tasks/ \
+         roles/user-create/files/ \
+&& touch roles/apt-update/tasks/main.yml \
+         roles/copy-readme/tasks/main.yml \
+         roles/user-create/tasks/main.yml \
+&& mv files/README.md roles/copy-readme/files/README.md \
+&& mv files/sudoer_simon_ansible roles/user-create/files/sudoer_simon_ansible \
+&& rm -r files
+```
+
+After that the folder structure should look like this:
+
+![VS code folder structure with roles](./roles-folder-structure-vs-code.png)
+
+Now that the folder structure is in place we can copy the tasks from `first_playbook.yml` to the respective `main.yml` files.
+
+`/roles/apt-update/tasks/main.yml`:
+
+```yml [/roles/apt-update/tasks/main.yml]
+- name: update repository index
+  apt:
+    update_cache: yes
+  changed_when: false
+  when: ansible_distribution == "Ubuntu"
+```
+
+`/roles/copy-readme/tasks/main.yml`:
+
+```yml [/roles/copy-readme/tasks/main.yml]
+- name: Add README.md
+  copy:
+    src: README.md
+    dest: /home/simon
+    owner: root
+    group: root
+```
+
+`/roles/user-create/tasks/main.yml`:
+
+```yml [/roles/user-create/tasks/main.yml]
+- name: Add simon-ansible user
+  user:
+    name: simon-ansible
+    groups:
+      - root
+
+- name: Add ssh key (user simon-ansible)
+  authorized_key:
+    user: simon-ansible
+    key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM0IWm4fVLFOYFydagOnkqaEvu9jnTUARRUYfQ0XnxFR ansible"
+
+- name: Add sudoers file (user simon-ansible)
+  copy:
+    src: sudoer_simon_ansible
+    dest: /etc/sudoers.d/simon-ansible
+    owner: root
+    group: root
+```
+
+The `first_playbook.yml` file can now use the `roles:` property to delegate to the roles:
+
+```yml [first_playbook.yml]
+---
+- hosts: all
+  become: true
+  roles:
+    - apt-update
+    - copy-readme
+    - user-create
+```
+
+When you now run the playbook...
+
+```bash
+ansible-playbook first_playbook.yml
+```
+... nothing should've changed and the outcome should still be the same.
+But we now have cleaned up a bit and have clear separation of concerns.
+
+![Ansible roles run](./ansible-roles-run.png)
+
+Note that the roles are also mentioned in the console output.
 
 ## Sources
 
