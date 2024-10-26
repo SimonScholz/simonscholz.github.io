@@ -366,6 +366,183 @@ Once this is done `--ask-become-pass` can be omitted, since the `simon-ansible` 
 ansible-playbook first_playbook.yml
 ```
 
+## Working with variables
+
+Variables can be used in Ansible files using `{{your_variable}}`
+and there are several ways to inject variables into a playbook run.
+
+You can pass them via command line, e.g., using `-e "user=simon`,
+where variables have highest precedence.
+
+Also see [Understanding variable precedence](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html#ansible-variable-precedence)
+
+Since I myself prefer to not have a too complex cli command to be run,
+I'd rather put my variable in a dedicated file.
+
+```bash
+mkdir vars && echo "user: simon-ansible" >> vars/variables.yml
+```
+
+Now that we have the user variable in place, let's reference it in the playbook:
+```yml [first_playbook.yml]
+---
+- hosts: all
+  become: true
+  vars_files:
+    - ./vars/variables.yml
+  tasks:
+
+  ### ... other tasks
+
+  - name: Add simon-ansible user
+    user:
+      name: "{{ user }}"
+      groups:
+        - root
+
+  ### more tasks ...
+
+```
+
+1. `vars_files` is a list of files, which can include variables.
+2. The `{{ user }}` variable is referenced from `./vars/variables.yml`
+
+When you now run the playbook the user will be taken from the `./vars/variables.yml` file.
+
+```bash
+ansible-playbook first_playbook.yml
+```
+
+For more information also see [Ansible Docs: Using Variables](https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html)
+
+## Encrypt secrets (Ansible Vault)
+
+Since Ansible are usually shared in a git repo, you should encrypt your secret data,
+even though the git repo might be private.
+
+### Encrypt
+
+In order to encrypt a file you can run the following command:
+
+
+```bash
+ansible-vault encrypt {filename}
+
+# e.g.
+ansible-vault encrypt my-secrets.yml
+```
+
+### Decrypt
+
+Decryption works in a similar manner:
+
+```bash
+ansible-vault decrypt {filename}
+
+# e.g.
+ansible-vault decrypt my-secrets.yml
+```
+
+### View and Edit
+
+In order to view or edit the secret on the fly without changing the actual file
+you can use the following commands:
+
+```bash
+ansible-vault view {filename}
+
+# e.g.
+ansible-vault view my-secrets.yml
+```
+
+```bash
+ansible-vault edit {filename}
+
+# e.g.
+ansible-vault edit my-secrets.yml
+```
+
+### Change encryption password
+
+The passphrase of an encrypted file can also be changed:
+
+```bash
+ansible-vault rekey {filename}
+
+# e.g.
+ansible-vault rekey my-secrets.yml
+```
+
+This will ask you for the current password and then you can enter a new one.
+
+### Vault password file
+
+Since it is preferable to run Ansible in headless mode
+the need to enter a password is not helpful.
+
+Therefore you can create a vault password file, which is supposed to be picked up by Ansible.
+
+⚠️ Please make sure to **not push** this vault password file to version control!
+So either put it outside the repository or add it to your `.gitignore` file.
+
+```bash
+echo "my_super_secret_password" >> .vault_password
+```
+
+To secure this even more we'd want to change the permissions of this file:
+
+```bash
+chmod 600 .vault_password
+```
+
+This ensures that only the root user can read and write to this file.
+
+With the `.vault_password` in place it can be passed to the commands above like this.
+
+```bash
+ansible-vault encrypt --vault-password-file .vault_password {filename}
+
+# e.g.
+ansible-vault encrypt --vault-password-file .vault_password my-secrets.yml
+```
+
+Also this can be specified in the ansible.cfg file,
+so that passing `--vault-password-file` is not mandatory.
+
+```ini [ansible.cfg]
+[defaults]
+inventory = inventory
+private_key_file = ~/.ssh/ansible
+remote_user=simon-ansible
+vault_password_file=./.vault_password
+# optional if not using default 22 port
+remote_port = 22222
+```
+
+### Ansible using encrypted files
+
+Now that we know how to encrypt files, let us make use of these when running our playbook.
+
+For this purpose we encrypt the `./vars/variables.yml` file from the former chapter,
+to not expose the user name.
+
+```bash
+ansible-vault encrypt ./vars/variables.yml
+```
+
+Running this command will turn the contents of ./vars/variables.yml into this:
+
+```yml [./vars/variables.yml]
+$ANSIBLE_VAULT;1.1;AES256
+32326530343030663238663666356335656330353430313333613130316631636466343339626361
+6435383533386663613464613161303636343165303536330a656331323061643831366238316333
+36613933373262303365353533616362353461626239323832396530663266373463633739386430
+3234643164316639390a366338643130383331616632323264373466346137363165396236656134
+33366632356232343963306562633864636434643237646363353431333566643936
+```
+
+Running `ansible-playbook first_playbook.yml` should just work as before, but the `./vars/variables.yml` is now encrypted.
+
 ## Using roles
 
 Having all tasks inside one playbook will decrease the readability
@@ -472,7 +649,17 @@ But we now have cleaned up a bit and have clear separation of concerns.
 
 Note that the roles are also mentioned in the console output.
 
+If you want to create a new role from scratch the `ansible-galaxy` cli can be used for this:
+
+```bash
+ansible-galaxy role init {role-name}
+
+# e.g.
+ansible-galaxy role init custom
+```
+
 ## Sources
 
 - https://www.ansible.com/
+- https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html
 - https://www.youtube.com/watch?v=GROqwFFLl3s
