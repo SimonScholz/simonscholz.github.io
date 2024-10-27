@@ -217,14 +217,14 @@ Let's create our first Ansible playbook called `first_playbook.yml` inside the g
 ```yml [first_playbook.yml]
 ---
 
-- hosts: all
+- name: My first playbook
+  hosts: all
   become: true
   tasks:
-
-  - name: update repository index
-    apt:
-      update_cache: yes
-    when: ansible_distribution == "Ubuntu"
+    - name: Update repository index
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_distribution == "Ubuntu"
 ```
 
 1. `become: true` is used since we need `sudo` for the `apt` commands.
@@ -251,14 +251,14 @@ In case you do not want to consider apt update as a change, since it is normal t
 
 ```yml [first_playbook.yml]
 ---
-- hosts: all
+- name: My first playbook
+  hosts: all
   become: true
   tasks:
-
-  - name: update repository index
-    apt:
-      update_cache: yes
-    changed_when: false
+    - name: Update repository index
+      ansible.builtin.apt:
+        update_cache: true
+      changed_when: false
 ```
 
 1. `changed_when: false` means that this task won't be considered as change, since apt update usually changes a lot
@@ -278,22 +278,23 @@ Now that the README.md is in place another `Add README.md` task can be added to 
 
 ```yml [first_playbook.yml]
 ---
-- hosts: all
+- name: My first playbook
+  hosts: all
   become: true
   tasks:
+    - name: Update repository index
+      ansible.builtin.apt:
+        update_cache: true
+      changed_when: false
+      when: ansible_distribution == "Ubuntu"
 
-  - name: update repository index
-    apt:
-      update_cache: yes
-    changed_when: false
-    when: ansible_distribution == "Ubuntu"
-
-  - name: Add README.md
-    copy:
-      src: README.md
-      dest: /home/simon
-      owner: root
-      group: root
+    - name: Add README.md
+      ansible.builtin.copy:
+        src: README.md
+        dest: /home/simon
+        owner: root
+        group: root
+        mode: "0644"
 ```
 
 Please note that `src:` assumes that the files are located in the `files` directory.
@@ -319,40 +320,42 @@ This `sudoer_simon_ansible` will now also be used in the playbook:
 
 ```yml [first_playbook.yml]
 ---
-- hosts: all
+- name: My first playbook
+  hosts: all
   become: true
   tasks:
+    - name: Update repository index
+      ansible.builtin.apt:
+        update_cache: true
+      changed_when: false
+      when: ansible_distribution == "Ubuntu"
 
-  - name: update repository index
-    apt:
-      update_cache: yes
-    changed_when: false
-    when: ansible_distribution == "Ubuntu"
+    - name: Add README.md
+      ansible.builtin.copy:
+        src: README.md
+        dest: /home/simon
+        owner: root
+        group: root
+        mode: "0644"
 
-  - name: Add README.md
-    copy:
-      src: README.md
-      dest: /home/simon
-      owner: root
-      group: root
+    - name: Add simon-ansible user
+      ansible.builtin.user:
+        name: simon-ansible
+        groups:
+          - root
 
-  - name: Add simon-ansible user
-    user:
-      name: simon-ansible
-      groups:
-        - root
+    - name: Add ssh key (user simon-ansible)
+      authorized_key:
+        user: simon-ansible
+        key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM0IWm4fVLFOYFydagOnkqaEvu9jnTUARRUYfQ0XnxFR ansible"
 
-  - name: Add ssh key (user simon-ansible)
-    authorized_key:
-      user: simon-ansible
-      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM0IWm4fVLFOYFydagOnkqaEvu9jnTUARRUYfQ0XnxFR ansible"
-
-  - name: Add sudoers file (user simon-ansible)
-    copy:
-      src: sudoer_simon_ansible
-      dest: /etc/sudoers.d/simon-ansible
-      owner: root
-      group: root
+    - name: Add sudoers file (user simon-ansible)
+      ansible.builtin.copy:
+        src: sudoer_simon_ansible
+        dest: /etc/sudoers.d/simon-ansible
+        owner: root
+        group: root
+        mode: "0644"
 ```
 
 1. The `Add simon-ansible user` task just creates a user called `simon-ansible` and adds it to the root group.
@@ -406,22 +409,17 @@ mkdir vars && echo "user: simon-ansible" >> vars/variables.yml
 Now that we have the user variable in place, let's reference it in the playbook:
 ```yml [first_playbook.yml]
 ---
-- hosts: all
+- name: My first playbook
+  hosts: all
   become: true
   vars_files:
     - ./vars/variables.yml
   tasks:
-
-  ### ... other tasks
-
-  - name: Add simon-ansible user
-    user:
-      name: "{{ user }}"
-      groups:
-        - root
-
-  ### more tasks ...
-
+    - name: Add simon-ansible user
+      ansible.builtin.user:
+        name: "{{ user }}"
+        groups:
+          - root
 ```
 
 1. `vars_files` is a list of files, which can include variables.
@@ -583,16 +581,16 @@ We now intend to move these tasks into respective roles and just let the playboo
 Therefore we create the following directories and files:
 
 ```bash
-mkdir -p roles/apt-update/tasks/ \
-         roles/copy-readme/tasks/ \
-         roles/copy-readme/files/ \
-         roles/user-create/tasks/ \
-         roles/user-create/files/ \
-&& touch roles/apt-update/tasks/main.yml \
-         roles/copy-readme/tasks/main.yml \
-         roles/user-create/tasks/main.yml \
-&& mv files/README.md roles/copy-readme/files/README.md \
-&& mv files/sudoer_simon_ansible roles/user-create/files/sudoer_simon_ansible \
+mkdir -p roles/apt_update/tasks/ \
+         roles/copy_readme/tasks/ \
+         roles/copy_readme/files/ \
+         roles/user_create/tasks/ \
+         roles/user_create/files/ \
+&& touch roles/apt_update/tasks/main.yml \
+         roles/copy_readme/tasks/main.yml \
+         roles/user_create/tasks/main.yml \
+&& mv files/README.md roles/copy_readme/files/README.md \
+&& mv files/sudoer_simon_ansible roles/user_create/files/sudoer_simon_ansible \
 && rm -r files
 ```
 
@@ -605,9 +603,9 @@ Now that the folder structure is in place we can copy the tasks from `first_play
 `/roles/apt-update/tasks/main.yml`:
 
 ```yml [/roles/apt-update/tasks/main.yml]
-- name: update repository index
-  apt:
-    update_cache: yes
+- name: Update repository index
+  ansible.builtin.apt:
+    update_cache: true
   changed_when: false
   when: ansible_distribution == "Ubuntu"
 ```
@@ -616,18 +614,19 @@ Now that the folder structure is in place we can copy the tasks from `first_play
 
 ```yml [/roles/copy-readme/tasks/main.yml]
 - name: Add README.md
-  copy:
+  ansible.builtin.copy:
     src: README.md
     dest: /home/simon
     owner: root
     group: root
+    mode: "0644"
 ```
 
 `/roles/user-create/tasks/main.yml`:
 
 ```yml [/roles/user-create/tasks/main.yml]
 - name: Add simon-ansible user
-  user:
+  ansible.builtin.user:
     name: simon-ansible
     groups:
       - root
@@ -638,11 +637,12 @@ Now that the folder structure is in place we can copy the tasks from `first_play
     key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM0IWm4fVLFOYFydagOnkqaEvu9jnTUARRUYfQ0XnxFR ansible"
 
 - name: Add sudoers file (user simon-ansible)
-  copy:
+  ansible.builtin.copy:
     src: sudoer_simon_ansible
     dest: /etc/sudoers.d/simon-ansible
     owner: root
     group: root
+    mode: "0644"
 ```
 
 The `first_playbook.yml` file can now use the `roles:` property to delegate to the roles:
@@ -652,9 +652,9 @@ The `first_playbook.yml` file can now use the `roles:` property to delegate to t
 - hosts: all
   become: true
   roles:
-    - apt-update
-    - copy-readme
-    - user-create
+    - apt_update
+    - copy_readme
+    - user_create
 ```
 
 When you now run the playbook...
