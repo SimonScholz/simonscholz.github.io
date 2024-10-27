@@ -32,6 +32,17 @@ pipx install --include-deps ansible
 
 To validate if Ansible is installed properly on your machine just run `ansible ---version`
 
+### Install Ansible Lint (optional)
+
+It is helpful to check for having proper yml files in your Ansible setup.
+
+```bash
+pipx install ansible-dev-tools && pipx install ansible-lint
+```
+
+With the dev tools in place `ansible-lint` can be run from the command line
+or will be used by the Ansible VS Code extension, which we'll discuss later on.
+
 ## Install Virtualbox (optional)
 
 In case you already have a server, which you intend to use you can skip this step.
@@ -131,6 +142,12 @@ private_key_file = ~/.ssh/ansible
 remote_port = 22222
 ```
 
+### Ansible Lint GitHub Action
+
+Ansible lint also provides a GitHub Action to check your Ansible files hosted on GitHub.
+
+Please see [Installing Ansible Lint as a GitHub Action](https://ansible.readthedocs.io/projects/lint/installing/#installing-ansible-lint-as-a-github-action) for detailed information.
+
 ## First Ansible commands
 
 Within the git repository `ansible` folder the following commands can be run:
@@ -189,6 +206,9 @@ The following rules apply to make the Ansible extension work out of the box.
 * yaml files having playbook in their filename: *playbook*.yml or *playbook*.yaml
 
 That's the reason why I add `playbook` to the file name of a playbook in the next chapter.
+
+In case you've installed the Ansible Lint, which I recommend, the Ansible VS Code extension run ansible-lint automatically
+and shows lint issues right away in the editor.
 
 ## First Ansible playbook
 
