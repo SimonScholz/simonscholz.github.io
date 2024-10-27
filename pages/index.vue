@@ -62,7 +62,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
 <template>
   <div class="flex flex-col snap-y snap-mandatory">
     <section class="snap-center snap-always">
-      <section class="mt-20 flex flex-col select-none justify-center md:flex-row md:mt-32">
+      <section class="mt-24 flex flex-col select-none justify-center md:flex-row md:mt-32">
         <span class="text-2xl m-3 md:w-1/3 md:mt-10 md:text-left fadeSection">
           <div class="m-auto">
             <p>
@@ -81,9 +81,13 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
               I've already pushed a lot of customers in that direction for the
               better.
             </p>
+            <NuxtLink to="/contact"
+              class="md:hidden border-0 p-2 rounded-md bg-cyan-600 transition duration-500 hover:duration-500 hover:bg-cyan-700">
+              Contact me
+            </NuxtLink>
           </div>
         </span>
-        <div class="flex flex-col items-center mt-20 md:ml-20 md:mt-0">
+        <div class="flex flex-col items-center mt-24 md:ml-20 md:mt-0">
           <img class="h-80 w-80 self-center border-4 border-black dark:border-white rounded-full " :src="me" alt="me"
             title="me" height="80" width="80" />
           <span class="mt-2 text-lg">
