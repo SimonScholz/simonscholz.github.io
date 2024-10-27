@@ -678,8 +678,70 @@ ansible-galaxy role init {role-name}
 ansible-galaxy role init custom
 ```
 
+## Ansible Galaxy
+
+On https://galaxy.ansible.com you can browse several collections and roles provided by the community.
+
+So if you intend to do some basic operations using Ansible chances are that other's already did that before you.
+So instead of reinventing the wheel, you probably might want to search for a collection or role, which suits your needs.
+At least you can get inspirations from existing roles, that do archive a similar outcome you'd want to have.
+
+You can even provide your own roles starting with the `ansible-galaxy role init {role-name}` mentioned earlier.
+
+### Install roles from Ansible Galaxy
+
+You can install certain roles using the `ansible-galaxy` cli:
+
+```bash
+ansible-galaxy role install namespace.role_name
+
+# e.g.
+ansible-galaxy role install geerlingguy.security
+```
+
+Doing so will usually result in the role ending up in the `~/.ansible/roles` directory.
+
+By using the `--roles-path` param the path can be changed:
+
+```bash
+ansible-galaxy role install --roles-path . geerlingguy.security
+```
+
+### Install roles from a requirements.yml
+
+You can also create a `requirements.yml` file to specify, which roles should be installed.
+
+Inside the `requirements.yml` file you have plenty of options:
+
+* **src** - The source of the role. Use the format namespace.role_name, if downloading from Galaxy; otherwise, provide a URL pointing to a repository within a Git based SCM. See the examples below. This is a required attribute.
+* **scm** -     Specify the SCM. As of this writing only git or hg are allowed. See the examples below. Defaults to git.
+* **version** -     The version of the role to download. Provide a release tag value, commit hash, or branch name. Defaults to the branch set as a default in the repository, otherwise defaults to the master.
+* **name** -     Download the role to a specific name. Defaults to the Galaxy name when downloading from Galaxy, otherwise it defaults to the name of the repository.
+
+
+An example could look like this:
+
+```yml [requirements.yml]
+- src: geerlingguy.security
+  version: 2.4.0
+- src: geerlingguy.docker
+  version: 7.4.1
+```
+
+```bash
+ansible-galaxy install -r requirements.yml
+```
+
+### A word of caution
+
+Blindly trusting third party dependencies is never a good idea and especially when it comes to ssh on your servers.
+So please be sure to review the roles or collections from the Ansible Galaxy or anywhere else before using them.
+
+Also see [Galaxy User Guide](https://docs.ansible.com/ansible/latest/galaxy/user_guide.html)
+
 ## Sources
 
 - https://www.ansible.com/
 - https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_variables.html
+- https://docs.ansible.com/ansible/latest/galaxy/user_guide.html
 - https://www.youtube.com/watch?v=GROqwFFLl3s
