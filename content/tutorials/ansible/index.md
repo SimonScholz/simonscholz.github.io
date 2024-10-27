@@ -600,9 +600,9 @@ After that the folder structure should look like this:
 
 Now that the folder structure is in place we can copy the tasks from `first_playbook.yml` to the respective `main.yml` files.
 
-`/roles/apt-update/tasks/main.yml`:
+`/roles/apt_update/tasks/main.yml`:
 
-```yml [/roles/apt-update/tasks/main.yml]
+```yml [/roles/apt_update/tasks/main.yml]
 - name: Update repository index
   ansible.builtin.apt:
     update_cache: true
@@ -610,9 +610,9 @@ Now that the folder structure is in place we can copy the tasks from `first_play
   when: ansible_distribution == "Ubuntu"
 ```
 
-`/roles/copy-readme/tasks/main.yml`:
+`/roles/copy_readme/tasks/main.yml`:
 
-```yml [/roles/copy-readme/tasks/main.yml]
+```yml [/roles/copy_readme/tasks/main.yml]
 - name: Add README.md
   ansible.builtin.copy:
     src: README.md
@@ -622,9 +622,9 @@ Now that the folder structure is in place we can copy the tasks from `first_play
     mode: "0644"
 ```
 
-`/roles/user-create/tasks/main.yml`:
+`/roles/user_create/tasks/main.yml`:
 
-```yml [/roles/user-create/tasks/main.yml]
+```yml [/roles/user_create/tasks/main.yml]
 - name: Add simon-ansible user
   ansible.builtin.user:
     name: simon-ansible
@@ -649,7 +649,8 @@ The `first_playbook.yml` file can now use the `roles:` property to delegate to t
 
 ```yml [first_playbook.yml]
 ---
-- hosts: all
+- name: My first playbook
+  hosts: all
   become: true
   roles:
     - apt_update
