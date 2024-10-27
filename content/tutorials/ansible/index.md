@@ -729,6 +729,10 @@ An example could look like this:
   version: 7.4.1
 ```
 
+It is recommended to specify the version to avoid unexpected problems with newer versions of a role.
+
+To install the roles from the `requirements.yml` file the following command can be run:
+
 ```bash
 ansible-galaxy install -r requirements.yml
 ```
