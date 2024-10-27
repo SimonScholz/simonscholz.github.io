@@ -81,13 +81,15 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
               I've already pushed a lot of customers in that direction for the
               better.
             </p>
-            <NuxtLink to="/contact"
-              class="md:hidden border-0 p-2 rounded-md bg-cyan-600 transition duration-500 hover:duration-500 hover:bg-cyan-700">
-              Contact me
-            </NuxtLink>
+            <div class="flex p-4 justify-end mt-16 md:hidden">
+              <NuxtLink to="/contact"
+                class="border-0 p-2 rounded-md bg-cyan-600 transition duration-500 hover:duration-500 hover:bg-cyan-700">
+                Contact me 👋
+              </NuxtLink>
+            </div>
           </div>
         </span>
-        <div class="flex flex-col items-center mt-24 md:ml-20 md:mt-0">
+        <div class="flex flex-col items-center mt-32 md:ml-20 md:mt-0">
           <img class="h-80 w-80 self-center border-4 border-black dark:border-white rounded-full " :src="me" alt="me"
             title="me" height="80" width="80" />
           <span class="mt-2 text-lg">
