@@ -98,7 +98,18 @@ Now the generated ssh key has to be propagated to the server.
 
 ```bash
 ssh-copy-id -i ~/.ssh/ansible.pub -p 22222 localhost
+
+# if username on server is different
+ssh-copy-id -i ~/.ssh/ansible.pub -p 22222 {username-on-server}@localhost
 ```
+
+The first time you'd connect to the server you're asked the following
+
+```bash
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+```
+
+Please be sure to answer this with `yes`.
 
 In case that did not work you can also ssh into your server using the password and then copy the contents of your `~/.ssh/ansible.pub` file and write it to `~/.ssh/authorized_keys`:
 
