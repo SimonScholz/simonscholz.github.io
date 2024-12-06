@@ -128,6 +128,8 @@ enum class LLM(
 ) {
     // https://huggingface.co/tjake/Llama-3.2-1B-Instruct-JQ4
     LLAMA("tjake/Llama-3.2-1B-Instruct-JQ4"),
+    // https://huggingface.co/tjake/Llama-3.2-1B-Instruct-Jlama-Q4
+    JLAMA("tjake/Llama-3.2-1B-Instruct-Jlama-Q4"),
 }
 
 fun main() {
@@ -137,7 +139,7 @@ fun main() {
         SafeTensorSupport
             .maybeDownloadModel(
                 llmModelPath,
-                LLM.LLAMA.modelName,
+                LLM.JLAMA.modelName,
             )
     val model = ModelSupport.loadModel(localModelPath, DType.F32, DType.I8)
 
@@ -148,15 +150,14 @@ fun main() {
             .builder()
             .addSystemMessage(
                 """
-                Please only respond with "baby", "child", "adolescent", "adult" or "elderly"
-                    
-                Roughly estimate the age of the person,
-                by categorising that person in the groups of baby, child, adolescent, adult and elderly,
-                saying the following statement:
+                Your response must only consist of the following enum values: BABY, CHILD, ADOLESCENT, ADULT or ELDERLY
+                Please derive to which ENUM category the user belongs.
+                Do not write a whole sentence, but only respond with one of the enum values according
+                to the derived category of the following statement:
                 """.trimIndent(),
             ).addUserMessage(
                 """
-                Oh boy. I cannot tie my shoes alone.
+                I am too old for this and I forgot where I put my teeth.
                 """.trimIndent(),
             ).build()
 
@@ -177,8 +178,8 @@ The output should then look similar to this:
 
 ```shell
 [main] INFO com.github.tjake.jlama.model.AbstractModel - Model type = Q4, Working memory type = F32, Quantized memory type = I8
-[main] INFO dev.simonscholz.App - Time to generate response: 7515 ms
-[main] INFO dev.simonscholz.App - Response Text: baby
+[main] INFO dev.simonscholz.App - Time to generate response: 7431 ms
+[main] INFO dev.simonscholz.App - Response Text: ELDERLY
 ```
 
 Based on the response text an enum could be used for further decisions made by followup code:
