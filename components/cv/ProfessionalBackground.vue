@@ -6,6 +6,92 @@ import gears from "~/assets/gears.png";
   <IconLeftBorder :img-src="gears" title="Professional Background">
     <div class="flex md:flex-row mt-3">
       <FlexInitialXlBlock>
+        <span>Since July 2024</span>
+      </FlexInitialXlBlock>
+      <div class="flex-1 flex flex-col">
+        <span class="font-semibold xl:mb-1">
+          E-Commerce in the Hamburg area
+        </span>
+        <XlHiddenTimeFrame timeFrame="Since Sept 2023" />
+        <span class="mb-1 font-medium">
+          Freelance Senior Lead Engineer - Backend
+        </span>
+        <ul class="list-disc list-outside ml-4">
+          <li class="mb-1">
+            Migration of the existing webshop implementation and infrastructure into the Google Cloud.
+          </li>
+          <li class="mb-1">
+            Consulting on the implementation of the new microservice architecture
+          </li>
+          <li class="mb-1">
+            Migration and modernization, or partial rewrite, of existing Quarkus web applications using
+            Domain-Driven Design and Hexagonal Architecture
+          </li>
+          <li class="mb-1">
+            Linking and integration of new SaaS systems such as Commercetools, Fulfillment tools, Emarsys,
+            Ayden, Algolia
+          </li>
+          <li class="mb-1">
+            Integration of Commercetools in the existing microservice architecture and configuration of Commercetools
+            via Terraform
+          </li>
+          <li class="mb-1">
+            Extensions of a customer card web application with integration of Android Wallets and iOS/Apple Wallets
+          </li>
+          <li>
+            Linking and integration of existing legacy systems with the new systems and infrastructure
+            <ul class="list-disc list-outside ml-4">
+              <li>Via Google Pub/Sub events from Commercetools</li>
+              <li>Via REST APIs using the OpenAPI Generator</li>
+              <li>Via Ayden, Commercetools and Fulfillmenttools Java/Kotlin SDKs</li>
+            </ul>
+          </li>
+          <li>
+            Maintaining the GCP Kubernetes cluster using FluxCD
+          </li>
+          <li>Setup sophisticated setup for Monitoring and alerting using OpenTelemetry, Prometheus, Grafana, Google
+            Dashboards and alerting</li>
+          <li>
+            Mentoring and training of the development team
+          </li>
+          <li>Relevant Technologies:</li>
+          <ul class="list-disc list-outside ml-4 text-sm print:hidden">
+            <li>Kotlin</li>
+            <li>Gradle</li>
+            <li>Quarkus 3.17.2</li>
+            <li>Google PubSub</li>
+            <li>Managed Postgres via Cloud SQL</li>
+            <li>Flyway for DB migrations</li>
+            <li>Keycloak</li>
+            <li>Google Cloud Platform</li>
+            <li>Kubernetes</li>
+            <li>Terraform</li>
+            <li>GitOps</li>
+            <li>GitHub Actions</li>
+            <li>Micrometer + Prometheus + Grafana</li>
+            <li>Bash</li>
+            <li>Commercetools</li>
+            <li>Commercetools Java SDK</li>
+            <li>Fulfillmenttools</li>
+            <li>Adyen Java SDK</li>
+            <li>Comarch</li>
+            <li>Emarsys</li>
+            <li>Apple und Google Wallet</li>
+            <li>IPP printing via Kotlin/Quarkus application</li>
+            <li>MailJet SDK for sending emails</li>
+          </ul>
+          <ul class="hidden text-sm print:block">
+            Quarkus 3.17.2, Google PubSub, Managed Postgres via Cloud SQL, Flyway for DB migrations, Keycloak,
+            Google Cloud Platform, Kubernetes, Terraform, GitOps ,GitHub Actions, Micrometer + Prometheus +
+            Grafana, Kotlin, Gradle, Bash, Commercetools, Commercetools Java SDK, Fulfillmenttools, Adyen Java SDK, Comarch,
+            Emarsys, Apple und Google Wallet, IPP printing via Kotlin/Quarkus application, MailJet Sdk for sending
+            emails
+          </ul>
+        </ul>
+      </div>
+    </div>
+    <div class="flex md:flex-row mt-3">
+      <FlexInitialXlBlock>
         <span>Since Sept 2023</span>
       </FlexInitialXlBlock>
       <div class="flex-1 flex flex-col">
@@ -21,7 +107,8 @@ import gears from "~/assets/gears.png";
             Design new microservices landscape for the Doorbit (Proptech Startup) platform.
           </li>
           <li class="mb-1">
-            Design and implement a scalable and reliable cloud infrastructure using Google Cloud Platform with Kubernetes
+            Design and implement a scalable and reliable cloud infrastructure using Google Cloud Platform with
+            Kubernetes
             and Terraform.
           </li>
           <li class="mb-1">
@@ -43,7 +130,8 @@ import gears from "~/assets/gears.png";
             fashion.
           </li>
           <li>
-            Implement custom OpenStreetMap algorithms to find POIs around the customers real estate and utilized GPT-4 for
+            Implement custom OpenStreetMap algorithms to find POIs around the customers real estate and utilized GPT-4
+            for
             automated Expose text generation based on customer input and POIs.
           </li>
           <li>
@@ -68,7 +156,8 @@ import gears from "~/assets/gears.png";
             <li>Log4Brains</li>
           </ul>
           <ul class="hidden text-sm print:block">
-            C4 Diagrams, Spring Boot 3, Google PubSub, MongoDB, Google Cloud Platform, Kubernetes, Terraform (Enterprise),
+            C4 Diagrams, Spring Boot 3, Google PubSub, MongoDB, Google Cloud Platform, Kubernetes, Terraform
+            (Enterprise),
             GitOps,
             GitHub Actions, Micrometer + Prometheus + Grafana + Allquiet, Gatling Performance Testing,
             Newman GitHub Actions for API smoke tests, Kotlin, Gradle, Log4Brains
@@ -93,7 +182,8 @@ import gears from "~/assets/gears.png";
             Lead technical projects and make critical architectural decisions to drive software excellence.
           </li>
           <li class="mb-1">
-            Stay up to date with the latest technologies and best practices, and share knowledge by conducting tech talks
+            Stay up to date with the latest technologies and best practices, and share knowledge by conducting tech
+            talks
             and workshops.
           </li>
           <li class="mb-1">
@@ -309,7 +399,8 @@ import gears from "~/assets/gears.png";
             <li>Quote from the <a href="https://blog.gradle.org/buildship-eclipse" class="underline font-medium">Gradle
                 blog</a>: <br />
               "To accelerate the development of Buildship and to ensure that we would meet the deadline for the Eclipse
-              Mars release in June 2015, we got Simon Scholz from Vogella GmbH to help us with work that required in-depth
+              Mars release in June 2015, we got Simon Scholz from Vogella GmbH to help us with work that required
+              in-depth
               Eclipse knowledge, which proved to be invaluable."</li>
           </ul>
           <li>Traffic Telematics Company</li>
@@ -320,7 +411,8 @@ import gears from "~/assets/gears.png";
               with custom css stylable Widgets and GEF (Graphical Editing Framework) to visualize the routes and the
               current position
               of the vehicles.
-              As a consultant Simon helped to create a new architecture and to implement the new features of the product.
+              As a consultant Simon helped to create a new architecture and to implement the new features of the
+              product.
               The technologies behind the product were Java, Eclipse RCP, GEF, SWT, SWTBot, Maven Tycho, Jenkins, JFace,
               JPA, EclipseLink, EMF (Eclipse Modeling Framework)
             </li>
