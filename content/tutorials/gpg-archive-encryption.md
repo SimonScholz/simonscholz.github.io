@@ -83,3 +83,9 @@ gpg -dv encrypted-archive.tar.gz.gpg | tar -xvzf -
 | -v  | verbose (get more output)   |
 | -z  | Decompress the archive      |
 | -f  | Where to put the file/files |
+
+
+## Sources
+
+- https://gnupg.org/
+- https://www.bsi.bund.de/DE/Themen/Unternehmen-und-Organisationen/Informationen-und-Empfehlungen/Freie-Software/E-Mail-Verschluesselung/GPG4Win/gpg4win_node.html

@@ -121,7 +121,10 @@ class PrinterLookup {
 
             override fun serviceResolved(event: ServiceEvent) {
                 logger.info { "Service resolved: ${event.info}" }
-                val printerUri = URI.create("ipp:/${event.info.inet4Addresses.first()}/ipp/printer")
+                val printerUri = with(event.info) {
+                    // "rp" stands for resource path
+                    URI.create("ipp://$server:$port/${getPropertyString("rp")}")
+                }
                 printerSet.add(Printer(event.info.name, printerUri))
             }
         }
@@ -136,7 +139,7 @@ class PrinterLookup {
     }
 
     companion object {
-        private const val SERVICE_LISTENER_TYPE = "_http._tcp.local."
+        private const val SERVICE_LISTENER_TYPE = "_ipp._tcp.local."
         private val logger = KotlinLogging.logger {}
     }
 }
@@ -765,6 +768,7 @@ And now rasterview can be used to open the `website.pwg` file in my home directo
 
 - https://www.pwg.org/ipp/ippguide.html
 - https://github.com/gmuth/ipp-client-kotlin
+- https://github.com/gmuth/ipp-samples
 - https://github.com/jmdns/jmdns
 - https://github.com/HPInc/jipp
 - https://github.com/michaelrsweet/rasterview
