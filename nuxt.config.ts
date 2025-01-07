@@ -62,7 +62,8 @@ export default defineNuxtConfig({
         'html',
         'css',
         'csv',
-        'properties'
+        'properties',
+        'terraform'
       ],
       theme: {
         // Default theme (same as single string)

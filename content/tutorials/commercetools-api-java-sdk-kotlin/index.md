@@ -257,24 +257,435 @@ The same logic can be applied to any other `ResourceUpdateAction` like `CartUpda
 
 ![Order update action class hierarchy](order-update-action-class-hierarchy.png)
 
-### Resetting values
+## Resetting values
 
 To reset/remove a certain value it can usually be set to `null` and then send the update.
 But be aware that commercetools has a lot of validations when doing API requests and will give insights what failed in the response in case the request causes any problems.
 
-## Using kotlin coroutines
+## Custom fields and custom objects
+
+Custom fields are great to adjust additional data to existing domain objects, like orders, customers and others.
+For a customer you might want to have a custom customer loyalty card number attached to the customer domain object of commercetools.
+
+### Add custom fields using Terraform
+
+Commercetools can be configured using IAC like Terraform using the [labd terraform provider](https://registry.terraform.io/providers/labd/commercetools/latest)
+
+Adding this provider to your terraform setup works like this:
+
+```terraform[providers.tf]
+terraform {
+  required_providers {
+    commercetools = {
+      source = "labd/commercetools"
+    }
+  }
+}
+
+provider "commercetools" {
+  client_id     = var.commercetools_client_id
+  client_secret = var.commercetools_client_secret
+  project_key   = var.commercetools_project_key
+  scopes        = var.commercetools_scopes
+  token_url     = var.commercetools_token_url
+  api_url       = var.commercetools_api_url
+}
+```
+
+The variables above need to be specified by the a `variables.tf` file.
+
+```terraform[variables.tf]
+variable "commercetools_client_id" {
+  description = "The client ID for accessing the Commercetools API."
+  type        = string
+}
+
+variable "commercetools_client_secret" {
+  description = "The client secret for accessing the Commercetools API."
+  type        = string
+  sensitive   = true
+}
+
+variable "commercetools_project_key" {
+  description = "The project key for the Commercetools project."
+  type        = string
+}
+
+variable "commercetools_scopes" {
+  description = "The scopes for the Commercetools API access."
+  type        = string
+}
+
+variable "commercetools_token_url" {
+  description = "The token URL for the Commercetools authentication."
+  type        = string
+}
+
+variable "commercetools_api_url" {
+  description = "The API URL for the Commercetools services."
+  type        = string
+}
+```
+
+These variables can then be provided by using a `TF_VAR_commercetools_client_id` environment variable.
+
+Also see my other terraform tutorial, called [Reading .env file and use it for sensitive vars in Terraform](https://simonscholz.dev/tutorials/terraform-sensitive-vars), on how to conveniently provide `TF_VAR` variables for Terraform.
+
+An appropriate `.env` file would then look like this:
+
+```shell[.env]
+TF_VAR_commercetools_client_id=
+TF_VAR_commercetools_client_secret=
+TF_VAR_commercetools_project_key=
+TF_VAR_commercetools_scopes=
+TF_VAR_commercetools_token_url=
+TF_VAR_commercetools_api_url=
+```
+Be sure to put proper values behind the `=`.
+
+Of course you can also utilize GitHub actions to do a terraform apply and then provide these `TF_VAR` variables as environment variables for the GitHub action.
+
+Once the provider is available custom types can be added to domain objects:
+
+```terraform[customer_attributes.tf]
+resource "commercetools_type" "my-custom-type" {
+  key = "custom-customer-type"
+  name = {
+    en = "Custom properties"
+    de = "Individuelle Attribute"
+  }
+  description = {
+    en = "Custom customer properties"
+    de = "Individuelle Attribute des Kunden"
+  }
+
+  resource_type_ids = ["customer"]
+
+  field {
+    name = "customer_status"
+    label = {
+      en = "Customer Status"
+      de = "Kundenstatus"
+    }
+    type {
+      name = "LocalizedEnum"
+      localized_value {
+        key = "regular"
+        label = {
+          en = "Regular Status"
+          de = "Normal-Status"
+        }
+      }
+      localized_value {
+        key = "premium"
+        label = {
+          en = "Premium Status"
+          de = "Premium-Status"
+        }
+      }
+      localized_value {
+        key = "gold"
+        label = {
+          en = "Gold Status"
+          de = "Gold-Status"
+        }
+      }
+    }
+  }
+
+  field {
+    name = "customer_status_history"
+    label = {
+      en = "customer status change history"
+      de = "Kundenstatus Historie"
+    }
+    type {
+      name              = "Reference"
+      reference_type_id = "key-value-document"
+    }
+  }
+}
+```
+
+Also see https://registry.terraform.io/providers/labd/commercetools/latest/docs/resources/type
+
+### Insert json data into custom object
+
+In the terraform code from above the do have a `customer_status_history` of type `Reference`.
+This `Reference` is supposed to point to a custom object, which consists of a json object, which represents the `customer_status_history`.
+
+First of all let´s add the jackson object mapper dependencies:
+
+```toml[libs.versions.toml]
+[versions]
+kotlin = "2.1.0"
+commercetools = "latest.release"
+jackson = "2.18.2"
+
+[libraries]
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
+commercetools-client = { module = "com.commercetools.sdk:commercetools-http-client", version.ref = "commercetools"}
+commercetools-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools"}
+
+[plugins]
+jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+```
+
+And the `build.gradle.kts` must now be adjusted to include jackson:
+
+```kotlin[build.gradle.kts]
+dependencies {
+
+    // ... other dependencies ...
+
+    implementation(libs.jackson.core)
+    implementation(libs.jackson.databind)
+    implementation(libs.jackson.datatype.jsr310)
+    implementation(libs.jackson.module.kotlin)
+
+    implementation(libs.commercetools.api)
+    implementation(libs.commercetools.client)
+}
+```
+
+Now we need some classes to be stored as json.
+
+Let´s begin with the `CustomerStatus` enum:
+
+```kotlin[CustomerStatus.kt]
+package dev.simonscholz
+
+enum class CustomerStatus {
+    REGULAR,
+    PREMIUM,
+    GOLD,
+}
+```
+
+To store the state changes we need a `CustomerStatusHistoryEntry`:
+
+```kotlin[CustomerStatusHistoryEntry.kt]
+package dev.simonscholz
+
+import java.time.Instant
+
+data class CustomerStatusHistoryEntry(
+    val oldStatus: CustomerStatus,
+    val newStatus: CustomerStatus,
+    val date: Instant,
+)
+```
+
+Once this data model is in place let´s serialize this model data and store it as custom object in commercetools.
+To archive this we create a `CommercetoolsCustomerAdapter`:
+
+```kotlin[CommercetoolsCustomerAdapter.kt]
+package dev.simonscholz
+
+import com.commercetools.api.client.ProjectApiRoot
+import com.commercetools.api.models.custom_object.CustomObjectDraftBuilder
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+
+class CommercetoolsCustomerAdapter(
+    private val apiRoot: ProjectApiRoot,
+) {
+    fun createJsonCustomObject(
+        customerId: String,
+        customerStatusHistoryEntries: List<CustomerStatusHistoryEntry>,
+    ): String {
+        val customerStatusHistoryEntriesJson: JsonNode = objectMapper.valueToTree(customerStatusHistoryEntries)
+
+        val customObjectDraft =
+            CustomObjectDraftBuilder
+                .of()
+                .container("customer-status-history")
+                .key("customer-status-history-$customerId")
+                .value(customerStatusHistoryEntriesJson)
+                .build()
+
+        val customObjectId =
+            apiRoot
+                .customObjects()
+                .post(customObjectDraft)
+                .executeBlocking()
+                .body.id
+
+        return customObjectId
+    }
+
+    companion object {
+        val objectMapper =
+            jacksonObjectMapper().apply {
+                registerModule(
+                    JavaTimeModule(),
+                )
+            }
+    }
+}
+```
+
+Using `valueToTree` to obtain a `JsonNode` instance and pass the `JsonNode` instance to the `CustomObjectDraftBuilder` as value.
+
+Please note that using a `JsonNode` instance is mandatory, because simply sending a json string would turn cause the string to be escaped.
+
+### Relate the custom object
+
+Now that we created a custom object containing a json representation of `CustomerStatusHistoryEntry` objects, we´d want to relate it to the `Reference` of the `customer_status_history` custom field, which was defined earlier.
+
+Therefore the `addStatusHistoryReferenceToCustomer` function is added to the `CommercetoolsCustomerAdapter`.
+
+```kotlin[CommercetoolsCustomerAdapter.kt]
+package dev.simonscholz
+
+import com.commercetools.api.client.ProjectApiRoot
+import com.commercetools.api.models.custom_object.CustomObjectDraftBuilder
+import com.commercetools.api.models.custom_object.CustomObjectReferenceBuilder
+import com.commercetools.api.models.customer.CustomerSetCustomFieldAction
+import com.commercetools.api.models.customer.CustomerUpdateBuilder
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+
+class CommercetoolsCustomerAdapter(
+    private val apiRoot: ProjectApiRoot,
+) {
+    fun createJsonCustomObject(
+        customerId: String,
+        customerStatusHistoryEntries: List<CustomerStatusHistoryEntry>,
+    ): String {
+        val customerStatusHistoryEntriesJson: JsonNode = objectMapper.valueToTree(customerStatusHistoryEntries)
+
+        val customObjectDraft =
+            CustomObjectDraftBuilder
+                .of()
+                .container("customer-status-history")
+                .key("customer-status-history-$customerId")
+                .value(customerStatusHistoryEntriesJson)
+                .build()
+
+        val customObjectId =
+            apiRoot
+                .customObjects()
+                .post(customObjectDraft)
+                .executeBlocking()
+                .body.id
+
+        return customObjectId
+    }
+
+    fun addStatusHistoryReferenceToCustomer(
+        customerId: String,
+        customObjectId: String,
+    ) {
+        val customer =
+            apiRoot
+                .customers()
+                .withId(customerId)
+                .get()
+                .executeBlocking()
+                .body
+
+        val customObjectReference =
+            CustomObjectReferenceBuilder
+                .of()
+                .id(customObjectId)
+                .build()
+        val setTransactionHistoryReference =
+            CustomerSetCustomFieldAction
+                .builder()
+                .name(CUSTOMER_STATUS_HISTORY)
+                .value(customObjectReference)
+                .build()
+        val customerUpdate =
+            CustomerUpdateBuilder
+                .of()
+                .version(customer.version)
+                .actions(setTransactionHistoryReference)
+                .build()
+        apiRoot
+            .customers()
+            .withId(customer.id)
+            .post(customerUpdate)
+            .executeBlocking()
+    }
+
+    companion object {
+        const val CUSTOMER_STATUS_HISTORY = "customer_status_history"
+        val objectMapper =
+            jacksonObjectMapper().apply {
+                registerModule(
+                    JavaTimeModule(),
+                )
+            }
+    }
+}
+```
+
+Having the `customer_status_history` reference in place it can be queried, when a customer is fetched from the commercetools api by using an expand in the `CommercetoolsCustomerAdapter`:
+
+```kotlin[CommercetoolsCustomerAdapter.kt]
+
+    // .. other declarations of CommercetoolsCustomerAdapter from above
+
+    fun getCustomerWithStatusHistoryExpand(customerId: String): List<CustomerStatusHistoryEntry> {
+        val customer =
+            apiRoot
+                .customers()
+                .withId(customerId)
+                .get()
+                .withExpand { "custom.fields.$CUSTOMER_STATUS_HISTORY" }
+                .executeBlocking()
+                .body
+
+        val customerStatusHistoryJson =
+            customer.custom.fields.values()[CUSTOMER_STATUS_HISTORY] as? String
+                ?: return emptyList()
+
+        val customerStatusHistory =
+            objectMapper.readValue(
+                customerStatusHistoryJson,
+                object : TypeReference<List<CustomerStatusHistoryEntry>>() {},
+            )
+
+        return customerStatusHistory
+    }
+```
+
+You can also go to the [API Playground of Commercetools](https://docs.commercetools.com/merchant-center/developer-settings#api-playgrounds) to query a customer and expand the `custom.fields.customer_status_history`.
+
+![Commercetools API Playground](api-playgroundcustomer-status-history-expand.png)
+
+## Async / Concurrent calls
 
 Besides the `executeBlocking()` method the Commercetools SDK also offers an `execute()` method, which returns a `CompletableFuture`.
+
+The `CompletableFuture` can be used to do concurrent calls towards the Commercetools API by using the `CompletableFuture` directly or by converting it into reactive types provided by RxJava, Project Reactor or Mutiny.
+Those reactive libraries all provide adapter to turn a `CompletableFuture` into a reactive type.
+
+And of course Kotlin Coroutines can be used as depicted in the next chapter.
+
+### Using kotlin coroutines
+
 When adding Kotlin Coroutines as dependency the `CompletableFuture` can be turned into a suspending function using the `await()` extension function.
 
 ```toml[libs.versions.toml]
 [versions]
 kotlin = "2.1.0"
-kotlinx-coroutines = "1.10.1" // 1
+kotlinx-coroutines = "1.10.1"
 commercetools = "latest.release"
+jackson = "2.18.2"
 
 [libraries]
-kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" } // 2
+kotlinx-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinx-coroutines" }
+jackson-core = { module = "com.fasterxml.jackson.core:jackson-core", version.ref = "jackson" }
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-datatype-jsr310 = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+jackson-module-kotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 commercetools-client = { module = "com.commercetools.sdk:commercetools-http-client", version.ref = "commercetools"}
 commercetools-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools"}
 
@@ -291,7 +702,10 @@ dependencies {
     // ... other dependencies ...
 
     implementation(libs.kotlinx.coroutines)
-
+    implementation(libs.jackson.core)
+    implementation(libs.jackson.databind)
+    implementation(libs.jackson.datatype.jsr310)
+    implementation(libs.jackson.module.kotlin)
     implementation(libs.commercetools.api)
     implementation(libs.commercetools.client)
 }
