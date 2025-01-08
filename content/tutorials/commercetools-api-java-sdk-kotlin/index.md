@@ -22,7 +22,7 @@ The Commercetools Java SDK overview can be found [here](https://docs.commercetoo
 
 ## Create a project and adding dependencies
 
-The following command will generate a kotlin application project called `ipp-print`.
+The following command will generate a kotlin application project called `commercetools-example`.
 
 ```bash
 gradle init \
@@ -56,6 +56,8 @@ jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ```
 
 Feel free to leave the existing declarations in the `libs.versions.toml` file as is, but we do not need them for this tutorial.
+
+Please be aware that using `latest.release` is not recommended for a production environment!
 
 ```kotlin[build.gradle.kts]
 dependencies {
@@ -152,9 +154,9 @@ object ProjectApiRootFactory {
 
 ## Creating a CommercetoolsOrderAdapter
 
-To have proper separation of concerns let´s create a `CommercetoolsOrderAdapter` class for updating orders in Commercetools.
+To have proper separation of concern let´s create a `CommercetoolsOrderAdapter` class for updating orders in Commercetools.
 
-In the following code the postal code of the billing address of the order can be updated.
+In the following code the postal code of the billing address of an order can be updated.
 
 ```kotlin[CommercetoolsOrderAdapter.kt]
 import com.commercetools.api.client.ProjectApiRoot
@@ -196,7 +198,7 @@ class CommercetoolsOrderAdapter(
         val orderUpdate =
             OrderUpdate
                 .builder()
-                .version(order.version)
+                .version(order.version) // 5
                 .actions(orderUpdateActions.toMutableList())
                 .build()
 
@@ -223,9 +225,14 @@ class CommercetoolsOrderAdapter(
 ```
 
 1. Get the latest order object from Commercetools
-2. Copy the existing billing address by creating a draft object and only modify the postal code
+2. Copy the existing billing address by using the `toDraftBuilder()` function and only modify the postal code
 3. Create an instance of `OrderSetBillingAddressAction`
 4. Execute the update on the order using the `ProjectApiRoot`, which has been passed to the constructor
+5. Be aware that commercetools uses versioning to avoid concurrent modifications of domain objects. Due to this the latest version of a domain object, e.g. order, has to be passed with the update request.
+
+Note: Using `toDraftBuilder()` on existing objects is really handy when using the SDK, because the API only allows to update whole objects like addresses.
+So if you wanted to update the billing address using Postman or any other rest client you´d be forced to copy over the whole existing address into the request payload.
+Therefore using `toDraftBuilder()` is way more convenient as it allows to just pass the new postal code or whatever needs to be changed.
 
 ## Run the code
 
@@ -265,7 +272,7 @@ But be aware that commercetools has a lot of validations when doing API requests
 ## Custom fields and custom objects
 
 Custom fields are great to adjust additional data to existing domain objects, like orders, customers and others.
-For a customer you might want to have a custom customer loyalty card number attached to the customer domain object of commercetools.
+For a customer you might want to have a custom customer_status attached to the customer domain object of commercetools.
 
 ### Add custom fields using Terraform
 
@@ -411,7 +418,7 @@ Also see https://registry.terraform.io/providers/labd/commercetools/latest/docs/
 
 ### Insert json data into custom object
 
-In the terraform code from above the do have a `customer_status_history` of type `Reference`.
+In the terraform code from above we do have a `customer_status_history` of type `Reference`.
 This `Reference` is supposed to point to a custom object, which consists of a json object, which represents the `customer_status_history`.
 
 First of all let´s add the jackson object mapper dependencies:
@@ -498,14 +505,14 @@ class CommercetoolsCustomerAdapter(
         customerId: String,
         customerStatusHistoryEntries: List<CustomerStatusHistoryEntry>,
     ): String {
-        val customerStatusHistoryEntriesJson: JsonNode = objectMapper.valueToTree(customerStatusHistoryEntries)
+        val customerStatusHistoryEntriesJson: JsonNode = objectMapper.valueToTree(customerStatusHistoryEntries) // 1
 
         val customObjectDraft =
             CustomObjectDraftBuilder
                 .of()
-                .container("customer-status-history")
-                .key("customer-status-history-$customerId")
-                .value(customerStatusHistoryEntriesJson)
+                .container("customer-status-history") // 2
+                .key("customer-status-history-$customerId") // 3
+                .value(customerStatusHistoryEntriesJson) // 4
                 .build()
 
         val customObjectId =
@@ -515,7 +522,7 @@ class CommercetoolsCustomerAdapter(
                 .executeBlocking()
                 .body.id
 
-        return customObjectId
+        return customObjectId // 5
     }
 
     companion object {
@@ -529,13 +536,17 @@ class CommercetoolsCustomerAdapter(
 }
 ```
 
-Using `valueToTree` to obtain a `JsonNode` instance and pass the `JsonNode` instance to the `CustomObjectDraftBuilder` as value.
+1. Serialize the data model as `JsonNode`
+2. Specify a container name
+3. Specify a dedicated key for this particular custom object by also adding the `customerId`
+4. Set the `JsonNode` as value
+5. Return the actual id of the custom object, which will later be used for the reference in the `customer_status_history` custom `Reference` field, which was specified for customers in Terraform.
 
-Please note that using a `JsonNode` instance is mandatory, because simply sending a json string would turn cause the string to be escaped.
+Please note that using a `JsonNode` instance is mandatory, because simply sending a json string would cause the string to be escaped.
 
 ### Relate the custom object
 
-Now that we created a custom object containing a json representation of `CustomerStatusHistoryEntry` objects, we´d want to relate it to the `Reference` of the `customer_status_history` custom field, which was defined earlier.
+Now that we created a custom object containing a json representation of `CustomerStatusHistoryEntry` objects, we´d want to relate it to the `Reference` of the `customer_status_history` custom field, which was defined earlier via Terraform.
 
 Therefore the `addStatusHistoryReferenceToCustomer` function is added to the `CommercetoolsCustomerAdapter`.
 
@@ -660,6 +671,46 @@ You can also go to the [API Playground of Commercetools](https://docs.commerceto
 
 ![Commercetools API Playground](api-playgroundcustomer-status-history-expand.png)
 
+### Run the CommercetoolsCustomerAdapter code
+
+```kotlin[App.kt]
+package dev.simonscholz
+
+fun main() {
+    val apiRoot =
+        ProjectApiRootFactory.commerceToolsProjectApiRoot(
+            clientID = "your-client-id",
+            clientSecret = "your-client-secret",
+            projectKey = "your-project-key",
+        )
+
+    val customerId = "desired-customer-uuid"
+    val customerStatusHistory = // 1
+        listOf(
+            CustomerStatusHistoryEntry(
+                oldStatus = CustomerStatus.REGULAR,
+                newStatus = CustomerStatus.PREMIUM,
+                date = Instant.now(),
+            ),
+        )
+
+    val customerAdapter = CommercetoolsCustomerAdapter(apiRoot)
+    val customObjectId = customerAdapter.createJsonCustomObject(customerId, customerStatusHistory) // 2
+    customerAdapter.addStatusHistoryReferenceToCustomer(customerId, customObjectId) // 3
+
+    val customerWithStatusHistory = customerAdapter.getCustomerWithStatusHistoryExpand(customerId) // 4
+
+    println(customerWithStatusHistory) // 5
+}
+```
+
+1. Create some sample data of `CustomerStatusHistoryEntry`
+2. Store the list of `CustomerStatusHistoryEntry` objects as json in a custom object in Commercetools and obtain the id of that custom object.
+3. Set the id of the custom object as reference for the customer´s `customer_status_history` custom field.
+4. Fetch the customer including the expand of the custom `customer_status_history` reference. Without the expand only the id would be returned, but not the json itself.
+5. Print the customer domain object and look for the `customer_status_history` json ;)
+
+
 ## Async / Concurrent calls
 
 Besides the `executeBlocking()` method the Commercetools SDK also offers an `execute()` method, which returns a `CompletableFuture`.
@@ -734,3 +785,4 @@ Feel free to adjust the rest of the code to be suspending.
 
 - https://docs.commercetools.com/docs/
 - https://docs.commercetools.com/sdk/jvm-sdk
+- https://registry.terraform.io/providers/labd/commercetools/latest/docs/resources/type
