@@ -2,7 +2,7 @@
 id: "ubuntu-dev-setup"
 path: "/tutorials/ubuntu-dev-setup"
 created: "2023-08-23"
-updated: "2023-08-23"
+updated: "2025-01-16"
 title: "My Ubuntu dev setup"
 description: "How do I setup my fresh Ubuntu installation for development"
 author: "Simon Scholz"
@@ -218,6 +218,16 @@ curl -sS https://webinstall.dev/k9s | bash
 
 For other options also see https://github.com/derailed/k9s#installation
 
+## Sqlite browser
+
+convenient tool to view data of a Sqlite database.
+
+```bash
+snap install sqlitebrowser
+```
+
+--> https://sqlitebrowser.org/dl/
+
 ## Dropbox
 
 Dropbox offers a really convenient way to store data in the cloud by integrating a dropbox client into the system file explorer.
@@ -273,6 +283,28 @@ sudo nala install teams-for-linux
 ```
 
 Also see https://github.com/IsmaelMartinez/teams-for-linux
+
+# OBS Studio
+
+OBS Studio is a free and open-source, cross-platform screencasting and streaming app, which I use for recording tutorials.
+
+```bash
+sudo add-apt-repository ppa:obsproject/obs-studio
+
+sudo apt install obs-studio
+
+# using nala
+sudo nala install obs-studio
+```
+
+# Scanner
+
+```bash
+sudo apt install simple-scan
+
+# using nala
+sudo nala install simple-scan
+```
 
 # upx
 

@@ -2,7 +2,7 @@
 id: "commercetools-api-java-sdk-kotlin"
 path: "/tutorials/commercetools-api-java-sdk-kotlin"
 created: "2024-12-24"
-updated: "2025-1-7"
+updated: "2025-1-14"
 title: "Commercetools API using the Java SDK with Gradle and Kotlin"
 description: "This tutorial shows examples on how to use the Java SDK of Commercetools to update different domain objects, e.g. customers, orders and custom objects"
 author: "Simon Scholz"
@@ -52,7 +52,7 @@ commercetools-client = { module = "com.commercetools.sdk:commercetools-http-clie
 commercetools-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools"}
 
 [plugins]
-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ```
 
 Feel free to leave the existing declarations in the `libs.versions.toml` file as is, but we do not need them for this tutorial.
@@ -60,6 +60,12 @@ Feel free to leave the existing declarations in the `libs.versions.toml` file as
 Please be aware that using `latest.release` is not recommended for a production environment!
 
 ```kotlin[build.gradle.kts]
+plugins {
+    alias(libs.plugins.kotlin.jvm)
+
+    application
+}
+
 dependencies {
 
     // ... other dependencies ...
@@ -438,7 +444,7 @@ commercetools-client = { module = "com.commercetools.sdk:commercetools-http-clie
 commercetools-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools"}
 
 [plugins]
-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ```
 
 And the `build.gradle.kts` must now be adjusted to include jackson:
@@ -741,7 +747,7 @@ commercetools-client = { module = "com.commercetools.sdk:commercetools-http-clie
 commercetools-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools"}
 
 [plugins]
-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 ```
 
 1. Add kotlinx-coroutines version
@@ -786,3 +792,4 @@ Feel free to adjust the rest of the code to be suspending.
 - https://docs.commercetools.com/docs/
 - https://docs.commercetools.com/sdk/jvm-sdk
 - https://registry.terraform.io/providers/labd/commercetools/latest/docs/resources/type
+- https://commercetools.github.io/commercetools-sdk-java-v2/javadoc/index.html

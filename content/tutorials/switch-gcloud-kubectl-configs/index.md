@@ -2,11 +2,11 @@
 id: "switch-gcloud-kubectl-configs"
 path: "/tutorials/switch-gcloud-kubectl-configs"
 created: "2023-12-20"
-updated: "2024-07-19"
+updated: "2025-01-10"
 title: "Easily switch gcloud config and kubectl context"
 description: "Switching both gcloud and kubectl config at once via command line"
 author: "Simon Scholz"
-tags: ["gke", "kubernetes", "gcloud", "tool", "cli", "kubectl", "bash"]
+tags: ["gke", "kubernetes", "gcloud", "gcp", "tool", "cli", "kubectl", "bash"]
 vgWort: "vg07.met.vgwort.de/na/b04c627883b44b4fa1d2b1f7c55d75a0"
 ---
 
@@ -123,8 +123,8 @@ contexts:
     user: gke_your-dev-project_europe-west1_your-dev-project-autopilot-cluster
   name: gke_dev
 - context:
-    cluster: gke_your-dev-project_europe-west1_your-dev-project-autopilot-cluster
-    user: gke_your-dev-project_europe-west1_your-dev-project-autopilot-cluster
+    cluster: gke_your-dev-project_europe-west1_your-prod-project-autopilot-cluster
+    user: gke_your-dev-project_europe-west1_your-prod-project-autopilot-cluster
   name: gke_prod
 ```
 
