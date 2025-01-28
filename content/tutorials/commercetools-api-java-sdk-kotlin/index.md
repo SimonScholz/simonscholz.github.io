@@ -2,7 +2,7 @@
 id: "commercetools-api-java-sdk-kotlin"
 path: "/tutorials/commercetools-api-java-sdk-kotlin"
 created: "2024-12-24"
-updated: "2025-1-14"
+updated: "2025-01-14"
 title: "Commercetools API using the Java SDK with Gradle and Kotlin"
 description: "This tutorial shows examples on how to use the Java SDK of Commercetools to update different domain objects, e.g. customers, orders and custom objects"
 author: "Simon Scholz"
