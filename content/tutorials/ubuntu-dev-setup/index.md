@@ -186,6 +186,32 @@ sudo nala install flameshot
 
 Also see: https://flameshot.org/docs/installation/installation-linux/
 
+When having issues with Wayland, you might want to turn it off.
+
+```bash
+sudo nano /etc/gdm3/custom.conf
+```
+
+In the `custom.conf` file set:
+
+```bash[custom.conf]
+WaylandEnable=false
+```
+
+Then restart GDM:
+
+```bash
+sudo systemctl restart gdm3
+```
+
+And verify it works:
+
+```bash
+echo $XDG_SESSION_TYPE
+```
+
+This should output `x11` now.
+
 ## Kubernetes
 
 ### kubectl
