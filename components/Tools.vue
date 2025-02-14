@@ -42,7 +42,7 @@ const tools: Tool[] = [
     name: "IntelliJ",
   },
   {
-    imgSrc: "https://cdn.icon-icons.com/icons2/1381/PNG/512/eclipse_94656.png",
+    imgSrc: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/eclipse/eclipse-original.svg",
     name: "Eclipse RCP",
   },
   {
