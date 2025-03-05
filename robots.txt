@@ -1,0 +1,4 @@
+# START nuxt-robots (indexable)
+User-agent: *
+
+# END nuxt-robots
