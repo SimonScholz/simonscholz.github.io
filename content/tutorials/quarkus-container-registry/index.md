@@ -29,7 +29,7 @@ Of course there are far more container registries out there, but GitHub Packages
 The easiest way to create a Quarkus project locally is using the [Quarkus CLI](https://quarkus.io/guides/cli-tooling#project-creation), which I'd usually install using [SDKMan!](https://simonscholz.dev/tutorials/ubuntu-dev-setup#sdkman).
 
 ```bash
-quarkus create app dev.simonscholz:container-registry --dry-run --gradle-kotlin-dsl --kotlin --extensions=container-image-jib,quarkus-config-yaml
+quarkus create app dev.simonscholz:container-registry --gradle-kotlin-dsl --kotlin --extensions=container-image-jib,quarkus-config-yaml,quarkus-micrometer-registry-prometheus
 ```
 
 Alternatively you also can go to https://code.quarkus.io/ to create a new Quarkus project.
@@ -79,13 +79,13 @@ quarkus:
     name: your-application
   container-image:
     name: your-application
-    registry: ghcr.io // 1
-    username: ${CONTAINER_REGISTRY_USERNAME} // 2
-    password: ${CONTAINER_REGISTRY_PASSWORD} // 3
-    group: ${CONTAINER_REGISTRY_USERNAME} // 4
+    registry: ghcr.io # 1
+    username: ${CONTAINER_REGISTRY_USERNAME} # 2
+    password: ${CONTAINER_REGISTRY_PASSWORD} # 3
+    group: ${CONTAINER_REGISTRY_USERNAME} # 4
     tag: latest
     build: true
-    push: false // 5
+    push: false # 5
     builder: jib
 ```
 
@@ -111,6 +111,63 @@ quarkus build -Dquarkus.container-image.push=true
 By default the container image artifact will be private.
 
 The container image can then be found here: https://github.com/your-org-or-user-name?tab=packages
+
+When you click on the newly created package it should look similar to this:
+
+![your-application package on GitHub](./your-application-package.png)
+
+## Pull and run the image using docker
+
+Since the container registry is private you'll first need to login:
+
+```bash
+echo "YOUR_GITHUB_PAT" | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+```
+
+Once logged in you can run the application like this:
+
+```bash
+docker run -p 8080:8080 ghcr.io/YOUR_GITHUB_USERNAME/your-application:latest
+```
+
+Since the sample application from above is using Micrometer with Prometheus,
+you should now be able to see exposed metrics in the browser: http://localhost:8080/q/metrics
+
+## Run the image using docker compose
+
+Please be sure you've logged in before to the ghcr.io registry:
+
+```bash
+echo "YOUR_GITHUB_PAT" | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
+```
+
+The `docker-compose.yml` file could look like this then:
+
+```yml[docker-compose.yml]
+services:
+  your-application:
+    image: ghcr.io/YOUR_GITHUB_USERNAME/your-application:latest
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    pull_policy: always
+    deploy:
+      restart_policy:
+        condition: on-failure
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+```
+
+Running `docker compose up` in a terminal will then result in a similar output:
+
+![docker compose up your-application](./docker-compose-up.png)
+
+Since the sample application from above is using Micrometer with Prometheus,
+you should now be able to see exposed metrics in the browser: http://localhost:8080/q/metrics
+
+## Publish to container registry using a GitHub Action
+
+... to be continued ...
 
 ## Sources
 
