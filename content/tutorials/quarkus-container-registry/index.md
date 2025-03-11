@@ -146,14 +146,11 @@ The `docker-compose.yml` file could look like this then:
 ```yml[docker-compose.yml]
 services:
   your-application:
-    image: ghcr.io/YOUR_GITHUB_USERNAME/your-application:latest
-    restart: unless-stopped
+    image: ghcr.io/simonscholz/your-application:latest
+    restart: "no"
     ports:
       - "8080:8080"
     pull_policy: always
-    deploy:
-      restart_policy:
-        condition: on-failure
     extra_hosts:
       - "host.docker.internal:host-gateway"
 ```
@@ -165,7 +162,7 @@ Running `docker compose up` in a terminal will then result in a similar output:
 Since the sample application from above is using Micrometer with Prometheus,
 you should now be able to see exposed metrics in the browser: http://localhost:8080/q/metrics
 
-## Publish to container registry using a GitHub Action
+## Publish to container to ghcr registry using GitHub Actions
 
 ... to be continued ...
 

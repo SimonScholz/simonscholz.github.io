@@ -29,9 +29,9 @@
 
             <!-- Teaser Section -->
             <div
-              class="flex flex-col lg:flex-row items-center justify-between m-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md">
+              class="hidden xl:flex flex-col xl:flex-row items-center justify-between m-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md">
               <!-- Text Section -->
-              <div class="flex flex-col justify-center p-4 lg:w-1/2">
+              <div class="flex flex-col justify-center p-4 xl:w-1/2">
                 <h3 class="text-xl font-semibold">Want to dive deeper?</h3>
                 <p class="mt-1 text-sm">Book a 1:1 session with me to discuss your challenges and get tailored
                   solutions.</p>
@@ -42,7 +42,7 @@
               </div>
 
               <!-- Image Section -->
-              <div class="hidden lg:flex justify-center items-center lg:w-1/2">
+              <div class="hidden xl:flex justify-center items-center xl:w-1/2">
                 <img class="h-40 w-40 border-4 border-black dark:border-white rounded-full" :src="me" alt="me"
                   title="me" height="160" width="160" />
               </div>
