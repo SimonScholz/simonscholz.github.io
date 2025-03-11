@@ -56,4 +56,5 @@ useKlaro();
 
 <style>
 @import url("~/assets/klaro.css");
+@import url("~/assets/main.css");
 </style>
