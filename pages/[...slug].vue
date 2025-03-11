@@ -27,10 +27,10 @@
             <!-- Table of Contents -->
             <BlogTableOfContents class="flex-1" :links="doc.body?.toc?.links" />
 
-            <!-- Teaser Section -->
+            <!-- Session Booking Section -->
             <div>
-              <div
-                class="flex flex-col lg:flex-row items-start justify-between m-6 p-4 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md">
+              <div class="flex items-center m-6 p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow-md"
+                :class="{ 'transition duration-500 transform ring-4 animate-border-flow' : isActive }">
                 <!-- Text Section -->
                 <div class="flex flex-col justify-center p-4 lg:w-1/2">
                   <h3 class="text-xl font-semibold">Want to dive deeper?</h3>
@@ -68,11 +68,48 @@
 <script setup>
 import Giscus from '~/components/Giscus.vue'
 import me from "~/assets/me.webp";
+
+import { ref, onMounted } from 'vue'
+
+const isActive = ref(true)
+
+let timeoutId
+
+onMounted(() => {
+  timeoutId = setTimeout(() => {
+    isActive.value = false
+  }, 3000)
+})
+
+onBeforeUnmount(() => {
+  clearTimeout(timeoutId)
+})
 </script>
 
 <style scoped>
 a {
   word-break: break-all;
   overflow-wrap: anywhere;
+}
+
+@keyframes border-flow {
+  0% {
+    border-color: #06b6d4;
+    box-shadow: 0 0 5px #06b6d4, 0 0 10px #06b6d4, 0 0 15px #06b6d4;
+  }
+
+  50% {
+    border-color: #0891b2;
+    box-shadow: 0 0 15px #0891b2, 0 0 20px #0891b2, 0 0 25px #0891b2;
+  }
+
+  100% {
+    border-color: #06b6d4;
+    box-shadow: 0 0 5px #06b6d4, 0 0 10px #06b6d4, 0 0 15px #06b6d4;
+  }
+}
+
+.animate-border-flow {
+  animation: border-flow 3s forwards;
 }
 </style>
