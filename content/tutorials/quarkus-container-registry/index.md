@@ -18,6 +18,7 @@ Of course there are far more container registries out there, but GitHub Packages
 
 ## Prerequisites
 
+* Quarkus CLI (optional)
 * Quarkus application
   * quarkus-container-image-jib dependency
 * Java / Kotlin

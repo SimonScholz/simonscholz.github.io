@@ -78,7 +78,7 @@ let timeoutId
 onMounted(() => {
   timeoutId = setTimeout(() => {
     isActive.value = false
-  }, 3000)
+  }, 1500)
 })
 
 onBeforeUnmount(() => {
