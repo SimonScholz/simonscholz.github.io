@@ -6,7 +6,7 @@ updated: "2025-03-15"
 title: "GCP Cloud Schduler using OIDC with Quarkus"
 description: "Calling Quarkus REST endpoint protected by OIDC triggered by a Cloud Scheduler"
 author: "Simon Scholz"
-tags: ["quarkus", "gcp", "service account", "oidc", "kotlin", "cloud scheduler"", "gradle"]
+tags: ["quarkus", "gcp", "service account", "oidc", "kotlin", "cloud scheduler", "gradle"]
 vgWort: "vg08.met.vgwort.de/na/c5334ae68233484cb31d6c7c432f8baa"
 ---
 
