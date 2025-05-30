@@ -50,6 +50,7 @@ commercetools = "latest.release"
 [libraries]
 commercetools-client = { module = "com.commercetools.sdk:commercetools-http-client", version.ref = "commercetools"}
 commercetools-api = { module = "com.commercetools.sdk:commercetools-sdk-java-api", version.ref = "commercetools"}
+commercetools-graphql = { module = "com.commercetools.sdk:commercetools-graphql-api", version.ref = "commercetools"}
 
 [plugins]
 kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
@@ -72,6 +73,7 @@ dependencies {
 
     implementation(libs.commercetools.api)
     implementation(libs.commercetools.client)
+    implementation(libs.commercetools.graphql)
 }
 ```
 
@@ -716,6 +718,67 @@ fun main() {
 4. Fetch the customer including the expand of the custom `customer_status_history` reference. Without the expand only the id would be returned, but not the json itself.
 5. Print the customer domain object and look for the `customer_status_history` json ;)
 
+## GraphQL support
+
+Commercetools itself already is lightning fast, but using GraphQL can decrease the latency for api calls even further.
+
+### Using the GraphQL Explorer
+
+The GraphQL Explorer can be found in the Developer Settings: https://mc.{your-region}.gcp.commercetools.com/{your-project-name}/settings/developer/graphql-explorer
+
+![GraphQL Explorer](./graphql-developer-settings.png)
+
+### Using the Java SDK
+
+Here is an example on how to only get the order id and custom fields of non complete and non cancelled orders:
+
+```kotlin
+import com.commercetools.graphql.api.GraphQL
+import com.commercetools.graphql.api.types.Order
+
+fun main() {
+    val apiRoot =
+        ProjectApiRootFactory.commerceToolsProjectApiRoot(
+            clientID = "your-client-id",
+            clientSecret = "your-client-secret",
+            projectKey = "your-project-key",
+        )
+    val results: List<Order> =
+        apiRoot
+            .graphql()
+            .query(
+                GraphQL
+                    .orders { query ->
+                        query
+                            .sort(listOf("createdAt desc")) // 1
+                            .limit(10) // 2
+                            .where("not(orderState in (\"Complete\", \"Cancelled\"))") // 3
+                    }.projection { root ->
+                        root
+                            .results()
+                            .id() // 4
+                            .custom() // 5
+                            .customFieldsRaw(listOf("your_custom_field_name"), emptyList()) // 6
+                            .name() // 7
+                            .value() // 8
+                    },
+            ).executeBlocking()
+            .body
+            .data
+            .results
+
+    println(results)
+}
+```
+
+1. Sort orders by createdAt descending
+2. Only get 10 orders
+3. Filter for orders, which are not complete or cancelled
+4. Fetch the orders id
+5. Also fetch custom fields (The schema forces to be more specific than just custom)
+6. Get the raw custom fields and specify a list of names to be included and leave the exclusion list empty
+7. Get the name of the custom field
+8. Get the value of the custom field
 
 ## Async / Concurrent calls
 
