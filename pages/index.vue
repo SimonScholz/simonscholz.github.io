@@ -57,6 +57,8 @@ onUnmounted(() => {
 });
 
 useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
+
+const year = new Date().getFullYear();
 </script>
 
 <template>
@@ -96,7 +98,7 @@ useFadeIn(() => Array.from(document.getElementsByClassName("fadeSection")));
             Principal Software Engineer
           </span>
           <span>
-            14+ years of experience
+            {{ year - 2010 }}+ years of experience
           </span>
         </div>
       </section>
