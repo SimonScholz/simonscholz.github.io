@@ -28,7 +28,7 @@ So here I´ll only explain how to setup the service account used to obtain an OI
 
 ### Service Account with token permission
 
-```hcl[service_accounts.tf]
+```terraform[service_accounts.tf]
 # Service Account for the Scheduler
 resource "google_service_account" "example_scheduler_sa" {
   account_id   = "example-scheduler-sa"
@@ -45,7 +45,7 @@ resource "google_project_iam_member" "example_scheduler_token_creator" {
 
 ### Creating a Cloud Scheduler
 
-```hcl[scheduler.tf]
+```terraform[scheduler.tf]
 resource "google_cloud_scheduler_job" "example_scheduler_job" {
   name        = "example-scheduler-job"
   description = "Cloud Scheduler job calling OIDC-protected Quarkus endpoint"
