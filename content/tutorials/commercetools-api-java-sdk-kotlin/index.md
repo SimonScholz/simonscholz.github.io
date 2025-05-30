@@ -728,6 +728,29 @@ The GraphQL Explorer can be found in the Developer Settings: https://mc.{your-re
 
 ![GraphQL Explorer](./graphql-developer-settings.png)
 
+The entered query looks like this:
+
+```graphql
+query queryOrders {
+  orders(
+    where: "not(orderState in (\"Complete\", \"Cancelled\"))"
+    limit: 100
+    sort: ["createdAt desc"]
+  ) {
+    results {
+      id
+      orderState
+      custom {
+        customFieldsRaw {
+          name
+          value
+        }
+      }
+    }
+  }
+}
+```
+
 ### Using the Java SDK
 
 Here is an example on how to only get the order id and custom fields of non complete and non cancelled orders:
