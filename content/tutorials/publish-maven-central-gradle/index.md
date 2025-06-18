@@ -2,7 +2,7 @@
 id: "publish-maven-central-gradle"
 path: "/tutorials/publish-maven-central-gradle"
 created: "2023-10-07"
-updated: "2023-10-07"
+updated: "2025-06-18"
 title: "Publish library to Maven Central with Gradle and GitHub Actions"
 description: "Creating a library using Gradle, register at Maven Central and publish it to Maven Central using GitHub Actions"
 author: "Simon Scholz"
@@ -50,8 +50,8 @@ The `build.gradle.kts` file should besides everything else contain this:
 plugins {
     // other plugins
 
-    id("com.vanniktech.maven.publish") version "0.25.3"
-    id("org.jetbrains.dokka") version "1.9.0"
+    id("com.vanniktech.maven.publish") version "0.32.0"
+    id("org.jetbrains.dokka") version "2.0.0"
 }
 ```
 
@@ -78,7 +78,7 @@ It is also required to add certain meta data, which can either be specified with
 ```properties [gradle.properties]
 GROUP=io.github.simonscholz
 POM_ARTIFACT_ID=qr-code-with-logo
-VERSION_NAME=0.1.0-SNAPSHOT
+VERSION_NAME=0.4.0-SNAPSHOT
 
 POM_NAME=QR Code with logo
 POM_DESCRIPTION=Customizable qr code generatation with different colors and shapes and logos using awt
@@ -196,7 +196,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 21
 
       - uses: gradle/gradle-build-action@v2.9.0
 
@@ -214,7 +214,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 21
 
       - uses: gradle/gradle-build-action@v2.9.0
 
@@ -374,7 +374,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 21
 
       - uses: gradle/gradle-build-action@v2.9.0
 
@@ -392,7 +392,7 @@ jobs:
       - uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          java-version: 20
+          java-version: 21
 
       - uses: gradle/gradle-build-action@v2.9.0
 
@@ -420,7 +420,7 @@ First of all we need to adjust the version of our library by removing the `-SNAP
 ```properties [gradle.properties]
 GROUP=io.github.simonscholz
 POM_ARTIFACT_ID=qr-code-with-logo
-VERSION_NAME=0.1.0
+VERSION_NAME=0.4.0
 
 ... other properties
 ```
