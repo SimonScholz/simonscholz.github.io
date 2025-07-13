@@ -31,10 +31,11 @@ Once the `folders-to-backup.txt` file is in place we can use rsync to copy the f
 But first do this using the `--dry-run` flag to test it without actually copying anything.
 
 ```bash
-rsync -a --dry-run --stats --info=progress2 --exclude='.cache' --files-from=folders-to-backup.txt ~ /media/{your-username}/{hard-drive-name}/backup/
+rsync -ar --dry-run --stats --info=progress2 --exclude='.cache' --files-from=folders-to-backup.txt ~ /media/{your-username}/{hard-drive-name}/backup/
 ```
 
 - `-a` is a shortcut for `-rlptgoD`, which will ensure that all settings of files and folders remain as is.
+- `-r` has to be added explicitly due to using the `--files-from` flag
 - `--info=progress2` will also show a nice progress bar for the overall sync process.
 - `--dry-run` to do a test run first to check the config and paths
 - `--stats` to see file sizes and amount of files being sent
@@ -42,10 +43,22 @@ rsync -a --dry-run --stats --info=progress2 --exclude='.cache' --files-from=fold
 For the actual backup sync `--dry-run` needs to be removed:
 
 ```bash
-rsync -a --stats --info=progress2 --exclude='.cache' --files-from=folders-to-backup.txt ~ /media/{your-username}/{hard-drive-name}/backup/
+rsync -ar --stats --info=progress2 --exclude='.cache' --files-from=folders-to-backup.txt ~ /media/{your-username}/{hard-drive-name}/backup/
 ```
 
 Please note the `~` so everything is relative to your user home folder.
+
+### List installed applications
+
+```bash
+dpkg --get-selections > package_list.txt
+```
+
+Snap packages
+
+```bash
+snap list > snap-list.txt
+```
 
 ## Ubuntu
 
