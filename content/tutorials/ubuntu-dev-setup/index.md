@@ -134,6 +134,8 @@ Also see https://sdkman.io/install
 SDKs (https://sdkman.io/sdks) I usually install are:
 
 - sdk install java
+- sdk install Kotlin
+- sdk install jbang
 - sdk install gradle
 - sdk install maven
 - sdk install quarkus
