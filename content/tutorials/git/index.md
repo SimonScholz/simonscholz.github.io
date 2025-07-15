@@ -151,3 +151,44 @@ To remove a certain branch use the following command then:
 ```shell
 git push origin --delete "<branch-name>"
 ```
+
+## Find dirty git repositories
+
+I usually have a `git` folder in my home directory, which contains a lot of git repositories.
+In order to find all repositories, which have uncommitted changes, I created the following script:
+
+```shell[git-status-all.sh]
+#!/bin/bash
+
+GIT_DIR=~/git
+
+# ANSI color codes
+YELLOW='\033[1;33m'
+RED='\033[1;31m'
+NC='\033[0m' # No Color
+
+dirty_count=0
+
+# Use mapfile to safely handle repo paths
+mapfile -t git_dirs < <(find "$GIT_DIR" -type d -name ".git")
+
+for gitdir in "${git_dirs[@]}"; do
+  repo_dir=$(dirname "$gitdir")
+  cd "$repo_dir"
+
+  # Check for clean tree
+  if [ -n "$(git status --porcelain)" ]; then
+    echo -e "${YELLOW}###############################################################################################${NC}"
+    echo "Dirty repo: $repo_dir"
+    git status -s
+    ((dirty_count++))
+  fi
+done
+
+echo
+echo -e "${RED}Total dirty repos: $dirty_count${NC}"
+```
+
+This script will find all git repositories in the `~/git` directory and check if they have uncommitted changes.
+
+![Dirty git repositories script output](./dirty-git-repos-script-output.png)
