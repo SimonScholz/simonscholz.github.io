@@ -60,6 +60,14 @@ Snap packages
 snap list > snap-list.txt
 ```
 
+### Check for dirty git repositories
+
+Before reinstalling the OS you might want to check for dirty git repositories, which are not committed yet.
+
+In order to do so you can have a look in my git tutorial: [Find dirty git repositories](https://simonscholz.dev/tutorials/git#find-dirty-git-repositories)
+
+So that you can commit all changes before reinstalling the OS.
+
 ## Ubuntu
 
 You can go to https://ubuntu.com/download/desktop to get the latest version of Ubuntu.
