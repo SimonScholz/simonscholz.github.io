@@ -2,7 +2,7 @@
 id: "quarkus-mcp-server"
 path: "/tutorials/quarkus-mcp-server"
 created: "2025-10-08"
-updated: "2025-10-08"
+updated: "2025-19-08"
 title: "Quarkus MCP Server"
 description: "Creating an AI tool using quarkus mcp extensions and a respective ai client"
 author: "Simon Scholz"
@@ -63,28 +63,39 @@ quarkus:
         root-path: /mcp
 ```
 
-### Implement a QrCodeTool MCP Tool
+### Implement a sample MCP Tool
 
-First of all a small `QrCodeService` using my qr code library:
+Let´s assume we have a database of freelancers and their skills.
 
-```kotlin[QrCodeService.kt]
+```kotlin[Freelancer.kt]
+package dev.simonscholz
+
+data class Freelancer(
+    val name: String,
+    val skills: List<String>,
+)
+```
+
+```kotlin[FreelancerService.kt]
 package dev.simonscholz
 
 import jakarta.enterprise.context.ApplicationScoped
 
 @ApplicationScoped
-class QrCodeService {
-    fun generateQrCode(data: String): ByteArray {
-        // Implement QR code generation logic here
-        // This is a placeholder implementation
-        return data.toByteArray()
-    }
+class FreelancerService {
+    fun findFreelancersBySkills(skills: List<String>): List<Freelancer> =
+        listOf(
+            Freelancer("Simon Scholz", listOf("Kotlin", "Java", "Quarkus", "DDD").map { it.lowercase() }),
+            Freelancer("John Go", listOf("Go", "Docker", "Kubernetes", "GCP").map { it.lowercase() }),
+        ).filter { freelancer ->
+            skills.any { skill -> freelancer.skills.contains(skill.lowercase()) }
+        }
 }
 ```
 
-Now the actual `QrCodeTool`, which uses the `QrCodeService`.
+Now that we have this `FreelancerService` in place, we can provide a tool that provides capabilities to find freelancers by their skills.
 
-```kotlin[QrCodeTool.kt]
+```kotlin[FindFreelancerTool.kt]
 package dev.simonscholz
 
 import io.quarkiverse.mcp.server.McpLog
@@ -94,19 +105,22 @@ import io.smallrye.common.annotation.RunOnVirtualThread
 import jakarta.inject.Singleton
 
 @Singleton
-class QrCodeTool(
-    private val qrCodeService: QrCodeService,
+class FindFreelancerTool(
+    private val freelancerService: FreelancerService,
 ) {
-    @Tool(name = "generateQrCode", description = "Generates a QR code for the given data and returns it as a byte array.")
+    @Tool(name = "freelancer", description = "Finds freelancers by their skills.")
     @RunOnVirtualThread
-    fun generateQrCode(
-        @ToolArg(description = "QrCodeContent") qrCodeContent: String,
+    fun findFreelancersBySkills(
+        @ToolArg(description = "skills") skills: List<String>,
         log: McpLog,
-    ): String {
-        log.info("Generating QR code for content: $qrCodeContent")
-        return qrCodeService.generateQrCode(qrCodeContent).toString(Charsets.UTF_8)
+    ): List<Freelancer> {
+        log.info("Finding freelancers with skills: $skills")
+        val freelancers = freelancerService.findFreelancersBySkills(skills)
+        log.info("Found ${freelancers.size} freelancers with skills: ${freelancers.joinToString(",") { it.skills.joinToString(",") }}")
+        return freelancers
     }
 }
+
 ```
 
 ### Start the application
@@ -123,7 +137,7 @@ __  ____  __  _____   ___  __ ____  ______
  -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \   
 --\___\_\____/_/ |_/_/|_/_/|_|\____/___/   
 2025-10-09 00:53:05,035 INFO  [io.qua.mcp.server] (executor-thread-1) MCP HTTP transport endpoints [streamable: http://localhost:8080/mcp, SSE: http://localhost:8080/mcp/sse]
-2025-10-09 00:53:05,035 INFO  [io.quarkus] (Quarkus Main Thread) quarkus-mcp-server 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.28.2) started in 3.124s. Listening on: http://localhost:8080                                  
+2025-10-09 00:53:05,035 INFO  [io.quarkus] (Quarkus Main Thread) quarkus-mcp-server 1.0.0-SNAPSHOT on JVM (powered by Quarkus 3.28.4) started in 3.124s. Listening on: http://localhost:8080                                  
 2025-10-09 00:53:05,039 INFO  [io.quarkus] (Quarkus Main Thread) Profile dev activated. Live Coding activated.                                                                                                                
 2025-10-09 00:53:05,039 INFO  [io.quarkus] (Quarkus Main Thread) Installed features: [cdi, config-yaml, kotlin, mcp-server-sse, rest, rest-client, rest-client-jackson, smallrye-context-propagation, vertx]    
 ```
@@ -150,7 +164,155 @@ Once connect has been clicked, you can list all the tools and also invoke them:
 
 ![mcp inspector list tools](./mcp-inspector-list-tools.png)
 
-## Add MCP Server to VS Code
+1. Check that the MCP server is connected
+2. Hit the `List Tools` button
+3. Select the desired tool, e.g., `findFreelancersBySkills`
+4. Press `Add Item` and enter desired freelancer skill, e.g., `Quarkus`
+5. Finally hit the `Run Tool` button
+6. And look at the MCP server´s response
+
+## Quarkus MCP AI Client
+
+Now that we have a MCP server in place we can create a client that delegates the requests to an AI and points to the MCP Server.
+
+```bash
+quarkus create app dev.simonscholz:quarkus-mcp-client --gradle-kotlin-dsl --kotlin --extensions=quarkus-config-yaml,quarkus-langchain4j-ollama,quarkus-langchain4j-mcp,quarkus-rest-jackson
+```
+
+### Adjust the application.yml
+
+In this application we define a separate port, e.g., 8081 to avoid a port overlap with the MCP server application, enable debug logs, and configure langchain4j to have certain timeouts, use ollama with qwen3:1.7b and point to our previously created MCP server:
+
+```yml[application.yml]
+quarkus:
+  http:
+    port: 8081
+  log:
+    category:
+      "ai.langchain4j":
+        level: DEBUG
+      "io.quarkiverse.langchain4j.ollama":
+        level: DEBUG
+  langchain4j:
+    timeout: 60000
+    ollama:
+      chat-model:
+        model-name: qwen3:1.7b
+        temperature: 0
+    mcp:
+      freelancer:
+        transport-type: streamable-http
+        url: http://localhost:8080/mcp
+        log-requests: true
+        log-responses: true
+        tool-execution-timeout: 30000
+```
+
+### Add Code to call the MCP Server
+
+Now we can create a `FindFreelancersBySkillsAssistant`, which talks to ollama and our MCP Tool.
+
+```kotlin[FindFreelancersBySkillsAssistant.kt]
+package dev.simonscholz
+
+import dev.langchain4j.service.SystemMessage
+import dev.langchain4j.service.UserMessage
+import io.quarkiverse.langchain4j.RegisterAiService
+import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox
+
+@RegisterAiService
+interface FindFreelancersBySkillsAssistant {
+    @SystemMessage(
+        """
+        You are an assistant that helps to find freelancers based on a list of skills.
+        
+        When a user asks to find a freelancer with a list of skills follow this one-step process:
+        
+        1. Use the 'freelancer' tool to get a list of freelancers that match those skills.
+        
+        Provide the user with the names of the freelancers found.
+        
+        Always use the 'freelancer' tool - never try to find freelancers yourself.
+        Be helpful and provide a list of freelancers based on the result of the tool call.
+    """,
+    )
+    @McpToolBox("freelancer")
+    fun chat(
+        @UserMessage message: String,
+    ): String
+}
+```
+
+By using `@McpToolBox("findFreelancersBySkills")` the AI service will be capable to call the given tool.
+
+This `FindFreelancersBySkillsAssistant` can then be passed to a simple rest resource, which exposes a rest endpoint for having a chat:
+
+```kotlin[FindFreelancersResource.kt]
+package dev.simonscholz
+
+import io.quarkus.logging.Log
+import jakarta.ws.rs.GET
+import jakarta.ws.rs.Path
+import jakarta.ws.rs.Produces
+import jakarta.ws.rs.QueryParam
+import jakarta.ws.rs.core.MediaType
+
+class FindFreelancersResource(
+    private val freelancersBySkillsAssistant: FindFreelancersBySkillsAssistant,
+) {
+    @GET
+    @Path("/ask")
+    @Produces(MediaType.TEXT_PLAIN)
+    fun askQuestion(
+        @QueryParam("q") question: String?,
+    ): String {
+        val query = question ?: "Find me freelancers with skills in Kotlin and Quarkus."
+        Log.info("Question: $query")
+        val response = freelancersBySkillsAssistant.chat(query)
+        Log.info("Response: $response")
+        return response
+    }
+}
+```
+
+### Testing the applications
+
+Ensure both Quarkus applications run by using 
+
+```bash
+./gradlew qDev
+```
+
+Then the Quarkus MCP AI client application´s `/api/ask` endpoint can be called:
+
+```bash
+curl "http://localhost:8081/api/ask"
+```
+
+The response of this curl should then look similar to this:
+
+```bash
+<think>
+Okay, the user asked for freelancers with Kotlin and Quarkus skills. I called the findFreelancersBySkills function with those skills. The response came back with Simon Scholz. Let me check the skills he has: kotlin, java, quarkus, ddd. Yep, he meets the criteria. I should present this to the user clearly.
+</think>
+
+I found a freelancer matching your criteria:
+
+**Simon Scholz**
+Skills: Kotlin, Java, Quarkus, DDD
+
+He has expertise in Kotlin programming, Quarkus framework, and domain-driven design. Would you like me to check for other freelancers with similar skills?
+```
+
+Feel free to also look for `John Go`:
+
+```bash
+curl "http://localhost:8081/api/ask?q=Find+freelancers+with+skills+in+Go+and+Docker"
+```
+
+## Additional MCP resources
+
+### Add MCP Server to VS Code
 
 When you hit `CTRL + SHIFT + P` and enter "mcp" the option "MCP: Add Server..." will be listed:
 
@@ -167,3 +329,5 @@ Then the `http://localhost:8080/mcp/sse` url can be entered:
 ## Sources
 
 - https://www.the-main-thread.com/p/java-quarkus-langchain4j-ollama-mcp-tutorial
+- https://www.the-main-thread.com/p/java-ai-observability-quarkus-langchain4j
+- https://docs.quarkiverse.io/quarkus-langchain4j/dev/observability.html
