@@ -293,15 +293,17 @@ The response of this curl should then look similar to this:
 
 ```bash
 <think>
-Okay, the user asked for freelancers with Kotlin and Quarkus skills. I called the findFreelancersBySkills function with those skills. The response came back with Simon Scholz. Let me check the skills he has: kotlin, java, quarkus, ddd. Yep, he meets the criteria. I should present this to the user clearly.
+Okay, the user asked for freelancers with Kotlin and Quarkus skills. I called the freelancer tool with those skills. The response came back with Simon Scholz. Let me check if he has both skills listed. Yes, he has Kotlin, Java, Quarkus, and DDD. Java is a good fallback, but the user specifically mentioned Kotlin and Quarkus. So Simon is a match. I should present him as a result. Maybe mention he's proficient in both. No other freelancers were found, so just list Simon. Keep it simple and helpful.
 </think>
 
-I found a freelancer matching your criteria:
+I found a freelancer with the skills you requested:
 
 **Simon Scholz**
-Skills: Kotlin, Java, Quarkus, DDD
+- Languages: Kotlin, Java
+- Frameworks: Quarkus
+- Technologies: DDD (Domain-Driven Design)
 
-He has expertise in Kotlin programming, Quarkus framework, and domain-driven design. Would you like me to check for other freelancers with similar skills?
+He's proficient in both Kotlin/Java and Quarkus framework development. Would you like me to check for other freelancers with similar expertise?
 ```
 
 Feel free to also look for `John Go`:
