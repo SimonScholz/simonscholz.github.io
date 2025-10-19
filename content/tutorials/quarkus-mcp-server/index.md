@@ -12,6 +12,27 @@ vgWort: ""
 
 This tutorial covers the creation of a MCP server using Quarkus and a client calling this AI, which then will call the MCP server.
 
+```mermaid
+sequenceDiagram
+    participant ClientApp as Quarkus MCP AI Client
+    participant LLM as LLM Service (via LangChain4j + Ollama)
+    participant MCPClient as MCP Client Component
+    participant MCPServer as Quarkus MCP Server
+    participant Tool as Tool “freelancer” (inside MPC Server)
+
+    Note over ClientApp: User issues chat query
+    ClientApp -> LLM: “Find freelancers with skills in Kotlin + Quarkus.”
+    LLM -> MCPClient: Identify need to call tool → freelancer
+    MCPClient -> MCPServer: tools/list (JSON-RPC)
+    MCPServer --> MCPClient: list of available tools (including “freelancer”)
+    MCPClient -> MCPServer: tools/call { tool: "freelancer", args: {skills: ["Kotlin","Quarkus"]} }
+    MCPServer -> Tool: execute findFreelancersBySkills(skills)
+    Tool --> MCPServer: returns list of Freelancer objects
+    MCPServer --> MCPClient: result list
+    MCPClient -> LLM: pass tool result (freelancers list)
+    LLM --> ClientApp: natural language response with freelancers found
+```
+
 ## Prerequisites
 
 * ollama
@@ -312,6 +333,53 @@ Feel free to also look for `John Go`:
 curl "http://localhost:8081/api/ask?q=Find+freelancers+with+skills+in+Go+and+Docker"
 ```
 
+## Adding Fallbacks for failures
+
+Quarkus provides a `quarkus-smallrye-fault-tolerance` library to provide fault tolerance, e.g., having fallbacks for AI calls.
+
+### Adding the fault tolerance dependency
+
+```bash
+quarkus ext add io.quarkus:quarkus-smallrye-fault-tolerance
+```
+
+### Implement the fallback
+
+```kotlin[FindFreelancersBySkillsAssistant.kt]
+package dev.simonscholz
+
+import dev.langchain4j.service.SystemMessage
+import dev.langchain4j.service.UserMessage
+import io.quarkiverse.langchain4j.RegisterAiService
+import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox
+import org.eclipse.microprofile.faulttolerance.Fallback
+
+@RegisterAiService
+interface FindFreelancersBySkillsAssistant {
+    @SystemMessage(
+        """
+        You are an assistant that helps to find freelancers based on a list of skills.
+        
+        When a user asks to find a freelancer with a list of skills follow this one-step process:
+        
+        1. Use the 'freelancer' tool to get a list of freelancers that match those skills.
+        
+        Provide the user with the names of the freelancers found.
+        
+        Always use the 'freelancer' tool - never try to find freelancers yourself.
+        Be helpful and provide a list of freelancers based on the result of the tool call.
+    """,
+    )
+    @McpToolBox("freelancer")
+    @Fallback(fallbackMethod = "fallbackChat")
+    fun chat(
+        @UserMessage message: String,
+    ): String
+
+    fun fallbackChat(message: String): String = "I'm sorry, but I'm currently unable to find freelancers for you. Please try again later."
+}
+```
+
 ## Additional MCP resources
 
 ### Add MCP Server to VS Code
@@ -330,6 +398,7 @@ Then the `http://localhost:8080/mcp/sse` url can be entered:
 
 ## Sources
 
+- https://docs.quarkiverse.io/quarkus-langchain4j/dev/guide-ollama.html
 - https://www.the-main-thread.com/p/java-quarkus-langchain4j-ollama-mcp-tutorial
 - https://www.the-main-thread.com/p/java-ai-observability-quarkus-langchain4j
 - https://docs.quarkiverse.io/quarkus-langchain4j/dev/observability.html
