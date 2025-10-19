@@ -14,5 +14,14 @@ export default defineAppConfig({
             'dark-mode': 'ph:moon-bold',
             'light-mode': 'ph:sun-bold'
         }
+    },
+    contentMermaid: {
+        enabled: true,
+        /**
+         * @default 'default'
+         * @description 'default' or '@nuxtjs/color-mode'
+         */
+        color: 'default',
+        spinnerComponent: 'DAnimationSpinner'
     }
 })

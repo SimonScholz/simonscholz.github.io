@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@d0rich/nuxt-content-mermaid':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@nuxt-themes/elements':
         specifier: ^1.0.6
         version: 1.0.6(change-case@4.1.2)(magicast@0.3.5)(postcss@8.4.47)(rollup@3.29.5)(sass@1.79.4)(vue@3.5.11(typescript@5.6.2))
@@ -261,6 +264,9 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     peerDependencies:
       postcss-selector-parser: ^6.0.13
+
+  '@d0rich/nuxt-content-mermaid@1.0.0':
+    resolution: {integrity: sha512-0e2Lnvm1TEw6uN/BOW9QuHHwt+LK6zejiX73TODXVqha4TDN1V2c4C3+S85zTCrv+7eS0RelK/BXQN0Z9H++tQ==}
 
   '@esbuild/aix-ppc64@0.20.2':
     resolution: {integrity: sha512-D+EBOJHXdNZcLJRBkhENNG8Wji2kgc9AZ9KiPr1JuZjsNtyHzrsfLRrY0tk2H2aoFu6RANO1y1iPPUCDYWkb5g==}
@@ -5282,6 +5288,8 @@ snapshots:
   '@csstools/selector-specificity@3.1.1(postcss-selector-parser@6.1.2)':
     dependencies:
       postcss-selector-parser: 6.1.2
+
+  '@d0rich/nuxt-content-mermaid@1.0.0': {}
 
   '@esbuild/aix-ppc64@0.20.2':
     optional: true

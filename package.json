@@ -16,6 +16,7 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
+    "@d0rich/nuxt-content-mermaid": "^1.0.0",
     "@nuxt-themes/elements": "^1.0.6",
     "@nuxt-themes/tokens": "^2.1.1",
     "@nuxt-themes/typography": "^1.0.1",
