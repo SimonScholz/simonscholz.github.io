@@ -1,0 +1,1 @@
+import{d as n,am as a,c as t,e as s,f as o,t as r,G as c}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const _=n({__name:"TokensPlayground",setup(l){const{theme:e}=a();return(u,i)=>(t(),s("div",null,[o("pre",null,r(JSON.stringify(c(e),null,2)),1)]))}});export{_ as default};

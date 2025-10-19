@@ -1,0 +1,1 @@
+import{k as t,c as o,e as s,f as a,K as n}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const c={},r={class:"prose-table"};function _(e,d){return o(),s("div",r,[a("table",null,[n(e.$slots,"default",{},void 0,!0)])])}const p=t(c,[["render",_],["__scopeId","data-v-6be36022"]]);export{p as default};

@@ -1,0 +1,1 @@
+import{_ as o}from"./SxKl9_VK.js";import{d as t,Z as r}from"./Bg4juggm.js";import"./2ETV-d1z.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const s=t({props:{use:{type:Function,default:void 0},unwrap:{type:[Boolean,String],default:!1}},render(e){return r(o,e)}});export{s as default};

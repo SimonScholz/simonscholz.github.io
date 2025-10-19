@@ -1,0 +1,1 @@
+import{k as t,c as o,e as s,K as c}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const n={},r={class:"prose-thead"};function a(e,_){return o(),s("thead",r,[c(e.$slots,"default",{},void 0,!0)])}const l=t(n,[["render",a],["__scopeId","data-v-bdfc2bd7"]]);export{l as default};

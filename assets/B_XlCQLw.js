@@ -1,0 +1,1 @@
+import{k as s,c as o,e as t,K as r}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const c={},n={class:"prose-ul"};function a(e,l){return o(),t("ul",n,[r(e.$slots,"default",{},void 0,!0)])}const f=s(c,[["render",a],["__scopeId","data-v-1bf89264"]]);export{f as default};
