@@ -7,23 +7,23 @@
     "preview": "nuxt preview"
   },
   "devDependencies": {
-    "@nuxt/content": "^2.13.4",
-    "@nuxtjs/tailwindcss": "^6.12.2",
-    "@types/node": "^22.18.11",
-    "nuxt": "^3.19.3",
+    "@nuxt/content": "^2.13.2",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@types/node": "^22.7.4",
+    "nuxt": "^3.13.2",
     "nuxt-icon": "^0.6.10",
-    "sitemap": "^8.0.1",
-    "typescript": "^5.6.3"
+    "sitemap": "^8.0.0",
+    "typescript": "^5.6.2"
   },
   "dependencies": {
     "@d0rich/nuxt-content-mermaid": "^1.0.0",
     "@nuxt-themes/elements": "^1.0.6",
     "@nuxt-themes/tokens": "^2.1.1",
     "@nuxt-themes/typography": "^1.0.1",
-    "@nuxthq/studio": "^2.2.1",
-    "@nuxtjs/color-mode": "^3.5.2",
-    "@nuxtjs/robots": "^4.1.11",
-    "@vueuse/core": "^11.3.0",
+    "@nuxthq/studio": "^2.1.1",
+    "@nuxtjs/color-mode": "^3.5.1",
+    "@nuxtjs/robots": "^4.1.7",
+    "@vueuse/core": "^11.1.0",
     "klaro": "^0.7.21",
     "nuxt-content-assets": "^1.4.4",
     "remark-reading-time": "^2.0.1"
