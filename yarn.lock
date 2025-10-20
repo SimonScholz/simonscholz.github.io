@@ -919,7 +919,7 @@
     undici "^7.16.0"
     youch "^4.1.0-beta.11"
 
-"@nuxt/content@^2.13.2":
+"@nuxt/content@^2.13.4":
   version "2.13.4"
   resolved "https://registry.yarnpkg.com/@nuxt/content/-/content-2.13.4.tgz#5a827ef80792ef60ad96fc208017ea7f8e841bf6"
   integrity sha512-NBaHL/SNYUK7+RLgOngSFmKqEPYc0dYdnwVFsxIdrOZUoUbD8ERJJDaoRwwtyYCMOgUeFA/zxAkuADytp+DKiQ==
@@ -7349,7 +7349,7 @@ site-config-stack@2.2.21:
   dependencies:
     ufo "^1.5.4"
 
-sitemap@^8.0.0:
+sitemap@^8.0.1:
   version "8.0.1"
   resolved "https://registry.yarnpkg.com/sitemap/-/sitemap-8.0.1.tgz#2ba2612089207e7a794f501fd11d7cb080273697"
   integrity sha512-4Y8ynSMFAy/DadeAeio8Kx4zfC8/0VcKi7TH0I1SazvBcrU2fpJaGoeWsX1FMRaHoe3VGMA53DqVoLErZrtG9Q==
