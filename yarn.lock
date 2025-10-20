@@ -1124,7 +1124,7 @@
     vite-plugin-checker "^0.11.0"
     vue-bundle-renderer "^2.2.0"
 
-"@nuxthq/studio@^2.1.1":
+"@nuxthq/studio@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@nuxthq/studio/-/studio-2.2.1.tgz#d54fe8edd36f64fc1bb1095acd899dda9b5c8aab"
   integrity sha512-FiKaC2NBnoKbV5opW8+bXt75R9b7XQ/xtr2bCSLRUca2H7lYypfUAdpYltJasKMgJsUWMNHME92iW5Fi9gb+IA==
@@ -1139,7 +1139,7 @@
     ufo "^1.5.4"
     untyped "^1.5.1"
 
-"@nuxtjs/color-mode@^3.3.0", "@nuxtjs/color-mode@^3.5.1":
+"@nuxtjs/color-mode@^3.3.0", "@nuxtjs/color-mode@^3.5.2":
   version "3.5.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/color-mode/-/color-mode-3.5.2.tgz#4f2cbdd44009068b746e3bb0964b761b90969b73"
   integrity sha512-cC6RfgZh3guHBMLLjrBB2Uti5eUoGM9KyauOaYS9ETmxNWBMTvpgjvSiSJp1OFljIXPIqVTJ3xtJpSNZiO3ZaA==
@@ -1191,7 +1191,7 @@
     unwasm "^0.3.9"
     vfile "^6.0.3"
 
-"@nuxtjs/robots@^4.1.7":
+"@nuxtjs/robots@^4.1.11":
   version "4.1.11"
   resolved "https://registry.yarnpkg.com/@nuxtjs/robots/-/robots-4.1.11.tgz#f34f9fb1a1a04fc7e91f7f147cd49f452facdac6"
   integrity sha512-neHIO1WnnURwq/XE7z8SSrf7OvjwD+pfRPpCHdMdaly6aGN8U0z4ZAq53gIrcYMi/xzE+D63QlxeODQgKjLQfQ==
@@ -2364,7 +2364,7 @@
     "@vueuse/shared" "10.11.1"
     vue-demi ">=0.14.8"
 
-"@vueuse/core@11.3.0", "@vueuse/core@^11.1.0":
+"@vueuse/core@11.3.0", "@vueuse/core@^11.1.0", "@vueuse/core@^11.3.0":
   version "11.3.0"
   resolved "https://registry.yarnpkg.com/@vueuse/core/-/core-11.3.0.tgz#bb0bd1f0edd5435d20694dbe51091cf548653a4d"
   integrity sha512-7OC4Rl1f9G8IT6rUfi9JrKiXy4bfmHhZ5x2Ceojy0jnd3mHNEvV4JaRygH362ror6/NZ+Nl+n13LPzGiPN8cKA==
