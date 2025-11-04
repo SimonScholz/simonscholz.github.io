@@ -192,3 +192,18 @@ echo -e "${RED}Total dirty repos: $dirty_count${NC}"
 This script will find all git repositories in the `~/git` directory and check if they have uncommitted changes.
 
 ![Dirty git repositories script output](./dirty-git-repos-script-output.png)
+
+## Show all commits since last git tag
+
+Quite often git tags are used for deployments to production.
+In order to get an overview on what is going live it can be convenient to list all commits being done since the last git tag was created.
+
+```bash
+git log $(git describe --tags --abbrev=0)..HEAD \
+  --graph --abbrev-commit --decorate --date=relative \
+  --format="%C(yellow)%h%Creset - %Cgreen(%cr)%Creset %C(bold blue)<%an>%Creset %C(auto)%d%Creset %s"
+```
+
+- `git describe --tags --abbrev=0` finds the most recent tag reachable from HEAD
+- `..HEAD` is used to show commits after **the tag** up to `HEAD`
+- The other two lines below is used for formatting and styling
