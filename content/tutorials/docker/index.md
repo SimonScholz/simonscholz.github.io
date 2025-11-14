@@ -140,6 +140,19 @@ To remove all images the following command can be used.
 docker rmi $(docker images -q)
 ```
 
+## Remove certain images
+
+When running integration tests for my Quarkus applications I heavily rely on DEV Containers and test containers.
+In order to clean up those images the following commands can be used.
+
+```bash
+# using docker
+docker rmi $(docker images --format "{{.Repository}}:{{.Tag}}" | grep '^localhost/testcontainers/')
+
+# using podman
+podman rmi $(podman images --format "{{.Repository}}:{{.Tag}}" | grep '^localhost/testcontainers/')
+```
+
 ## List containers and images
 
 Running containers
