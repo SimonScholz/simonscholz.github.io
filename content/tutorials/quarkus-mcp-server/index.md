@@ -12,26 +12,7 @@ vgWort: ""
 
 This tutorial covers the creation of a MCP server using Quarkus and a client calling this AI, which then will call the MCP server.
 
-```mermaid
-sequenceDiagram
-    participant ClientApp as Quarkus MCP AI Client
-    participant LLM as LLM Service (via LangChain4j + Ollama)
-    participant MCPClient as MCP Client Component
-    participant MCPServer as Quarkus MCP Server
-    participant Tool as Tool “freelancer” (inside MPC Server)
-
-    Note over ClientApp: User issues chat query
-    ClientApp -> LLM: “Find freelancers with skills in Kotlin + Quarkus.”
-    LLM -> MCPClient: Identify need to call tool → freelancer
-    MCPClient -> MCPServer: tools/list (JSON-RPC)
-    MCPServer --> MCPClient: list of available tools (including “freelancer”)
-    MCPClient -> MCPServer: tools/call { tool: "freelancer", args: {skills: ["Kotlin","Quarkus"]} }
-    MCPServer -> Tool: execute findFreelancersBySkills(skills)
-    Tool --> MCPServer: returns list of Freelancer objects
-    MCPServer --> MCPClient: result list
-    MCPClient -> LLM: pass tool result (freelancers list)
-    LLM --> ClientApp: natural language response with freelancers found
-```
+![archtecture-diagram](./architecture-diagram-light.png)
 
 ## Prerequisites
 
