@@ -1,0 +1,1 @@
+import{k as o,c as t,e as s,K as c}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const n={},r={class:"prose-tbody"};function _(e,a){return t(),s("tbody",r,[c(e.$slots,"default")])}const f=o(n,[["render",_]]);export{f as default};

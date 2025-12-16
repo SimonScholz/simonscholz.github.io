@@ -1,0 +1,1 @@
+import{d as r,Q as s,c as n,e as c,G as a}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const p=["src"],i=r({__name:"VoltaBoard",props:{token:{type:String,required:!0}},setup(e){const t=e,o=s(()=>`https://volta.net/embed/${t.token}`);return(l,m)=>(n(),c("iframe",{src:a(o),class:"w-full"},null,8,p))}});export{i as default};

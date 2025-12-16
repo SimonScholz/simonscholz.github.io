@@ -1,0 +1,1 @@
+import{k as t,c as o,e as s,K as n}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const c={},r={class:"prose-td"};function _(e,a){return o(),s("td",r,[n(e.$slots,"default",{},void 0,!0)])}const l=t(c,[["render",_],["__scopeId","data-v-031e7719"]]);export{l as default};

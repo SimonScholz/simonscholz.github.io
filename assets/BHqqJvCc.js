@@ -1,0 +1,1 @@
+import{k as o,c as t,e as s,K as c}from"./Bg4juggm.js";import"https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs";const r={},a={class:"prose-blockquote"};function n(e,l){return t(),s("blockquote",a,[c(e.$slots,"default",{},void 0,!0)])}const u=o(r,[["render",n],["__scopeId","data-v-48e3a900"]]);export{u as default};
