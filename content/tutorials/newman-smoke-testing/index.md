@@ -8,16 +8,16 @@ description: 'Postman is a powerful tool to test rest apis manually. With Newman
 author: 'Simon Scholz'
 tags:
   [
-    'postman',
-	  'API',
-    'rest-client',
-    'automatization',
-    'newman',
-    'github',
-    'github-action',
-    'http-bin',
-    'ci/cd',
-    'testing',
+    "postman",
+    "API",
+    "rest-client",
+    "automatization",
+    "newman",
+    "github",
+    "github-action",
+    "http-bin",
+    "ci/cd",
+    "testing",
   ]
 vgWort: 'vg05.met.vgwort.de/na/610d332c575f4c6f96ff55a886ab07bd'
 ---

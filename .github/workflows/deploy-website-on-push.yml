@@ -7,30 +7,40 @@ on:
   push:
     branches: [nuxt-content]
 
+# Prevent concurrent deployments
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   DEPLOY_BRANCH: 'master'
   USERNAME: 'simonscholz'
   BUILD_DIR: .output/public
-
+  NODE_VERSION: '20'
+  PNPM_VERSION: '9.10.0'
 
 jobs:
   cache-and-deploy:
     runs-on: ubuntu-latest
+    
+    # Set minimum permissions required
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-        name: Install pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          version: 9.10.0
+          version: ${{ env.PNPM_VERSION }}
           run_install: false
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'pnpm'
 
       - name: Get pnpm store directory
@@ -38,28 +48,67 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
         with:
           path: ${{ env.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
+      - name: Cache node modules
+        uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-modules-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-node-modules-
+
       - name: Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
       - name: Generate project
         run: pnpm run generate
 
+      - name: Verify build output
+        run: |
+          if [ ! -d "${{ env.BUILD_DIR }}" ]; then
+            echo "❌ Build directory ${{ env.BUILD_DIR }} does not exist"
+            exit 1
+          fi
+          if [ ! -f "${{ env.BUILD_DIR }}/index.html" ]; then
+            echo "❌ index.html not found in build output"
+            exit 1
+          fi
+          echo "✅ Build verification passed"
+
       - name: Push generated project to deploy branch
         run: |
-              cd ${{ env.BUILD_DIR }}
-              rm .gitignore  # Remove the generated .gitignore file
-              git config --global user.email "building@simonscholz.dev"
-              git config --global user.name "${{ env.USERNAME }}"
-              git init
-              git add -A
-              git commit -m 'Push generated nuxt 3 website'
-              git push -f https://${{ env.USERNAME }}:${{ secrets.NUXT_DEPLOY_TOKEN }}@github.com/${{ env.USERNAME }}/${{ github.event.repository.name }}.git master:${{ env.DEPLOY_BRANCH }}
+          set -e  # Exit on any error
+          cd ${{ env.BUILD_DIR }}
+          
+          # Remove the generated .gitignore file if it exists
+          [ -f .gitignore ] && rm .gitignore
+          
+          # Configure git
+          git config --global user.email "building@simonscholz.dev"
+          git config --global user.name "${{ env.USERNAME }}"
+          git config --global init.defaultBranch main
+          
+          # Initialize and commit
+          git init
+          git add -A
+          
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to deploy"
+            exit 0
+          fi
+          
+          git commit -m "🚀 Deploy: ${{ github.sha }} from ${{ github.ref_name }}"
+          
+          # Push to deploy branch
+          git push -f https://${{ env.USERNAME }}:${{ secrets.NUXT_DEPLOY_TOKEN }}@github.com/${{ env.USERNAME }}/${{ github.event.repository.name }}.git HEAD:${{ env.DEPLOY_BRANCH }}
+          
+          echo "✅ Successfully deployed to ${{ env.DEPLOY_BRANCH }} branch"
         shell: bash
