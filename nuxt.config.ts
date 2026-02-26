@@ -8,7 +8,6 @@ export default defineNuxtConfig({
     '~/components'
   ],
   extends: [
-    '@d0rich/nuxt-content-mermaid',
     process.env.THEME_ELEMENTS || '@nuxt-themes/elements',
     process.env.THEME_TYPOGRAPHY || '@nuxt-themes/typography'
   ],
@@ -65,7 +64,8 @@ export default defineNuxtConfig({
         'csv',
         'properties',
         'terraform',
-        'graphql'
+        'graphql',
+        'python',
       ],
       theme: {
         // Default theme (same as single string)
