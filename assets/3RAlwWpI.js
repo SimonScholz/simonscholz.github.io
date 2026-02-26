@@ -1,0 +1,1 @@
+import{k as t,c as s,e as o,f as a,K as n}from"./BzefTVgW.js";const c={},r={class:"prose-table"};function _(e,d){return s(),o("div",r,[a("table",null,[n(e.$slots,"default",{},void 0,!0)])])}const f=t(c,[["render",_],["__scopeId","data-v-6be36022"]]);export{f as default};

@@ -1,0 +1,20 @@
+- route:
+    id: route
+    description: Call endpoint every sec and log
+    from:
+      id: timer
+      description: Every Sec
+      uri: timer
+      parameters:
+        delay: "1000"
+        period: "1000"
+        timerName: Tick-Every-Second
+      steps:
+        - to:
+            id: request
+            uri: https
+            parameters:
+              httpUri: https://jsonplaceholder.typicode.com/todos/1
+        - log:
+            id: log
+            message: ${body}
