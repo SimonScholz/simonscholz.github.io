@@ -1,0 +1,1 @@
+import{d as n,am as a,c as s,e as t,f as o,t as r,G as c}from"./BzefTVgW.js";const p=n({__name:"TokensPlayground",setup(l){const{theme:e}=a();return(u,i)=>(s(),t("div",null,[o("pre",null,r(JSON.stringify(c(e),null,2)),1)]))}});export{p as default};
