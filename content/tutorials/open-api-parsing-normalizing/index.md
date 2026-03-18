@@ -229,18 +229,31 @@ openAPI.components.schemas = pruned.toMutableMap()
 
 println("Pruned schemas from ${schemas.size} to ${pruned.size}")
 
-// Remove redundant components due to allOf flattening
+// Remove redundant components due to allOf flattening and anyOf simplification
 openAPI.components?.schemas?.values?.forEach { schema ->
 
-    val composed = schema.allOf ?: return@forEach
-
-    // If schema uses allOf and has inline properties
-    composed.forEach { part ->
+    // Remove duplicate discriminator property
+    schema.allOf?.forEach { part ->
         if (part is Schema<*>) {
-            val props = part.properties ?: return@forEach
-            if (props.containsKey("action")) {
+            val props = part.properties
+            if (props != null && props.containsKey("action")) {
                 props.remove("action")
             }
+        }
+    }
+
+    // Remove useless anyOf (only required constraints)
+    val anyOf = schema.anyOf
+    if (anyOf != null) {
+        val onlyRequiredConstraints =
+            anyOf.all { sub ->
+                sub is Schema<*> &&
+                    sub.required != null &&
+                    sub.properties == null
+            }
+
+        if (onlyRequiredConstraints) {
+            schema.anyOf = null
         }
     }
 }
@@ -277,8 +290,10 @@ Done.
 
 And the file is now significantly smaller:
 
-77100 Lines of YAML ==> 1773
-2,5 MB Size         ==> 59,5 KB
+| Filename | Lines of YAML | File Size |
+| -------- | ------------- | ----------|
+| raw-fft-api.yaml | 77100 | 2,5 MB    |
+| stripped-fft-api.yaml | 1758 | 59,2 KB |
 
 ## Using the Open Api generator to generate Code
 
