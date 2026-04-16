@@ -51,7 +51,7 @@ Since I want to run this on my local machine, I installed the CPU version of PyT
 Inside the project directory, create a Python script named `text_to_speech.py`.
 In the following code snippet, we load the Qwen3 TTS model, generate speech from a sample text, and save the output as a WAV file.
 
-```python
+```python[text_to_speech.py]
 import os
 import time
 import torch
@@ -112,6 +112,14 @@ Also see https://qwen.ai/blog?id=qwen3-tts-1128 for more details.
 
 For this german example I consider Aiden to be the best choice.
 Let me know in the comments which speaker you like best.
+
+In case you have better hardware you can also try the bigger model:
+
+```python[text_to_speech.py]
+MODEL_ID = "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice" #"Qwen/Qwen3-TTS-12Hz-0.6B-CustomVoice"
+```
+
+The 0.6B ran quite okish ok my 11th Gen Intel® Core™ i7-1185G7 × 8 with 32 GB of RAM.
 
 ### Run the script
 
