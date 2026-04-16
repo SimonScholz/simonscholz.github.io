@@ -128,7 +128,32 @@ Now that we have our query and schema in the `app/src/main/graphql` directory, w
 ./gradlew generateApolloSources
 ```
 
-Your project structure should now look like this:
+### Troubleshooting
+
+When generating the code you might encounter the following error:
+
+```
+Execution failed for task ':app:generateServiceApolloSources'.
+> A failure occurred while executing com.apollographql.apollo.gradle.internal.GenerateSources
+   > e: /home/simon/git/simon/tutorials/kotlin-apollo/app/src/main/graphql/schema.graphqls: (33402, 1): Schemas that include nullability directives must opt-in a default CatchTo. Use `extend schema @catchByDefault(to: $to)`
+     ----------------------------------------------------
+     [33401]:
+     [33402]:schema {
+     [33403]:  query: Query
+     ----------------------------------------------------
+```
+
+In case this error occurs you can modify your `app/src/main/graphql/schema.graphqls` file and remove the following line:
+
+```graphql
+directive @catch (to: CatchTo! = RESULT, "Indicates how clients should handle errors on a given position.\n\n      The `levels` argument indicates where to catch errors in case of lists:\n\n      ```graphql\n      {\n          user {\n              # friends catches errors\n              friends @catch { name } # same as @catch(levels: [0])\n\n              # every friends[k] catches errors\n              friends @catch(levels: [0]) { name }\n\n              # friends as well as every friends[k] catches errors\n              friends @catch(levels: [0, 1]) { name }\n          }\n      }\n      ```\n\n      `levels` are zero indexed.\n      Passing a negative level or a level greater than the list dimension is an error.\n\n      See `CatchTo` for more details." levels: [Int!]! = [0]) on FIELD
+```
+
+Now run `./gradlew generateApolloSources` again and the code should be generated successfully.
+
+### Project structure
+
+After generating the code, your project structure should now look like this:
 
 ![apollo-kotlin-project-explorer](./apollo-kotlin-project-explorer.png)
 
