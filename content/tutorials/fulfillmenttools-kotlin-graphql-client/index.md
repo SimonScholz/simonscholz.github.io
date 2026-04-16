@@ -102,7 +102,8 @@ query InboundProcesses($status:InboundProcessStatus!) {
     totalCount
     edges {
       node {
-        tenantInboundProcessId
+        id
+        version
         purchaseOrder {
           requestedItems {
             quantity {
