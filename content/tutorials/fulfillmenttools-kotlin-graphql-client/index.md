@@ -17,13 +17,19 @@ tags:
 vgWort: "vg08.met.vgwort.de/na/13fa4f2269644bed96c7d4ca2d322361"
 ---
 
-In this tutorial, we will show you how to use the Apollo Kotlin library to call the fulfillmenttools GraphQL API. We will cover how to set up your project, generate the necessary code, and make a simple query to retrieve data from the API.
+This tutorial shows you how to use the Apollo Kotlin library to call the fulfillmenttools GraphQL API.
+It will cover how to set up your project, generate the necessary code, and make a simple query to retrieve data from the API.
 
 ## Prerequisites
 
-- Installed Java (using SDKMAN or any other method)
-- Installed Gradle
-- Access to the fulfillmenttools GraphQL API (API key or bearer token)
+- Java/JVM (e.g. by using SDKMAN)
+- Gradle
+- IDE (optional)
+- Access to the fulfillmenttools GraphQL API (bearer token)
+
+You can find the complete source code of this tutorial in the following GitHub repository:
+
+https://github.com/SimonScholz/tutorials/tree/master/kotlin-apollo
 
 ## Init project
 
@@ -45,7 +51,7 @@ gradle init \
     --java-version 25
 ```
 
-Please choose whatever java version you have installed on your machine.
+Please choose whatever Java version you have installed on your machine.
 
 ## Add Apollo Kotlin dependencies
 
@@ -71,6 +77,8 @@ apollo {
 }
 ```
 
+Note that the `apollo` block will ensure that the generated code is placed in the `dev.simonscholz` package and be part of the source set of the project.
+
 ## Download GraphQL schema
 
 The `com.apollographql.apollo` gradle plugin provides a task to download the GraphQL schema from the API:
@@ -86,7 +94,7 @@ Make sure to replace `{projectId}` with your actual project ID and `{token}` wit
 
 ## Create GraphQL query
 
-You can play around with the GraphQL API using the [GraphiQL UI](https://{projectId}.graphql.fulfillmenttools.com/graphiql) to create your query. 
+You can play around with the GraphQL API using the GraphiQL UI (https://{projectId}.graphql.fulfillmenttools.com/graphiql) to create your query. 
 
 ![fulfillmenttools-graphiql-editor](./fulfillmenttools-graphiql-editor.png)
 
@@ -96,7 +104,7 @@ Once you have your query, you can create a `.graphql` file in your `app/src/main
 
 For example, if you want to retrieve a list of open inbound processes, you can create a file named `InboundProcesses.graphql` with the following content:
 
-```graphql
+```graphql[InboundProcesses.graphql]
 query InboundProcesses($status:InboundProcessStatus!) {
   inboundProcessesV2(filter: {status: {eq: $status}}) {
     totalCount
@@ -213,3 +221,4 @@ I´ve also written a tutorial on how to use the fulfillmenttools Open Api specif
 
 - [Apollo Kotlin documentation](https://www.apollographql.com/docs/kotlin)
 - [Fulfillmenttools GraphQL API documentation](https://docs.fulfillmenttools.com/documentation/apis/api-reference#graphql-api)
+- [Tutorial source code](https://github.com/SimonScholz/tutorials/tree/master/kotlin-apollo)
