@@ -351,7 +351,7 @@ openapi = { id = "org.openapi.generator", version.ref = "open-api" }
 
 Now let´s add the open api generator configuration to the `build.gradle.kts`:
 
-```kotlin, build.gradle.kts
+```kotlin[build.gradle.kts]
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 
 plugins {
@@ -462,7 +462,7 @@ Please feel free to adjust the configureOpenApiClient function to your needs, e.
 
 In this small example application we will use the generated client to call the FFT API and update the quantity of a purchase order item in an inbound process.
 
-```kotlin, App.kt
+```kotlin[App.kt]
 package dev.simonscholz
 
 import dev.simonscholz.api.client.fft.api.InboundInventoryApi
