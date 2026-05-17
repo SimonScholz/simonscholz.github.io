@@ -213,7 +213,7 @@ You should see the total count of open inbound processes and their details print
 
 ## Query using pagination
 
-In fulfillmenttools you may only fetch 100 edges and in case you want to query more the `pageInfo` must also be queried:
+In fulfillmenttools you may only fetch 100 edges at once and in case you want to query more the `pageInfo` must also be queried:
 
 ```graphql[InboundProcesses.graphql]
 query InboundProcesses($status:InboundProcessStatus!, $after: String) {
@@ -254,11 +254,9 @@ import com.apollographql.apollo.ApolloClient
 import com.apollographql.apollo.api.Optional
 import dev.simonscholz.InboundProcessesQuery.InboundProcessesV2
 import dev.simonscholz.type.InboundProcessStatus
-import java.io.File
-import java.time.LocalDateTime
-import java.time.LocalTime
-import java.time.OffsetDateTime
-import java.time.ZoneId
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.toList
 
 fun fetchAllInboundProcesses(
     apolloClient: ApolloClient,
@@ -293,8 +291,6 @@ fun fetchAllInboundProcesses(
 suspend fun main() {
     val token = "your_bearer_token_here"
 
-    val berlinZone = ZoneId.of("Europe/Berlin")
-
     val apolloClient =
         ApolloClient
             .Builder()
@@ -322,6 +318,100 @@ suspend fun main() {
 
 When using a `Flow<T>` like above the responses can be processed upon retrieval.
 But please note the `.toList()` when invoking the `fetchAllInboundProcesses`function in the sample above for sake of simplicity.
+
+## Delete stocks by using a graphql mutation
+
+Besides querying data using graghql you can also mutate it.
+So let's first query certain stocks and then delete them.
+
+The `fetchStock.graphql` can be used to fetch stock entries by `tenantArticleId` and `facilityRef`.
+
+```graphql[fetchStock.graphql]
+query fetchStocks($tenantArticleId: String!, $facilityRef: String!) {
+  stocksV3(
+    filter: {tenantArticleId: {eq: $tenantArticleId}, facilityRef: {eq: $facilityRef}}
+  ) {
+    totalCount
+    edges {
+      node {
+        id
+        value
+        reserved
+        available
+        version
+      }
+    }
+  }
+}
+```
+
+The returned `id` of a stock entry can then be used to call the `deleteStock.graphql`.
+
+```graphql[deleteStock.graphql]
+mutation deleteStock($stockId: String!) {
+    deleteStock(input: {stockId: $stockId})
+}
+```
+
+The code to fetch the stocks and then using the delete mutation looks like this:
+
+```kotlin
+package dev.simonscholz
+
+import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo.api.ApolloResponse
+import io.github.cdimascio.dotenv.dotenv
+
+suspend fun main() {
+    val env = dotenv()
+    val token = env["TOKEN"]
+    val serverUrl = env["SERVER_URL"]
+    val sku = env["SKU"]
+    val facility = env["FACILITY"]
+
+    val apolloClient =
+        ApolloClient
+            .Builder()
+            .serverUrl(serverUrl)
+            .addHttpHeader("Authorization", "Bearer $token")
+            .build()
+
+    val response =
+        apolloClient
+            .query(FetchStocksQuery(sku, facility))
+            .execute()
+
+    if (response.errors.isNullOrEmpty()) {
+        println("StocksQuery.totalCount=${response.data?.stocksV3?.totalCount}")
+        println("StocksQuery.edges=${response.data?.stocksV3?.edges}")
+
+        deleteStock(response, apolloClient)
+    } else {
+        println("Errors: ${response.errors}")
+    }
+}
+
+private suspend fun deleteStock(
+    response: ApolloResponse<FetchStocksQuery.Data>,
+    apolloClient: ApolloClient,
+) {
+    response.data?.stocksV3?.edges?.forEach { edge ->
+        edge?.node?.id?.let {
+            val deleteResponse =
+                apolloClient
+                    .mutation(DeleteStockMutation(it))
+                    .execute()
+            if (deleteResponse.errors.isNullOrEmpty()) {
+                println("DeleteData=${deleteResponse.data}")
+            } else {
+                println("DeleteData=${deleteResponse.errors}")
+            }
+        }
+    }
+}
+```
+
+Please note that I've added `implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")` as dependency to obtain certain data from an `.env` file.
 
 ## Looking for the fulfillmenttools REST API?
 
