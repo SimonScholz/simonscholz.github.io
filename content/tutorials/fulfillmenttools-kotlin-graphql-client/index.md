@@ -17,8 +17,7 @@ tags:
 vgWort: "vg08.met.vgwort.de/na/13fa4f2269644bed96c7d4ca2d322361"
 ---
 
-This tutorial shows you how to use the Apollo Kotlin library to call the fulfillmenttools GraphQL API.
-It will cover how to set up your project, generate the necessary code, and make a simple query to retrieve data from the API.
+This tutorial shows you how to use the Apollo Kotlin library to call the fulfillmenttools GraphQL API using queries or mutations.
 
 ## Prerequisites
 
@@ -58,22 +57,26 @@ Please choose whatever Java version you have installed on your machine.
 
 Next, we need to add the Apollo Kotlin dependencies to our `build.gradle.kts` file:
 
-```kotlin
+```kotlin[build.gradle.kts]
 plugins {
     // Other plugins...
 
-    id("com.apollographql.apollo") version "4.4.3"
+    id("com.apollographql.apollo") version "5.0.0"
 }
 
 dependencies {
     // Other dependencies...
 
-    implementation("com.apollographql.apollo:apollo-runtime:4.4.3")
+    implementation("com.apollographql.apollo:apollo-runtime:5.0.0")
+    implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")
 }
 
 apollo {
     service("service") {
         packageName.set("dev.simonscholz")
+        introspection {
+            schemaFile.set(file("src/main/graphql/schema.graphqls"))
+        }
     }
 }
 ```
@@ -82,16 +85,21 @@ Note that the `apollo` block will ensure that the generated code is placed in th
 
 ## Download GraphQL schema
 
-The `com.apollographql.apollo` gradle plugin provides a task to download the GraphQL schema from the API:
+The latest apollo-kotlin version 5.0.0 deprecated the `downloadApolloSchema` Gradle task and recommends using the [apollo-kotlin-cli](https://github.com/apollographql/apollo-kotlin-cli).
+
+It can be installed like this:
 
 ```bash
-./gradlew downloadApolloSchema \
-  --endpoint=https://{projectId}.graphql.fulfillmenttools.com/graphql \
-  --schema=app/src/main/graphql/schema.graphqls \
-  --header="Authorization: Bearer {token}"
+curl -sS https://raw.githubusercontent.com/apollographql/apollo-kotlin-cli/main/install.sh | sh
 ```
 
-Make sure to replace `{projectId}` with your actual project ID and `{token}` with your actual API token.
+Once it is installed you can download the schema like this:
+
+```bash
+apollo-kotlin-cli download-schema --endpoint=https://{projectId}.graphql.fulfillmenttools.com/graphql \
+  --schema=app/src/main/graphql/schema.graphqls \
+  --headers='{"Authorization": "Bearer {token}"}'
+```
 
 ## Create GraphQL query
 
@@ -190,11 +198,12 @@ suspend fun main() {
             .query(InboundProcessesQuery(status = InboundProcessStatus.OPEN))
             .execute()
 
-    if (response.errors.isNullOrEmpty()) {
-        println("inboundProcessesV2.totalCount=${response.data?.inboundProcessesV2?.totalCount}")
+    if (response.errors.isNullOrEmpty() && response.exception == null) {
+        println("inboundProcessesV2.totalCount=${response.data?.inboundProcessesV2?.pageInfo}")
         println("inboundProcessesV2.edges=${response.data?.inboundProcessesV2?.edges}")
     } else {
         println("Errors: ${response.errors}")
+        println("Exception: ${response.exception}")
     }
 }
 ```
@@ -211,7 +220,7 @@ Finally, you can run the application to see the results:
 
 You should see the total count of open inbound processes and their details printed in the console.
 
-## Query using pagination
+## Query InboundProcesses using pagination
 
 In fulfillmenttools you may only fetch 100 edges at once and in case you want to query more the `pageInfo` must also be queried:
 
@@ -245,6 +254,8 @@ query InboundProcesses($status:InboundProcessStatus!, $after: String) {
 }
 ```
 
+Once you modified the `InboundProcesses.graphql` file do not forget to run `./gradlew generateApolloSources` again.
+
 The code can then use `hasNextPage` and `endCursor` to navigate the edges:
 
 ```kotlin[FetchAllInboundProcessPaginated.kt]
@@ -274,6 +285,8 @@ fun fetchAllInboundProcesses(
             check(response.errors.isNullOrEmpty()) {
                 "GraphQL errors: ${response.errors}"
             }
+
+            response.exception?.let { throw it }
 
             val inboundProcesses =
                 requireNotNull(response.data?.inboundProcessesV2) {
@@ -353,9 +366,11 @@ mutation deleteStock($stockId: String!) {
 }
 ```
 
+Once you created the `fetchStock.graphql` and `deleteStock` files inside the `app/src/main/graphql` directory, do not forget to run `./gradlew generateApolloSources` again.
+
 The code to fetch the stocks and then using the delete mutation looks like this:
 
-```kotlin
+```kotlin[Stocks.kt]
 package dev.simonscholz
 
 import com.apollographql.apollo.ApolloClient
@@ -381,13 +396,14 @@ suspend fun main() {
             .query(FetchStocksQuery(sku, facility))
             .execute()
 
-    if (response.errors.isNullOrEmpty()) {
+    if (response.errors.isNullOrEmpty() && response.exception == null) {
         println("StocksQuery.totalCount=${response.data?.stocksV3?.totalCount}")
         println("StocksQuery.edges=${response.data?.stocksV3?.edges}")
 
         deleteStock(response, apolloClient)
     } else {
         println("Errors: ${response.errors}")
+        println("Exception: ${response.exception}")
     }
 }
 
@@ -412,6 +428,17 @@ private suspend fun deleteStock(
 ```
 
 Please note that I've added `implementation("io.github.cdimascio:dotenv-kotlin:6.5.1")` as dependency to obtain certain data from an `.env` file.
+
+The `.env` file will look like this:
+
+```bash[.env]
+TOKEN={your_bearer_token}
+SERVER_URL=https://{projectId}.graphql.fulfillmenttools.com/graphql
+SKU={your_tenantArticleId}
+FACILITY={your-facility-uuid}
+```
+
+When you run this main function it will fetch all stock stock entries by `tenantArticleId` + `facilityRef` and delete all related stock entries by the stock's id.
 
 ## Looking for the fulfillmenttools REST API?
 
