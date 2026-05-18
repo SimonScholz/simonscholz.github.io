@@ -24,6 +24,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
 })(window,document,'script','dataLayer','GTM-KW7KLVJR');`
     },
+    {
+      src: '/count.js',
+      async: true,
+      'data-goatcounter': 'https://stats.simonscholz.dev/count',
+      'data-goatcounter-settings': '{"no_onload": true}'
+    }
   ],
 });
 useServerSeoMeta({
