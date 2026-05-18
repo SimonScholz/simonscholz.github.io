@@ -52,16 +52,19 @@ useServerSeoMeta({
   ogImageType: "image/png",
 });
 
+const route = useRoute();
+
 onMounted(() => {
+  if (typeof window === 'undefined') return;
+
   watch(
     () => route.path,
     (newPath) => {
-      if (typeof window !== 'undefined' && (window as any).goatcounter?.count) {
-        // Call count() without hardcoding just the path.
-        // Instead, let GoatCounter automatically scrape the current window environment!
+      // Ensure the path actually exists and GoatCounter is ready
+      if (newPath && (window as any).goatcounter?.count) {
         (window as any).goatcounter.count({
           path: newPath,
-          get_path: true, // Tells the script to execute its built-in data collection
+          get_path: true, // Keeps your country, referrer, and screen size metrics!
         });
       }
     },
