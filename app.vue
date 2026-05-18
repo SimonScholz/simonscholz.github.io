@@ -52,6 +52,23 @@ useServerSeoMeta({
   ogImageType: "image/png",
 });
 
+onMounted(() => {
+  watch(
+    () => route.path,
+    (newPath) => {
+      if (typeof window !== 'undefined' && (window as any).goatcounter?.count) {
+        // Call count() without hardcoding just the path.
+        // Instead, let GoatCounter automatically scrape the current window environment!
+        (window as any).goatcounter.count({
+          path: newPath,
+          get_path: true, // Tells the script to execute its built-in data collection
+        });
+      }
+    },
+    { immediate: true }
+  );
+});
+
 useKlaro();
 </script>
 <template>
