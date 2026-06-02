@@ -100,6 +100,8 @@ quarkus:
       issuer: https://accounts.google.com # 3
       audience: ${OIDC_AUDIENCE:https://example-backend.gke.dev.example.io} # 4
     application-type: service # 5
+    required-claims:
+      email: ${CLOUD_SCHEDULER_SA_EMAIL:cloud-scheduler-sa@example-dev.iam.gserviceaccount.com} # 6
 ```
 
 1. The quarkus-oidc extension usually causes to start a keycloak dev container, which we want to avoid for now.
@@ -107,6 +109,7 @@ quarkus:
 3. This auth server will then also issue the OIDC bearer token
 4. The audience, which is also part of the bearer token will also be double checked. Also see audience config in terraform above.
 5. Explicitly mention the `application-type`, which defaults to `service` anyhow
+6. Besides checking the audience it is more secure to also check the email claim of the bearer token. Also see google_service_account.example_scheduler_sa.email in the in terraform config above.
 
 ### Provide the rest endpoint
 
@@ -159,5 +162,6 @@ https://console.cloud.google.com/cloudscheduler
 
 ## Sources
 
+- https://cloud.google.com/scheduler/docs/authentication#oidc
 - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_scheduler_job
 - https://quarkus.io/guides/security-oidc-configuration-properties-reference
