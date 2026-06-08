@@ -1,0 +1,166 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/profile.schema.json",
+    "title": "ProfessionalProfile",
+    "description": "This schema defines the structure of a professional profile.",
+    "type": "object",
+    "required": ["username", "email", "fullName", "freelancingSince", "experience", "availability", "location", "skills"],
+    "properties": {
+      "username": { "type": "string" },
+      "email": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string", "format": "email" },
+          "publiclyAvailable": { "type": "boolean" }
+        },
+        "required": ["value"]
+      },
+      "phone": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" },
+          "publiclyAvailable": { "type": "boolean" }
+        }
+      },
+      "fullName": { "type": "string" },
+      "picture": { "type": "string", "format": "uri" },
+      "age": { "type": "integer", "minimum": 0 },
+      "location": { "type": "string" },
+      "introduction": { "type": "string" },
+      "graduation": { "type": "string" },
+      "freelancingSince": { "type": "integer", "minimum": 1900, "maximum": 2100 },
+      "experience": {
+        "type": "string",
+        "enum": ["0-5 years", "5-10 years", "more than 10 years"]
+      },
+      "availability": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "enum": ["available", "partial available", "not available"]
+          },
+          "until": { "type": "string", "format": "date" }
+        },
+        "required": ["status"]
+      },
+      "willingnessToTravel": {
+        "type": "object",
+        "properties": {
+          "option": {
+            "type": "string",
+            "enum": ["without restrictions", "only remote", "close to living", "only certain countries"]
+          },
+          "distanceRange": { "type": "integer", "minimum": 0 },
+          "countries": {
+            "type": "array",
+            "items": { "type": "string" }
+          }
+        },
+        "required": ["option"]
+      },
+      "skills": { "type": "string" },
+      "projectHistory": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "from": { "type": "string" },
+            "until": { "type": "string" },
+            "role": { "type": "string" },
+            "tasks": { "type": "string" },
+            "company": { "type": "string" },
+            "companySize": { "type": "string" },
+            "industry": { "type": "string" }
+          },
+          "required": ["from", "role", "tasks", "company"]
+        }
+      },
+      "categories": { "type": "array", "items": { "type": "string" } },
+      "hourlyRate": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "number", "minimum": 0 },
+          "currency": { "type": "string" }
+        },
+        "required": ["amount", "currency"]
+      },
+      "dailyRate": {
+        "type": "object",
+        "properties": {
+          "amount": { "type": "number", "minimum": 0 },
+          "currency": { "type": "string" }
+        },
+        "required": ["amount", "currency"]
+      },
+      "rateComment": { "type": "string" },
+      "website": { "type": "string", "format": "uri" },
+      "skype": { "type": "string" },
+      "youtube": {
+        "type": "object",
+        "properties": {
+          "link": { "type": "string", "format": "uri" },
+          "description": { "type": "string" }
+        },
+        "required": ["link"]
+      },
+      "certificates": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": { "type": "string" },
+            "certificationAuthority": { "type": "string" },
+            "certificationAuthorityWebsite": { "type": "string", "format": "uri" },
+            "exhibitionYear": { "type": "integer", "minimum": 1900, "maximum": 2100 }
+          },
+          "required": ["title", "certificationAuthority", "exhibitionYear"]
+        }
+      },
+      "insurances": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "references": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": { "type": "string" },
+            "company": { "type": "string" },
+            "contact": { "type": "string" }
+          },
+          "required": ["name", "company"]
+        }
+      },
+      "legalEntity": {
+        "type": "string",
+        "enum": ["sole proprietor", "LLC", "corporation", "other"]
+      },
+      "taxInformation": {
+        "type": "object",
+        "properties": {
+          "vatNumber": { "type": "string" },
+          "taxRegion": { "type": "string" }
+        }
+      },
+      "tools": {
+        "type": "array",
+        "items": { "type": "string" }
+      },
+      "testimonials": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "client": { "type": "string" },
+            "feedback": { "type": "string" }
+          },
+          "required": ["client", "feedback"]
+        }
+      },
+      "otherInformation": { "type": "string" },
+      "interests": { "type": "array", "items": { "type": "string" } }
+    }
+  }
+  
