@@ -68,6 +68,19 @@ In order to do so you can have a look in my git tutorial: [Find dirty git reposi
 
 So that you can commit all changes before reinstalling the OS.
 
+### Find .env files
+
+The majority of projects contain `.env` files, which are not checked in into git,
+becasue they often contain credentials and therefore should not be shared in a remote git repository.
+
+But it can be helpful to store the `.env` file contents somewhere else, e.g. in a password manager, to restore them afterwards.
+
+```bash
+find . -type f -name ".env"
+```
+
+This command will then list all `.env` files within the specified folder, here `.` and all its subdirectories.
+
 ## Ubuntu
 
 You can go to https://ubuntu.com/download/desktop to get the latest version of Ubuntu.
